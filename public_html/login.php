@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +12,7 @@
 <body>
     <div class="parent-container">
         <nav class="navbar navbar-light navbar-expand-md bg-light">
-            <div class="container">
+            <div class="container-fluid">
                 <a href="index.php" class="navbar-brand">
                     <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52">
                     SNACKWISE
