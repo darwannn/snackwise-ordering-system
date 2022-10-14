@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <link rel="stylesheet" href="./css/login.css">
 =======
 
@@ -20,6 +21,9 @@
     
     
 >>>>>>> parent of 8578f0d (Initial Sign In Forms Added)
+=======
+    <link rel="stylesheet" href="./css/login.css">
+>>>>>>> parent of 5ae9c32 (Update login.php)
 </head>
 <body>
     <div class="parent-container">
@@ -59,6 +63,9 @@
         </nav>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 5ae9c32 (Update login.php)
         <div class="container bg-light form-container">
             <form action="">
                 <div class="row">
@@ -95,6 +102,7 @@
     </div>
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> parent of 8578f0d (Initial Sign In Forms Added)
@@ -111,5 +119,7 @@
 >>>>>>> parent of 8578f0d (Initial Sign In Forms Added)
 =======
 >>>>>>> parent of 8578f0d (Initial Sign In Forms Added)
+=======
+>>>>>>> parent of 5ae9c32 (Update login.php)
 </body>
 </html>
