@@ -45,7 +45,7 @@
                             NOTE: IF THE USER IS SIGNED IN, The sign-up button should be replaced by profile btn.
                         -->
                         <!-- TODO: Insert user profile and cart button here.  -->
-                        <a name="sign-up-btn" id="" class="btn btn-primary" href="register.php" role="button">Sign Up</a>
+                        <a name="sign-up-btn" id="" class="btn btn-primary" href="./account/register.php" role="button">Sign Up</a>
                     </form>
                 </div>
             </div>

@@ -222,9 +222,10 @@ login() {
                 show_error(response_data.password_error, 'password_error');
                 show_error(response_data.retype_password_error, 'retype_password_error');
                 
-
             }
         });
     }
+
+    
 
 }

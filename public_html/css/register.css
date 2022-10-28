@@ -1,7 +1,15 @@
+.address_option {
+    display: none;
+    opacity: 0;
+}
+
+.snackwise-label img{
+    width: 10em;
+    margin: 0 auto;
+}
 @media (min-width: 768px) {
 
     .form-container {
         width: 35em;
     }
-    
 }
