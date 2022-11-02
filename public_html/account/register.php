@@ -28,7 +28,7 @@ Pwede mo tanggalin yung mga tabel na tags.
  -->
     <div class="parent-container">
 
-        <div class="container bg-light p-5 form-container">
+        <div class="container p-5 form-container">
             <div class="snackwise-label">
                 <div class="brand-icon">
                     <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
