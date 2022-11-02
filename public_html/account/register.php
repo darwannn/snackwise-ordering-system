@@ -150,7 +150,7 @@ Pwede mo tanggalin yung mga tabel na tags.
                 </section>
                 <div class="row">
                     <div class="col">
-                        <p class="text-end">Already have an account? <a href="../login.php">Sign In</a></p>
+                        <p class="text-end">Already have an account? <a href="../account/login.php">Sign In</a></p>
                     </div>
                 </div>
                 <div class="row justify-content-end">
@@ -178,6 +178,11 @@ Pwede mo tanggalin yung mga tabel na tags.
     <script src="../js/Address.js"></script>
     <script>
         // Test
+
+        /* 
+            Hide the Password Requirements
+            Show only while typing password.
+        */
 
         const passwordReq = document.querySelector(".password_requirements");
 
