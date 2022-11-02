@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | Snackwise</title>
 
+    <!-- FONT LINKS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
     <!-- BOOTSTRAP CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -24,14 +29,18 @@ Pwede mo tanggalin yung mga tabel na tags.
     <div class="parent-container">
 
         <div class="container bg-light p-5 form-container">
-            <div class="row snackwise-label">
-                <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
-                <span class="text-center snackwise-text">SNACKWISE</span>
+            <div class="snackwise-label">
+                <div class="brand-icon">
+                    <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
+                </div>
+                <div class="brand-name">
+                    <span class="red">SNACK<span class="yellow">WISE</span></span>
+                </div>
             </div>
             <form id="account_form" method="POST">
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col form-header">
                         <h3>Sign Up</h3>
                     </div>
                 </div>
@@ -39,7 +48,7 @@ Pwede mo tanggalin yung mga tabel na tags.
                     <span id="success_message"></span>
                     <span id="error_message"></span>
                 </div>
-                <section class="personal_information_sec">
+                <section class="personal-information-sec input section">
                     <div class="row">
                         <span>Personal Information</span>
                     </div>
@@ -65,7 +74,7 @@ Pwede mo tanggalin yung mga tabel na tags.
                     </div>
                 </section>
 
-                <section class="address_information_sec">
+                <section class="address-information-sec input-section">
                     <div class="row">
                         <span>Address Information</span>
                     </div>
@@ -111,7 +120,7 @@ Pwede mo tanggalin yung mga tabel na tags.
                     </div>
                 </section>
 
-                <section class="account_information_sec">
+                <section class="account-information-sec input-section">
                     <div class="row">
                         <span>Account Information</span>
                     </div>
@@ -153,12 +162,11 @@ Pwede mo tanggalin yung mga tabel na tags.
                         <p class="text-end">Already have an account? <a href="../account/login.php">Sign In</a></p>
                     </div>
                 </div>
-                <div class="row justify-content-end">
-                    <div class="col-md-2 col-3">
-                        <a href="index.html">Cancel</a>
+                <div class="form-end-btn">
+                    <div class="">
+                        <a href="index.html" id="cancel">Cancel</a>
                     </div>
-                    <div class="col-md-2 col-3">
-
+                    <div class="">
                         <button type="button" id="register" class="btn btn-primary"> Register</button>
                     </div>
 

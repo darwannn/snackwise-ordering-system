@@ -24,6 +24,14 @@
     <div class="parent-container">
 
         <div class="container bg-light p-5 form-container">
+            <div class="snackwise-label">
+                <div class="brand-icon">
+                    <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
+                </div>
+                <div class="brand-name">
+                    <span class="red">SNACK<span class="yellow">WISE</span></span>
+                </div>
+            </div>
             <form id="account_form" method="POST">
                 <div class="row form-header">
                     <h3>Sign In</h3>

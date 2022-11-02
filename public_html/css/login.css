@@ -2,12 +2,38 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.snackwise-label {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.snackwise-label img{
+    width: 3em;
+    margin: 0 auto;
+}
+
+.snackwise-label{
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.brand-name .red {
+    color: #DD1C1A;
+}
+
+.brand-name .yellow {
+    color: #F0C808;
+}
+
 .form-container {
     padding: 2em 1em;    
 }
 
 .form-header {
-    margin-bottom: 3em;
+    margin: 3em 0;
 }
 
 .form-header h3 {
