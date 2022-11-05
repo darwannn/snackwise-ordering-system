@@ -6,51 +6,172 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Snackwise</title>
+    <!-- FONT LINKS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:ital,wght@0,300;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
     <!-- BOOTSTRAP CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="css/index.css">
 
 </head>
 
 <body>
 
     <div class="parent-container">
+        <div class="top-wrapper">
 
-        <nav class="navbar navbar-light navbar-expand-md bg-light">
-            <div class="container-fluid">
-                <a href="index.php" class="navbar-brand">
-                    <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52">
-                    SNACKWISE
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a href="index.php" class="nav-link active">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="menu.php" class="nav-link">Menu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="aboutus.php" class="nav-link">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="contactus.php" class="nav-link">Contact Us</a>
-                        </li>
-                    </ul>
-                    <form action="#" class="form-inline">
-                        <!-- 
+            <nav class="navbar navbar-light bg-light navbar-expand-md">
+                <div class="container">
+                    <a href="index.php" class="navbar-brand">
+                        <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
+                        <span class="red">SNACK</span><span class="yellow">WISE</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto nav-list">
+                            <li class="nav-item">
+                                <a href="index.php" class="nav-link" id="active">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="menu.php" class="nav-link">Menu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="aboutus.php" class="nav-link">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="contactus.php" class="nav-link">Contact Us</a>
+                            </li>
+                        </ul>
+                        <form action="#" class="form-inline sign-btns">
+                            <!-- 
                             NOTE: IF THE USER IS SIGNED IN, The sign-up button should be replaced by profile btn.
                         -->
-                        <!-- TODO: Insert user profile and cart button here.  -->
-                        <a name="sign-up-btn" id="" class="btn btn-primary" href="./account/register.php" role="button">Sign Up</a>
-                    </form>
+                            <!-- TODO: Insert user profile and cart button here.  -->
+                            <a name="log-in-btn" class="btn" href="account/login">Login</a>
+                            <a name="sign-up-btn" id="" class="btn btn-primary" href="./account/register.php" role="button">Sign Up</a>
+                        </form>
+                    </div>
                 </div>
+            </nav>
+
+            <section class="hero container">
+                <div class="home-header">
+                    <span class="sub-header">Wise meal for a wise budget.</span>
+                    <h1 class="">Try our <span class="yellow">better</span> and <span class="red">cheaper</span> snacks experience</h1>
+                    <a href="account/register.php" class="btn cta-btn">Sign Up to Order
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.43 5.93005L20.5 12.0001L14.43 18.0701M3.5 12.0001H20.33" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="home-header-picture">
+                    <img src="img/hero-img-wblob.png" alt="burger, fries, and hotdog">
+                </div>
+            </section>
+
+        </div>
+
+        <section class="container featured-products">
+            <div class="fp-header">
+                <h2>Best Sellers</h2>
+                <a href="">View all
+                    <svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.93 1L18 7.07L11.93 13.14M1 7.07H17.83" stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
             </div>
-        </nav>
-       
+            <div class="products-container container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-3 product">
+                        <div class="product-img-container">
+
+                        </div>
+                        <div class="product-details-container">
+                            <div class="product-caption">
+                                <span class="product-name">Combo A</span>
+                                <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
+                            </div>
+                            <div class="cart-container">
+                                <span class="product-price">PHP 55.00</span>
+                                <span class="add-to-cart-btn">
+                                    <svg viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.1094 0C5.41992 0 0 5.41992 0 12.1094C0 18.7988 5.41992 24.2188 12.1094 24.2188C18.7988 24.2188 24.2188 18.7988 24.2188 12.1094C24.2188 5.41992 18.7988 0 12.1094 0ZM19.1406 13.4766C19.1406 13.7988 18.877 14.0625 18.5547 14.0625H14.0625V18.5547C14.0625 18.877 13.7988 19.1406 13.4766 19.1406H10.7422C10.4199 19.1406 10.1562 18.877 10.1562 18.5547V14.0625H5.66406C5.3418 14.0625 5.07812 13.7988 5.07812 13.4766V10.7422C5.07812 10.4199 5.3418 10.1562 5.66406 10.1562H10.1562V5.66406C10.1562 5.3418 10.4199 5.07812 10.7422 5.07812H13.4766C13.7988 5.07812 14.0625 5.3418 14.0625 5.66406V10.1562H18.5547C18.877 10.1562 19.1406 10.4199 19.1406 10.7422V13.4766Z" fill="#F0C808" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3 product">
+                        <div class="product-img-container">
+
+                        </div>
+                        <div class="product-details-container">
+                            <div class="product-caption">
+                                <span class="product-name">Combo A</span>
+                                <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
+                            </div>
+                            <div class="cart-container">
+                                <span class="product-price">PHP 55.00</span>
+                                <span class="add-to-cart-btn">
+                                    <svg viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.1094 0C5.41992 0 0 5.41992 0 12.1094C0 18.7988 5.41992 24.2188 12.1094 24.2188C18.7988 24.2188 24.2188 18.7988 24.2188 12.1094C24.2188 5.41992 18.7988 0 12.1094 0ZM19.1406 13.4766C19.1406 13.7988 18.877 14.0625 18.5547 14.0625H14.0625V18.5547C14.0625 18.877 13.7988 19.1406 13.4766 19.1406H10.7422C10.4199 19.1406 10.1562 18.877 10.1562 18.5547V14.0625H5.66406C5.3418 14.0625 5.07812 13.7988 5.07812 13.4766V10.7422C5.07812 10.4199 5.3418 10.1562 5.66406 10.1562H10.1562V5.66406C10.1562 5.3418 10.4199 5.07812 10.7422 5.07812H13.4766C13.7988 5.07812 14.0625 5.3418 14.0625 5.66406V10.1562H18.5547C18.877 10.1562 19.1406 10.4199 19.1406 10.7422V13.4766Z" fill="#F0C808" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3 product">
+                        <div class="product-img-container">
+
+                        </div>
+                        <div class="product-details-container">
+                            <div class="product-caption">
+                                <span class="product-name">Combo A</span>
+                                <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
+                            </div>
+                            <div class="cart-container">
+                                <span class="product-price">PHP 55.00</span>
+                                <span class="add-to-cart-btn">
+                                    <svg viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.1094 0C5.41992 0 0 5.41992 0 12.1094C0 18.7988 5.41992 24.2188 12.1094 24.2188C18.7988 24.2188 24.2188 18.7988 24.2188 12.1094C24.2188 5.41992 18.7988 0 12.1094 0ZM19.1406 13.4766C19.1406 13.7988 18.877 14.0625 18.5547 14.0625H14.0625V18.5547C14.0625 18.877 13.7988 19.1406 13.4766 19.1406H10.7422C10.4199 19.1406 10.1562 18.877 10.1562 18.5547V14.0625H5.66406C5.3418 14.0625 5.07812 13.7988 5.07812 13.4766V10.7422C5.07812 10.4199 5.3418 10.1562 5.66406 10.1562H10.1562V5.66406C10.1562 5.3418 10.4199 5.07812 10.7422 5.07812H13.4766C13.7988 5.07812 14.0625 5.3418 14.0625 5.66406V10.1562H18.5547C18.877 10.1562 19.1406 10.4199 19.1406 10.7422V13.4766Z" fill="#F0C808" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>                    
+
+                    <div class="col-12 col-md-3 product">
+                        <div class="product-img-container">
+
+                        </div>
+                        <div class="product-details-container">
+                            <div class="product-caption">
+                                <span class="product-name">Combo A</span>
+                                <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
+                            </div>
+                            <div class="cart-container">
+                                <span class="product-price">PHP 55.00</span>
+                                <span class="add-to-cart-btn">
+                                    <svg viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.1094 0C5.41992 0 0 5.41992 0 12.1094C0 18.7988 5.41992 24.2188 12.1094 24.2188C18.7988 24.2188 24.2188 18.7988 24.2188 12.1094C24.2188 5.41992 18.7988 0 12.1094 0ZM19.1406 13.4766C19.1406 13.7988 18.877 14.0625 18.5547 14.0625H14.0625V18.5547C14.0625 18.877 13.7988 19.1406 13.4766 19.1406H10.7422C10.4199 19.1406 10.1562 18.877 10.1562 18.5547V14.0625H5.66406C5.3418 14.0625 5.07812 13.7988 5.07812 13.4766V10.7422C5.07812 10.4199 5.3418 10.1562 5.66406 10.1562H10.1562V5.66406C10.1562 5.3418 10.4199 5.07812 10.7422 5.07812H13.4766C13.7988 5.07812 14.0625 5.3418 14.0625 5.66406V10.1562H18.5547C18.877 10.1562 19.1406 10.4199 19.1406 10.7422V13.4766Z" fill="#F0C808" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>               
+
+                </div>
+
+            </div>
+        </section>
+
     </div>
 
 

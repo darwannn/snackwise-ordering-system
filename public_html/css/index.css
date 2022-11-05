@@ -1,0 +1,202 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 62.5%;
+}
+
+nav {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.navbar-brand {
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.red {
+    color: #DD1C1A;
+}
+
+.yellow {
+    color: #F0C808;
+}
+
+#active {
+    color: #F0C808;
+}
+
+
+.nav-list li{
+    margin: 0 1em;
+    font-size: 1.6em;
+}
+
+
+
+a[name="sign-up-btn"] {
+    padding: .5em 2em;
+    background-color: #DD1C1A; 
+    border: none;
+    border-radius: 10px;
+}
+
+a[name="log-in-btn"] {
+    color: #DD1C1A;
+    padding: .5em 2em;
+}
+
+.top-wrapper {
+    height: 100vh;
+    background-image: url(../img/Background-Pattern.jpg);
+}
+
+.hero {
+    position: relative;
+    height: calc(100vh - 71px);
+    padding: 1em 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.home-header .sub-header {
+    font-size: 1.0rem;
+    font-weight: 300;
+}
+
+.home-header h1 {
+    font-size: 3.0em;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+}
+
+.home-header-picture img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.cta-btn {
+    padding: 1em 2em;
+    color: white;
+    background-color: #DD1C1A;
+    transition: 
+        background-color linear .3s;
+    margin: 2em 0;
+}
+
+.cta-btn:hover {
+    background-color: #b31613;
+    color: white;
+}
+
+.featured-products {
+    margin: 10em auto;
+}
+
+.fp-header {
+    display: flex;
+    flex: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1em 0;
+}
+
+.fp-header h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 3.0em;
+}
+
+.fp-header a {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.0rem;
+    color: black;
+    text-decoration: none;
+}
+
+.fp-header a svg {
+    margin-left: .5em;
+}
+
+.product {
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    padding: 1em;
+    max-width: 30em;
+    height: 50em;
+    margin: 1em .5em;
+}
+
+.product-img-container {
+    border-radius: 20px;
+    height: 60%;
+    width: 100%;
+    background-color: grey;
+}
+
+.product-details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 40%;
+}
+
+.product-details-container .product-caption span {
+    display: inline-block;
+}
+
+.product-caption .product-name {
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 2.2em;
+    margin: .5em 0;
+}
+
+.product-caption .product-description {
+    font-size: 1.6em;
+}
+
+.cart-container {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    align-items: center;
+    justify-content: space-between;
+}
+    
+.cart-container .product-price {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.0em;
+}
+
+.cart-container .add-to-cart-btn svg {
+    height: 40px;
+    width: 40px;
+}
+    
+
+@media (min-width: 768px) {
+
+    .hero {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .home-header h1 {
+        font-size: 4.0rem;
+    } 
+
+    .home-header-picture {
+        width: 150em;
+    }
+
+    .featured-products {
+        margin: 15vh auto;
+    }
+
+    .fp-header h2 {
+        font-size: 4.0em;
+    }   
+}
