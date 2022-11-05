@@ -173,7 +173,7 @@
 
             </div>
         </section>
-        
+
         <!-- TODO:
             ADD CSS TO BELOW SECTIONS: 
         -->
@@ -242,7 +242,7 @@
         <footer>
             <div class="container">
                 <div class="row">
-                    <div class="col footer-header">
+                    <div class="col-12 footer-header">
                         <img src="img/penguin.png" alt="penguin.png" width="116px" height="104px">
                     </div>
                 </div>
@@ -261,9 +261,9 @@
                             CALL US
                         </span>
                         <span class="details">
-                            (850) 435-4155 
+                            (850) 435-4155
                         </span>
-                    </div>                    
+                    </div>
 
                     <div class="col-12 col-md-3 hours-col">
                         <span class="detail-title">
@@ -282,35 +282,47 @@
                         <span class="details">
                             Subscribe to our daily newsletter for all latest updates.
                         </span>
-                        <form action="#" class="newsletter-form">
-                            <div class="input-container">
-                                <input type="text" name="email" id="newsletter-input">
+
+                        <div class="input-container">
+                            <form action="#" class="newsletter-form">
+                                <input type="text" name="email" id="newsletter-input" placeholder="Email Address">
                                 <button type="submit">SUBSCRIBE</button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+
                     </div>
 
                 </div>
-                <div class="row lower-footer">
+
+            </div>
+
+            <div class="lower-footer">
+                <div class="container">
                     <div class="row">
-                        <div class="col-6">
-                            <!-- TO DO: Insert Facebook Logo HERE! -->
-                            <span>Like us on: Facebook</span>
+                        <div class="col-6 soc-med">
+                            <span>Like us on: </span>
+                            <span>
+                                <!-- TODO: Insert Snackwise FB Link -->
+                                <a href="#">
+                                    <object data="img/button-icons/facebook-icon.svg"></object>
+                                </a>
+                            </span>
                         </div>
                         <div class="col-6">
-                            <span>Copyright © 2022 Snackwise. All Rights Reserved.</span>
+                            <span class="right">Copyright © 2022 Snackwise. All Rights Reserved.</span>
                         </div>
                     </div>
                 </div>
             </div>
 
         </footer>
-        
+
     </div>
 
 
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

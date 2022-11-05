@@ -193,7 +193,6 @@ a[name="log-in-btn"] {
 
 .how-to-header h2{
     font-family: 'Outfit', sans-serif;
-    font-weight: bold;
     font-size: 2.5em;
     margin-bottom: 1.5em;
 }
@@ -221,6 +220,99 @@ a[name="log-in-btn"] {
     font-size: 1.6em;
 }
 
+.footer-header {
+    width: 100%;
+}
+
+.footer-header img {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 5em;
+    
+}
+
+.footer-details .col-12 {
+    margin: 1em 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+}
+
+.detail-title, .details {
+    display: block;
+    text-align: center;
+}
+
+.detail-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.0em;
+    margin-bottom: .5em;
+
+}
+
+.details {
+    font-size: 1.6em;
+}
+
+.input-container {
+    margin: 1.5em auto;
+    background-color: #EEEEEE;
+    padding: .5em;
+    border-radius: 10px;
+}
+
+.input-container form #newsletter-input {
+    border: none;
+    background-color: #EEEEEE;
+    font-size: 1.4em;
+
+}
+
+.input-container form button {
+    font-size: 1.4em;
+    background-color: #F0C808;
+    border-style: none;
+    padding: .5em 1em;
+    border-radius: 10px;
+    
+}
+
+.input-container form button:hover {
+    color: white;
+}
+
+.lower-footer {
+    height: 89px;
+    background-color: #383838;
+    color: white;
+    font-size: 1.4em;
+}
+
+.lower-footer .container {
+    height: 100%;
+}
+
+.lower-footer .container .row {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.lower-footer .container .row .col-6 .right {
+    float: right;
+}
+
+.soc-med {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.soc-med span object {
+    margin-left: 1em;
+}
 
 @media (min-width: 768px) {
 
@@ -251,6 +343,8 @@ a[name="log-in-btn"] {
         margin: 0;
     }
 
-
+    .how-to-header h2{
+        font-size: 4.0em;
+    }
 
 }
