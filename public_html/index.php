@@ -180,7 +180,7 @@
 
         <section class="how-to-container">
             <div class="container">
-                <div class="row mx-auto">
+                <div class="row">
                     <div class="col how-to-header">
                         <h2 class="text-center">How It Works?</h2>
                     </div>
@@ -218,7 +218,7 @@
                         <div class="instruction-caption">
                             <span class="instruction-name">Meal Preparation</span>
                             <span class="instruction-details">
-                                Wait while we prepare your order.
+                                It may took a while when we prepare your order. Chill out it will be worth it.
                             </span>
                         </div>
                     </div>

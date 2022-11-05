@@ -184,6 +184,42 @@ a[name="log-in-btn"] {
     background-color: transparent;
 }
 
+.how-to-container {
+    width: 100%;
+    background-color: #FFF0CF;
+    padding: 3em 0;
+    margin-bottom: 10em;
+}
+
+.how-to-header h2{
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 2.5em;
+    margin-bottom: 1.5em;
+}
+
+
+.instruction {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1em;
+}
+
+.instruction-caption span {
+    display: block;
+    text-align: center;
+}
+
+.instruction-caption .instruction-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.0em;
+}
+
+.instruction-caption .instruction-details {
+    font-size: 1.6em;
+}
 
 
 @media (min-width: 768px) {
@@ -210,4 +246,11 @@ a[name="log-in-btn"] {
     .fp-header h2 {
         font-size: 4.0em;
     }   
+
+    .instruction {
+        margin: 0;
+    }
+
+
+
 }
