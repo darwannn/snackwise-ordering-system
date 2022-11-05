@@ -52,7 +52,7 @@
                             NOTE: IF THE USER IS SIGNED IN, The sign-up button should be replaced by profile btn.
                         -->
                             <!-- TODO: Insert user profile and cart button here.  -->
-                            <a name="log-in-btn" class="btn" href="account/login">Login</a>
+                            <a name="log-in-btn" class="btn" href="account/login.php">Login</a>
                             <a name="sign-up-btn" id="" class="btn btn-primary" href="./account/register.php" role="button">Sign Up</a>
                         </form>
                     </div>
@@ -89,7 +89,9 @@
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-3 product">
                         <div class="product-img-container">
-
+                            <!-- TO DO:
+                                Add Pictures
+                            -->
                         </div>
                         <div class="product-details-container">
                             <div class="product-caption">
@@ -99,6 +101,9 @@
                             <div class="cart-container">
                                 <span class="product-price">PHP 55.00</span>
                                 <span class="add-to-cart-btn">
+                                    <!-- TO DO:
+                                        Export the svg externally instead of hard coded.
+                                    -->
                                     <svg viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.1094 0C5.41992 0 0 5.41992 0 12.1094C0 18.7988 5.41992 24.2188 12.1094 24.2188C18.7988 24.2188 24.2188 18.7988 24.2188 12.1094C24.2188 5.41992 18.7988 0 12.1094 0ZM19.1406 13.4766C19.1406 13.7988 18.877 14.0625 18.5547 14.0625H14.0625V18.5547C14.0625 18.877 13.7988 19.1406 13.4766 19.1406H10.7422C10.4199 19.1406 10.1562 18.877 10.1562 18.5547V14.0625H5.66406C5.3418 14.0625 5.07812 13.7988 5.07812 13.4766V10.7422C5.07812 10.4199 5.3418 10.1562 5.66406 10.1562H10.1562V5.66406C10.1562 5.3418 10.4199 5.07812 10.7422 5.07812H13.4766C13.7988 5.07812 14.0625 5.3418 14.0625 5.66406V10.1562H18.5547C18.877 10.1562 19.1406 10.4199 19.1406 10.7422V13.4766Z" fill="#F0C808" />
                                     </svg>
@@ -145,7 +150,7 @@
                                 </span>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
 
                     <div class="col-12 col-md-3 product">
                         <div class="product-img-container">
@@ -165,13 +170,145 @@
                                 </span>
                             </div>
                         </div>
-                    </div>               
+                    </div>
 
                 </div>
 
             </div>
         </section>
+        
+        <!-- TODO:
+            ADD CSS TO BELOW SECTIONS: 
+        -->
 
+        <section class="how-to-container">
+            <div class="container">
+                <div class="row mx-auto">
+                    <div class="col how-to-header">
+                        <h2 class="text-center">How It Works?</h2>
+                    </div>
+                </div>
+                <div class="row instructions-container">
+                    <div class="col col-md-3 instruction">
+                        <div class="instruction-illustration-container">
+                            <object data="img/instruction-icons/create-account-icon.svg"></object>
+                        </div>
+                        <div class="instruction-caption">
+                            <span class="instruction-name">Create
+                                Account</span>
+                            <span class="instruction-details">Before you can order,
+                                you must create an
+                                account first.</span>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-3 instruction">
+                        <div class="instruction-illustration-container">
+                            <object data="img/instruction-icons/order-icon.svg"></object>
+                        </div>
+                        <div class="instruction-caption">
+                            <span class="instruction-name">Order</span>
+                            <span class="instruction-details">
+                                Browse through our menu, and place your order
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-3 instruction">
+                        <div class="instruction-illustration-container">
+                            <object data="img/instruction-icons/meal-preparation-icon.svg"></object>
+                        </div>
+                        <div class="instruction-caption">
+                            <span class="instruction-name">Meal Preparation</span>
+                            <span class="instruction-details">
+                                Wait while we prepare your order.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-3 instruction">
+                        <div class="instruction-illustration-container">
+                            <object data="img/instruction-icons/pick-up-icon.svg"></object>
+                        </div>
+                        <div class="instruction-caption">
+                            <span class="instruction-name">Pick Up</span>
+                            <span class="instruction-details">
+                                You will get notified through call when your order is ready for pick-up.
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col footer-header">
+                        <img src="img/penguin.png" alt="penguin.png" width="116px" height="104px">
+                    </div>
+                </div>
+                <div class="row footer-details">
+                    <div class="col-12 col-md-3 address-col">
+                        <span class="detail-title">
+                            ADDRESS
+                        </span>
+                        <span class="details">
+                            578 5th Avenue New York, NY 10032 United States
+                        </span>
+                    </div>
+
+                    <div class="col-12 col-md-3 contact-col">
+                        <span class="detail-title">
+                            CALL US
+                        </span>
+                        <span class="details">
+                            (850) 435-4155 
+                        </span>
+                    </div>                    
+
+                    <div class="col-12 col-md-3 hours-col">
+                        <span class="detail-title">
+                            OPENING HOURS
+                        </span>
+                        <span class="details">
+                            Mon-Saturday: 8:00AM - 6:00PM <br>
+                            Sunday: 10AM - 4PM
+                        </span>
+                    </div>
+
+                    <div class="col-12 col-md-3 newsletter-col">
+                        <span class="detail-title">
+                            NEWSLETTER
+                        </span>
+                        <span class="details">
+                            Subscribe to our daily newsletter for all latest updates.
+                        </span>
+                        <form action="#" class="newsletter-form">
+                            <div class="input-container">
+                                <input type="text" name="email" id="newsletter-input">
+                                <button type="submit">SUBSCRIBE</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="row lower-footer">
+                    <div class="row">
+                        <div class="col-6">
+                            <!-- TO DO: Insert Facebook Logo HERE! -->
+                            <span>Like us on: Facebook</span>
+                        </div>
+                        <div class="col-6">
+                            <span>Copyright © 2022 Snackwise. All Rights Reserved.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+        
     </div>
 
 
