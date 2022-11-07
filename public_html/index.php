@@ -144,9 +144,6 @@
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-3 product">
                         <div class="product-img-container">
-                            <!-- TO DO:
-                                Add Pictures
-                            -->
                             <img src="img/menu-imgs/A.jpg" alt="combo a image" class="product-img">
                         </div>
                         <div class="product-details-container">
@@ -177,7 +174,7 @@
                             <div class="cart-container">
                                 <span class="product-price">PHP 55.00</span>
                                 <span class="add-to-cart-container">
-                                    <button class="add-to-cart-btn" type="submit">
+                                    <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
                                         <object data="img/button-icons/add.svg"></object>
                                     </button>
                                 </span>
@@ -197,7 +194,7 @@
                             <div class="cart-container">
                                 <span class="product-price">PHP 55.00</span>
                                 <span class="add-to-cart-container">
-                                    <button class="add-to-cart-btn" type="submit">
+                                    <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
                                         <object data="img/button-icons/add.svg"></object>
                                     </button>
                                 </span>
@@ -217,7 +214,7 @@
                             <div class="cart-container">
                                 <span class="product-price">PHP 55.00</span>
                                 <span class="add-to-cart-container">
-                                    <button class="add-to-cart-btn" type="submit">
+                                    <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
                                         <object data="img/button-icons/add.svg"></object>
                                     </button>
                                 </span>
