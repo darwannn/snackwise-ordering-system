@@ -40,20 +40,20 @@
 
             <div class="cart_item d-flex align-items-center my-3 mx-1 p-1 ">
                 <i class="item-remove fa-solid fa-xmark"></i>
-                <img class=" cart-image mx-2 " src="https://cdn.vox-cdn.com/thumbor/W2k-LCcpy_T4fU6u9Nm0sSu8OrY=/0x0:7008x4672/1200x900/filters:focal(2944x1776:4064x2896)/cdn.vox-cdn.com/uploads/chorus_image/image/60108715/image_50461185.26.jpeg" alt="">
+                <img class=" cart-image mx-2 " src="img/menu-imgs/A.jpg" alt="">
                 <div class="d-flex flex-column">
                     <div class="item-name">Combo A</div>
-                    <div class=""><span class="item-quantity">1x</span><span class="ms-3 bolder item-price">65.00 ₱</span></div>
+                    <div class=""><span class="item-quantity">1x</span><span class="ms-3 bolder item-price">75.00 ₱</span></div>
                 </div>
             </div>
 
 
             <div class="cart_item d-flex align-items-center my-3 mx-1 p-1 ">
                 <i class="item-remove fa-solid fa-xmark"></i>
-                <img class=" cart-image mx-2 " src="https://cdn.vox-cdn.com/thumbor/W2k-LCcpy_T4fU6u9Nm0sSu8OrY=/0x0:7008x4672/1200x900/filters:focal(2944x1776:4064x2896)/cdn.vox-cdn.com/uploads/chorus_image/image/60108715/image_50461185.26.jpeg" alt="">
+                <img class=" cart-image mx-2 " src="img/menu-imgs/B.jpg" alt="Combo B">
                 <div class="d-flex flex-column">
-                    <div class="item-name">Combo A</div>
-                    <div class=""><span class="item-quantity">1x</span><span class="ms-3 bolder item-price">65.00 ₱</span></div>
+                    <div class="item-name">Combo B</div>
+                    <div class=""><span class="item-quantity">1x</span><span class="ms-3 bolder item-price">89.00 ₱</span></div>
                 </div>
             </div>
 
@@ -66,7 +66,7 @@
         <div class="cart_price_information d-flex flex-column mx-3 mb-3">
             <hr class="w-100 my-2">
             <div class=" bold">SUBTOTAL:</div>
-            <div class="text-end bolder">65.00 ₱</div>
+            <div class="text-end bolder">164.00 ₱</div>
 
             <button type="button" class="btn btn-checkout w-100 my-2">CHECKOUT</button>
             <div type="button" class="btn btn-clear w-100">Clear Cart</div>

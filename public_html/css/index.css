@@ -15,107 +15,115 @@ body {
     right: 0;
     animation-duration: 1s;
     animation-fill-mode: forwards;
-  }
+}
 
-  hr {
+hr {
     background-color: #CDCDCD;
-  }
+}
 
-  .cart_list {
+.cart_list {
     overflow-y: auto;
     min-height: 200px;
-  }
+}
 
-  .cart-image {
+.cart-image {
     border-radius: 7px;
     width: 60px;
-    height:60px;
-  }
+    height: 60px;
+}
 
-  .sidecart-close {
+.sidecart-close {
     border: 2px solid black;
     padding: 2px 5px;
     border-radius: 5px;
     font-size: 12px;
     color: black;
 
-  }
+}
 
-  .item-remove {
+.item-remove {
     border: 1px solid #A1A1A1;
     padding: 1px 3px;
     border-radius: 4px;
     font-size: 9px;
     color: #A1A1A1;
-  }
+}
 
-  .btn-checkout {
+.btn-checkout {
     background-color: #DD1C1A;
     border-radius: 8px;
     color: white;
-  }
+}
 
-  .btn-clear {
+.btn-clear {
     color: #A4A4A4;
-  }
+}
 
-  .item-name {
-    font-size: 1em;
-  }
-  .item-quantity {
-    font-size: .7em;
-    
-  }
-  .item-price {
-    font-size: 1.2em;
-    color: #F0C808;
-  }
+.item-name {
+    font-size: 1.6em;
+}
 
-  .cart-label {
+.item-quantity {
     font-size: 1.3em;
-  }
 
-  .cart_item {
+}
+
+.item-price {
+    font-size: 1.6em;
+    color: #F0C808;
+}
+
+.cart-label {
+    font-size: 1.6em;
+}
+
+.cart_item {
     box-shadow: 0px 0px 3px #CDCDCD;
     border-radius: 8px;
-  }
+}
 
-  .cart_price_information {
+.cart_price_information {
     min-height: 100px;
-  }
+}
 
-  @media (max-width: 300px) {
+.cart_price_information .bold, .cart_price_information .bolder {
+    font-size: 1.6em;
+}
+
+@media (max-width: 300px) {
     .sidecart {
-      width: 100%;
+        width: 100%;
     }
-  }
+}
 
-  @keyframes open_cart {
+@keyframes open_cart {
     from {
-      right: -1000px;
+        right: -1000px;
     }
 
     to {
-      right: 0px;
+        right: 0px;
     }
-  }
+}
 
-  @keyframes close_cart {
+@keyframes close_cart {
     from {
-      right: 0px;
+        right: 0px;
     }
 
     to {
-      right: -1000px;
+        right: -1000px;
     }
 
-  }
-  .bold {
+}
+
+.bold {
     font-weight: 700;
-  }
-  .bolder {
+}
+
+.bolder {
     font-weight: 800;
-  }
+}
 
 /* END OF SIDEBAR CSS */
 
