@@ -247,7 +247,14 @@ a[name="log-in-btn"] {
     border-radius: 20px;
     height: 60%;
     width: 100%;
-    background-color: grey;
+    
+    overflow: hidden;
+}
+
+.product-img-container .product-img {
+    width: 100%;
+    margin: auto 0;
+    display: block;
 }
 
 .product-details-container {

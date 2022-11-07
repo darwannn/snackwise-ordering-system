@@ -147,6 +147,7 @@
                             <!-- TO DO:
                                 Add Pictures
                             -->
+                            <img src="img/menu-imgs/A.jpg" alt="combo a image" class="product-img">
                         </div>
                         <div class="product-details-container">
                             <div class="product-caption">
@@ -166,11 +167,11 @@
 
                     <div class="col-12 col-md-3 product">
                         <div class="product-img-container">
-
+                            <img src="img/menu-imgs/B.jpg" alt="combo a image" class="product-img">
                         </div>
                         <div class="product-details-container">
                             <div class="product-caption">
-                                <span class="product-name">Combo A</span>
+                                <span class="product-name">Combo B</span>
                                 <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
                             </div>
                             <div class="cart-container">
@@ -186,11 +187,11 @@
 
                     <div class="col-12 col-md-3 product">
                         <div class="product-img-container">
-
+                            <img src="img/menu-imgs/C.jpg" alt="combo a image" class="product-img">
                         </div>
                         <div class="product-details-container">
                             <div class="product-caption">
-                                <span class="product-name">Combo A</span>
+                                <span class="product-name">Combo C</span>
                                 <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
                             </div>
                             <div class="cart-container">
@@ -206,11 +207,11 @@
 
                     <div class="col-12 col-md-3 product">
                         <div class="product-img-container">
-
+                            <img src="img/menu-imgs/D.jpg" alt="combo a image" class="product-img">
                         </div>
                         <div class="product-details-container">
                             <div class="product-caption">
-                                <span class="product-name">Combo A</span>
+                                <span class="product-name">Combo D</span>
                                 <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
                             </div>
                             <div class="cart-container">
