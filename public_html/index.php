@@ -14,11 +14,66 @@
     <!-- BOOTSTRAP CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- BOOTSTRAP JS  -->
+
+
+    <!-- FONT AWESOME -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+
     <link rel="stylesheet" href="css/index.css">
 
 </head>
 
 <body>
+
+    <!-- SIDEBAR -->
+
+    <div class="sidecart  flex-column h-100 top-0  " id="sidecart">
+
+        <div class="mx-3 mt-3">
+            <p class="cart-label bold mb-0"> SHOPPING CART <i class=" sidecart-close fa-solid fa-xmark float-end" onclick="close_cart();"></i></p>
+            <hr class="w-100 my-2">
+        </div>
+
+        <div class="cart_list flex-grow-1 mx-3">
+
+
+            <div class="cart_item d-flex align-items-center my-3 mx-1 p-1 ">
+                <i class="item-remove fa-solid fa-xmark"></i>
+                <img class=" cart-image mx-2 " src="https://cdn.vox-cdn.com/thumbor/W2k-LCcpy_T4fU6u9Nm0sSu8OrY=/0x0:7008x4672/1200x900/filters:focal(2944x1776:4064x2896)/cdn.vox-cdn.com/uploads/chorus_image/image/60108715/image_50461185.26.jpeg" alt="">
+                <div class="d-flex flex-column">
+                    <div class="item-name">Combo A</div>
+                    <div class=""><span class="item-quantity">1x</span><span class="ms-3 bolder item-price">65.00 ₱</span></div>
+                </div>
+            </div>
+
+
+            <div class="cart_item d-flex align-items-center my-3 mx-1 p-1 ">
+                <i class="item-remove fa-solid fa-xmark"></i>
+                <img class=" cart-image mx-2 " src="https://cdn.vox-cdn.com/thumbor/W2k-LCcpy_T4fU6u9Nm0sSu8OrY=/0x0:7008x4672/1200x900/filters:focal(2944x1776:4064x2896)/cdn.vox-cdn.com/uploads/chorus_image/image/60108715/image_50461185.26.jpeg" alt="">
+                <div class="d-flex flex-column">
+                    <div class="item-name">Combo A</div>
+                    <div class=""><span class="item-quantity">1x</span><span class="ms-3 bolder item-price">65.00 ₱</span></div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+        <div class="cart_price_information d-flex flex-column mx-3 mb-3">
+            <hr class="w-100 my-2">
+            <div class=" bold">SUBTOTAL:</div>
+            <div class="text-end bolder">65.00 ₱</div>
+
+            <button type="button" class="btn btn-checkout w-100 my-2">CHECKOUT</button>
+            <div type="button" class="btn btn-clear w-100">Clear Cart</div>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
 
     <div class="parent-container">
         <div class="top-wrapper">
@@ -101,7 +156,7 @@
                             <div class="cart-container">
                                 <span class="product-price">PHP 55.00</span>
                                 <span class="add-to-cart-container">
-                                    <button class="add-to-cart-btn" type="submit">
+                                    <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
                                         <object data="img/button-icons/add.svg"></object>
                                     </button>
                                 </span>
@@ -173,10 +228,6 @@
 
             </div>
         </section>
-
-        <!-- TODO:
-            ADD CSS TO BELOW SECTIONS: 
-        -->
 
         <section class="how-to-container">
             <div class="container">
@@ -322,6 +373,18 @@
 
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script>
+        function open_cart() {
+            document.getElementById('sidecart').style.display = "flex";
+            document.getElementById('sidecart').style.animationName = "open_cart";
+
+        }
+
+        function close_cart() {
+            document.getElementById('sidecart').style.animationName = "close_cart";
+        }
+    </script>
 
 </body>
 
