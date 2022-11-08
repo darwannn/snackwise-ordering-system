@@ -17,6 +17,9 @@
     <!-- BOOTSTRAP CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- FONTAWESOME -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+
     <!-- MY CSS -->
     <link rel="stylesheet" href="css/menu.css">
 </head>
@@ -110,10 +113,161 @@
 
         <section class="top-header">
             <div class="container">
-                <h1 class="text-center">MENU</h1> 
+                <h1 class="text-center">MENU</h1>
             </div>
         </section>
 
+        <section class="sorting">
+            <div class="container">
+                <div class="sort-btn-container">
+                    <ul class="sorter-list">
+                        <li class="sort-item" id="active-sort">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                Combo
+                            </a>
+                        </li>
+                        <li class="sort-item">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                Burger
+                            </a>
+                        </li>
+                        <li class="sort-item">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                Fries
+                            </a>
+                        </li>
+                        <li class="sort-item">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                Drinks
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cart">
+                    <button type="button" class="btn" onclick="open_cart();">View Cart(2)</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu">
+            <div class="container">
+                <div class="row menu-collection">
+                
+                    <!-- MENU ITEM START HERE -->
+
+                    <div class="col-12 col-md-6">
+                        <div class="menu-item">
+                            <div class="product-img">
+                                <img src="img/menu-imgs/A.jpg" alt="food-img" srcset="">
+                            </div>
+                            <div class="product-details-wrapper">
+                                <div class="product-details">
+                                    <span class="product-title">Combo A</span>
+                                    <span class="product-description">Includes: Regular Burger, Regular Fries, Blue Lemonade</span>
+                                    <span class="product-price">55.00PHP</span>
+                                </div>
+                                <div class="interact">
+                                    <button class="btn" onclick="open_cart();">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="col-12 col-md-6">
+                        <div class="menu-item">
+                            <div class="product-img">
+                                <img src="img/menu-imgs/B.jpg" alt="food-img" srcset="">
+                            </div>
+                            <div class="product-details-wrapper">
+                                <div class="product-details">
+                                    <span class="product-title">Combo B</span>
+                                    <span class="product-description">Includes: Regular Burger, Carbonara, Blue Lemonade</span>
+                                    <span class="product-price">89.00PHP</span>
+                                </div>
+                                <div class="interact">
+                                    <button class="btn" onclick="open_cart();">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="col-12 col-md-6">
+                        <div class="menu-item">
+                            <div class="product-img">
+                                <img src="img/menu-imgs/C.jpg" alt="food-img" srcset="">
+                            </div>
+                            <div class="product-details-wrapper">
+                                <div class="product-details">
+                                    <span class="product-title">Combo C</span>
+                                    <span class="product-description">Includes: Regular Hotdog, Regular Fries, Blue Lemonade</span>
+                                    <span class="product-price">80.00PHP</span>
+                                </div>
+                                <div class="interact">
+                                    <button class="btn" onclick="open_cart();">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="col-12 col-md-6">
+                        <div class="menu-item">
+                            <div class="product-img">
+                                <img src="img/menu-imgs/D.jpg" alt="food-img" srcset="">
+                            </div>
+                            <div class="product-details-wrapper">
+                                <div class="product-details">
+                                    <span class="product-title">Combo D</span>
+                                    <span class="product-description">Includes: Regular Fries, Carbonara, Blue Lemonade</span>
+                                    <span class="product-price">85.00PHP</span>
+                                </div>
+                                <div class="interact">
+                                    <button class="btn" onclick="open_cart();">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="col-12 col-md-6">
+                        <div class="menu-item">
+                            <div class="product-img">
+                                <img src="img/menu-imgs/E.jpg" alt="food-img" srcset="">
+                            </div>
+                            <div class="product-details-wrapper">
+                                <div class="product-details">
+                                    <span class="product-title">Combo E</span>
+                                    <span class="product-description">Includes: Regular Burger, Regular Fries, Spaghetti, Blue Lemonade</span>
+                                    <span class="product-price">55.00PHP</span>
+                                </div>
+                                <div class="interact">
+                                    <button class="btn" onclick="open_cart();">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="col-12 col-md-6">
+                        <div class="menu-item">
+                            <div class="product-img">
+                                <img src="img/menu-imgs/Barkada Meal.jpg" alt="food-img" srcset="">
+                            </div>
+                            <div class="product-details-wrapper">
+                                <div class="product-details">
+                                    <span class="product-title">Barkada Meal</span>
+                                    <span class="product-description">Good for 4 People. Includes: 4 Regular Fries, 4 Regular Burger, 4 Blue Lemonade</span>
+                                    <span class="product-price">55.00PHP</span>
+                                </div>
+                                <div class="interact">
+                                    <button class="btn" onclick="open_cart();">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- MENU ITEM END HERE -->
+
+                </div>
+            </div>
+        </section>
 
     </div>
 
@@ -150,10 +304,22 @@
 
     </div>
 
-    
+
 
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script>
+        function open_cart() {
+            document.getElementById('sidecart').style.display = "flex";
+            document.getElementById('sidecart').style.animationName = "open_cart";
+
+        }
+
+        function close_cart() {
+            document.getElementById('sidecart').style.animationName = "close_cart";
+        }
+    </script>
 
 </body>
 
