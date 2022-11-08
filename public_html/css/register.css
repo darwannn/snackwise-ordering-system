@@ -1,11 +1,5 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background-image: url(../img/Background-Pattern.jpg);
-}
-
-.form-container {
-    background-color: white;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .address_option {
