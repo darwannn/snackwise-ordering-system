@@ -122,22 +122,22 @@
                 <div class="sort-btn-container">
                     <ul class="sorter-list">
                         <li class="sort-item" id="active-sort">
-                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                            <a href="#" target="_blank" rel="noopener noreferrer">
                                 Combo
                             </a>
                         </li>
                         <li class="sort-item">
-                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                            <a href="#" target="_blank" rel="noopener noreferrer">
                                 Burger
                             </a>
                         </li>
                         <li class="sort-item">
-                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                            <a href="#" target="_blank" rel="noopener noreferrer">
                                 Fries
                             </a>
                         </li>
                         <li class="sort-item">
-                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                            <a href="#" target="_blank" rel="noopener noreferrer">
                                 Drinks
                             </a>
                         </li>
@@ -268,6 +268,145 @@
                 </div>
             </div>
         </section>
+
+        <section class="how-to-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col how-to-header">
+                        <h2 class="text-center">How It Works?</h2>
+                    </div>
+                </div>
+                <div class="row instructions-container">
+                    <div class="col col-md-3 instruction">
+                        <div class="instruction-illustration-container">
+                            <object data="img/instruction-icons/create-account-icon.svg"></object>
+                        </div>
+                        <div class="instruction-caption">
+                            <span class="instruction-name">Create
+                                Account</span>
+                            <span class="instruction-details">Before you can order,
+                                you must create an
+                                account first.</span>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-3 instruction">
+                        <div class="instruction-illustration-container">
+                            <object data="img/instruction-icons/order-icon.svg"></object>
+                        </div>
+                        <div class="instruction-caption">
+                            <span class="instruction-name">Order</span>
+                            <span class="instruction-details">
+                                Browse through our menu, and place your order
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-3 instruction">
+                        <div class="instruction-illustration-container">
+                            <object data="img/instruction-icons/meal-preparation-icon.svg"></object>
+                        </div>
+                        <div class="instruction-caption">
+                            <span class="instruction-name">Meal Preparation</span>
+                            <span class="instruction-details">
+                                It may took a while when we prepare your order. Chill out it will be worth it.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-3 instruction">
+                        <div class="instruction-illustration-container">
+                            <object data="img/instruction-icons/pick-up-icon.svg"></object>
+                        </div>
+                        <div class="instruction-caption">
+                            <span class="instruction-name">Pick Up</span>
+                            <span class="instruction-details">
+                                You will get notified through call when your order is ready for pick-up.
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 footer-header">
+                        <img src="img/penguin.png" alt="penguin.png" width="116px" height="104px">
+                    </div>
+                </div>
+                <div class="row footer-details">
+                    <div class="col-12 col-md-3 address-col">
+                        <span class="detail-title">
+                            ADDRESS
+                        </span>
+                        <span class="details">
+                            578 5th Avenue New York, NY 10032 United States
+                        </span>
+                    </div>
+
+                    <div class="col-12 col-md-3 contact-col">
+                        <span class="detail-title">
+                            CALL US
+                        </span>
+                        <span class="details">
+                            (850) 435-4155
+                        </span>
+                    </div>
+
+                    <div class="col-12 col-md-3 hours-col">
+                        <span class="detail-title">
+                            OPENING HOURS
+                        </span>
+                        <span class="details">
+                            Mon-Saturday: 8:00AM - 6:00PM <br>
+                            Sunday: 10AM - 4PM
+                        </span>
+                    </div>
+
+                    <div class="col-12 col-md-3 newsletter-col">
+                        <span class="detail-title">
+                            NEWSLETTER
+                        </span>
+                        <span class="details">
+                            Subscribe to our daily newsletter for all latest updates.
+                        </span>
+
+                        <div class="input-container">
+                            <form action="#" class="newsletter-form">
+                                <input type="text" name="email" id="newsletter-input" placeholder="Email Address">
+                                <button type="submit">SUBSCRIBE</button>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="lower-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6 soc-med">
+                            <span>Like us on: </span>
+                            <span>
+                                <!-- TODO: Insert Snackwise FB Link -->
+                                <a href="#">
+                                    <object data="img/button-icons/facebook-icon.svg"></object>
+                                </a>
+                            </span>
+                        </div>
+                        <div class="col-6">
+                            <span class="right">Copyright © 2022 Snackwise. All Rights Reserved.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
 
     </div>
 
