@@ -112,6 +112,12 @@ a[name="sign-up-btn"]:hover {
     border-color: #DD1C1A;
 }
 
+a[name="log-in-btn"] {
+    color: #DD1C1A;
+    font-weight: bold;
+    padding: .5em 2em;
+}
+
 /* End of NAVBAR CSS */
 
 .information {
