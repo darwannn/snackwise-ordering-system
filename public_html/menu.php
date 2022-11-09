@@ -9,6 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu | Snackwise</title>
 
+    <!-- PAGE ICON -->
+    <link rel="icon" href="img/penguin.png" type="image/icon type">
+
+
     <!-- FONT LINKS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -144,7 +148,7 @@
                     </ul>
                 </div>
                 <div class="cart">
-                    <button type="button" class="btn" onclick="open_cart();">View Cart(2)</button>
+                    <button type="button" class="btn" onclick="open_cart();">View Cart<i class="fa-solid fa-cart-shopping"></i><span class="cart-count">(02)</span></button>
                 </div>
             </div>
         </section>
@@ -152,7 +156,7 @@
         <section class="menu">
             <div class="container">
                 <div class="row menu-collection">
-                
+
                     <!-- MENU ITEM START HERE -->
 
                     <div class="col-12 col-md-6">
@@ -167,12 +171,14 @@
                                     <span class="product-price">55.00PHP</span>
                                 </div>
                                 <div class="interact">
-                                    <button class="btn" onclick="open_cart();">+</button>
+                                    <button class="btn" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="col-12 col-md-6">
                         <div class="menu-item">
                             <div class="product-img">
@@ -185,12 +191,14 @@
                                     <span class="product-price">89.00PHP</span>
                                 </div>
                                 <div class="interact">
-                                    <button class="btn" onclick="open_cart();">+</button>
+                                    <button class="btn" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="col-12 col-md-6">
                         <div class="menu-item">
                             <div class="product-img">
@@ -203,12 +211,14 @@
                                     <span class="product-price">80.00PHP</span>
                                 </div>
                                 <div class="interact">
-                                    <button class="btn" onclick="open_cart();">+</button>
+                                    <button class="btn" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="col-12 col-md-6">
                         <div class="menu-item">
                             <div class="product-img">
@@ -221,12 +231,14 @@
                                     <span class="product-price">85.00PHP</span>
                                 </div>
                                 <div class="interact">
-                                    <button class="btn" onclick="open_cart();">+</button>
+                                    <button class="btn" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="col-12 col-md-6">
                         <div class="menu-item">
                             <div class="product-img">
@@ -239,12 +251,14 @@
                                     <span class="product-price">55.00PHP</span>
                                 </div>
                                 <div class="interact">
-                                    <button class="btn" onclick="open_cart();">+</button>
+                                    <button class="btn" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="col-12 col-md-6">
                         <div class="menu-item">
                             <div class="product-img">
@@ -257,12 +271,14 @@
                                     <span class="product-price">55.00PHP</span>
                                 </div>
                                 <div class="interact">
-                                    <button class="btn" onclick="open_cart();">+</button>
+                                    <button class="btn" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- MENU ITEM END HERE -->
 
                 </div>
@@ -343,7 +359,7 @@
                             ADDRESS
                         </span>
                         <span class="details">
-                            578 5th Avenue New York, NY 10032 United States
+                            Zone 3, Stall 1 Sto. Rosario Hagonoy Bulacan
                         </span>
                     </div>
 
@@ -352,7 +368,7 @@
                             CALL US
                         </span>
                         <span class="details">
-                            (850) 435-4155
+                            0977 283 6086
                         </span>
                     </div>
 
@@ -393,9 +409,8 @@
                         <div class="col-6 soc-med">
                             <span>Like us on: </span>
                             <span>
-                                <!-- TODO: Insert Snackwise FB Link -->
-                                <a href="#">
-                                    <object data="img/button-icons/facebook-icon.svg"></object>
+                                <a href="https://www.facebook.com/SnackWisePriceForEveryJuan" class="social-media-icon">
+                                    <i class="fa-brands fa-square-facebook"></i>
                                 </a>
                             </span>
                         </div>

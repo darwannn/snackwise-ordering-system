@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Snackwise</title>
+
+    <!-- PAGE ICON -->
+    <link rel="icon" href="img/penguin.png" type="image/icon type">
+
     <!-- FONT LINKS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -149,13 +153,13 @@
                         <div class="product-details-container">
                             <div class="product-caption">
                                 <span class="product-name">Combo A</span>
-                                <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
+                                <span class="product-description">Includes: Regular Burger, Regular Fries, Blue Lemonade</span>
                             </div>
                             <div class="cart-container">
                                 <span class="product-price">PHP 55.00</span>
                                 <span class="add-to-cart-container">
                                     <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
-                                        <object data="img/button-icons/add.svg"></object>
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </span>
                             </div>
@@ -169,13 +173,13 @@
                         <div class="product-details-container">
                             <div class="product-caption">
                                 <span class="product-name">Combo B</span>
-                                <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
+                                <span class="product-description">Includes: Regular Burger, Carbonara, Blue Lemonade</span>
                             </div>
                             <div class="cart-container">
-                                <span class="product-price">PHP 55.00</span>
+                                <span class="product-price">PHP 89.00</span>
                                 <span class="add-to-cart-container">
                                     <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
-                                        <object data="img/button-icons/add.svg"></object>
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </span>
                             </div>
@@ -189,13 +193,13 @@
                         <div class="product-details-container">
                             <div class="product-caption">
                                 <span class="product-name">Combo C</span>
-                                <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
+                                <span class="product-description">Includes: Regular Hotdog, Regular Fries, Blue Lemonade</span>
                             </div>
                             <div class="cart-container">
-                                <span class="product-price">PHP 55.00</span>
+                                <span class="product-price">PHP 80.00</span>
                                 <span class="add-to-cart-container">
                                     <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
-                                        <object data="img/button-icons/add.svg"></object>
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </span>
                             </div>
@@ -209,13 +213,13 @@
                         <div class="product-details-container">
                             <div class="product-caption">
                                 <span class="product-name">Combo D</span>
-                                <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
+                                <span class="product-description">Includes: Regular Fries, Carbonara, Blue Lemonade</span>
                             </div>
                             <div class="cart-container">
-                                <span class="product-price">PHP 55.00</span>
+                                <span class="product-price">PHP 85.00</span>
                                 <span class="add-to-cart-container">
                                     <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
-                                        <object data="img/button-icons/add.svg"></object>
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </span>
                             </div>
@@ -301,7 +305,7 @@
                             ADDRESS
                         </span>
                         <span class="details">
-                            578 5th Avenue New York, NY 10032 United States
+                            Zone 3, Stall 1 Sto. Rosario Hagonoy Bulacan
                         </span>
                     </div>
 
@@ -310,7 +314,7 @@
                             CALL US
                         </span>
                         <span class="details">
-                            (850) 435-4155
+                            0970 860 1556
                         </span>
                     </div>
 
@@ -351,9 +355,8 @@
                         <div class="col-6 soc-med">
                             <span>Like us on: </span>
                             <span>
-                                <!-- TODO: Insert Snackwise FB Link -->
-                                <a href="#">
-                                    <object data="img/button-icons/facebook-icon.svg"></object>
+                               <a href="https://www.facebook.com/SnackWisePriceForEveryJuan" class="social-media-icon">
+                                    <i class="fa-brands fa-square-facebook"></i>
                                 </a>
                             </span>
                         </div>

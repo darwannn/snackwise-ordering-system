@@ -90,19 +90,31 @@ nav {
 .nav-list li{
     margin: 0 1em;
     font-size: 1.6em;
+    font-weight: bold;
 }
 
 
 
 a[name="sign-up-btn"] {
     padding: .5em 2em;
-    background-color: #DD1C1A; 
+    background-color: transparent; 
     border: none;
+    color: #DD1C1A;
+    font-weight: bold;
+    border: solid 2px #DD1C1A;
     border-radius: 10px;
+    transition: .3s ease-in-out;
+}
+
+a[name="sign-up-btn"]:hover {
+    background-color: #DD1C1A;
+    color: white;
+    border-color: #DD1C1A;
 }
 
 a[name="log-in-btn"] {
     color: #DD1C1A;
+    font-weight: bold;
     padding: .5em 2em;
 }
 
@@ -339,10 +351,13 @@ a[name="log-in-btn"] {
     display: flex;
     flex-direction: row;
     justify-content: start;
+    align-items: center;
 }
 
-.soc-med span object {
-    margin-left: 1em;
+.social-media-icon {
+    margin-left: .5em;
+    font-size: 1.8em;
+    color: white;
 }
 
 /* FOOTER CSS END */
@@ -377,6 +392,10 @@ a[name="log-in-btn"] {
     
     .instruction {
         margin: 0;
+    }
+
+    .information {
+        text-align: start;
     }
     
 }

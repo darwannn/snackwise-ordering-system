@@ -153,19 +153,31 @@ nav {
 .nav-list li{
     margin: 0 1em;
     font-size: 1.6em;
+    font-weight: bold;
 }
 
 
 
 a[name="sign-up-btn"] {
     padding: .5em 2em;
-    background-color: #DD1C1A; 
+    background-color: transparent; 
     border: none;
+    color: #DD1C1A;
+    font-weight: bold;
+    border: solid 2px #DD1C1A;
     border-radius: 10px;
+    transition: .3s ease-in-out;
+}
+
+a[name="sign-up-btn"]:hover {
+    background-color: #DD1C1A;
+    color: white;
+    border-color: #DD1C1A;
 }
 
 a[name="log-in-btn"] {
     color: #DD1C1A;
+    font-weight: bold;
     padding: .5em 2em;
 }
 
@@ -184,7 +196,7 @@ a[name="log-in-btn"] {
 }
 
 .home-header .sub-header {
-    font-size: 1.0rem;
+    font-size: 3em;
     font-weight: 300;
 }
 
@@ -296,8 +308,10 @@ a[name="log-in-btn"] {
 }
     
 .cart-container .product-price {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 2.0em;
+    font-weight: bold;
+    color: #F0C808;
 }
 
 .add-to-cart-container object {
@@ -306,9 +320,18 @@ a[name="log-in-btn"] {
 }
     
 .add-to-cart-btn {
+    border-radius: 10px;
     border: none;
-    background-color: transparent;
-    width: 100%;
+    background-color: #F0C808;
+    color: black;
+    font-size: 1.6em;
+    width: 40px;    
+    height: 40px;
+    transition: color .5s ease-in-out;
+}
+
+.add-to-cart-btn:hover {
+    color: white;
 }
 
 .how-to-container {
@@ -435,10 +458,13 @@ a[name="log-in-btn"] {
     display: flex;
     flex-direction: row;
     justify-content: start;
+    align-items: center;
 }
 
-.soc-med span object {
-    margin-left: 1em;
+.social-media-icon {
+    margin-left: .5em;
+    font-size: 1.8em;
+    color: white;
 }
 
 @media (min-width: 768px) {

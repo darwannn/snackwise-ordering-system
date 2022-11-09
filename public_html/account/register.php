@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | Snackwise</title>
 
+    <!-- PAGE ICON -->
+    <link rel="icon" href="../img/penguin.png" type="image/icon type">
+    
+
     <!-- FONT LINKS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -164,7 +168,7 @@ Pwede mo tanggalin yung mga tabel na tags.
                 </div>
                 <div class="form-end-btn">
                     <div class="">
-                        <a href="index.html" id="cancel">Cancel</a>
+                        <a href="../index.php" id="cancel">Cancel</a>
                     </div>
                     <div class="">
                         <button type="button" id="register" class="btn btn-primary"> Register</button>
