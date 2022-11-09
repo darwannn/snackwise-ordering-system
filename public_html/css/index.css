@@ -296,8 +296,10 @@ a[name="log-in-btn"] {
 }
     
 .cart-container .product-price {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 2.0em;
+    font-weight: bold;
+    color: #F0C808;
 }
 
 .add-to-cart-container object {
@@ -306,9 +308,18 @@ a[name="log-in-btn"] {
 }
     
 .add-to-cart-btn {
+    border-radius: 10px;
     border: none;
-    background-color: transparent;
-    width: 100%;
+    background-color: #F0C808;
+    color: black;
+    font-size: 1.6em;
+    width: 40px;    
+    height: 40px;
+    transition: color .5s ease-in-out;
+}
+
+.add-to-cart-btn:hover {
+    color: white;
 }
 
 .how-to-container {

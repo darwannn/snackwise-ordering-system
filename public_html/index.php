@@ -155,7 +155,7 @@
                                 <span class="product-price">PHP 55.00</span>
                                 <span class="add-to-cart-container">
                                     <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
-                                        <object data="img/button-icons/add.svg"></object>
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </span>
                             </div>
@@ -175,7 +175,7 @@
                                 <span class="product-price">PHP 55.00</span>
                                 <span class="add-to-cart-container">
                                     <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
-                                        <object data="img/button-icons/add.svg"></object>
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </span>
                             </div>
@@ -195,7 +195,7 @@
                                 <span class="product-price">PHP 55.00</span>
                                 <span class="add-to-cart-container">
                                     <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
-                                        <object data="img/button-icons/add.svg"></object>
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </span>
                             </div>
@@ -215,7 +215,7 @@
                                 <span class="product-price">PHP 55.00</span>
                                 <span class="add-to-cart-container">
                                     <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
-                                        <object data="img/button-icons/add.svg"></object>
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </span>
                             </div>
