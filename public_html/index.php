@@ -149,7 +149,7 @@
                         <div class="product-details-container">
                             <div class="product-caption">
                                 <span class="product-name">Combo A</span>
-                                <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
+                                <span class="product-description">Includes: Regular Burger, Regular Fries, Blue Lemonade</span>
                             </div>
                             <div class="cart-container">
                                 <span class="product-price">PHP 55.00</span>
@@ -169,10 +169,10 @@
                         <div class="product-details-container">
                             <div class="product-caption">
                                 <span class="product-name">Combo B</span>
-                                <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
+                                <span class="product-description">Includes: Regular Burger, Carbonara, Blue Lemonade</span>
                             </div>
                             <div class="cart-container">
-                                <span class="product-price">PHP 55.00</span>
+                                <span class="product-price">PHP 89.00</span>
                                 <span class="add-to-cart-container">
                                     <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
                                         <i class="fa-solid fa-plus"></i>
@@ -189,10 +189,10 @@
                         <div class="product-details-container">
                             <div class="product-caption">
                                 <span class="product-name">Combo C</span>
-                                <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
+                                <span class="product-description">Includes: Regular Hotdog, Regular Fries, Blue Lemonade</span>
                             </div>
                             <div class="cart-container">
-                                <span class="product-price">PHP 55.00</span>
+                                <span class="product-price">PHP 80.00</span>
                                 <span class="add-to-cart-container">
                                     <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
                                         <i class="fa-solid fa-plus"></i>
@@ -209,10 +209,10 @@
                         <div class="product-details-container">
                             <div class="product-caption">
                                 <span class="product-name">Combo D</span>
-                                <span class="product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, officiis</span>
+                                <span class="product-description">Includes: Regular Fries, Carbonara, Blue Lemonade</span>
                             </div>
                             <div class="cart-container">
-                                <span class="product-price">PHP 55.00</span>
+                                <span class="product-price">PHP 85.00</span>
                                 <span class="add-to-cart-container">
                                     <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
                                         <i class="fa-solid fa-plus"></i>
