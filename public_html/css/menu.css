@@ -298,13 +298,19 @@ a[name="log-in-btn"] {
 .product-details .product-price {
     font-size: 1.8em;
     margin-top: 1em;
+    font-weight: bold;
+    color: #F0C808;
 }
 
 .interact button {
     float: right;
-    color: white;
-    background-color: #DD1C1A;
+    background-color: #F0C808;
     border-radius: 10px;
+    transition: .3s ease;
+}
+
+.interact button:hover {
+    color: white;
 }
 
 .how-to-container {

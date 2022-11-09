@@ -148,7 +148,7 @@
                     </ul>
                 </div>
                 <div class="cart">
-                    <button type="button" class="btn" onclick="open_cart();">View Cart(2)</button>
+                    <button type="button" class="btn" onclick="open_cart();">View Cart<i class="fa-solid fa-cart-shopping"></i><span class="cart-count">(02)</span></button>
                 </div>
             </div>
         </section>
@@ -171,7 +171,9 @@
                                     <span class="product-price">55.00PHP</span>
                                 </div>
                                 <div class="interact">
-                                    <button class="btn" onclick="open_cart();">+</button>
+                                    <button class="btn" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -189,7 +191,9 @@
                                     <span class="product-price">89.00PHP</span>
                                 </div>
                                 <div class="interact">
-                                    <button class="btn" onclick="open_cart();">+</button>
+                                    <button class="btn" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i> 
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -207,7 +211,9 @@
                                     <span class="product-price">80.00PHP</span>
                                 </div>
                                 <div class="interact">
-                                    <button class="btn" onclick="open_cart();">+</button>
+                                    <button class="btn" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i> 
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -225,7 +231,9 @@
                                     <span class="product-price">85.00PHP</span>
                                 </div>
                                 <div class="interact">
-                                    <button class="btn" onclick="open_cart();">+</button>
+                                    <button class="btn" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i> 
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -243,7 +251,9 @@
                                     <span class="product-price">55.00PHP</span>
                                 </div>
                                 <div class="interact">
-                                    <button class="btn" onclick="open_cart();">+</button>
+                                    <button class="btn" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i> 
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -261,7 +271,9 @@
                                     <span class="product-price">55.00PHP</span>
                                 </div>
                                 <div class="interact">
-                                    <button class="btn" onclick="open_cart();">+</button>
+                                    <button class="btn" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i> 
+                                    </button>
                                 </div>
                             </div>
                         </div>
