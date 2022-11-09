@@ -16,6 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!-- FONTAWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
 
     <!-- MY CSS -->
@@ -66,6 +67,53 @@
         <section class="top-header">
             <div class="container">
                 <h1 class="text-center">CONTACT US</h1>
+            </div>
+        </section>
+
+
+        <section class="contact-information-section">
+            <div class="container">
+                <div class="row information-wrapper">
+
+                    <div class="col-12 col-sm-4">
+                        <div class="information">
+                            <span class="icon"><i class="fa-solid fa-phone fa-5x"></i></span>
+                            <span class="information-title">
+                                Phone
+                            </span>
+                            <div class="info phone-numbers">
+                                <span>+639083662686</span>
+                                <span>+639774604427</span>
+                                <span>(850) 435-4155</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-4">
+                        <div class="information">
+                            <span class="icon"><i class="fa-solid fa-location-dot fa-5x"></i></span>
+                            <span class="information-title">
+                                Address
+                            </span>
+                            <div class="info">
+                                578 5th Avenue New York, NY 10032 United States
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-4">
+                        <div class="information">
+                            <span class="icon"><i class="fa-solid fa-at fa-5x"></i></span>
+                            <span class="information-title">
+                                Email
+                            </span>
+                            <div class="info">
+                                <span>snackwise.business@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </section>
 

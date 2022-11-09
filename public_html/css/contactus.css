@@ -108,6 +108,32 @@ a[name="log-in-btn"] {
 
 /* End of NAVBAR CSS */
 
+.information {
+    text-align: center;
+    margin-top: 2em;
+    padding: 2em;
+}
+
+.information .icon {
+    color: #F0C808;
+}
+
+.information .information-title {
+    margin: .5em 0;
+    font-size: 2.5em;
+    display: block;
+    font-weight: bold;
+}
+
+.information .info {
+    font-size: 1.6em;
+}
+
+.info span {
+    display: block;
+    
+}
+
 .top-header {
     background-image: url(../img/Background-Pattern.jpg);
     height: 181px;
