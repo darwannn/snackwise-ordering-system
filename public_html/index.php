@@ -305,7 +305,7 @@
                             ADDRESS
                         </span>
                         <span class="details">
-                            578 5th Avenue New York, NY 10032 United States
+                            Zone 3, Stall 1 Sto. Rosario Hagonoy Bulacan
                         </span>
                     </div>
 
@@ -314,7 +314,7 @@
                             CALL US
                         </span>
                         <span class="details">
-                            (850) 435-4155
+                            0970 860 1556
                         </span>
                     </div>
 
@@ -355,9 +355,8 @@
                         <div class="col-6 soc-med">
                             <span>Like us on: </span>
                             <span>
-                                <!-- TODO: Insert Snackwise FB Link -->
-                                <a href="#">
-                                    <object data="img/button-icons/facebook-icon.svg"></object>
+                               <a href="https://www.facebook.com/SnackWisePriceForEveryJuan" class="social-media-icon">
+                                    <i class="fa-brands fa-square-facebook"></i>
                                 </a>
                             </span>
                         </div>

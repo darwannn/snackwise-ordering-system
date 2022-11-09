@@ -156,7 +156,7 @@
         <section class="menu">
             <div class="container">
                 <div class="row menu-collection">
-                
+
                     <!-- MENU ITEM START HERE -->
 
                     <div class="col-12 col-md-6">
@@ -178,7 +178,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="col-12 col-md-6">
                         <div class="menu-item">
                             <div class="product-img">
@@ -192,13 +192,13 @@
                                 </div>
                                 <div class="interact">
                                     <button class="btn" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i> 
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="col-12 col-md-6">
                         <div class="menu-item">
                             <div class="product-img">
@@ -212,13 +212,13 @@
                                 </div>
                                 <div class="interact">
                                     <button class="btn" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i> 
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="col-12 col-md-6">
                         <div class="menu-item">
                             <div class="product-img">
@@ -232,13 +232,13 @@
                                 </div>
                                 <div class="interact">
                                     <button class="btn" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i> 
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="col-12 col-md-6">
                         <div class="menu-item">
                             <div class="product-img">
@@ -252,13 +252,13 @@
                                 </div>
                                 <div class="interact">
                                     <button class="btn" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i> 
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="col-12 col-md-6">
                         <div class="menu-item">
                             <div class="product-img">
@@ -272,13 +272,13 @@
                                 </div>
                                 <div class="interact">
                                     <button class="btn" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i> 
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- MENU ITEM END HERE -->
 
                 </div>
@@ -359,7 +359,7 @@
                             ADDRESS
                         </span>
                         <span class="details">
-                            578 5th Avenue New York, NY 10032 United States
+                            Zone 3, Stall 1 Sto. Rosario Hagonoy Bulacan
                         </span>
                     </div>
 
@@ -368,7 +368,7 @@
                             CALL US
                         </span>
                         <span class="details">
-                            (850) 435-4155
+                            0977 283 6086
                         </span>
                     </div>
 
@@ -409,9 +409,8 @@
                         <div class="col-6 soc-med">
                             <span>Like us on: </span>
                             <span>
-                                <!-- TODO: Insert Snackwise FB Link -->
-                                <a href="#">
-                                    <object data="img/button-icons/facebook-icon.svg"></object>
+                                <a href="https://www.facebook.com/SnackWisePriceForEveryJuan" class="social-media-icon">
+                                    <i class="fa-brands fa-square-facebook"></i>
                                 </a>
                             </span>
                         </div>

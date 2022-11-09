@@ -85,9 +85,8 @@
                                 Phone
                             </span>
                             <div class="info phone-numbers">
-                                <span>+639083662686</span>
-                                <span>+639774604427</span>
-                                <span>(850) 435-4155</span>
+                                <span>0970 860 1556</span>
+                                <span>0977 283 6086</span>
                             </div>
                         </div>
                     </div>
@@ -99,7 +98,7 @@
                                 Address
                             </span>
                             <div class="info">
-                                578 5th Avenue New York, NY 10032 United States
+                                Zone 3, Stall 1 Sto. Rosario Hagonoy Bulacan
                             </div>
                         </div>
                     </div>
@@ -111,7 +110,7 @@
                                 Email
                             </span>
                             <div class="info">
-                                <span>snackwise.business@gmail.com</span>
+                                <span>hajjiharoldjames@gmail.com</span>
                             </div>
                         </div>
                     </div>
@@ -214,7 +213,7 @@
                             ADDRESS
                         </span>
                         <span class="details">
-                            578 5th Avenue New York, NY 10032 United States
+                            Zone 3, Stall 1 Sto. Rosario Hagonoy Bulacan
                         </span>
                     </div>
 
@@ -223,7 +222,7 @@
                             CALL US
                         </span>
                         <span class="details">
-                            (850) 435-4155
+                            0977 283 608
                         </span>
                     </div>
 
@@ -264,9 +263,8 @@
                         <div class="col-6 soc-med">
                             <span>Like us on: </span>
                             <span>
-                                <!-- TODO: Insert Snackwise FB Link -->
-                                <a href="#">
-                                    <object data="img/button-icons/facebook-icon.svg"></object>
+                                <a href="https://www.facebook.com/SnackWisePriceForEveryJuan" class="social-media-icon">
+                                    <i class="fa-brands fa-square-facebook"></i>
                                 </a>
                             </span>
                         </div>

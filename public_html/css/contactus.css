@@ -351,10 +351,13 @@ a[name="log-in-btn"] {
     display: flex;
     flex-direction: row;
     justify-content: start;
+    align-items: center;
 }
 
-.soc-med span object {
-    margin-left: 1em;
+.social-media-icon {
+    margin-left: .5em;
+    font-size: 1.8em;
+    color: white;
 }
 
 /* FOOTER CSS END */
@@ -389,6 +392,10 @@ a[name="log-in-btn"] {
     
     .instruction {
         margin: 0;
+    }
+
+    .information {
+        text-align: start;
     }
     
 }
