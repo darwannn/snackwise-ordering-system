@@ -3,6 +3,14 @@ body {
     background-image: url(../img/Background-Pattern.jpg);
 }
 
+.parent-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .snackwise-label {
     display: flex;
     flex-direction: row;
