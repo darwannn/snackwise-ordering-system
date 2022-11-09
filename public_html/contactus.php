@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | Snackwise</title>
 
+    <!-- PAGE ICON -->
+    <link rel="icon" href="img/penguin.png" type="image/icon type">
+   
     <!-- FONT LINKS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
