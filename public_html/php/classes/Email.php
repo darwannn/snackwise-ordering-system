@@ -2,8 +2,8 @@
     require dirname(__FILE__) .'/../PHPMailer/PHPMailerAutoload.php';
 
     class Email {
-
-        public function sendEmail($email, $subject, $body) {
+        public function sendEmail($name, $email, $subject, $body, $type) {
+            
             $from = "smtpwebsitesmtp@gmail.com";
             $password = "youdtwsweknzggyz";
 
@@ -17,10 +17,19 @@
                 )
             );
 
+            if($type == "contact") {
+                $email = "darwinsanluisramos21@gmail.com";
+                $mail->addAddress($email);
+                $mail->addReplyTo($email);
+                $mail->setFrom($email);
+      
+            } else if($type == "account") {
+                $mail->addAddress($email);
+            }  
+            
             $mail->SMTPKeepAlive = true;
             $mail->Mailer = "smtp";
             $mail->isSMTP();
-
             $mail->Host = gethostbyname('ssl://smtp.gmail.com');
             $mail->Host = 'smtp.gmail.com';
             $mail->Subject = $subject;
@@ -28,13 +37,10 @@
             $mail->SMTPSecure = 'ssl';
             $mail->SMTPAuth = true;
             $mail->Username = $from;
+            $mail->FromName = $name;
             $mail->Password = $password;
-            $mail->FromName = "SnackWise";
 
-
-            $mail->addAddress($email);
             $mail->msgHTML($body);
             return $mail->send();
         }
     }
-?>

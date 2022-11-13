@@ -1,5 +1,14 @@
 body {
     font-family: 'Roboto', sans-serif;
+    background-image: url(../img/Background-Pattern.jpg);
+}
+
+.parent-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .snackwise-label {
@@ -29,7 +38,9 @@ body {
 }
 
 .form-container {
-    padding: 2em 1em;    
+    padding: 2em 1em;   
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .form-header {
@@ -81,8 +92,8 @@ body {
     }
 
     .parent-container {
-        height: 50vw;
         display: flex;
+        margin: auto 0;
         justify-content: center;
         align-items: center;
     } 
