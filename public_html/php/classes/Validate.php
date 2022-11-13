@@ -18,14 +18,14 @@ class Validate extends DbConnection
       if (strpos($name, "identifier")!== false) {
         if ($this->isEmail($input) == "email") {
           if ($this->isTakenEmail($input)) {
-            $this->output[$name] = ' Email address is taken';
+            $this->output[$name] = 'Account not found';
           } else {
             $this->output[$name] = '';
             unset($this->output[$name]);
           }
         } else   if ($this->isContact($input) == "contact") {
           if ($this->isTakenContact($input)) {
-            $this->output[$name] = 'Phone number is taken';
+            $this->output[$name] = 'Account not found';
           } else {
 
             $this->output[$name] = '';
@@ -33,7 +33,7 @@ class Validate extends DbConnection
           }
         } else {
           if ($this->isTakenUsername($input)) {
-            $this->output[$name] = 'Username is taken';
+            $this->output[$name] = 'Account not found';
           } else {
 
             $this->output[$name] = '';
@@ -41,6 +41,7 @@ class Validate extends DbConnection
           }
         }
       }
+ 
 
       /* checks if a user does not select an item in dropdown */
       if (strpos($name, "category")) {
@@ -81,7 +82,7 @@ class Validate extends DbConnection
           $this->output[$name] = 'Username is taken';
         }
       }
-      if (strpos($name, "password")!== false) {
+      if (strpos($name, "password")!== false && $compare_input != "login")  {
         if ($this->hasMeet($input)) {
   
             unset($this->output[$name]);

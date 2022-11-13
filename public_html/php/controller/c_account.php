@@ -8,8 +8,8 @@ if (isset($_POST["login"])) {
     $user_identifier = $_POST['user_identifier'];
     $password = $_POST['password'];
 
-    $validate->validateLength($password, '', 'password_error', 'Required field' );
     
+    $validate->validateLength($password, 'login', 'password_error', 'Required field');
     $table_identifier =  $validate->table_identifier($user_identifier, 'user_identifier_error');
     $validate->user_identifier($table_identifier, $user_identifier, 'user_identifier_error');
     $validate->validateLength($user_identifier, '', 'user_identifier_error', 'Required field');
@@ -45,16 +45,18 @@ if (isset($_POST["register"])) {
 
     $validate->validateLength($firstname,'','firstname_error', 'Required field' );
     $validate->validateLength($lastname,'', 'lastname_error', 'Required field' );
-    $validate->validateLength($username, '', 'username_error', 'Required field' );
-    $validate->validateLength($email,'', 'email_error', 'Required field' );
     $validate->validateLength($contact,'', 'contact_error', 'Required field' );
-    $validate->validateLength($password, $retype_password, 'password_error', 'Required field' );
-    $validate->validateLength($password,$retype_password, 'retype_password_error', 'Required field' );
+
+    $validate->validateLength($street,'', 'street_error', 'Required field' );
     $validate->validateSelectorLength($region,'region_error', 'Required field' );
     $validate->validateSelectorLength($province,'province_error', 'Required field' );
     $validate->validateSelectorLength($municipality,'municipality_error', 'Required field' );
+
     $validate->validateSelectorLength($barangay,'barangay_error', 'Required field');
-    $validate->validateLength($street,'', 'street_error', 'Required field' );
+    $validate->validateLength($username, '', 'username_error', 'Required field' );
+    $validate->validateLength($email,'', 'email_error', 'Required field' );
+    $validate->validateLength($password, $retype_password, 'password_error', 'Required field' );
+    $validate->validateLength($password,$retype_password, 'retype_password_error', 'Required field' );
 
     if (count($validate->output) > 0) {
         echo json_encode($validate->output);

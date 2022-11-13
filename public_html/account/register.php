@@ -31,6 +31,10 @@ if(isset($_GET["staff"]) == 1) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
     <link rel="stylesheet" href="../css/register.css">
+
+    <style>
+     
+    </style>
 </head>
 
 <div class="parent-container">
@@ -160,10 +164,10 @@ if(isset($_GET["staff"]) == 1) {
                 </div>
 
                 <div class="password_requirements">
-                    <h6><span class="length " id="length">&#x2716;</span>8 to 16 characters</h6>
-                    <h6><span class="case " id="case">&#x2716;</span>At least 1 Uppercase</h6>
-                    <h6><span class="number " id="number">&#x2716;</span>At least 1 number</h6>
-                    <h6><span class="special " id="special">&#x2716;</span>At least 1 special</h6>
+                    <h6><span class="length " id="length" style="opacity: 0;">&#x2716;</span>8 to 16 characters</h6>
+                    <h6><span class="case " id="case" style="opacity: 0;">&#x2716;</span>At least 1 Uppercase</h6>
+                    <h6><span class="number " id="number" style="opacity: 0;">&#x2716;</span>At least 1 number</h6>
+                    <h6><span class="special " id="special" style="opacity: 0;">&#x2716;</span>At least 1 special</h6>
                 </div>
             </div>
         </section>

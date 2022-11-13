@@ -13,11 +13,16 @@ class Account {
 
     /* display a checkmark if the specific password requirement has been met, otherwise it will display an x */
     verify_password(password) {
+        document.querySelector(".length").style.opacity = 1;
+        document.querySelector(".case").style.opacity = 1;
+        document.querySelector(".special").style.opacity = 1;
+        document.querySelector(".number").style.opacity = 1;
         let caseRequirments = /^(?=.*[a-z])(?=.*[A-Z])/;
-        let specialRequirments = /(?=.*[@$!%*?&])/;
+        let specialRequirments = /(?=.*[!@#$%^&,*.])/;
+       /*  let specialRequirments = /(?=.*[@$!%*?&])/; */
         let numberRequirments = /(?=.*\d)/;
-        let lengthRequirments = 9;
-        (password.length > lengthRequirments) ? document.getElementById("length").innerHTML = "&#x2714": document.getElementById("length").innerHTML = "&#x2716";
+        (password.length >= 8 && password.length <= 16) ? document.getElementById("length").innerHTML = "&#x2714": document.getElementById("length").innerHTML = "&#x2716";
+       
         (password.match(caseRequirments)) ? document.getElementById("case").innerHTML = "&#x2714": document.getElementById("case").innerHTML = "&#x2716";
         (password.match(specialRequirments)) ? document.getElementById("special").innerHTML = "&#x2714": document.getElementById("special").innerHTML = "&#x2716";
         (password.match(numberRequirments)) ? document.getElementById("number").innerHTML = "&#x2714": document.getElementById("number").innerHTML = "&#x2716";
@@ -38,18 +43,27 @@ class Account {
             return response.json();
         }).then(function (response_data) {
             console.log(response_data);
-            document.getElementById('login').innerHTML = "login";
+            document.getElementById('login').innerHTML = "Login";
             document.getElementById('login').disabled = false;
             /* displays the message returned */
             if (response_data.success) {
-                console.log("response_data");
-                document.getElementById('success_message').innerHTML = response_data.success;
-            } else if (response_data.error) {
+      /* 
+      
+                document.getElementById('success_message').innerHTML = response_data.success; */
+                document.getElementById('success_message').innerHTML = "";
+window.location.href = "../index.php";
+            } else if (response_data.validate) {
+                document.getElementById('success_message').innerHTML = "";
+                document.getElementById('success_message').innerHTML = response_data.validate;
+            }else if (response_data.error) {
+                document.getElementById('success_message').innerHTML = "";
+                document.getElementById('error_message').innerHTML = "";
                 document.getElementById('error_message').innerHTML = response_data.error;
             } else {
-                new Account().show_error(response_data.user_identifier_error, 'user_identifier_error');
-                new Account().show_error(response_data.password_error, 'password_error');
+                new Account().scroll_to(Object.keys(response_data)[0]);
             }
+            new Account().show_error(response_data.user_identifier_error, 'user_identifier_error');
+            new Account().show_error(response_data.password_error, 'password_error');
         });
     }
 
@@ -65,16 +79,20 @@ class Account {
         }).then(function (response) {
             return response.json();
         }).then(function (response_data) {
-            console.log(response_data);
+  
   
             document.getElementById('register').innerHTML = "Register";
             document.getElementById('register').disabled = false;
             if (response_data.success) {
-                console.log("response_data");
+        
                 document.getElementById('success_message').innerHTML = response_data.success;
+                new Account().scroll_to("top");
             } else if (response_data.error) {
                 document.getElementById('error_message').innerHTML = response_data.error;
+                new Account().scroll_to("top");
             } else {
+                new Account().scroll_to(Object.keys(response_data)[0]);
+            }
                 new Account().show_error(response_data.firstname_error, 'firstname_error');
                 new Account().show_error(response_data.lastname_error, 'lastname_error');
                 new Account().show_error(response_data.username_error, 'username_error');
@@ -87,7 +105,8 @@ class Account {
                 new Account().show_error(response_data.street_error, 'street_error');
                 new Account().show_error(response_data.password_error, 'password_error');
                 new Account().show_error(response_data.retype_password_error, 'retype_password_error');
-            }
+
+        
         });
     }
 
@@ -104,7 +123,7 @@ class Account {
             return response.json();
         }).then(function (response_data) {
             console.log(response_data);
-            document.getElementById('forgot_password').innerHTML = "Register";
+            document.getElementById('forgot_password').innerHTML = "Forgot Password";
             document.getElementById('forgot_password').disabled = false;
             if (response_data.success) {
                 console.log("response_data");
@@ -115,6 +134,7 @@ class Account {
                 document.getElementById('error_message').innerHTML = response_data.error;
             } else {
                 new Account().show_error(response_data.user_identifier_error, 'user_identifier_error');
+                new Account().scroll_to(Object.keys(response_data)[0]);
             }
         });
     }
@@ -133,17 +153,19 @@ class Account {
             return response.json();
         }).then(function (response_data) {
             console.log(response_data);
-            document.getElementById('new_password').innerHTML = "Register";
+            document.getElementById('new_password').innerHTML = "New Password";
             document.getElementById('new_password').disabled = false;
             if (response_data.success) {
-                console.log("response_data");
-                document.getElementById('success_message').innerHTML = response_data.success;
+  
+                /* document.getElementById('success_message').innerHTML = response_data.success; */
+                window.location.href = "login.php";
             } else if (response_data.error) {
                 document.getElementById('error_message').innerHTML = response_data.error;
             } else {
-                new Account().show_error(response_data.password_error, 'password_error');
-                new Account().show_error(response_data.retype_password_error, 'retype_password_error');
+                new Account().scroll_to(Object.keys(response_data)[0]);
             }
+            new Account().show_error(response_data.password_error, 'password_error');
+            new Account().show_error(response_data.retype_password_error, 'retype_password_error');
         });
     }
 
@@ -347,7 +369,26 @@ class Account {
     }
 
     show_error(error, element) {
+        console.log(element.replace('_error',''));
         error ? document.getElementById(element).innerHTML = error : document.getElementById(element).innerHTML = '';
+        error ? document.getElementById(element.replace('_error','')).style.border = "red solid 1px" : document.getElementById(element.replace('_error','')).style.border = "none";
+    
+    }
+
+    scroll_to(element) {
+        if(element == "top") {
+        window.scrollTo({
+            top:0,
+            left:0,
+            behavior:"smooth"
+        });
+    } else {
+        window.scrollTo({
+            top:(document.getElementById(element).offsetTop)-250,
+            left:0,
+            behavior:"smooth"
+        });
+    }
     }
 
 }

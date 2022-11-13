@@ -321,7 +321,7 @@ $_SESSION['user_type'] = "staff";
                             </span>
                         </div>
                         <div class="col-6">
-                            <span class="right">Copyright © 2022 Snackwise. All Rights Reserved.</span>
+                            <span class="right">Copyright © <script>document.write(new Date().getFullYear())</script> Snackwise. All Rights Reserved.</span>
                         </div>
                     </div>
                 </div>

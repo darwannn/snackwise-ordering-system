@@ -20,7 +20,7 @@
 
             <div class="">
             <label for="user_identifier">user_identifier Address</label>
-            <input type="text" class="user_identifier" name="user_identifier" id="user_identifier" placeholder="user_identifier " value=""
+            <input type="email" class="user_identifier" name="user_identifier" id="user_identifier" placeholder="user_identifier " value=""
                 autocomplete="off">
             <span class="" id="user_identifier_error"></span>
         </div>

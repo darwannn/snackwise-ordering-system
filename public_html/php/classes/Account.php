@@ -12,7 +12,7 @@ class Account extends DbConnection
     /* generates email verification code */
     public function generateCode()
     {
-        $code = substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$%', mt_rand(1, 16))), 1, 16);
+        $code = substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', mt_rand(1, 16))), 1, 16);
 
         /* check if the verification code already exists, if true it will regenerate again */
         $query = $this->connect()->prepare("SELECT * FROM user WHERE code = :code");
@@ -75,40 +75,81 @@ class Account extends DbConnection
 
     public function login($user_identifier, $table_identifier, $password)
     {
-            /* checks if the information entered exist  */
-            $query  = $this->connect()->prepare("SELECT user_id , password, attempt, user_type FROM user where " . $table_identifier . " = :user_identifier");
-            $query->execute([':user_identifier' => $user_identifier]);
-            if ($query->rowCount() > 0) {
-                $fetch = $query->fetch(PDO::FETCH_ASSOC);
-                $fetch_pass = $fetch['password'];
-                $fetch_user_id = $fetch['user_id'];
-                $fetch_attempt = $fetch['attempt'];
-                $fetch_user_type = $fetch['user_type'];
+        /* checks if the information entered exist  */
+        $query  = $this->connect()->prepare("SELECT user_id ,email, password, attempt, user_type,status FROM user where " . $table_identifier . " = :user_identifier");
+        $query->execute([':user_identifier' => $user_identifier]);
+        if ($query->rowCount() > 0) {
+            $fetch = $query->fetch(PDO::FETCH_ASSOC);
+            $fetch_pass = $fetch['password'];
+            $fetch_user_id = $fetch['user_id'];
+            $fetch_attempt = $fetch['attempt'];
+            $fetch_user_type = $fetch['user_type'];
+            $fetch_status = $fetch['status'];
+            $fetch_email = $fetch['email'];
 
-                /* verify if the password entered and the password in the database matches, if true login incorrect attempt counter will be reset to 0 else it will be increased by 1 */
-                if (password_verify($password, $fetch_pass)) {
-                    $query  = $this->connect()->prepare("UPDATE user SET attempt = :attempt WHERE user_id = :user_id");
-                    $result = $query->execute([':attempt' => '0', ':user_id' => $fetch_user_id]);
-                    if ($result) {
+            /* verify if the password entered and the password in the database matches, if true login incorrect attempt counter will be reset to 0 else it will be increased by 1 */
+            if (password_verify($password, $fetch_pass)) {
+                $query  = $this->connect()->prepare("UPDATE user SET attempt = :attempt WHERE user_id = :user_id");
+                $result = $query->execute([':attempt' => '0', ':user_id' => $fetch_user_id]);
+
+
+                if ($result) {
+                    /* checks if the account is verified */
+                    if ($fetch_status == "verified") {
+
+
                         $_SESSION['user_id'] = $fetch_user_id;
                         $_SESSION['password'] = $password;
                         $_SESSION['user_type'] = $fetch_user_type;
                         $output['success'] = 'Login Successfully';
-                    }
-                } else {
-                    $query =  $this->connect()->prepare("UPDATE user SET attempt = :fetch_attempt WHERE user_id = :fetch_user_id");
-                    $result = $query->execute([':fetch_attempt' =>  $fetch_attempt + 1, ':fetch_user_id' => $fetch_user_id]);
-                    if ($result) {
-                        $output['error'] = '<div class="alert alert-success">Incorrect Password</div>';
                     } else {
-                        $output['error'] = 'Something went wrong! Please try again later.';
+                        $code = $this->generateCode();
+                        if ($fetch_user_type == "customer") {
+                            $email =  $fetch_email;
+                            $subject = 'SnackWise Account Verification';
+                            
+                            $email = 'darwinsanluis.ramos14@gmail.com';
+          
+                            $notice = "Click the button <br> below to verify your account.";
+                            
+                         
+                        } else {
+                            $email = $this->get_admin_email();
+                            $subject = 'SnackWise Staff Account Verification';
+                            $notice = "Click the button <br> below to verify " . $fetch_email.".";
+                        }
+
+                        $subject = 'SnackWise Reset Login Attempts';
+                        $copy_link = "<a style='font-size:16px!important; overflow-wrap: break-word;'  href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "' >" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "</a>";
+                        $link = " <a style =' color: white; text-decoration: none' href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "'>Verify Your Account</a>";
+                      
+            
+                        $body = $this->email_template( $link, $copy_link,  $notice );
+
+                        if ($this->update_code($email, $subject, $body, $code)) {
+                            $_SESSION['forgot-email'] = $email;
+                            $output['validate'] = 'Link to change your password has been sent to ' . $email . '';
+                        } else {
+                            $output['error'] = 'Something went wrong! Please try again later.';
+                        }
                     }
                 }
             } else {
-                $output['error'] = 'Something went wrong! Please try again later.';
+                $query =  $this->connect()->prepare("UPDATE user SET attempt = :fetch_attempt WHERE user_id = :fetch_user_id");
+                $result = $query->execute([':fetch_attempt' =>  $fetch_attempt + 1, ':fetch_user_id' => $fetch_user_id]);
+                if ($result) {
+                    $output['error'] = 'Incorrect Password';
+                } else {
+                    $output['error'] = 'Something went wrong! Please try again later.';
+                }
             }
-            echo json_encode($output);
+        } else {
+            $output['error'] = 'Something went wrong! Please try again later.';
+        }
+        echo json_encode($output);
     }
+
+
 
     /* sends an email verification when the maximum login incorrect attempt has been met */
     public function email_attempt($user_identifier, $table_identifier)
@@ -120,30 +161,26 @@ class Account extends DbConnection
             $fetch_email = $fetch['email'];
             $code = $this->generateCode();
             $code_expiration = $this->get_current_date();
-            $query =  $this->connect()->prepare("UPDATE user SET code = :code, code_expiration = :code_expiration WHERE email = :email");
-            $result = $query->execute([':code' => $code, ':code_expiration' => $code_expiration, ':email' => $fetch_email]);
-            if ($result) {
-                $email = 'darwinsanluis.ramos14@gmail.com';
-                $subject = 'SnackWise Reset ';
-                $body = "
-                        <div>        
-                            <a href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/reset.php?code=" . $code . "' >" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/reset.php?code=" . $code . "</a>  
-                        </div>                    
-                        ";
 
-                $email_verification = new Email();
-                if ($email_verification->sendEmail("SnackWise",$email, $subject, $body,"account")) {
-                    $output['error'] = 'Too many incorrect login attempts. We have sent an email to verify your identity.';
-                } else {
-                    $output['error'] = 'Something went wrong! Please try again later.';
-                }
+            $email = 'darwinsanluis.ramos14@gmail.com';
+            $subject = 'SnackWise Reset Login Attempts';
+            $copy_link = "<a style='font-size:16px!important; overflow-wrap: break-word;' href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/reset.php?code=" . $code . "' >" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/reset.php?code=" . $code . "</a>  ";
+            $link = "<a style =' color: white; text-decoration: none' href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/reset.php?code=" . $code . "' > Verify Your Account</a>  ";
+            $notice = "Click the button <br> below to verify your account.";
+
+            $body = $this->email_template( $link, $copy_link,  $notice );
+
+            if ($this->update_code($email, $subject, $body, $code)) {
+                $_SESSION['forgot-email'] = $email;
+                $output['error'] = 'Too many incorrect login attempts. We have sent an email to verify your identity.';
             } else {
-                $output['error'] = 'Something went wrong! Please try again later';
+                $output['error'] = 'Something went wrong! Please try again later.';
             }
         }
         echo json_encode($output);
     }
 
+   
 
     /* -------------------- register */
     public function register($firstname, $lastname, $username, $email, $contact, $password, $retype_password, $region, $province, $municipality, $barangay, $street, $user_type)
@@ -165,41 +202,39 @@ class Account extends DbConnection
             else it will be send to the admin email address */
 
             if ($user_type == "customer") {
-                $email = 'darwinsanluis.ramos14@gmail.com';
+                $email =  $email;
                 $subject = 'SnackWise Account Verification';
-                $body = "
                 
-                <div>        
-                    <button class=''><a href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "'>Verify Your Account</a></button>
-                    <p class='text'>If the button does not work for any reason, you can also paste the following into your browser:</p>
-                    <a href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "' >" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "</a>
-                    
-                </div>                    
-                ";
+                $email = 'darwinsanluis.ramos14@gmail.com';
+
+                $notice = "Click the button <br> below to verify your account.";
+                
+             
             } else {
-                $email=$this->get_admin_email();
+                $email = $this->get_admin_email();
                 $subject = 'SnackWise Staff Account Verification';
-                $body = "
-                <div>        
-                        <button class=''><a href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "'>Verify Your Account</a></button>
-                        <p class='text'>If the button does not work for any reason, you can also paste the following into your browser:</p>
-                        <a href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "' >" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "</a>
-                    </div>                    
-                    ";
-                }
-                
-                
-                $email_verification = new Email();
-            if ($email_verification->sendEmail("SnackWise",$email, $subject, $body,"account")) {
+                $notice = "Click the button <br> below to verify " . $email.".";
+            }
+
+            $subject = 'SnackWise Reset Login Attempts';
+            $copy_link = "<a style='font-size:16px!important; overflow-wrap: break-word;'  href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "' >" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "</a>";
+            $link = " <a style =' color: white; text-decoration: none' href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "'>Verify Your Account</a>";
+          
+
+            $body = $this->email_template( $link, $copy_link,  $notice );
+
+
+            $email_verification = new Email();
+            if ($email_verification->sendEmail("SnackWise", $email, $subject, $body, "account")) {
 
                 $_SESSION['email'] = $email;
                 $_SESSION['password'] = $password;
 
                 if ($user_type == "user") {
-                    $output['success'] = 'Verification code has been sent to' . $email . '';
+                    $output['success'] = 'Verification code has been sent to ' . $email . '';
                 } else {
                     $fetch_email = $this->get_admin_email();
-                    $output['success'] = 'Verification code has been sent to' . $fetch_email . '';
+                    $output['success'] = 'Verification code has been sent to ' . $fetch_email . '';
                 }
             } else {
                 $output['error'] = 'Something went wrong! Please try again later.';
@@ -210,41 +245,48 @@ class Account extends DbConnection
         echo json_encode($output);
     }
 
-/* -------------------- register */
-/* when a user (both customer and staff) forgot their password, they can change their password using the link that will be sent to their email address*/
+    /* -------------------- register */
+    /* when a user (both customer and staff) forgot their password, they can change their password using the link that will be sent to their email address*/
     public function forgot_password($user_identifier, $table_identifier)
     {
         $query  = $this->connect()->prepare("SELECT email, username, contact FROM user where " . $table_identifier . " = :table_identifier");
         $query->execute([':table_identifier' => $user_identifier]);
+        $code = $this->generateCode();
         if ($query->rowCount() > 0) {
             $fetch = $query->fetch(PDO::FETCH_ASSOC);
             $fetch_email = $fetch['email'];
 
-            $code_expiration = $this->get_current_date();
-            $code = $this->generateCode();
-            
-            $query =  $this->connect()->prepare("UPDATE user SET code = :code, code_expiration = :code_expiration, WHERE email = :email");
-            $result = $query->execute([':code' => $code, ':code_expiration' => $code_expiration, ':email' => $fetch_email]);
-            if ($result) {
+            $subject = 'SnackWise Forgot Password';
 
-                $subject = 'SnackWise Forgot Password';
+            //the link will redirect the user to account/new-password
+           
 
-                //the link will redirect the user to account/new-password
-                $body = "
-                <div>        
-                    <button class=''><a href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/new-password.php?code=" . $code . "'>Verify Your Account</a></button>
-                    <p class='text'>If the button does not work for any reason, you can also paste the following into your browser:</p>
-                    <a href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/new-password.php?code=" . $code . "' >" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/new-password.php?code=" . $code . "</a> 
-                </div>  
-                ";
 
-                $email_verification = new Email();
-                if ($email_verification->sendEmail( "SnackWise",$fetch_email, $subject, $body,"account")) {
-                    $_SESSION['forgot-email'] = $fetch_email;
-                    $output['success'] = 'Link to change your password has been sent to' . $fetch_email . '';
-                } else {
-                    $output['error'] = 'Something went wrong! Please try again later.';
-                }
+                $notice = "Click the button <br> to change your password.";
+                
+         
+            $copy_link = "<a style='font-size:16px!important; overflow-wrap: break-word;'   href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/new-password.php?code=" . $code . "' >" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/new-password.php?code=" . $code . "</a>";
+          
+          
+            $link = "<a style =' color: white; text-decoration: none' href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/new-password.php?code=" . $code . "'>Change Password</a>";
+          
+
+            $body = $this->email_template( $link, $copy_link,  $notice );
+
+
+
+
+
+
+
+
+
+
+
+
+            if ($this->update_code($fetch_email, $subject, $body, $code)) {
+                $_SESSION['forgot-email'] = $fetch_email;
+                $output['success'] = 'Link to change your password has been sent to ' . $fetch_email . '';
             } else {
                 $output['error'] = 'Something went wrong! Please try again later.';
             }
@@ -253,6 +295,9 @@ class Account extends DbConnection
         }
         echo json_encode($output);
     }
+
+
+   
 
     /* -------------------- new-password */
     /* invoked when a user changes its password from new-password */
@@ -265,8 +310,7 @@ class Account extends DbConnection
         $result = $query->execute([':password' => $encryptPassword, ':code' => $code, ':status' => $status, ':user_id' => $user_id]);
         if ($result) {
             $output['success'] = 'Your password has been changed! Please login with your new password';
-            /*  header('Location: login'); */
-            exit;
+            $_SESSION['activate_success'] = "Your password has been changed! Please login with your new password";
         } else {
             $output['error'] = 'Something went wrong! Please try again later.';
         }
@@ -290,8 +334,8 @@ class Account extends DbConnection
             header('Location: error');
         }
     }
-    
-   
+
+
 
     /* -------------------- edit-profile */
     /* gets the information of user based in user_id */
@@ -318,7 +362,7 @@ class Account extends DbConnection
             $sub_array['street'] = $fetch['street'];
             $sub_array['image'] = $fetch['image'];
             $data[] = $sub_array;
-            $output = array("data"=>$data);
+            $output = array("data" => $data);
         } else {
             $output['activate_success'] = "Your account has been verified. You can now login";
         }
@@ -346,12 +390,10 @@ class Account extends DbConnection
         $result = $query->execute([":firstname" => $firstname, ":lastname" => $lastname, ":username" => $username, ":email" => $email, ":contact" => $contact, ":region" => $region, ":province" => $province, ":municipality" => $municipality, ":barangay" => $barangay, ":street" => $street, ":image" => $image_link, ':user_id' => $user_id]);
         if ($result) {
             $output['error'] = 'Your profile has been updated';
- 
         } else {
             $output['error'] = 'Something went wrong! Please try again later.';
         }
         echo json_encode($output);
-
     }
 
     /* invoked when a user changes its password from edit-user */
@@ -369,7 +411,6 @@ class Account extends DbConnection
             $output['success'] = '<div class="alert alert-success">Your password has been changed! Please login with your new password</div>';
             echo json_encode($output);
         }
-        
     }
 
     /* -------------------- */
@@ -377,33 +418,91 @@ class Account extends DbConnection
     public function delete_account($user_id)
     {
         $query = $this->connect()->prepare("DELETE FROM user  WHERE user_id = :user_id");
-        $result = $query->execute([ ':user_id' => $user_id]);
+        $result = $query->execute([':user_id' => $user_id]);
 
         if ($result) {
-        $output['success'] = 'Account Deleted';
+            $output['success'] = 'Account Deleted';
             echo json_encode($output);
             header('Location: login');
         } else {
             $output['error'] = 'Something went wrong! Please try again later.';
             echo json_encode($output);
         }
-       
     }
 
     /* -------------------- */
-     /* changes the login incorrect attempt counter to 0 */
-     public function reset_attempt()
+    /* changes the login incorrect attempt counter to 0 */
+    public function reset_attempt()
+    {
+        $url_code = $_GET["code"];
+        $code = 0;
+        $attempt = 0;
+        $query  = $this->connect()->prepare("UPDATE user SET code = :code, attempt = :attempt WHERE code = :url_code");
+        $result = $query->execute([':code' => $code,  ':attempt' => $attempt, ':url_code' => $url_code]);
+        if ($result) {
+            $_SESSION['activate_success'] = "Your account has been verified. You can now login";
+            header('Location: login');
+        } else {
+            header('Location: error');
+        }
+    }
+
+     /* updates verification code */
+     public function update_code($email, $subject, $body, $code)
      {
-         $url_code = $_GET["code"];
-         $code = 0;
-         $attempt = 0;
-         $query  = $this->connect()->prepare("UPDATE user SET code = :code, attempt = :attempt WHERE code = :url_code");
-         $result = $query->execute([':code' => $code,  ':attempt' => $attempt, ':url_code' => $url_code]);
+         $code_expiration = $this->get_current_date();
+         $status = "verified";
+ 
+         $query =  $this->connect()->prepare("UPDATE user SET code = :code, code_expiration = :code_expiration, status = :status WHERE email = :email");
+         $result = $query->execute([':code' => $code, ':code_expiration' => $code_expiration, ':status' => $status, ':email' => $email]);
          if ($result) {
-             $_SESSION['activate_success'] = "Your account has been verified. You can now login";
-             header('Location: login');
+ 
+ 
+             $email_verification = new Email();
+             if ($email_verification->sendEmail("SnackWise", $email, $subject, $body, "account")) {
+ 
+                 return true;
+             } else {
+ 
+                 return false;
+             }
          } else {
-             header('Location: error');
+ 
+             return false;
          }
      }
+ 
+
+     /* email content template */
+     public function email_template($link, $copy_link, $notice) {
+        return "
+        <body
+style='box-sizing: border-box; font-family:Roboto, sans-serif; font-size: 18px; background-image:url(https://res.cloudinary.com/dhzn9musm/image/upload/v1668344633/SnackWise/Background-Pattern_dpqbdy.jpg); height: 850px;width: 100%; text-align: center; position: relative;'>
+<div style='top: 50%; right: 50%; transform: translate(50%,-50%); position: absolute; '>
+
+    <h1 style='padding-top:100px ;'><span style='color: #DD1C1A;'>SNACK</span><span style='color: #F0C808; text-align: center;'>WISE</span></h1>
+    <div  style=' background-color: white; margin:0px auto 0px auto; border-radius: 20px;  width: 500px;'>
+        <div style=' width: 450px; padding: 80px 15px; text-align: center; margin: auto; '>
+            <p>" . $notice . "</p>
+
+            <button style='width: 100%; margin: 20px 0; font-weight: 600px;  font-size: 18px;padding: 20px 0; border-radius: 10px;border:none;background-color: #DD1C1A; color: white;'>" . $link . "</button>
+
+            <p>If the button does not work for any reason, you can <br> also paste the following into your browser: </p>
+            " . $copy_link . "
+        </div>
+
+    </div>
+
+
+<div style='text-align: center; font-size: 12px; margin: 0 70px;'>
+    <p>If you have any questions, simply respond to this email and we'll be happy to help.</p>
+    <p style='margin-top:3px;' >Copyright © <script>
+            document.write(new Date().getFullYear())
+        </script> Snackwise. All Rights Reserved.</p>
+</div>
+</div>
+</body>
+
+        ";
+    }
 }
