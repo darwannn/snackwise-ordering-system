@@ -6,6 +6,7 @@ class Cart {
     }
 
     cart() {
+        new Cart().cart_count();
         new Cart().fetch_holiday();
         new Cart().display_cart();
         new Cart().close_add_order();
@@ -239,7 +240,7 @@ class Cart {
 
      /* add an item to the cart table */
      add_to_cart(menu_id) {
-     
+
         let form_data = new FormData();
         form_data.append('add_to_cart', 'add_to_cart');
         form_data.append('menu_id', menu_id);
@@ -249,6 +250,7 @@ class Cart {
         }).then(function (response) {
             return response.json();
         }).then(function (response_data) {
+            console.log(response_data);
             if (response_data.success) {
                 new Cart().display_cart();
           
@@ -259,7 +261,7 @@ class Cart {
         /*         new Cart().cancel_cart(); */
                 new Cart().open_cart();
                
-            } else {
+            } else if (response_data.error){
                 new Notification().create_notification(response_data.error, "error");
             }
         });

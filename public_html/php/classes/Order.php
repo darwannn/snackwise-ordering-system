@@ -29,16 +29,7 @@ class Order extends DbConnection
     /* invoked when the items on the cart have been ordered */
     public function add_order($user_id, $cartlist, $date, $time)
     {
-        $id = 0;
-        $query = $this->connect()->prepare("SELECT order_id FROM orders ORDER BY order_id DESC LIMIT 1");
-        $result = $query->execute();
-        if ($query->rowCount() > 0) {
-            $fetch = $query->fetch(PDO::FETCH_ASSOC);
-            $fetch_order_id = $fetch['order_id'];
-            $id = $fetch_order_id + 1;
-        } else {
-            $id = 1;
-        }
+        
 
         $status = "Placed";
         $qr_code = $this->generate_qr_code();
@@ -54,8 +45,8 @@ class Order extends DbConnection
         $image_link = "v" . $data['version'] . "/" . $data['public_id'];
         unlink($PNG_TEMP_DIR . $qr_code . '.png');
 
-        $query = $this->connect()->prepare("INSERT INTO orders (order_id, user_id, date, time, qr_code, qr_image, status) VALUES( :order_id, :user_id, :date, :time, :qr_code, :qr_image, :status)");
-        $result = $query->execute([":order_id" => $id, ":user_id" => $user_id, ":date" => $date, ":time" => $time, ":qr_code" => $qr_code, ":qr_image" => $image_link, ":status" => $status]);
+        $query = $this->connect()->prepare("INSERT INTO orders ( user_id, date, time, qr_code, qr_image, status) VALUES( :user_id, :date, :time, :qr_code, :qr_image, :status)");
+        $result = $query->execute([ ":user_id" => $user_id, ":date" => $date, ":time" => $time, ":qr_code" => $qr_code, ":qr_image" => $image_link, ":status" => $status]);
         if ($result) {
             $cart_id = explode(',', $cartlist);
             for ($i = 0; $i < count($cart_id); $i++) {
@@ -66,8 +57,15 @@ class Order extends DbConnection
                     $fetch_menu_id = $fetch['menu_id'];
                     $fetch_quantity = $fetch['quantity'];
 
+                  
+        $query = $this->connect()->prepare("SELECT order_id FROM orders WHERE user_id = :user_id ORDER BY order_id DESC LIMIT 1");
+        $result = $query->execute(["user_id"=>$user_id]);
+            $fetch = $query->fetch(PDO::FETCH_ASSOC);
+            $fetch_order_id = $fetch['order_id'];
+        
+    
                     $query = $this->connect()->prepare("INSERT INTO orderlist (order_id, menu_id, quantity) VALUES( :order_id, :menu_id, :quantity)");
-                    $result = $query->execute([":order_id" => $id, ":menu_id" => $fetch_menu_id, ":quantity" => $fetch_quantity]);
+                    $result = $query->execute([":order_id" => $fetch_order_id, ":menu_id" => $fetch_menu_id, ":quantity" => $fetch_quantity]);
                 }
 
                  $query = $this->connect()->prepare("DELETE FROM cart where cart_id = :cart_id");

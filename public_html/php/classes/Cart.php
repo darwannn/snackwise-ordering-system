@@ -78,7 +78,7 @@ class Cart extends DbConnection
 /* --------------------  */
 
   /* check if there is a user_id and password session, indicating that a user is logged-in*/
-    public function check_session()
+    /* public function check_session()
     {
 
 
@@ -88,7 +88,7 @@ class Cart extends DbConnection
             $output['error'] = "You must be logged in to order";
         }
         echo json_encode($output);
-    }
+    } */
 
 
 /* gets all the added-to-cart items of the logged-in customer */

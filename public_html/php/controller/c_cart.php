@@ -1,13 +1,22 @@
 <?php
 require dirname(__FILE__) . '/../classes/Cart.php';
+require dirname(__FILE__) . '/../classes/Validate.php';
+$validate = new Validate();
 $cart = new Cart();
 
 /* cart.php */
 if (isset($_POST["add_to_cart"]) == 'add_to_cart') {
 
     $menu_id = $_POST['menu_id'];
-    $user_id = $_SESSION['user_id'];
-    $cart->add_to_cart($user_id, $menu_id);
+  
+    
+    if ($validate->is_logged_in("customer")) {
+        $output['error'] = "You must be logged in to order";
+        echo json_encode($output);
+    } else {
+        $user_id = $_SESSION['user_id'];
+        $cart->add_to_cart($user_id, $menu_id);
+    }
 }
 
 if (isset($_POST["add_to_cart_count"]) == 'add_to_cart_count') {
@@ -38,6 +47,6 @@ if (isset($_POST["get_price"])) {
 }
 
 /* menu.php */
-if (isset($_POST["check_session"])) {
+/* if (isset($_POST["check_session"])) {
     $cart->check_session();
-}
+} */

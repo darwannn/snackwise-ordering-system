@@ -29,6 +29,7 @@ class Order {
                     if(order.order_id != current_order_id ) {
                     /* display delete and download QR button only once */
                     
+                    order_list += `<hr>`;
                     current_order_id = order.order_id; 
                     if(order.status == "Placed") {
                         order_list += `<button type="button" class="" name='delete_order'  onclick="new Order().delete_order(${order.order_id});">Delete</button>`;
@@ -60,6 +61,7 @@ class Order {
                 <div>${total_discounted_price}</div>
                 `;
             }
+            
             document.getElementById("order_list").innerHTML = order_list;
 
             /* lightGallery(document.getElementById('order_list'), {
@@ -93,7 +95,16 @@ class Order {
                 console.log(response_data.data[0].order_id);
                 
                 response_data.data.map(function (order) {
-                    
+                    let current_order_id = 0;
+                    if(order.order_id != current_order_id ) {
+                        /* display delete and download QR button only once */
+                        
+                        current_order_id = order.order_id; 
+                     
+                        order_list += `<hr>`;
+                        order_list += ` <div>${order.date}</div>`;
+                     
+                        } 
                     order_list += `
             <div class="text">
             <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${order.image_list}' width='40px' height='40px'></img>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2022 at 06:02 AM
+-- Generation Time: Nov 14, 2022 at 08:58 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -39,7 +39,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `user_id`, `menu_id`, `quantity`) VALUES
-(93, 105, 69, 1);
+(101, 105, 76, 1),
+(102, 105, 65, 1);
 
 -- --------------------------------------------------------
 
@@ -188,7 +189,8 @@ INSERT INTO `notification` (`notification_id`, `message`, `user_id`, `status`) V
 (69, 'Your order has been claimed', 105, 'unread'),
 (70, 'Your order has been claimed', 105, 'unread'),
 (71, 'Your order has been claimed', 105, 'unread'),
-(72, 'Your order has been claimed', 105, 'unread');
+(72, 'Your order has been claimed', 105, 'unread'),
+(73, 'Your order has been claimed', 105, 'unread');
 
 -- --------------------------------------------------------
 
@@ -208,14 +210,12 @@ CREATE TABLE `orderlist` (
 --
 
 INSERT INTO `orderlist` (`orderlist_id`, `order_id`, `menu_id`, `quantity`) VALUES
-(84, 1, 65, 2),
-(85, 2, 65, 1),
-(86, 2, 81, 1),
-(87, 1, 65, 1),
-(88, 1, 76, 1),
-(89, 2, 69, 1),
-(90, 3, 69, 1),
-(91, 1, 67, 2);
+(94, 4, 67, 1),
+(95, 4, 65, 1),
+(96, 5, 69, 1),
+(97, 6, 69, 1),
+(98, 7, 65, 1),
+(99, 7, 67, 1);
 
 -- --------------------------------------------------------
 
@@ -238,7 +238,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `date`, `time`, `qr_code`, `qr_image`, `status`) VALUES
-(1, 105, '2022-11-14', '12:35:00', '1i9IvPD0AA1XNtVC', 'v1668401894/SnackWise/QR/1i9IvPD0AA1XNtVC', 'Placed');
+(5, 105, '2022-11-14', '14:37:00', 'oueBLR0spf2B3X5G', 'v1668408032/SnackWise/QR/oueBLR0spf2B3X5G', 'Placed'),
+(6, 105, '2022-11-14', '14:37:00', 'w0o3Tsb27G0gY59W', 'v1668408301/SnackWise/QR/w0o3Tsb27G0gY59W', 'Placed'),
+(7, 105, '2022-11-14', '14:37:00', 'skMhlHQYCWsvmzrN', 'v1668408318/SnackWise/QR/skMhlHQYCWsvmzrN', 'Placed');
 
 -- --------------------------------------------------------
 
@@ -259,8 +261,7 @@ CREATE TABLE `transaction` (
 --
 
 INSERT INTO `transaction` (`transaction_id`, `order_id`, `user_id`, `date`, `price`) VALUES
-(77, 1, 105, '2022-11-14', 150),
-(78, 2, 105, '2022-11-14', 75);
+(79, 4, 105, '2022-11-14', 80);
 
 -- --------------------------------------------------------
 
@@ -363,7 +364,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -387,19 +388,25 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `orderlist`
 --
 ALTER TABLE `orderlist`
-  MODIFY `orderlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `orderlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `user`

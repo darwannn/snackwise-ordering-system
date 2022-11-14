@@ -42,6 +42,7 @@ $conn = $db->connect();
 
     <!-- MY CSS -->
     <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/notification.css">
 
     <style>
         input[type="radio"] {
@@ -378,7 +379,7 @@ $conn = $db->connect();
             let cart = new Cart();
             let menu = new Menu();
 
-            cart.cart_count();
+            
 
             document.getElementById("cart_summay").style.display = "none";
 
@@ -405,7 +406,17 @@ $conn = $db->connect();
             console.log(document.querySelector(`input[name="category"][value='57']`));
             /* --------------------cart */
 
-            cart.cart();
+            <?php if($validate->is_logged_in("customer")){
+                    ?>
+                     document.getElementById('modal_backdrop').style.display = 'none';
+                     
+                    <?php 
+                    }else {
+                        ?>
+                        cart.cart();
+                    <?php
+                    }?>
+        
 
         });
     </script>

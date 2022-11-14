@@ -173,9 +173,9 @@ $account->delete_code();
                 </a>
             </div>
             <div class="products-container container">
-                <div class="row justify-content-center">
+            
                     <!-- bestseller items will be appended here -->
-    <div class="bestseller_list" id="bestseller_list">
+    <div class="bestseller_list row justify-content-start" id="bestseller_list">
 
                     <!-- <div class="col-12 col-md-3 product">
                         <div class="product-img-container">
@@ -200,7 +200,7 @@ $account->delete_code();
 
                     </div>
 
-                </div>
+              
 
             </div>
         </section>
