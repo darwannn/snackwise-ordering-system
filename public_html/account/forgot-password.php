@@ -2,9 +2,13 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Password Reset | Snackwise</title>
     <!-- PAGE ICON -->
-    <link rel="icon" href="img/penguin.png" type="image/icon type">
+    <link rel="icon" href="../img/penguin.png" type="image/icon type">
 
     <!-- FONT LINKS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +29,7 @@
 
 <body>
 
-    <div class="parent-container">
+    <!-- <div class="parent-container">
         <div class="window-container">
             <div class="snackwise-label">
                 <div class="brand-icon">
@@ -52,6 +56,34 @@
                     <button type="button" id="forgot_password" class="register-btn btn btn-warning">Submit</button>
                 </form>
             </div>
+        </div>
+    </div> -->
+
+    <div class="parent-container">
+        <div class="form-window">
+            <div class="snackwise-label">
+                <div class="brand-icon">
+                    <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
+                </div>
+                <div class="brand-name">
+                    <a href="index.html">
+                        <span class="red">SNACK<span class="yellow">WISE</span></span>
+                    </a>
+                </div>
+            </div>
+            <div class="back-container">
+                <a href="new-password.php"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
+            </div>
+            <div class="form-header">
+                <h1>Forgot Password</h1>
+            </div>
+            <form action="POST" id="account_form">
+                <span id="success_message" class="text-success"></span>
+                <span id="error_message" class="text-success"></span>
+                <input type="text" name="user_identifier" id="user_identifier" placeholder="Enter Email Address" value="" autocomplete="off">            
+                <span id="user_identifier_error" class="text-danger"></span>
+                <button id="forgot_password">Submit</buttn>
+            </form>
         </div>
     </div>
 
