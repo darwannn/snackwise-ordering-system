@@ -1,3 +1,10 @@
+<?php
+require_once dirname(__FILE__) . '/php/classes/DbConnection.php';
+require_once dirname(__FILE__).'/php/classes/Validate.php';
+
+$validate=new Validate();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,14 +31,18 @@
 
     <!-- MY CSS -->
     <link rel="stylesheet" href="css/contactus.css">
+    <link rel="stylesheet" href="css/notification.css">
 
 </head>
 
 <body>
 
+ <!-- toast_notif notification will be appended here -->
+ <div class="toast_notif" id="toast_notif"></div>
+
     <div class="parent-container">
 
-        <nav class="navbar navbar-light bg-light navbar-expand-md">
+    <nav class="navbar navbar-light bg-light navbar-expand-md">
             <div class="container">
                 <a href="index.php" class="navbar-brand">
                     <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
@@ -49,20 +60,27 @@
                             <a href="menu.php" class="nav-link">Menu</a>
                         </li>
                         <li class="nav-item">
-                            <a href="aboutus.php" class="nav-link">About Us</a>
-                        </li>
-                        <li class="nav-item">
                             <a href="contactus.php" class="nav-link" id="active">Contact Us</a>
                         </li>
                     </ul>
+                    <?php 
+                    if($validate->is_logged_in("customer")){
+                    ?>
                     <form action="#" class="form-inline sign-btns">
-                        <!-- 
-                            NOTE: IF THE USER IS SIGNED IN, The sign-up button should be replaced by profile btn.
-                        -->
-                        <!-- TODO: Insert user profile and cart button here.  -->
                         <a name="log-in-btn" class="btn" href="account/login.php">Login</a>
-                        <a name="sign-up-btn" id="" class="btn btn-primary" href="./account/register.php" role="button">Sign Up</a>
+                        <a name="sign-up-btn" id="" class="btn btn-primary" href="account/register.php" role="button">Sign Up</a>
                     </form>
+                    <?php 
+                    }else {
+                        /* dito lalagay yung logout*/
+                        ?>
+                    <form action="#" class="form-inline sign-btns">
+                        
+                        <a name="sign-up-btn" class="btn btn-primary" href="account/logout.php">Logout</a>
+                    </form>
+                        <?php
+                    }
+                    ?>
                 </div>
             </div>
         </nav>
@@ -122,18 +140,26 @@
         <section class="contact-section">
             <div class="container">
                 <div class="contact-image-container">
-                    <img src="https://images.pexels.com/photos/4109234/pexels-photo-4109234.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" srcset="">
+                    <img src="https://images.pexels.com/photos/4109234/pexels-photo-4109234.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" srcset="" >
                 </div>
                 <div class="contact-form-container">
-                    <form action="/submit" class="contact-form">
+                    <form action="/submit" class="contact-form" id="contact_form">
                         <span class="form-title">
                             Send us a message:
                         </span>
-                        <input type="text" name="full-name" id="name-input" placeholder="Full Name">
-                        <input type="email" name="email-address" id="email-input" placeholder="Email">
-                        <input type="text" name="email-subject" id="subject-input" placeholder="Subject">
-                        <textarea name="myTextarea" placeholder="Your message here." cols="100" rows="10" minlength="10" maxlength="500" spellcheck required></textarea>
-                        <button class="btn btn-primary">SUBMIT</button>
+                        <input type="text" name="name" id="name" placeholder="Full Name">
+                        <span class="" id="name_error"></span>
+                        
+                        <input type="email" name="email" id="email" placeholder="Email">
+                        <span class="" id="email_error"></span>
+                        
+                        <input type="text" name="subject" id="subject" placeholder="Subject">
+                        <span class="" id="subject_error"></span>
+                        
+                        <textarea name="message" placeholder="Your message here." cols="100" rows="10" minlength="10" maxlength="500" spellcheck required></textarea>
+                        <span class="" id="message_error"></span>
+                        
+                        <button type="button" class="btn" id="submit">SUBMIT</button>
                     </form>
                 </div>
             </div>
@@ -278,9 +304,21 @@
         </footer>
 
     </div>
+
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="js/Notification.js"></script>
 
+<script>
+
+ 
+     document.addEventListener("DOMContentLoaded", function(event) {
+    let notification= new Notification();
+
+    document.getElementById('submit').onclick = function() {
+        notification.send_email_message();
+    }; 
+});
+</script>
 </body>
-
 </html>
