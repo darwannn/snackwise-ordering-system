@@ -69,6 +69,9 @@ class Order extends DbConnection
                     $query = $this->connect()->prepare("INSERT INTO orderlist (order_id, menu_id, quantity) VALUES( :order_id, :menu_id, :quantity)");
                     $result = $query->execute([":order_id" => $id, ":menu_id" => $fetch_menu_id, ":quantity" => $fetch_quantity]);
                 }
+
+                 $query = $this->connect()->prepare("DELETE FROM cart where cart_id = :cart_id");
+                $result = $query->execute([":cart_id" => $cart_id[$i]]);
             }
             $output['success'] = 'Order Successfully Placed';
         } else {
@@ -87,7 +90,7 @@ it checks if the code is associated with an order, if true it will display the o
             $fetch = $query->fetch(PDO::FETCH_ASSOC);
             $fetch_status = $fetch['status'];
             /* determines if an order is ready to be claimed or not */
-            if ($fetch_status != "Pick-Up") {
+            if ($fetch_status != "Ready") {
                 $data = array();
 
                     $sub_array = array();
@@ -123,12 +126,12 @@ it checks if the code is associated with an order, if true it will display the o
 /* gets and display all the ordered items of the logged-in customer */
     public function display_order($user_id)
     {
-        $result=$query = $this->connect()->prepare("SELECT o.user_id, u.firstname, u.lastname, o.order_id, o.date, o.time, o.qr_image,o.status,m.menu_id AS menu_id_list, m.name AS menu_name_list , l.quantity AS quantity_list, m.category AS category_list, m.price AS price_list, m.discount AS discount_list, m.image AS image_list FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id INNER JOIN menu m ON l.menu_id = m.menu_id WHERE u.user_id = :user_id");
+        $query = $this->connect()->prepare("SELECT o.user_id, u.firstname, u.lastname, o.order_id, o.date, o.time, o.qr_image,o.status,m.menu_id AS menu_id_list, m.name AS menu_name_list , l.quantity AS quantity_list, m.category AS category_list, m.price AS price_list, m.discount AS discount_list, m.image AS image_list FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id INNER JOIN menu m ON l.menu_id = m.menu_id WHERE u.user_id = :user_id");
          $query->execute(["user_id" => $user_id]);
+         $result = $query -> fetchAll();
         if ($query->rowCount() > 0) {
             $fetch = $query->fetch(PDO::FETCH_ASSOC);
-            $fetch_status = $fetch['status'];
-            if ($fetch_status != "Pick-Up") {
+    
                 $data = array();
                 foreach ($result as $row) {
                     $sub_array = array();
@@ -150,9 +153,7 @@ it checks if the code is associated with an order, if true it will display the o
                     $data[] = $sub_array;
                 }
                 $output = array("data"=>$data);
-            } else {
-                $output['error'] = 'Order is not ready yet';
-            }
+         
         } else {
             $output['error'] = 'Could not find order';
         }

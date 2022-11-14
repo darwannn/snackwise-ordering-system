@@ -22,7 +22,7 @@ class Order {
             if (response_data.error) {
                 document.getElementById("order_list").innerHTML = response_data.error;
             } else {
-                console.log(response_data.data[0].order_id);
+               
                     let current_order_id = 0;
                 response_data.data.map(function (order) {
                     /* checks if the customer has multiple order */

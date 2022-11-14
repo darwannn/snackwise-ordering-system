@@ -8,11 +8,6 @@ $db = new DbConnection();
 $conn = $db->connect();
 
 
-$_SESSION['password'] = 1;
-$_SESSION['user_id'] = 1;
-$_SESSION['user_type'] = "staff";
-
-
 ?>
 
 <!DOCTYPE html>
@@ -350,7 +345,7 @@ $_SESSION['user_type'] = "staff";
                        <div class="input-group mt-2">
                             
                                   <input type="date" class="form-control me-1" id="date" name="date">
-                            <input type="text" class="form-control ms-1" id="time " name="time" >
+                            <input type="text" class="form-control ms-1" id="time" name="time" >
                         </div>
                 
                     </form>
