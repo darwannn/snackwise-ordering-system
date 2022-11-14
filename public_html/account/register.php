@@ -40,14 +40,14 @@ if (isset($_GET["staff"]) == 1) {
 <div class="parent-container">
 
     <div class="container p-5 form-container">
-        <div class="snackwise-label">
+        <a href="../index.php" class="snackwise-label text-decoration-none">
             <div class="brand-icon">
                 <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
             </div>
             <div class="brand-name">
                 <span class="red">SNACK<span class="yellow">WISE</span></span>
             </div>
-        </div>
+        </a>
         <form id="account_form" method="POST">
 
             <div class="row">

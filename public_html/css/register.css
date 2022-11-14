@@ -57,7 +57,12 @@ body {
     font-size: 36px;
     color: #DD1C1A;
 }
-
+.input-group-text {
+    border-radius:  0 5px 5px 0 !important;
+  border: none;
+  background-color: #eeeeee;
+    padding: 1.53em 1.3em;
+}
 .input-section {
     margin: 2em 0;
 }

@@ -115,13 +115,10 @@ class Notification {
     toast_notif_close.innerHTML = '<i class="fas fa-times"></i>';
     create_toast_notif_dialog.appendChild(toast_notif_close);
 
-    create_toast_notif_dialog.onclick = function (e) {
-      e.target.parentElement.remove();
-    }
     toast_notif_close.onclick = function (e) {
-      e.target.parentElement.parentElement.remove();
+      create_toast_notif_dialog.remove();
+    
     }
-
     setTimeout(() => {
       for (let i = 0; i < toast_notif_dialog.length; i++) {
         if (toast_notif_dialog[i].getAttribute("id") == id) {

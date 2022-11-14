@@ -420,6 +420,10 @@ $conn = $db->connect();
         
 
         });
+
+        // new Notification().create_notification("You must be lodsssssssssssgged in to order", "error");
+        // new Notification().create_notification("You must be lodsssssssssssgged in to order", "success");
+        // new Notification().create_notification("You must be lodsssssssssssgged in to order", "neutral");
     </script>
 
 </body>
