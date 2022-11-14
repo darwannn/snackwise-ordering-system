@@ -197,7 +197,44 @@ $account->delete_code();
                         </div>
                     </div> -->
 
+                    <div class="col-12 col-md-3 product">
+                        <div class="product-img-container">
+                            <img src="img/menu-imgs/C.jpg" alt="combo a image" class="product-img">
+                        </div>
+                        <div class="product-details-container">
+                            <div class="product-caption">
+                                <span class="product-name">Combo C</span>
+                                <span class="product-description">Includes: Regular Hotdog, Regular Fries, Blue Lemonade</span>
+                            </div>
+                            <div class="cart-container">
+                                <span class="product-price">PHP 80.00</span>
+                                <span class="add-to-cart-container">
+                                    <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-12 col-md-3 product">
+                        <div class="product-img-container">
+                            <img src="img/menu-imgs/D.jpg" alt="combo a image" class="product-img">
+                        </div>
+                        <div class="product-details-container">
+                            <div class="product-caption">
+                                <span class="product-name">Combo D</span>
+                                <span class="product-description">Includes: Regular Fries, Carbonara, Blue Lemonade</span>
+                            </div>
+                            <div class="cart-container">
+                                <span class="product-price">PHP 85.00</span>
+                                <span class="add-to-cart-container">
+                                    <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
 
               

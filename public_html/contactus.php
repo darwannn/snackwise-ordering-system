@@ -321,6 +321,4 @@ $validate=new Validate();
 });
 </script>
 </body>
-
-
 </html>

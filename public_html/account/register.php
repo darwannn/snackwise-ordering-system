@@ -163,6 +163,14 @@ if(isset($_GET["staff"]) == 1) {
                     <input type="password" class="form-control m-2" name="retype_password" id="retype_password" placeholder="Retype Password" value="" autocomplete="off">
                     <span class="" id="retype_password_error"></span>
                 </div>
+              
+                <div class="form-end-btn">
+                    <div class="">
+                        <a href="../index.php" id="cancel">Cancel</a>
+                    </div>
+                    <div class="">
+                        <button type="button" id="register" class="btn btn-primary"> Register</button>
+                    </div>
 
                 <div class="password_requirements">
                     <h6><span class="length " id="length" style="opacity: 0;">&#x2716;</span>8 to 16 characters</h6>

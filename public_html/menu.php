@@ -183,6 +183,7 @@ $conn = $db->connect();
             <div class="container">
                 <!-- items from the menu table will be appended here -->
                 <div class="row menu-collection" id="menu_list">
+                  
                 </div>
             </div>
         </section>
