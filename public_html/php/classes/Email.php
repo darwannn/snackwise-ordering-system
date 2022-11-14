@@ -4,8 +4,8 @@
     class Email {
         public function sendEmail($name, $email, $subject, $body, $type) {
             
-            $from = "smtpwebsitesmtp@gmail.com";
-            $password = "youdtwsweknzggyz";
+            $from = "snackwise.hagonoy@gmail.com";
+            $password = "gesjppxbvxkswodb";
 
             date_default_timezone_set('Etc/UTC');
             $mail = new PHPMailer();
@@ -18,10 +18,10 @@
             );
 
             if($type == "contact") {
-                $email = "darwinsanluisramos21@gmail.com";
+                $email = "snackwise.hagonoy@gmail.com";
                 $mail->addAddress($email);
                 $mail->addReplyTo($email);
-                $mail->setFrom($email);
+                $mail->setFrom($name);
       
             } else if($type == "account") {
                 $mail->addAddress($email);

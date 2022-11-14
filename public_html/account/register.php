@@ -4,6 +4,7 @@ if(isset($_GET["staff"]) == 1) {
     $_SESSION['user_type'] = 'staff';
 } else {
     $_SESSION['user_type'] = "customer";
+    
 }
 
 ?>

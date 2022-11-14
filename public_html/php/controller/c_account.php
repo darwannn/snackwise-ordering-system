@@ -43,7 +43,7 @@ if (isset($_POST["register"])) {
     $street = $_POST['street'];
     $user_type = $_SESSION['user_type'];
 
-    $validate->validateLength($firstname,'','firstname_error', 'Required field' );
+   /*  $validate->validateLength($firstname,'','firstname_error', 'Required field' );
     $validate->validateLength($lastname,'', 'lastname_error', 'Required field' );
     $validate->validateLength($contact,'', 'contact_error', 'Required field' );
 
@@ -57,7 +57,7 @@ if (isset($_POST["register"])) {
     $validate->validateLength($email,'', 'email_error', 'Required field' );
     $validate->validateLength($password, $retype_password, 'password_error', 'Required field' );
     $validate->validateLength($password,$retype_password, 'retype_password_error', 'Required field' );
-
+ */
     if (count($validate->output) > 0) {
         echo json_encode($validate->output);
     } else {

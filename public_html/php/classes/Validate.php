@@ -50,7 +50,7 @@ class Validate extends DbConnection
         }
       }
 
-      if (strpos($name, "email")!== false) {
+      if (strpos($name, "email")!== false && $compare_input != "email-contact") {
         if ($this->isEmail($input)) {
           if ($this->isTakenEmail($input)) {
 

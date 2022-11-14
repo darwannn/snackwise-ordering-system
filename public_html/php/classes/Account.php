@@ -107,8 +107,7 @@ class Account extends DbConnection
                         if ($fetch_user_type == "customer") {
                             $email =  $fetch_email;
                             $subject = 'SnackWise Account Verification';
-                            
-                            $email = 'darwinsanluis.ramos14@gmail.com';
+    
           
                             $notice = "Click the button <br> below to verify your account.";
                             
@@ -119,7 +118,7 @@ class Account extends DbConnection
                             $notice = "Click the button <br> below to verify " . $fetch_email.".";
                         }
 
-                        $subject = 'SnackWise Reset Login Attempts';
+          
                         $copy_link = "<a style='font-size:16px!important; overflow-wrap: break-word;'  href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "' >" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "</a>";
                         $link = " <a style =' color: white; text-decoration: none' href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "'>Verify Your Account</a>";
                       
@@ -162,7 +161,7 @@ class Account extends DbConnection
             $code = $this->generateCode();
             $code_expiration = $this->get_current_date();
 
-            $email = 'darwinsanluis.ramos14@gmail.com';
+            $email = $fetch_email;
             $subject = 'SnackWise Reset Login Attempts';
             $copy_link = "<a style='font-size:16px!important; overflow-wrap: break-word;' href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/reset.php?code=" . $code . "' >" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/reset.php?code=" . $code . "</a>  ";
             $link = "<a style =' color: white; text-decoration: none' href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/reset.php?code=" . $code . "' > Verify Your Account</a>  ";
@@ -202,21 +201,18 @@ class Account extends DbConnection
             else it will be send to the admin email address */
 
             if ($user_type == "customer") {
-                $email =  $email;
+                $email=$email;
                 $subject = 'SnackWise Account Verification';
-                
-                $email = 'darwinsanluis.ramos14@gmail.com';
-
-                $notice = "Click the button <br> below to verify your account.";
+                $notice = "Click the button <br> below to verify your account." . $user_type;
                 
              
             } else {
                 $email = $this->get_admin_email();
                 $subject = 'SnackWise Staff Account Verification';
-                $notice = "Click the button <br> below to verify " . $email.".";
+                $notice = "Click the button <br> below to verify " . $user_type.".";
             }
 
-            $subject = 'SnackWise Reset Login Attempts';
+      
             $copy_link = "<a style='font-size:16px!important; overflow-wrap: break-word;'  href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "' >" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "</a>";
             $link = " <a style =' color: white; text-decoration: none' href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . "/account/activate.php?code=" . $code . "'>Verify Your Account</a>";
           
@@ -230,7 +226,7 @@ class Account extends DbConnection
                 $_SESSION['email'] = $email;
                 $_SESSION['password'] = $password;
 
-                if ($user_type == "user") {
+                if ($user_type == "customer") {
                     $output['success'] = 'Verification code has been sent to ' . $email . '';
                 } else {
                     $fetch_email = $this->get_admin_email();

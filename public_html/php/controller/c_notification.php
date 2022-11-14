@@ -40,7 +40,7 @@ if (isset($_POST["send_email_message"])) {
     $message = $_POST['message'];
 
     $validate->validateLength($name, '', 'name_error', 'Required field');
-    $validate->validateLength($email, '', 'email_error', 'Required field');
+    $validate->validateLength($email, 'email-contact', 'email_error', 'Required field');
     $validate->validateLength($subject, '', 'subject_error', 'Required field');
     $validate->validateLength($message, '', 'message_error', 'Required field');
 

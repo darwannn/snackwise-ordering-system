@@ -76,7 +76,7 @@ class Notification extends DbConnection
     /* invoked when a customer submits a message from contact us  */
     public function send_email_message($name, $email,$subject,$message){
         $email_verification = new Email();
-       if ($email_verification->sendEmail($name,$email, $subject, $message, "contact")) {
+       if ($email_verification->sendEmail("Customer",$email, $subject, $message, "contact")) {
         $output['success'] = 'Message sent successfully';
     } else {
         $output['error'] = 'Something went wrong! Please try again later.';
