@@ -43,42 +43,6 @@ $validate = new Validate();
 
 <body>
 
-    <!-- <form id="account_form" method="POST">
-
-        <span id="success_message"></span>
-        <span id="error_message"></span>
-
-
-        <div class="">
-            <label for="password">Password</label>
-            <input type="password" class="password" name="password" id="password" placeholder="Password" value="" onkeyup="new Account().verify_password(this.value);" autocomplete="off">
-            <i class="fa-solid fa-eye-slash" id="password_toggler" for="password" onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
-            <span class="" id="password_error"></span>
-
-            <div class="password_requirements">
-                <h6><span class="length " id="length" style="opacity: 0;">&#x2716;</span>8 to 16 characters</h6>
-                <h6><span class="case " id="case" style="opacity: 0;">&#x2716;</span>At least 1 Uppercase</h6>
-                <h6><span class="number " id="number" style="opacity: 0;">&#x2716;</span>At least 1 number</h6>
-                <h6><span class="special " id="special" style="opacity: 0;">&#x2716;</span>At least 1 special</h6>
-            </div>
-
-        </div>
-
-        <div class="">
-            <label for="retype_password">Retype Password</label>
-            <input type="password" class="retype_password" name="retype_password" id="retype_password" placeholder="Retype Password" value="" autocomplete="off">
-            <i class="fa-solid fa-eye-slash" id="retype_password_toggler" for="retype_password" onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
-            <span class="" id="retype_password_error"></span>
-        </div>
-
-
-        </div>
-
-        <button type="button" id="new_password" class=""> New Password</button>
-
-
-    </form> -->
-
     <div class="parent-container">
 
         <div class="window-container">
@@ -118,11 +82,6 @@ $validate = new Validate();
     <script src="../js/Account.js"></script>
 
     <script>
-        //TEMPORARY
-        // HIDE PASSWORD REQUIREMENTS
-
-        document.getElementsByClassName("password_requirements").style.display = "none";
-
         let account = new Account();
 
         let url_code = '<?php echo $_GET['code'] ?>';
