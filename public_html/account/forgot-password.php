@@ -1,4 +1,4 @@
-<?php 
+<?php
 ?>
 
 <!DOCTYPE html>
@@ -32,36 +32,6 @@
 
 <body>
 
-    <!-- <div class="parent-container">
-        <div class="window-container">
-            <div class="snackwise-label">
-                <div class="brand-icon">
-                    <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
-                </div>
-                <div class="brand-name">
-                    <span class="red">SNACK<span class="yellow">WISE</span></span>
-                </div>
-            </div>
-            <div class="back-container">
-                <a href="login.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
-            </div>
-            <div class="form-header-container">
-                <h1>Forgot Password</h1>
-            </div>
-            <div class="form-container">
-                <form id="account_form" method="POST">
-                    <span id="success_message" class="text-success"></span>
-                    <span id="error_message" class="text-danger"></span>
-                    <div class="input-text">
-                        <input type="text" class="user_identifier" name="user_identifier" id="user_identifier" placeholder="Enter Email Address" value="" autocomplete="off">
-                        <span class="" id="user_identifier_error" class="text-danger"></span>
-                    </div>
-                    <button type="button" id="forgot_password" class="register-btn btn btn-warning">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div> -->
-
     <div class="parent-container">
         <div class="form-window">
             <div class="snackwise-label">
@@ -75,7 +45,7 @@
                 </div>
             </div>
             <div class="back-container">
-                <a href="new-password.php"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
+                <a href="login.php"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
             </div>
             <div class="form-header">
                 <h1>Forgot Password</h1>
@@ -83,31 +53,24 @@
             <form action="POST" id="account_form">
                 <span id="success_message" class="text-success"></span>
                 <span id="error_message" class="text-success"></span>
-                <input type="text" name="user_identifier" id="user_identifier" placeholder="Enter Email Address" value="" autocomplete="off">            
+                <input type="text" name="user_identifier" id="user_identifier" placeholder="Enter Email Address" value="" autocomplete="off">
                 <span id="user_identifier_error" class="text-danger"></span>
                 <button id="forgot_password">Submit</buttn>
             </form>
         </div>
     </div>
-
-   <script>
-let account = new Account();
-
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
+
+
     <script>
+        let account = new Account();
         let account = new Account();
         document.getElementById("forgot_password").onclick = function() {
             account.forgot_password();
         }
-
-
-
-
-
-
     </script>
 </body>
 
