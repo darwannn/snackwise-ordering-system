@@ -127,8 +127,8 @@ $account->delete_code();
                    if($validate->is_logged_in("customer")){
                     ?>
                     <form action="#" class="form-inline sign-btns">
-                        <a name="log-in-btn" class="btn" href="login.php">Login</a>
-                        <a name="sign-up-btn" id="" class="btn btn-primary" href="register.php" role="button">Sign Up</a>
+                        <a name="log-in-btn" class="btn" href="account/login.php">Login</a>
+                        <a name="sign-up-btn" id="" class="btn btn-primary" href="account/register.php" role="button">Sign Up</a>
                     </form>
                     <?php 
                     }else {
