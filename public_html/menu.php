@@ -1,4 +1,14 @@
-<?php $user_id = 1 ?>
+<?php 
+require_once dirname(__FILE__) . '/php/classes/DbConnection.php';
+require_once dirname(__FILE__).'/php/classes/Validate.php';
+
+$validate=new Validate();
+
+$db = new DbConnection();
+$conn = $db->connect();
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,66 +23,69 @@
     <link rel="icon" href="img/penguin.png" type="image/icon type">
 
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <!-- FONT LINKS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:ital,wght@0,300;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:ital,wght@0,300;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
 
     <!-- BOOTSTRAP CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!-- FONTAWESOME -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
 
     <!-- MY CSS -->
     <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/notification.css">
+
+    <style>
+        input[type="radio"] {
+
+            display: none;
+        }
+
+        .item-quantity {
+            border: none;
+        }
+
+        input[type="number"]:focus {
+            border: none;
+            outline: none;
+        }
+    </style>
 </head>
 
 <body>
+
+
 
     <!-- SIDEBAR -->
     <div class="sidecart  flex-column h-100 top-0  " id="sidecart">
 
         <div class="mx-3 mt-3">
-            <p class="cart-label bold mb-0"> SHOPPING CART <i class=" sidecart-close fa-solid fa-xmark float-end" onclick="close_cart();"></i></p>
+            <p class="cart-label bold mb-0"> SHOPPING CART <i class=" sidecart-close fa-solid fa-xmark float-end"
+                    onclick="new Cart().close_cart();"></i></p>
             <hr class="w-100 my-2">
         </div>
 
-        <div class="cart_list flex-grow-1 mx-3">
-
-
-            <div class="cart_item d-flex align-items-center my-3 mx-1 p-1 ">
-                <i class="item-remove fa-solid fa-xmark"></i>
-                <img class=" cart-image mx-2 " src="img/menu-imgs/A.jpg" alt="">
-                <div class="d-flex flex-column">
-                    <div class="item-name">Combo A</div>
-                    <div class=""><span class="item-quantity">1x</span><span class="ms-3 bolder item-price">75.00 ₱</span></div>
-                </div>
-            </div>
-
-
-            <div class="cart_item d-flex align-items-center my-3 mx-1 p-1 ">
-                <i class="item-remove fa-solid fa-xmark"></i>
-                <img class=" cart-image mx-2 " src="img/menu-imgs/B.jpg" alt="Combo B">
-                <div class="d-flex flex-column">
-                    <div class="item-name">Combo B</div>
-                    <div class=""><span class="item-quantity">1x</span><span class="ms-3 bolder item-price">89.00 ₱</span></div>
-                </div>
-            </div>
-
-
-
-
+        <!-- customers added to cart items will be appended here -->
+        <div class="cart_list cart_list flex-grow-1 mx-3" id="cart_list">
 
         </div>
 
-        <div class="cart_price_information d-flex flex-column mx-3 mb-3">
+        <div class="cart_price_information  flex-column mx-3 mb-3" id="cart_summay">
             <hr class="w-100 my-2">
             <div class=" bold">SUBTOTAL:</div>
-            <div class="text-end bolder">164.00 ₱</div>
+            <div class="text-end bolder" id="cart_total_price">164.00 ₱</div>
 
-            <button type="button" class="btn btn-checkout w-100 my-2">CHECKOUT</button>
-            <div type="button" class="btn btn-clear w-100">Clear Cart</div>
+            <button type="button" class="btn btn-checkout w-100 my-2" id="verify_order">CHECKOUT</button>
+
         </div>
     </div>
 
@@ -85,7 +98,8 @@
                     <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
                     <span class="red">SNACK</span><span class="yellow">WISE</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -97,23 +111,34 @@
                             <a href="menu.php" class="nav-link" id="active">Menu</a>
                         </li>
                         <li class="nav-item">
-                            <a href="aboutus.php" class="nav-link">About Us</a>
-                        </li>
-                        <li class="nav-item">
                             <a href="contactus.php" class="nav-link">Contact Us</a>
                         </li>
                     </ul>
+                    <?php 
+                    if($validate->is_logged_in("customer")){
+                    ?>
                     <form action="#" class="form-inline sign-btns">
-                        <!-- 
-                            NOTE: IF THE USER IS SIGNED IN, The sign-up button should be replaced by profile btn.
-                        -->
-                        <!-- TODO: Insert user profile and cart button here.  -->
                         <a name="log-in-btn" class="btn" href="account/login.php">Login</a>
-                        <a name="sign-up-btn" id="" class="btn btn-primary" href="./account/register.php" role="button">Sign Up</a>
+                        <a name="sign-up-btn" id="" class="btn btn-primary" href="account/register.php" role="button">Sign
+                            Up</a>
                     </form>
+                    <?php 
+                    }else {
+                        /* dito lalagay yung logout*/
+                        ?>
+                    <form action="#" class="form-inline sign-btns">
+
+                        <a name="sign-up-btn" class="btn btn-primary" href="account/logout.php">Logout</a>
+                    </form>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
         </nav>
+
+        <div class="modal-backdrop fade show" id="modal_backdrop"></div>
+
 
         <section class="top-header">
             <div class="container">
@@ -121,166 +146,44 @@
             </div>
         </section>
 
+
         <section class="sorting">
             <div class="container">
                 <div class="sort-btn-container">
                     <ul class="sorter-list">
-                        <li class="sort-item" id="active-sort">
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                Combo
-                            </a>
-                        </li>
+                        <!-- display the items from the category table as radio button -->
+                        <?php
+                $query  = $conn->prepare("SELECT * FROM category");
+                $result  =  $query->execute();
+                if ($query->rowCount() > 0) {
+                    while ($row = $query->fetch(PDO::FETCH_BOTH)) {
+                ?>
                         <li class="sort-item">
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                Burger
-                            </a>
+                            <label>
+                                <input type="radio" name="category"
+                                    value="<?php echo $row['category_id'] ?>"><?php echo $row['name'] ?>
+                            </label>
                         </li>
-                        <li class="sort-item">
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                Fries
-                            </a>
-                        </li>
-                        <li class="sort-item">
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                Drinks
-                            </a>
-                        </li>
+                        <?php
+                    }
+                }
+                ?>
                     </ul>
                 </div>
                 <div class="cart">
-                    <button type="button" class="btn" onclick="open_cart();">View Cart<i class="fa-solid fa-cart-shopping"></i><span class="cart-count">(02)</span></button>
+                    <!-- customers cart items count be appended here -->
+                    <button type="button" class="btn" onclick="new Cart().open_cart();">View Cart<i
+                            class="fa-solid fa-cart-shopping"></i><span class="cart-count"
+                            id="cart_count"></span></button>
                 </div>
             </div>
         </section>
 
         <section class="menu">
             <div class="container">
-                <div class="row menu-collection">
-
-                    <!-- MENU ITEM START HERE -->
-
-                    <div class="col-12 col-md-6">
-                        <div class="menu-item">
-                            <div class="product-img">
-                                <img src="img/menu-imgs/A.jpg" alt="food-img" srcset="">
-                            </div>
-                            <div class="product-details-wrapper">
-                                <div class="product-details">
-                                    <span class="product-title">Combo A</span>
-                                    <span class="product-description">Includes: Regular Burger, Regular Fries, Blue Lemonade</span>
-                                    <span class="product-price">55.00PHP</span>
-                                </div>
-                                <div class="interact">
-                                    <button class="btn" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <div class="menu-item">
-                            <div class="product-img">
-                                <img src="img/menu-imgs/B.jpg" alt="food-img" srcset="">
-                            </div>
-                            <div class="product-details-wrapper">
-                                <div class="product-details">
-                                    <span class="product-title">Combo B</span>
-                                    <span class="product-description">Includes: Regular Burger, Carbonara, Blue Lemonade</span>
-                                    <span class="product-price">89.00PHP</span>
-                                </div>
-                                <div class="interact">
-                                    <button class="btn" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <div class="menu-item">
-                            <div class="product-img">
-                                <img src="img/menu-imgs/C.jpg" alt="food-img" srcset="">
-                            </div>
-                            <div class="product-details-wrapper">
-                                <div class="product-details">
-                                    <span class="product-title">Combo C</span>
-                                    <span class="product-description">Includes: Regular Hotdog, Regular Fries, Blue Lemonade</span>
-                                    <span class="product-price">80.00PHP</span>
-                                </div>
-                                <div class="interact">
-                                    <button class="btn" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <div class="menu-item">
-                            <div class="product-img">
-                                <img src="img/menu-imgs/D.jpg" alt="food-img" srcset="">
-                            </div>
-                            <div class="product-details-wrapper">
-                                <div class="product-details">
-                                    <span class="product-title">Combo D</span>
-                                    <span class="product-description">Includes: Regular Fries, Carbonara, Blue Lemonade</span>
-                                    <span class="product-price">85.00PHP</span>
-                                </div>
-                                <div class="interact">
-                                    <button class="btn" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <div class="menu-item">
-                            <div class="product-img">
-                                <img src="img/menu-imgs/E.jpg" alt="food-img" srcset="">
-                            </div>
-                            <div class="product-details-wrapper">
-                                <div class="product-details">
-                                    <span class="product-title">Combo E</span>
-                                    <span class="product-description">Includes: Regular Burger, Regular Fries, Spaghetti, Blue Lemonade</span>
-                                    <span class="product-price">55.00PHP</span>
-                                </div>
-                                <div class="interact">
-                                    <button class="btn" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <div class="menu-item">
-                            <div class="product-img">
-                                <img src="img/menu-imgs/Barkada Meal.jpg" alt="food-img" srcset="">
-                            </div>
-                            <div class="product-details-wrapper">
-                                <div class="product-details">
-                                    <span class="product-title">Barkada Meal</span>
-                                    <span class="product-description">Good for 4 People. Includes: 4 Regular Fries, 4 Regular Burger, 4 Blue Lemonade</span>
-                                    <span class="product-price">55.00PHP</span>
-                                </div>
-                                <div class="interact">
-                                    <button class="btn" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- MENU ITEM END HERE -->
-
+                <!-- items from the menu table will be appended here -->
+                <div class="row menu-collection" id="menu_list">
+                  
                 </div>
             </div>
         </section>
@@ -415,7 +318,7 @@
                             </span>
                         </div>
                         <div class="col-6">
-                            <span class="right">Copyright © 2022 Snackwise. All Rights Reserved.</span>
+                            <span class="right">Copyright © <script>document.write(new Date().getFullYear())</script> Snackwise. All Rights Reserved.</span>
                         </div>
                     </div>
                 </div>
@@ -426,182 +329,99 @@
     </div>
 
 
+    <!-- order modal -->
+    <div id="order_modal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <div class="modal-title">CHECKOUT</div>
+                </div>
+                <div class="modal-body">
 
+                    <!-- customers to checkout items will be appended here -->
+                    <div class="verify_list" id="verify_list"></div>
+                    
+                    <form id="order_form" method="POST">
+                        <input type="text" id="cartlist" name="cartlist" placeholder="cartlist">
+                       <label>Date and Time </label>
+                       <div class="input-group mt-2">
+                            
+                                  <input type="date" class="form-control me-1" id="date" name="date">
+                            <input type="text" class="form-control ms-1" id="time" name="time" >
+                        </div>
+                
+                    </form>
 
-
-    <div class="temporary_hide">
-        <!-- dito lalabas kung ilan yung nasa cart ng user -->
-        <div> cart count <span id="cart_count"></span> </div>
-
-        <!-- Modal - lalabas lang pag naclick na yung add to cart -->
-        <form id="menu_form" method="POST">
-
-            <input type="hidden" name="cart_menu_id" id="cart_menu_id">
-            <input type="text" name="user_id" id="user_id" value="<?php echo $user_id ?>">
-
-            <div>
-                <button type="button" id="increase" onclick="quantity(this.id);">+</button>
-                <input type="text" name="quantity" id="quantity" value="1" disabled>
-                <button type="button" id="decrease" onclick="quantity(this.id);">-</button>
-
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="button" name="add_to_order" id="add_to_order">Order</button>
+                    <button class="btn btn-danger" type="button" id="cancel_add_to_order"
+                        onclick="new Cart().cancel_order();">Cancel</button>
+                </div>
             </div>
-
-            <button type="button" name="add_to_cart" id="add_to_cart">ADDTo catr</button>
-            <button type="button" name="cancel_cart" id="cancel_cart" onclick="cancel_cart();">Cancel</button>
-        </form>
-
-
-
-        <div class="menu_list" id="menu_list">
-
         </div>
-
     </div>
 
-
+    <!-- toast_notif notification will be appended here -->
+    <div class="toast_notif" id="toast_notif"></div>
 
     <!-- BOOTSTRAP JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+
+    <script src="js/Menu.js"></script>
+    <script src="js/Notification.js"></script>
+    <script src="js/Cart.js"></script>
 
     <script>
-        function open_cart() {
-            document.getElementById('sidecart').style.display = "flex";
-            document.getElementById('sidecart').style.animationName = "open_cart";
+        document.addEventListener("DOMContentLoaded", function (event) {
 
-        }
+            let cart = new Cart();
+            let menu = new Menu();
 
-        function close_cart() {
-            document.getElementById('sidecart').style.animationName = "close_cart";
-        }
+            
+
+            document.getElementById("cart_summay").style.display = "none";
+
+            //gets the value of selected radio button which is used to filter the items in the menu table
+            document.querySelectorAll('input[name="category"]')[0].checked = "checked";
+            document.querySelectorAll('input[name="category"]')[0].parentElement.parentElement.id =
+                "active-sort";
+            document.querySelectorAll('input[name="category"]').forEach((radio) => {
+                radio.addEventListener('change', function () {
+                    // removes styling of the unselected radio button
+                    document.querySelectorAll('input[name="category"]').forEach(function (
+                        radio) {
+                        radio.parentElement.parentElement.setAttribute("id", "");
+                    });
+                    (document.querySelector('input[name="category"]:checked').parentElement
+                        .parentElement).id = "active-sort";
+                    menu.display_menu(document.querySelector('input[name="category"]:checked')
+                        .value);
+                });
+                menu.display_menu(document.querySelector('input[name="category"]:checked').value);
+            });
+
+            /* document.querySelector(`input[type='checkbox'][value='65']`).checked=true; */
+            console.log(document.querySelector(`input[name="category"][value='57']`));
+            /* --------------------cart */
+
+            <?php if($validate->is_logged_in("customer")){
+                    ?>
+                     document.getElementById('modal_backdrop').style.display = 'none';
+                     
+                    <?php 
+                    }else {
+                        ?>
+                        cart.cart();
+                    <?php
+                    }?>
+        
+
+        });
     </script>
 
 </body>
-
-<script>
-    document.getElementById('add_to_cart').onclick = function() {
-        var form_data = new FormData(document.getElementById('menu_form'));
-        form_data.append('add_to_cart', <?php echo $user_id ?>);
-
-        fetch('php/controller/c_cart.php', {
-            method: "POST",
-            body: form_data
-        }).then(function(response) {
-            return response.json();
-
-        }).then(function(response_data) {
-            cart_count();
-            console.log(response_data);
-        });
-
-    }
-
-    function quantity(element) {
-
-        let quantity = parseInt(document.getElementById('quantity').value);
-        if (element == "increase") {
-
-            quantity = quantity + 1;
-        } else {
-            quantity = quantity - 1;
-        }
-
-        if (element == "increase") {
-            if ((parseInt(document.getElementById('quantity').value) < 10)) {
-                document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) + 1;
-                document.getElementById('decrease').disabled = false;
-                document.getElementById('increase').disabled = false;
-            } else {
-                document.getElementById('increase').disabled = true;
-            }
-        } else {
-            if ((parseInt(document.getElementById('quantity').value) > 1)) {
-                document.getElementById('quantity').value = parseInt(document.getElementById('quantity').value) - 1;
-                document.getElementById('decrease').disabled = false;
-                document.getElementById('increase').disabled = false;
-            } else {
-                document.getElementById('decrease').disabled = true;
-            }
-        }
-    }
-
-    cart_count();
-
-    function cart_count() {
-        var cart_form_data = new FormData(document.getElementById('menu_form'));
-
-        cart_form_data.append('add_to_cart_count', 'add_to_cart_count');
-        fetch('php/controller/c_cart.php', {
-            method: "POST",
-            body: cart_form_data
-        }).then(function(response) {
-
-            return response.json();
-
-        }).then(function(response_data) {
-
-            console.log(response_data.cart_count);
-            document.getElementById('cart_count').innerHTML = `${response_data.cart_count}`;
-
-        });
-
-    }
-
-    /* Retrieve data from menu table */
-    var form_data = new FormData();
-    form_data.append('display_menu', 'display_menu');
-    fetch('php/controller/c_menu.php', {
-
-        method: "POST",
-        body: form_data
-    }).then(function(response) {
-
-        return response.json();
-
-    }).then(function(response_data) {
-
-
-        let menu_list = "";
-        let name = document.querySelector(".menu_list");
-
-        response_data.data.map(function(menu) {
-            /* dito ilalagay yung css design */
-            menu_list += `
-            <div class="text"><br>
-            <button type="button" name='${menu.menu_id}' id="temp_add_to_cart"> Add To cart </button>
-            <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${menu.image}' width="100px" height="100px">
-            <div>${menu.name}</div>
-            <div>${menu.description}</div>
-            <div>${menu.category}</div>
-            <div>${menu.discount}</div>
-            <div>${menu.price}</div>
-            <div>${menu.date}</div>
-            <div>${menu.availability}</div>
-         
-            </div>
-            `;
-        });
-        document.getElementById("menu_list").innerHTML = menu_list;
-
-        function cancel_cart() {
-            document.getElementById("cart_menu_id").value = "";
-            document.getElementById("quantity").value = 1;
-        }
-
-        document.querySelectorAll("#temp_add_to_cart").forEach(function(button) {
-            button.onclick = function(e) {
-
-                document.getElementById("cart_menu_id").value = e.target.name;
-
-            }
-        });
-        /*   if (response_data.success) {
-             
-
-          } else if (response_data.error) {
-              console.log('err');
-              window.location.href = "error.php";
-          } */
-    });
-</script>
 
 </html>

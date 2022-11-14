@@ -374,7 +374,7 @@ a[name="log-in-btn"] {
     .contact-image-container {
         display: block;
         overflow: hidden;
-        max-height: 674px;
+        max-height: 100%;
         width: 100%;
     }
    

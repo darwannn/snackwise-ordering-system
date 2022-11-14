@@ -1,0 +1,57 @@
+.unread {
+  background-color: red;
+}
+
+.unread {
+  background-color: none;
+}
+
+.toast_notif {
+  position: fixed;
+  top: 0px;
+  right: 10px;
+  width: 250px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.toast_notif .toast_notif_dialog {
+  position: relative;
+  padding: 15px 10px;
+  background: gainsboro;
+  color: black;
+  font-family: "Raleway";
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 5px;
+  margin: 5px 0px;
+  opacity: 0;
+  left: 20px;
+  animation: show_toast_notif_dialog 500ms ease-in-out forwards;
+}
+
+.toast_notif_close {
+
+  color: blue;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+.error {
+  background-color: red !important;
+}
+
+.success {
+  background-color: green !important;
+}
+
+
+@keyframes show_toast_notif_dialog {
+  to {
+    opacity: 1;
+    left: 0px;
+  }
+}

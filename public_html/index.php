@@ -1,3 +1,18 @@
+<?php 
+
+require_once dirname(__FILE__) . '/php/classes/Account.php';
+require_once dirname(__FILE__) . '/php/classes/DbConnection.php';
+require_once dirname(__FILE__).'/php/classes/Validate.php';
+
+$validate=new Validate();
+
+$account = new Account();
+
+/* deletes expired verification code */
+$account->delete_code();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +40,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
 
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/notification.css">
+    
+    <!-- DATE PICKER -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 </head>
 
@@ -82,41 +102,49 @@
     <div class="parent-container">
         <div class="top-wrapper">
 
-            <nav class="navbar navbar-light bg-light navbar-expand-md">
-                <div class="container">
-                    <a href="index.php" class="navbar-brand">
-                        <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
-                        <span class="red">SNACK</span><span class="yellow">WISE</span>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav mx-auto nav-list">
-                            <li class="nav-item">
-                                <a href="index.php" class="nav-link" id="active">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="menu.php" class="nav-link">Menu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="aboutus.php" class="nav-link">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="contactus.php" class="nav-link">Contact Us</a>
-                            </li>
-                        </ul>
-                        <form action="#" class="form-inline sign-btns">
-                            <!-- 
-                            NOTE: IF THE USER IS SIGNED IN, The sign-up button should be replaced by profile btn.
-                        -->
-                            <!-- TODO: Insert user profile and cart button here.  -->
-                            <a name="log-in-btn" class="btn" href="account/login.php">Login</a>
-                            <a name="sign-up-btn" id="" class="btn btn-primary" href="./account/register.php" role="button">Sign Up</a>
-                        </form>
-                    </div>
+        <nav class="navbar navbar-light bg-light navbar-expand-md">
+            <div class="container">
+                <a href="index.php" class="navbar-brand">
+                    <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
+                    <span class="red">SNACK</span><span class="yellow">WISE</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto nav-list">
+                        <li class="nav-item">
+                            <a href="index.php" class="nav-link" id="active">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="menu.php" class="nav-link" >Menu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contactus.php" class="nav-link">Contact Us</a>
+                        </li>
+                    </ul>
+                    <?php 
+                   if($validate->is_logged_in("customer")){
+                    ?>
+                    <form action="#" class="form-inline sign-btns">
+                        <a name="log-in-btn" class="btn" href="account/login.php">Login</a>
+                        <a name="sign-up-btn" id="" class="btn btn-primary" href="account/register.php" role="button">Sign Up</a>
+                    </form>
+                    <?php 
+                    }else {
+                        /* dito lalagay yung logout*/
+                        ?>
+                    <form action="#" class="form-inline sign-btns">
+                        
+                        <a name="sign-up-btn" class="btn btn-primary" href="account/logout.php">Logout</a>
+                    </form>
+                        <?php
+                    }
+                    ?>
+                    
                 </div>
-            </nav>
+            </div>
+        </nav>
 
             <section class="hero container">
                 <div class="home-header">
@@ -145,28 +173,11 @@
                 </a>
             </div>
             <div class="products-container container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-3 product">
-                        <div class="product-img-container">
-                            <img src="img/menu-imgs/A.jpg" alt="combo a image" class="product-img">
-                        </div>
-                        <div class="product-details-container">
-                            <div class="product-caption">
-                                <span class="product-name">Combo A</span>
-                                <span class="product-description">Includes: Regular Burger, Regular Fries, Blue Lemonade</span>
-                            </div>
-                            <div class="cart-container">
-                                <span class="product-price">PHP 55.00</span>
-                                <span class="add-to-cart-container">
-                                    <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+            
+                    <!-- bestseller items will be appended here -->
+    <div class="bestseller_list row justify-content-start" id="bestseller_list">
 
-                    <div class="col-12 col-md-3 product">
+                    <!-- <div class="col-12 col-md-3 product">
                         <div class="product-img-container">
                             <img src="img/menu-imgs/B.jpg" alt="combo a image" class="product-img">
                         </div>
@@ -184,7 +195,7 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-12 col-md-3 product">
                         <div class="product-img-container">
@@ -226,7 +237,7 @@
                         </div>
                     </div>
 
-                </div>
+              
 
             </div>
         </section>
@@ -374,8 +385,13 @@
 
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="js/Menu.js"></script>
 
     <script>
+          document.addEventListener("DOMContentLoaded", function (event) {
+        let menu = new Menu();
+        menu.display_bestseller();
+    });
         function open_cart() {
             document.getElementById('sidecart').style.display = "flex";
             document.getElementById('sidecart').style.animationName = "open_cart";
@@ -385,6 +401,7 @@
         function close_cart() {
             document.getElementById('sidecart').style.animationName = "close_cart";
         }
+
     </script>
 
 </body>
