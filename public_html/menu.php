@@ -1,8 +1,8 @@
-<?php 
+<?php
 require_once dirname(__FILE__) . '/php/classes/DbConnection.php';
-require_once dirname(__FILE__).'/php/classes/Validate.php';
+require_once dirname(__FILE__) . '/php/classes/Validate.php';
 
-$validate=new Validate();
+$validate = new Validate();
 
 $db = new DbConnection();
 $conn = $db->connect();
@@ -29,13 +29,10 @@ $conn = $db->connect();
     <!-- FONT LINKS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:ital,wght@0,300;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:ital,wght@0,300;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
     <!-- BOOTSTRAP CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!-- FONTAWESOME -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
@@ -69,8 +66,7 @@ $conn = $db->connect();
     <div class="sidecart  flex-column h-100 top-0  " id="sidecart">
 
         <div class="mx-3 mt-3">
-            <p class="cart-label bold mb-0"> SHOPPING CART <i class=" sidecart-close fa-solid fa-xmark float-end"
-                    onclick="new Cart().close_cart();"></i></p>
+            <p class="cart-label bold mb-0"> SHOPPING CART <i class=" sidecart-close fa-solid fa-xmark float-end" onclick="new Cart().close_cart();"></i></p>
             <hr class="w-100 my-2">
         </div>
 
@@ -98,8 +94,7 @@ $conn = $db->connect();
                     <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
                     <span class="red">SNACK</span><span class="yellow">WISE</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -114,22 +109,27 @@ $conn = $db->connect();
                             <a href="contactus.php" class="nav-link">Contact Us</a>
                         </li>
                     </ul>
-                    <?php 
-                    if($validate->is_logged_in("customer")){
+                    <?php
+                    if ($validate->is_logged_in("customer")) {
                     ?>
-                    <form action="#" class="form-inline sign-btns">
-                        <a name="log-in-btn" class="btn" href="account/login.php">Login</a>
-                        <a name="sign-up-btn" id="" class="btn btn-primary" href="account/register.php" role="button">Sign
-                            Up</a>
-                    </form>
-                    <?php 
-                    }else {
+                        <form action="#" class="form-inline sign-btns">
+                            <a name="log-in-btn" class="btn" href="account/login.php">Login</a>
+                            <a name="sign-up-btn" id="" class="btn btn-primary" href="account/register.php" role="button">Sign
+                                Up</a>
+                        </form>
+                    <?php
+                    } else {
                         /* dito lalagay yung logout*/
-                        ?>
-                    <form action="#" class="form-inline sign-btns">
-
-                        <a name="sign-up-btn" class="btn btn-primary" href="account/logout.php">Logout</a>
-                    </form>
+                    ?>
+                        <div class="user-dropdown-container">
+                            <button class="user-button">
+                                <i class="fa-solid fa-circle-user"></i>
+                            </button>
+                            <ul class="drop-menu">
+                                <li><a href="#" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
+                                <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                            </ul>
+                        </div>
                     <?php
                     }
                     ?>
@@ -153,28 +153,25 @@ $conn = $db->connect();
                     <ul class="sorter-list">
                         <!-- display the items from the category table as radio button -->
                         <?php
-                $query  = $conn->prepare("SELECT * FROM category");
-                $result  =  $query->execute();
-                if ($query->rowCount() > 0) {
-                    while ($row = $query->fetch(PDO::FETCH_BOTH)) {
-                ?>
-                        <li class="sort-item">
-                            <label>
-                                <input type="radio" name="category"
-                                    value="<?php echo $row['category_id'] ?>"><?php echo $row['name'] ?>
-                            </label>
-                        </li>
+                        $query  = $conn->prepare("SELECT * FROM category");
+                        $result  =  $query->execute();
+                        if ($query->rowCount() > 0) {
+                            while ($row = $query->fetch(PDO::FETCH_BOTH)) {
+                        ?>
+                                <li class="sort-item">
+                                    <label>
+                                        <input type="radio" name="category" value="<?php echo $row['category_id'] ?>"><?php echo $row['name'] ?>
+                                    </label>
+                                </li>
                         <?php
-                    }
-                }
-                ?>
+                            }
+                        }
+                        ?>
                     </ul>
                 </div>
                 <div class="cart">
                     <!-- customers cart items count be appended here -->
-                    <button type="button" class="btn" onclick="new Cart().open_cart();">View Cart<i
-                            class="fa-solid fa-cart-shopping"></i><span class="cart-count"
-                            id="cart_count"></span></button>
+                    <button type="button" class="btn" onclick="new Cart().open_cart();">View Cart<i class="fa-solid fa-cart-shopping"></i><span class="cart-count" id="cart_count"></span></button>
                 </div>
             </div>
         </section>
@@ -183,7 +180,7 @@ $conn = $db->connect();
             <div class="container">
                 <!-- items from the menu table will be appended here -->
                 <div class="row menu-collection" id="menu_list">
-                  
+
                 </div>
             </div>
         </section>
@@ -318,7 +315,9 @@ $conn = $db->connect();
                             </span>
                         </div>
                         <div class="col-6">
-                            <span class="right">Copyright © <script>document.write(new Date().getFullYear())</script> Snackwise. All Rights Reserved.</span>
+                            <span class="right">Copyright © <script>
+                                    document.write(new Date().getFullYear())
+                                </script> Snackwise. All Rights Reserved.</span>
                         </div>
                     </div>
                 </div>
@@ -340,23 +339,22 @@ $conn = $db->connect();
 
                     <!-- customers to checkout items will be appended here -->
                     <div class="verify_list" id="verify_list"></div>
-                    
+
                     <form id="order_form" method="POST">
                         <input type="text" id="cartlist" name="cartlist" placeholder="cartlist">
-                       <label>Date and Time </label>
-                       <div class="input-group mt-2">
-                            
-                                  <input type="date" class="form-control me-1" id="date" name="date">
-                            <input type="text" class="form-control ms-1" id="time" name="time" >
+                        <label>Date and Time </label>
+                        <div class="input-group mt-2">
+
+                            <input type="date" class="form-control me-1" id="date" name="date">
+                            <input type="text" class="form-control ms-1" id="time" name="time">
                         </div>
-                
+
                     </form>
 
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-success" type="button" name="add_to_order" id="add_to_order">Order</button>
-                    <button class="btn btn-danger" type="button" id="cancel_add_to_order"
-                        onclick="new Cart().cancel_order();">Cancel</button>
+                    <button class="btn btn-danger" type="button" id="cancel_add_to_order" onclick="new Cart().cancel_order();">Cancel</button>
                 </div>
             </div>
         </div>
@@ -366,8 +364,7 @@ $conn = $db->connect();
     <div class="toast_notif" id="toast_notif"></div>
 
     <!-- BOOTSTRAP JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 
     <script src="js/Menu.js"></script>
@@ -375,12 +372,34 @@ $conn = $db->connect();
     <script src="js/Cart.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function (event) {
+        /* DROPDOWN */
+
+        const dropMenu = document.querySelector('.drop-menu');
+        const dropBtn = document.querySelector('.user-button');
+        let dropOpen = false;
+
+        if (dropBtn) {
+            dropBtn.addEventListener("click", () => {
+                if (!dropOpen) {
+                    dropMenu.style.display = "block";
+                    dropOpen = true;
+                } else {
+                    dropOpen = false;
+                    dropMenu.style.display = "none";
+                }
+
+            })
+        }
+
+
+        /* END OF DROPDOWN */
+
+        document.addEventListener("DOMContentLoaded", function(event) {
 
             let cart = new Cart();
             let menu = new Menu();
 
-            
+
 
             document.getElementById("cart_summay").style.display = "none";
 
@@ -389,9 +408,9 @@ $conn = $db->connect();
             document.querySelectorAll('input[name="category"]')[0].parentElement.parentElement.id =
                 "active-sort";
             document.querySelectorAll('input[name="category"]').forEach((radio) => {
-                radio.addEventListener('change', function () {
+                radio.addEventListener('change', function() {
                     // removes styling of the unselected radio button
-                    document.querySelectorAll('input[name="category"]').forEach(function (
+                    document.querySelectorAll('input[name="category"]').forEach(function(
                         radio) {
                         radio.parentElement.parentElement.setAttribute("id", "");
                     });
@@ -407,17 +426,17 @@ $conn = $db->connect();
             console.log(document.querySelector(`input[name="category"][value='57']`));
             /* --------------------cart */
 
-            <?php if($validate->is_logged_in("customer")){
-                    ?>
-                     document.getElementById('modal_backdrop').style.display = 'none';
-                     
-                    <?php 
-                    }else {
-                        ?>
-                        cart.cart();
-                    <?php
-                    }?>
-        
+            <?php if ($validate->is_logged_in("customer")) {
+            ?>
+                document.getElementById('modal_backdrop').style.display = 'none';
+
+            <?php
+            } else {
+            ?>
+                cart.cart();
+            <?php
+            } ?>
+
 
         });
 

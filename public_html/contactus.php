@@ -1,8 +1,8 @@
 <?php
 require_once dirname(__FILE__) . '/php/classes/DbConnection.php';
-require_once dirname(__FILE__).'/php/classes/Validate.php';
+require_once dirname(__FILE__) . '/php/classes/Validate.php';
 
-$validate=new Validate();
+$validate = new Validate();
 
 ?>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@ $validate=new Validate();
 
     <!-- PAGE ICON -->
     <link rel="icon" href="img/penguin.png" type="image/icon type">
-   
+
     <!-- FONT LINKS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,12 +37,12 @@ $validate=new Validate();
 
 <body>
 
- <!-- toast_notif notification will be appended here -->
- <div class="toast_notif" id="toast_notif"></div>
+    <!-- toast_notif notification will be appended here -->
+    <div class="toast_notif" id="toast_notif"></div>
 
     <div class="parent-container">
 
-    <nav class="navbar navbar-light bg-light navbar-expand-md">
+        <nav class="navbar navbar-light bg-light navbar-expand-md">
             <div class="container">
                 <a href="index.php" class="navbar-brand">
                     <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
@@ -63,22 +63,27 @@ $validate=new Validate();
                             <a href="contactus.php" class="nav-link" id="active">Contact Us</a>
                         </li>
                     </ul>
-                    <?php 
-                    if($validate->is_logged_in("customer")){
+                    <?php
+                    if ($validate->is_logged_in("customer")) {
                     ?>
-                    <form action="#" class="form-inline sign-btns">
-                        <a name="log-in-btn" class="btn" href="account/login.php">Login</a>
-                        <a name="sign-up-btn" id="" class="btn btn-primary" href="account/register.php" role="button">Sign Up</a>
-                    </form>
-                    <?php 
-                    }else {
+                        <form action="#" class="form-inline sign-btns">
+                            <a name="log-in-btn" class="btn" href="account/login.php">Login</a>
+                            <a name="sign-up-btn" id="" class="btn btn-primary" href="account/register.php" role="button">Sign Up</a>
+                        </form>
+                    <?php
+                    } else {
                         /* dito lalagay yung logout*/
-                        ?>
-                    <form action="#" class="form-inline sign-btns">
-                        
-                        <a name="sign-up-btn" class="btn btn-primary" href="account/logout.php">Logout</a>
-                    </form>
-                        <?php
+                    ?>
+                        <div class="user-dropdown-container">
+                            <button class="user-button">
+                                <i class="fa-solid fa-circle-user"></i>
+                            </button>
+                            <ul class="drop-menu">
+                                <li><a href="#" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
+                                <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                            </ul>
+                        </div>
+                    <?php
                     }
                     ?>
                 </div>
@@ -140,7 +145,7 @@ $validate=new Validate();
         <section class="contact-section">
             <div class="container">
                 <div class="contact-image-container">
-                    <img src="https://images.pexels.com/photos/4109234/pexels-photo-4109234.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" srcset="" >
+                    <img src="https://images.pexels.com/photos/4109234/pexels-photo-4109234.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" srcset="">
                 </div>
                 <div class="contact-form-container">
                     <form action="/submit" class="contact-form" id="contact_form">
@@ -149,16 +154,16 @@ $validate=new Validate();
                         </span>
                         <input type="text" name="name" id="name" placeholder="Full Name">
                         <span class="" id="name_error"></span>
-                        
+
                         <input type="email" name="email" id="email" placeholder="Email">
                         <span class="" id="email_error"></span>
-                        
+
                         <input type="text" name="subject" id="subject" placeholder="Subject">
                         <span class="" id="subject_error"></span>
-                        
+
                         <textarea name="message" placeholder="Your message here." cols="100" rows="10" minlength="10" maxlength="500" spellcheck required></textarea>
                         <span class="" id="message_error"></span>
-                        
+
                         <button type="button" class="btn" id="submit">SUBMIT</button>
                     </form>
                 </div>
@@ -305,20 +310,41 @@ $validate=new Validate();
 
     </div>
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="js/Notification.js"></script>
 
-<script>
+    <script>
+        /* DROPDOWN */
 
- 
-     document.addEventListener("DOMContentLoaded", function(event) {
-    let notification= new Notification();
+        const dropMenu = document.querySelector('.drop-menu');
+        const dropBtn = document.querySelector('.user-button');
+        let dropOpen = false;
 
-    document.getElementById('submit').onclick = function() {
-        notification.send_email_message();
-    }; 
-});
-</script>
+        if (dropBtn) {
+            dropBtn.addEventListener("click", () => {
+                if (!dropOpen) {
+                    dropMenu.style.display = "block";
+                    dropOpen = true;
+                } else {
+                    dropOpen = false;
+                    dropMenu.style.display = "none";
+                }
+
+            })
+        }
+
+
+        /* END OF DROPDOWN */
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            let notification = new Notification();
+
+            document.getElementById('submit').onclick = function() {
+                notification.send_email_message();
+            };
+        });
+    </script>
 </body>
+
 </html>
