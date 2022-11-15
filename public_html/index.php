@@ -132,12 +132,18 @@ $account->delete_code();
                             </form>
                         <?php
                         } else {
-                            /* dito lalagay yung logout*/
-                        ?>
-                            <form action="#" class="form-inline sign-btns">
 
-                                <a name="sign-up-btn" class="btn btn-primary" href="account/logout.php">Logout</a>
-                            </form>
+                        ?>
+                            <div class="user-dropdown-container">
+                                <button class="user-button">
+                                    <i class="fa-solid fa-circle-user"></i>
+                                </button>
+                                <ul class="drop-menu">
+                                    <li><a href="#" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
+                                    <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                                </ul>
+                            </div>
+
                         <?php
                         }
                         ?>
@@ -195,48 +201,7 @@ $account->delete_code();
                                 </span>
                             </div>
                         </div>
-                    </div> 
-
-                    <div class="col-12 col-md-3 product">
-                        <div class="product-img-container">
-                            <img src="img/menu-imgs/C.jpg" alt="combo a image" class="product-img">
-                        </div>
-                        <div class="product-details-container">
-                            <div class="product-caption">
-                                <span class="product-name">Combo C</span>
-                                <span class="product-description">Includes: Regular Hotdog, Regular Fries, Blue Lemonade</span>
-                            </div>
-                            <div class="cart-container">
-                                <span class="product-price">PHP 80.00</span>
-                                <span class="add-to-cart-container">
-                                    <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-3 product">
-                        <div class="product-img-container">
-                            <img src="img/menu-imgs/D.jpg" alt="combo a image" class="product-img">
-                        </div>
-                        <div class="product-details-container">
-                            <div class="product-caption">
-                                <span class="product-name">Combo D</span>
-                                <span class="product-description">Includes: Regular Fries, Carbonara, Blue Lemonade</span>
-                            </div>
-                            <div class="cart-container">
-                                <span class="product-price">PHP 85.00</span>
-                                <span class="add-to-cart-container">
-                                    <button class="add-to-cart-btn" type="submit" onclick="open_cart();">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    -->
+                    </div> -->
 
 
                 </div>
@@ -402,6 +367,28 @@ $account->delete_code();
         function close_cart() {
             document.getElementById('sidecart').style.animationName = "close_cart";
         }
+
+        /* DROPDOWN */
+
+        const dropMenu = document.querySelector('.drop-menu');
+        const dropBtn = document.querySelector('.user-button');
+        let dropOpen = false;
+
+        dropBtn.addEventListener("click", () => {
+            if (!dropOpen) {
+                dropMenu.style.display = "block";
+                dropOpen = true;
+            } else {
+                dropOpen = false;
+                dropMenu.style.display = "none";
+            }
+
+        })
+
+        // dropBtn.addEventListener("focusout", ()=>{
+        //     dropMenu.style.display = "none";
+        //     dropOpen = "false";
+        // })
     </script>
 
 </body>
