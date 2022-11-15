@@ -378,16 +378,19 @@ $conn = $db->connect();
         const dropBtn = document.querySelector('.user-button');
         let dropOpen = false;
 
-        dropBtn.addEventListener("click", () => {
-            if (!dropOpen) {
-                dropMenu.style.display = "block";
-                dropOpen = true;
-            } else {
-                dropOpen = false;
-                dropMenu.style.display = "none";
-            }
+        if (dropBtn) {
+            dropBtn.addEventListener("click", () => {
+                if (!dropOpen) {
+                    dropMenu.style.display = "block";
+                    dropOpen = true;
+                } else {
+                    dropOpen = false;
+                    dropMenu.style.display = "none";
+                }
 
-        })
+            })
+        }
+
 
         /* END OF DROPDOWN */
 
