@@ -33,7 +33,6 @@ $validate = new Validate();
 
     <!-- BOOTSTRAP JS  -->
 
-
     <!-- FONT AWESOME -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
 
@@ -43,19 +42,18 @@ $validate = new Validate();
 
 <body>
 
+
     <div class="parent-container">
 
         <div class="window-container">
-            <div class="snackwise-label">
-                <div class="brand-icon">
-                    <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
-                </div>
-                <div class="brand-name">
-                    <a href="../index.php">
-                        <span class="red">SNACK<span class="yellow">WISE</span></span>
-                    </a>
-                </div>
+        <a href="../index.php" class="snackwise-label text-decoration-none">
+            <div class="brand-icon">
+                <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
             </div>
+            <div class="brand-name">
+                <span class="red">SNACK<span class="yellow">WISE</span></span>
+            </div>
+        </a>
             <div class="form-header">
                 <h1>Create New Password</h1>
             </div>
@@ -82,6 +80,11 @@ $validate = new Validate();
     <script src="../js/Account.js"></script>
 
     <script>
+        //TEMPORARY
+        // HIDE PASSWORD REQUIREMENTS
+
+        document.getElementsByClassName("password_requirements").style.display = "none";
+
         let account = new Account();
 
         let url_code = '<?php echo $_GET['code'] ?>';

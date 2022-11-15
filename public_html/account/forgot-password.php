@@ -34,16 +34,14 @@
 
     <div class="parent-container">
         <div class="form-window">
-            <div class="snackwise-label">
-                <div class="brand-icon">
-                    <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
-                </div>
-                <div class="brand-name">
-                    <a href="index.html">
-                        <span class="red">SNACK<span class="yellow">WISE</span></span>
-                    </a>
-                </div>
+        <a href="../index.php" class="snackwise-label text-decoration-none">
+            <div class="brand-icon">
+                <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
             </div>
+            <div class="brand-name">
+                <span class="red">SNACK<span class="yellow">WISE</span></span>
+            </div>
+        </a>
             <div class="back-container">
                 <a href="login.php"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
             </div>
