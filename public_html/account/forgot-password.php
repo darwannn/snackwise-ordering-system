@@ -55,7 +55,7 @@
                 <span id="error_message" class="text-success"></span>
                 <input type="text" name="user_identifier" id="user_identifier" placeholder="Enter Email Address" value="" autocomplete="off">
                 <span id="user_identifier_error" class="text-danger"></span>
-                <button id="forgot_password">Submit</buttn>
+                <button id="forgot_password">Submit</button>
             </form>
         </div>
     </div>
