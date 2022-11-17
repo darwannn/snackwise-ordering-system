@@ -245,6 +245,10 @@ a[name="log-in-btn"] {
 
 .top-wrapper {
     height: 100vh;
+}
+
+.hero-main {
+    width: 100%;
     background-image: url(../img/Background-Pattern.jpg);
 }
 

@@ -100,59 +100,60 @@ $account->delete_code();
     <!-- SIDEBAR -->
 
     <div class="parent-container">
-        <div class="top-wrapper">
+        <!-- <div class="top-wrapper"> -->
 
-            <nav class="navbar navbar-light bg-light navbar-expand-md">
-                <div class="container">
-                    <a href="index.php" class="navbar-brand">
-                        <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
-                        <span class="red">SNACK</span><span class="yellow">WISE</span>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav mx-auto nav-list">
-                            <li class="nav-item">
-                                <a href="index.php" class="nav-link" id="active">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="menu.php" class="nav-link">Menu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="contactus.php" class="nav-link">Contact Us</a>
-                            </li>
-                        </ul>
-                        <?php
-                        if ($validate->is_logged_in("customer")) {
-                        ?>
-                            <form action="#" class="form-inline sign-btns">
-                                <a name="log-in-btn" class="btn" href="account/login.php">Login</a>
-                                <a name="sign-up-btn" id="" class="btn btn-primary" href="account/register.php" role="button">Sign Up</a>
-                            </form>
-                        <?php
-                        } else {
+        <nav class="navbar navbar-light bg-light navbar-expand-md">
+            <div class="container">
+                <a href="index.php" class="navbar-brand">
+                    <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
+                    <span class="red">SNACK</span><span class="yellow">WISE</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto nav-list">
+                        <li class="nav-item">
+                            <a href="index.php" class="nav-link" id="active">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="menu.php" class="nav-link">Menu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contactus.php" class="nav-link">Contact Us</a>
+                        </li>
+                    </ul>
+                    <?php
+                    if ($validate->is_logged_in("customer")) {
+                    ?>
+                        <form action="#" class="form-inline sign-btns">
+                            <a name="log-in-btn" class="btn" href="account/login.php">Login</a>
+                            <a name="sign-up-btn" id="" class="btn btn-primary" href="account/register.php" role="button">Sign Up</a>
+                        </form>
+                    <?php
+                    } else {
 
-                        ?>
-                            <div class="user-dropdown-container">
-                                <button class="user-button">
-                                    <i class="fa-solid fa-circle-user"></i>
-                                </button>
-                                <ul class="drop-menu">
-                                    <li><a href="#" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
-                                    <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
-                                </ul>
-                            </div>
+                    ?>
+                        <div class="user-dropdown-container">
+                            <button class="user-button">
+                                <i class="fa-solid fa-circle-user"></i>
+                            </button>
+                            <ul class="drop-menu">
+                                <li><a href="#" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
+                                <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                            </ul>
+                        </div>
 
-                        <?php
-                        }
-                        ?>
+                    <?php
+                    }
+                    ?>
 
-                    </div>
                 </div>
-            </nav>
+            </div>
+        </nav>
 
-            <section class="hero container">
+        <section class="hero-main">
+            <div class="hero container">
                 <div class="home-header">
                     <span class="sub-header">Wise meal for a wise budget.</span>
                     <h1 class="">Try our <span class="yellow">better</span> and <span class="red">cheaper</span> snacks experience</h1>
@@ -165,9 +166,10 @@ $account->delete_code();
                 <div class="home-header-picture">
                     <img src="img/hero-img-wblob.png" alt="burger, fries, and hotdog">
                 </div>
-            </section>
+            </div>
+        </section>
 
-        </div>
+        <!-- </div> -->
 
         <section class="container featured-products">
             <div class="fp-header">
