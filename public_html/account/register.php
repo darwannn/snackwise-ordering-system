@@ -152,12 +152,13 @@ if (isset($_GET["staff"]) == 1) {
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 form-group">
+                    <div class="col-12 form-group password-container">
                         <!-- <label for="password">Password</label> -->
                         <input type="password" class="form-control m-2" name="password" id="password" placeholder="Password" value="" onkeyup="new Account().verify_password(this.value);" autocomplete="off">
+                        <i class="fa-solid fa-eye-slash toggler" id="password_toggler" for="password" onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
                         <span class="" id="password_error"></span>
                     </div>
-                    <div class="col-12 form-group">
+                    <div class="col-12 form-group password-container">
                         <!-- <label for="retype_password">Retype Password</label> -->
                         <input type="password" class="form-control m-2" name="retype_password" id="retype_password" placeholder="Retype Password" value="" autocomplete="off">
                         <span class="" id="retype_password_error"></span>

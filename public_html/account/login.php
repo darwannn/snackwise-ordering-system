@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col password-container">
                             <!-- <label for="password">Password</label> -->
                             <input type="password" class="form-control password-input" name="password" id="password" placeholder="Password" value="" onkeydown="/* verifyPassword(this.value) */" autocomplete="off">
                             <i class="fa-solid fa-eye-slash toggler" id="password_toggler" for="password" onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
