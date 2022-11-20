@@ -11,21 +11,40 @@ class Notification extends DbConnection
     public $app_secret = "293189e5cb681e1aea78";
     public $app_cluster = "ap1";
 
+
+    public function insert_notif( $user_id,$message) {
+        $status = "unread";
+        $date_time =  date("Y-m-d H:i:s");
+        $query = $this->connect()->prepare("INSERT INTO notification ( user_id, message, date, status) VALUES( :user_id, :message, :date, :status)");
+        $result = $query->execute([":user_id" => $user_id, ":message" => $message, ":date" => $date_time, ":status" => $status]);
+    }
+
     public function pusher() {
         return new Pusher\Pusher($this->app_key, $this->app_secret, $this->app_id, array('cluster' => $this->app_cluster));
     }
+
     /* invoke when the staff deleted the order of a customer, or when the order is claimed */
-    public function order_notif($user_id, $message)
+    public function order_staff_to_customer($user_id, $message)
     {
         $data['notification'] = array(
             'user_id' => $user_id,
-            'message' => $message
+            'message' => $message,
+            'type' => 'order_staff_to_customer'
+
         );
         $this->pusher()->trigger('snackwise', 'notif', $data);
     }
 
     /* updates the order table when a customer deletes an order */
-    public function delete_order_notif()
+    public function order_customer_to_staff()
+    {
+        $data['notification'] = array(
+       
+            'type' => 'order_customer_to_staff'
+        );
+        $this->pusher()->trigger('snackwise', 'notif', $data);
+    }
+    public function update_order_notif()
     {
         $data['notification'] = array(
             'notif' => 'notif',
@@ -67,8 +86,8 @@ class Notification extends DbConnection
     /* changes the status of notification from unread to read  */
     public function update_notification($user_id){
         $status = 'read';
-        $query  = $this->connect()->prepare("UPDATE notification SET status = :status WHERE user_id = :user_id");
-        $query->execute([':status' => $status, ':user_id' => $user_id]);
+/*         $query  = $this->connect()->prepare("UPDATE notification SET status = :status WHERE user_id = :user_id");
+        $query->execute([':status' => $status, ':user_id' => $user_id]); */
         echo json_encode("");
     }
 
@@ -82,5 +101,17 @@ class Notification extends DbConnection
         $output['error'] = 'Something went wrong! Please try again later.';
     }
        echo json_encode($output);
+    }
+
+    public function newsletter($email) {
+        $query = $this->connect()->prepare("INSERT INTO newsletter (email) VALUES( :email)");
+        $result = $query->execute([":email" => $email]);
+        if ($result) {
+            $output['success'] = 'You have successfully subscribed to our newsletter.';
+        } else {
+            $output['error'] = 'Something went wrong! Please try again later.';
+            
+        }
+        echo json_encode($output);
     }
 }

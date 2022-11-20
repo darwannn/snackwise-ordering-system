@@ -50,6 +50,8 @@ $account->delete_code();
 
 <body>
 
+ <!-- toast_notif notification will be appended here -->
+ <div class="toast_notif" id="toast_notif"></div>
     <!-- SIDEBAR -->
 
     <div class="sidecart  flex-column h-100 top-0  " id="sidecart">
@@ -139,7 +141,7 @@ $account->delete_code();
                                 <i class="fa-solid fa-circle-user"></i>
                             </button>
                             <ul class="drop-menu">
-                                <li><a href="#" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
+                                <li><a href="order.php" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
                                 <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                             </ul>
                         </div>
@@ -315,11 +317,12 @@ $account->delete_code();
                         </span>
 
                         <div class="input-container">
-                            <form action="#" class="newsletter-form">
-                                <input type="text" name="email" id="newsletter-input" placeholder="Email Address">
-                                <button type="submit">SUBSCRIBE</button>
+                            <form action="#" class="newsletter-form" id="newsletter_form">
+                                <input type="text" name="email" id="newsletter_email" placeholder="Email Address">
+                                <button type="button" id="newsletter" onclick="new Notification().newsletter()">SUBSCRIBE</button>
                             </form>
                         </div>
+                        <span id="newsletter_email_error"></span>
 
                     </div>
 
@@ -354,6 +357,8 @@ $account->delete_code();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="js/Menu.js"></script>
 
+    <script src="js/Notification.js"></script>
+    
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
             let menu = new Menu();

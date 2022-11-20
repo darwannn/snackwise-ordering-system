@@ -80,10 +80,16 @@ class Order extends DbConnection
 
 /* invoke when a QR Image is scanned,
 it checks if the code is associated with an order, if true it will display the order */
-    public function qr_fetch_info($qr_code_id)
+    public function order_fetch_info($identifier,$type)
     {
-        $result=$query = $this->connect()->prepare("SELECT o.user_id,o.qr_image, u.firstname, u.lastname,CONCAT(u.firstname,' ', u.lastname) AS name,CONCAT(u.street,' ', u.barangay, ' ', u.municipality, ' ', u.province) AS address, o.order_id, o.date, o.time, o.qr_code,o.status,GROUP_CONCAT(m.menu_id SEPARATOR ',') AS menu_id_list, GROUP_CONCAT(m.name SEPARATOR ',') AS menu_name_list, GROUP_CONCAT(l.quantity SEPARATOR ',') AS quantity_list, GROUP_CONCAT(m.category SEPARATOR ',') AS category_list, GROUP_CONCAT(m.price SEPARATOR ',') AS price_list,GROUP_CONCAT(m.discount SEPARATOR ',') AS discount_list,GROUP_CONCAT(m.image SEPARATOR ',') AS image_list FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE qr_code = :qr_code_id GROUP BY l.order_id");
-       $query->execute(["qr_code_id" => $qr_code_id]);
+        if($type == "qr") {
+       
+            $result=$query = $this->connect()->prepare("SELECT o.user_id,o.qr_image, u.firstname, u.lastname,CONCAT(u.firstname,' ', u.lastname) AS name,CONCAT(u.street,' ', u.barangay, ' ', u.municipality, ' ', u.province) AS address, o.order_id, o.date, o.time, o.qr_code,o.status,GROUP_CONCAT(m.menu_id SEPARATOR ', ') AS menu_id_list, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, GROUP_CONCAT(m.category SEPARATOR ', ') AS category_list, GROUP_CONCAT(m.price SEPARATOR ', ') AS price_list,GROUP_CONCAT(m.discount SEPARATOR ', ') AS discount_list,GROUP_CONCAT(m.image SEPARATOR ', ') AS image_list FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE qr_code = :identifier GROUP BY l.order_id");
+     
+        } else {
+            $result=$query = $this->connect()->prepare("SELECT o.user_id,o.qr_image, u.firstname, u.lastname,CONCAT(u.firstname,' ', u.lastname) AS name,CONCAT(u.street,' ', u.barangay, ' ', u.municipality, ' ', u.province) AS address, o.order_id, o.date, o.time, o.qr_code,o.status,GROUP_CONCAT(m.menu_id SEPARATOR ', ') AS menu_id_list, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, GROUP_CONCAT(m.category SEPARATOR ', ') AS category_list, GROUP_CONCAT(m.price SEPARATOR ', ') AS price_list,GROUP_CONCAT(m.discount SEPARATOR ', ') AS discount_list,GROUP_CONCAT(m.image SEPARATOR ', ') AS image_list FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.order_id = :identifier GROUP BY l.order_id");
+        }
+        $query->execute(["identifier" => $identifier]);
         if ($query->rowCount() > 0) {
             $fetch = $query->fetch(PDO::FETCH_ASSOC);
             $fetch_status = $fetch['status'];
@@ -191,62 +197,61 @@ it checks if the code is associated with an order, if true it will display the o
     /* invoked when the customer canceled its order, only items with 'placed' status can be canceled */
     public function delete_order($order_id)
     {
-        $status = "placed";
+        $notification = new Notification();
+        $notification->order_customer_to_staff();
+      /*   $status = "placed";
         $query = $this->connect()->prepare("DELETE FROM orders WHERE order_id = :order_id AND status = :status");
         $result = $query->execute([":order_id" => $order_id,":status"=> $status]);
         if ($result) {
-            $notification = new Notification();
-            $notification->delete_order_notif();
             $output['success'] = 'Item Deleted Successfully';
         } else {
             $output['error'] = 'Something went wrong! Please try again later.';
-        }
-        echo json_encode($output);
+        } */
+        echo json_encode("output");
     }
 
 
 
     /*  transfer claimed order from the orders table to the transaction table */
-    public function claim_order($order_id, $user_id, $qr_code_id)
+    public function claim_order($identifier,$type)
     {
         try {
 
-            if($qr_code_id == "") {
-            $query = $this->connect()->prepare("SELECT m.price AS price, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ',') AS menu_name, GROUP_CONCAT(m.price SEPARATOR ',') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ',') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.order_id = :order_id  GROUP BY l.order_id ORDER BY order_id DESC 
+            if($type == "manual") {
+            $query = $this->connect()->prepare("SELECT m.price AS price, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.order_id = :identifier  GROUP BY l.order_id ORDER BY order_id DESC 
             ");
          /*    $query = $this->connect()->prepare("SELECT order_id, user_id FROM orders WHERE order_id = :order_id "); */
-            $result = $query->execute(["order_id" => $order_id]);
-            } else if($order_id == "") {
+           
+            } else {
                 /* $query = $this->connect()->prepare("SELECT order_id, user_id FROM orders WHERE qr_code = :qr_code_id "); */
-                $query = $this->connect()->prepare("SELECT m.price AS price, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ',') AS menu_name, GROUP_CONCAT(m.price SEPARATOR ',') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ',') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.qr_code = :qr_code_id  GROUP BY l.order_id ORDER BY order_id DESC 
+                $query = $this->connect()->prepare("SELECT m.price AS price, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.qr_code = :identifier  GROUP BY l.order_id ORDER BY order_id DESC 
                ");
 
-
-
-
-                $result = $query->execute(["qr_code_id" => $qr_code_id]);
             }
+            $result = $query->execute(["identifier" => $identifier]);
             if ($query->rowCount() > 0) {
                 $fetch = $query->fetch(PDO::FETCH_ASSOC);
+               $user_id =   $_SESSION['user_id'];
+                $fetch_order_id= $fetch['order_id'];
                 $price=0;
                 $price = ($fetch['price'] - ($fetch['price'] * (floatval($fetch['discount']) / 100))) * $fetch['quantity'];
                 $date = date('Y-m-d H:i:s');
 
                 $query = $this->connect()->prepare("INSERT INTO transaction (order_id, user_id, date, price) VALUES( :order_id, :user_id, :date, :price)");
-                $result = $query->execute([":order_id" => $order_id, ":user_id" => $user_id, ":date" => $date, ":price" => $price]);
+                $result = $query->execute([":order_id" => $fetch_order_id, ":user_id" => $user_id, ":date" => $date, ":price" => $price]);
                 $output['success'] = 'Order has been claimed';
 
-                 $query = $this->connect()->prepare("DELETE FROM orders where order_id = :order_id");
-                     $result = $query->execute([":order_id" => $order_id]);
+              /*    $query = $this->connect()->prepare("DELETE FROM orders where order_id = :order_id");
+                     $result = $query->execute([":order_id" => $fetch_order_id]); */
 
-                     $status = "unread";
+                    
                      $message = "Your order has been claimed";
-         
-                     $query = $this->connect()->prepare("INSERT INTO notification ( user_id, message, status) VALUES( :user_id, :message, :status)");
-                     $result = $query->execute([":user_id" => $user_id, ":message" => $message, ":status" => $status]);
+       
+                  
          
                      $notification = new Notification();
-                     $notification->order_notif($user_id, $message);
+                     $notification->insert_notif($user_id,$message);
+                     $notification->order_staff_to_customer($user_id, $message);
          
             } else {
                 $output['error'] = 'Something went wrong! Please try again later.';
@@ -258,6 +263,7 @@ it checks if the code is associated with an order, if true it will display the o
     }
 
 
+    
 
 
 
@@ -279,10 +285,21 @@ public function admin_edit_order($order_id,  $date, $time, $status)
         $query = $this->connect()->prepare("UPDATE orders SET date = :date, time = :time, status = :status WHERE order_id = :order_id");
         $result = $query->execute([':date' => $date,':time' => $time,':status' => $status,':order_id' => $order_id]);
         if ($result) {
+            $notification = new Notification();
+            $notification->update_order_notif();
             $output['success'] = 'Item Updated Successfully';
         } else {
             $output['error'] = 'Something went wrong! Please try again later.';
         }
+
+        if($status == "Preparing") {
+            $message = "Your order is being prepared";
+        } else if($status == "Preparing") {
+            $message = "Your order is ready for pick up";
+        }
+       
+        $notification = new Notification();
+        $notification->order_staff_to_customer($order_id, $message);
         echo json_encode($output);
     }
 }
@@ -290,40 +307,41 @@ public function admin_edit_order($order_id,  $date, $time, $status)
 public function admin_delete_order($order_id, $user_id, $del_notif)
 {
 
-        $query =$this->connect()->prepare("DELETE FROM orders WHERE order_id = :order_id");
+  /*       $query =$this->connect()->prepare("DELETE FROM orders WHERE order_id = :order_id");
         $result = $query->execute([":order_id" => $order_id]);
-        if ($result) {
+        if ($result) { */
             $output['success'] = 'Order Deleted';
-        } else {
+       /*  } else {
             $output['error'] = 'Something went wrong! Please try again later.';
-        }
+        } */
 
         echo json_encode($output);
-        
-
-        $status = "unread";
+        $message = $del_notif;
+        $notification = new Notification();
+        $notification->order_staff_to_customer($user_id, $message);
+      
         /*  $user_id = 1; */
-        $query = $this->connect()->prepare("INSERT INTO notification ( user_id, message, status) VALUES( :user_id, :message, :status)");
-        $result = $query->execute([":user_id" => $user_id, ":message" => $del_notif, ":status" => $status]);
+       
+
+        $notification->insert_notif($user_id,$del_notif);
     }
 
-    public function fetch()
+    public function fetch_selected_order( $order_id)
     {
-        $order_id = $_POST["id"];
-        $result = $query = $this->connect()->prepare("SELECT o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ',') AS menu_name, GROUP_CONCAT(m.price SEPARATOR ',') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ',') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.order_id = :order_id GROUP BY l.order_id");
+        $result = $query = $this->connect()->prepare("SELECT m.price AS price, u.contact, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.order_id = :order_id GROUP BY l.order_id");
         $query->execute(["order_id" => $order_id]);
-
+        $total_price = 0;
         $data = array();
 
         foreach ($result as $row) {
-
+            $total_price += ($row['price'] - ($row['price'] * (floatval($row['discount']) / 100))) * $row['quantity'];
 
             $data['order_id'] = $row['order_id'];
             $data['customer_name'] = $row['customer_name'];
             $data['menu_name'] = $row['menu_name'];
+            $data['contact'] = $row['contact'];
             $data['price'] = $row['price_list'];
             $data['quantity'] = $row['quantity_list'];
-            $data['total_price'] = "";
             $data['date'] = $row['date'];
             $data['time'] = $row['time'];
             $data['status'] = $row['status'];
@@ -340,13 +358,23 @@ public function admin_delete_order($order_id, $user_id, $del_notif)
 	ORDER BY menu_id DESC 
 	LIMIT 5"; */
 
-    $result=$query = $this->connect()->prepare("SELECT m.price AS price, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ',') AS menu_name, GROUP_CONCAT(m.price SEPARATOR ',') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ',') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id GROUP BY l.order_id ORDER BY date ASC 
+    $result=$query = $this->connect()->prepare("SELECT m.price AS price, u.contact,  m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id GROUP BY l.order_id ORDER BY date ASC 
         LIMIT 5");
          $query->execute();
 $total_price = 0;
         $output = '';
         foreach ($result as $row) {
             $total_price += ($row['price'] - ($row['price'] * (floatval($row['discount']) / 100))) * $row['quantity'];
+           $placed = "";
+           $preparing = "";
+           $ready = "";
+            if($row["status"] == "Placed"){ 
+                $placed = "selected"; 
+            } else if ($row["status"] == "Preparing") {
+                $preparing = "selected";
+            }else if ($row["status"] == "Ready") {
+                $ready = "selected";
+            }
             $output .= '
            
 		<tr>
@@ -354,26 +382,32 @@ $total_price = 0;
 		<td>' . $row["order_id"] . '</td>
 		<td>' . $row["customer_name"] . '</td>
 		<td>' . $row["menu_name"] . '</td>
+		<td>' . $row["contact"]  . '</td>
 		<td>' . $row["price_list"] . '</td>
 		<td>' . $row["quantity_list"] . '</td>
-		<td>' . $total_price  . '</td>
-		<td>' . $row["date"] . '</td>
-		<td>' . $row["time"] . '</td>
-		<td>' . $row["status"] . '</td>
+		<td>  <input min="'.date('Y-m-d').'" type="date" class="form-control" name="date" id="'.$row["order_id"].'new-date" value="' . $row["date"] . '" onchange="new Order().fetch_selected_order(' . $row["order_id"] . ',`new`)"/></td>
+		<td> <input type="time" class="form-control" name="time" id="'.$row["order_id"].'new-time" value="' . $row["time"] . '" onchange="new Order().fetch_selected_order(' . $row["order_id"] . ',`new`)"/></td>
+		<td>
+        <select name="status" id="'.$row["order_id"].'new-status" class="form-select" onchange="new Order().fetch_selected_order(' . $row["order_id"] . ',`new`)" onload="console.log(`1`)">
+       
+            <option value="Placed" '.$placed.'>Placed</option>
+            <option value="Preparing" '.$preparing.'>Preparing</option>
+            <option value="Ready" '.$ready.'>Ready</option>
+        </select></td>
 	
 		
-			<td><button type="button" onclick="new Order().fetch_data(' . $row["order_id"] . ')" class="btn btn-edit"><i class="fa-solid fa-pen"></i></button>&nbsp;
+			<td>
             <button type="button" onclick="new Order().del_notif(' . $row["order_id"] . ', ' . $row["user_id"] . ')" class="btn btn-delete"><i class="fa-solid fa-trash"></i></button>&nbsp;
-            <button type="button" onclick="new Order().claim_order(' . $row["order_id"] . ', ' . $row["user_id"] . ')" class="btn btn-claim">Claim</button></td>
+            <button type="button" onclick="new Order().order_fetch_info(' . $row["order_id"] . ', `manual`)" class="btn btn-claim">Claim</button></td>
 		</tr>
 		';
         }
         return $output;
     }
-
+   /*  if($row["ststus"] == "Placed"){ echo "selected"; } else {echo "";} */
     public function count_all_data()
     {
-        $query = "SELECT o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ',') AS menu_name, GROUP_CONCAT(m.price SEPARATOR ',') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ',') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id GROUP BY l.order_id";
+        $query = "SELECT o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id GROUP BY l.order_id";
 
         $query = $this->connect()->prepare($query);
 
@@ -393,13 +427,14 @@ $total_price = 0;
         $sortColumnIndex = filter_input(INPUT_GET, "sortColumn", FILTER_SANITIZE_NUMBER_INT);
         $sortDirection = filter_input(INPUT_GET, "sortDirection", FILTER_SANITIZE_STRING);
 
-        $column = array("o.order_id", "u.firstname", "u.lastname", "o.date", "o.time", "o.status");
-        $sql = "SELECT m.price AS price, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ',') AS menu_name, GROUP_CONCAT(m.price SEPARATOR ',') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ',') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id";
+        $column = array("o.order_id", "u.firstname", "u.lastname", "u.contact", "o.date", "o.time", "o.status");
+        $sql = "SELECT m.price AS price, u.contact, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id";
 
         $sql .= '
         WHERE o.order_id LIKE "%' . $search . '%" 
         OR u.firstname LIKE "%' . $search . '%" 
         OR u.lastname LIKE "%' . $search . '%" 
+        OR u.contact LIKE "%' . $search . '%"
         OR o.date LIKE "%' . $search . '%" 
         OR o.time LIKE "%' . $search . '%" 
         OR o.status LIKE "%' . $search . '%" 
@@ -422,21 +457,44 @@ $total_price = 0;
         $result = $this->connect()->prepare($sql . $sql1);
         $result->execute();
         $data = array();
+
+       
+		
+	
+      
         foreach ($result as $row) {
+            $placed = "";
+            $preparing = "";
+            $ready = "";
+             if($row["status"] == "Placed"){ 
+                 $placed = "selected"; 
+             } else if ($row["status"] == "Preparing") {
+                 $preparing = "selected";
+             }else if ($row["status"] == "Ready") {
+                 $ready = "selected";
+             }
             $total_price += ($row['price'] - ($row['price'] * (floatval($row['discount']) / 100))) * $row['quantity'];
             $sub_array = array();
             $sub_array[] = $row['order_id'];
             $sub_array[] = $row['customer_name'];
             $sub_array[] = $row['menu_name'];
+            $sub_array[] = $row['contact'];
             $sub_array[] = $row['price_list'];
             $sub_array[] = $row['quantity_list'];
-            $sub_array[] = $total_price;
-            $sub_array[] = $row['date'];
-            $sub_array[] = $row['time'];
-            $sub_array[] = $row['status'];
-            $sub_array[] = '<button type="button" onclick="new Order().fetch_data(' . $row["order_id"] . ')" class="btn btn-edit"><i class="fa-solid fa-pen"></i></button>&nbsp;
+            $sub_array[] = ' <td>  <input min="'.date('Y-m-d').'" type="date" class="form-control" name="date" id="'.$row['order_id'].'filter-new-date" value="' . $row["date"] . '" onchange="new Order().fetch_selected_order(' . $row["order_id"] . ',`fetch-new`)"/></td>';
+            $sub_array[] = '<td> <input type="time" class="form-control" name="time" id="'.$row['order_id'].'filter-new-time" value="' . $row["time"] . '" onchange="new Order().fetch_selected_order(' . $row["order_id"] . ',`fetch-new`)"/></td>';
+            $sub_array[] ='  
+            <td>
+            <select value="' . $row["status"] . '" name="status" id="'.$row["order_id"].'filter-new-status" class="form-select" onchange="new Order().fetch_selected_order(' . $row["order_id"] . ',`fetch-new`)">
+            <option value="Placed" '.$placed.'>Placed</option>
+            <option value="Preparing" '.$preparing.'>Preparing</option>
+            <option value="Ready" '.$ready.'>Ready</option>
+        </select></td>
+            
+            </td>';
+            $sub_array[] = '
             <button type="button" class="" onclick="new Order().del_notif(' . $row["order_id"] . ', ' . $row["user_id"] . ')" class="btn btn-delete"><i class="fa-solid fa-trash"></i></button>&nbsp;
-            <button type="button" onclick="new Order().claim_order(' . $row["order_id"] . ', ' . $row["user_id"] . ')" class="btn btn-claim">Claim</button>';
+            <button type="button" onclick="new Order().order_fetch_info(' . $row["order_id"] . ', `manual`)" class="btn btn-claim">Claim</button>';
             $data[] = $sub_array;
         }
         $output = array("recordsTotal"=>$this->count_all_data(),"recordsFiltered"=>$number_filter_row,"data"=>$data);

@@ -25,7 +25,12 @@ if($validate->is_logged_in("customer")){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.3/css/lightgallery-bundle.css'>
-
+<style>
+    /* light gallery backdrop */
+    .lg-backdrop{
+    opacity:0.8 !important;
+}
+</style>
 </head>
 
     <button type="button" id="current_order">Ordes</button>
@@ -70,6 +75,30 @@ if($validate->is_logged_in("customer")){
         
     });
     
+    
+    
+    /* determined if a customer canceled its order, 
+    if an order has been canceled, the table will be reloaded */
+    get_notification();
+function get_notification() {
+    Pusher.logToConsole = true;
+    
+    let pusher = new Pusher('56c2bebb33825a275ca8', {
+        cluster: 'ap1'
+    });
+
+    let channel = pusher.subscribe('snackwise');
+    channel.bind('notif', function (data) {
+        if(data['notification']['type'] == "order_staff_to_customer") {
+            order.display_order();
+        }
+
+    
+     
+    });
+}
+
+
 </script>
 
 </html>

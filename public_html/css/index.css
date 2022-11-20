@@ -478,7 +478,7 @@ a[name="log-in-btn"] {
     border-radius: 10px;
 }
 
-.input-container form #newsletter-input {
+.input-container form #newsletter_email {
     border: none;
     background-color: #EEEEEE;
     font-size: 1.4em;

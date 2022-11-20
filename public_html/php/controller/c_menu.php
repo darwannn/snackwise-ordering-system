@@ -41,11 +41,11 @@ if (isset($_POST["action_menu"])) {
 
         $validate->validateLength($name,'','name_error', 'Required field' );
         $validate->validateLength($description,'','description_error', 'Required field' );
-        $validate->validateLength($category,'','category_error', 'Required field' );
+        $validate->validateSelectorLength($category,'category_error', 'Required field' );
         $validate->validateLength($discount,'','discount_error', 'Required field' );
         $validate->validateLength($price,'','price_error', 'Required field' );
         $validate->validateLength($date,'','date_error', 'Required field' ); 
-        $validate->validateLength($availability,'','availability_error', 'Required field' );
+        $validate->validateSelectorLength($availability,'availability_error', 'Required field' );
         $validate->validateLength($image, '', 'image_error', 'Required field');
 
         if (count($validate->output) > 0) {

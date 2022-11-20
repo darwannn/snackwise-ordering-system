@@ -31,22 +31,17 @@ if (isset($_POST["add_order"]) == 'add_order') {
 }
 
 if (isset($_POST["qr_claim_order"]) == 'qr_claim_order') {
-    $qr_code_id = $_POST['qr_code_id'];
+    $identifier = $_POST['identifier'];
+    $type = $_POST['type'];
 
-    $order->claim_order("","",$qr_code_id);
-}
-if (isset($_POST["claim_order"]) == 'claim_order') {
-    $order_id = $_POST['order_id'];
-    $user_id = $_POST['user_id'];
- 
-
-    $order->claim_order($order_id, $user_id,"");
+    $order->claim_order($identifier,$type);
 }
 
-if (isset($_POST["qr_fetch_info"]) == 'qr_fetch_info') {
-    $qr_code_id = $_POST['qr_code_id'];
 
-    $order->qr_fetch_info($qr_code_id);
+if (isset($_POST["order_fetch_info"]) == 'order_fetch_info') {
+    $identifier = $_POST['identifier'];
+$type = $_POST['type'];
+    $order->order_fetch_info($identifier,$type);
 }
 
 
@@ -68,78 +63,52 @@ if (isset($_POST["qr_fetch_info"]) == 'qr_fetch_info') {
 /* --------------------admin */
 if (isset($_POST["action_order"])) {
 
-    if ($_POST['action_order'] == 'Add' || $_POST['action_order'] == 'Update') {
+    if ($_POST['action_order'] == 'Update') {
 
 
         $order_id = $_POST["order_id"];
-        /*  $customer_name = $_POST["customer_name"];
-        $order_name = $_POST["order_name"];
-        $price = $_POST["price"];
-        $quantity = $_POST["quantity"];
-        $total_price = $_POST["total_price"]; */
         $date = $_POST["date"];
         $time = $_POST["time"];
         $status = $_POST["status"];
 
-
-
-
-        $output = array();
-
-
-        /*    $validate->validateLength($customer_name,'','customer_name_error', 'Required' );
-     $validate->validateLength($order_name,'','order_name_error', 'Required' );
-     $validate->validateLength($price,'','price_error', 'Required' );
-     $validate->validateLength($quantity,'','quantity_error', 'Required' );
-     $validate->validateLength($total_price,'','total_price_error', 'Required' ); */
-
-        /*      $validate->validateLength($date,'','date_error', 'Required' );
-     $validate->validateLength($time,'','time_error', 'Required' );
-     $validate->validateLength($status,'','status_error', 'Required' );
- */
-
-
-
-
         if (count($validate->output) > 0) {
             echo json_encode($validate->output);
         } else {
-            if ($_POST['action_order'] == 'Add') {
-
-                $order->add($order_id,  $date, $time, $status);
-                /*  $order->add( $order_id, $customer_name, $order_name, $price, $quantity, $total_price , $date, $time, $status); */
-            }
-
-
-            if ($_POST['action_order'] == 'Update') {
-
-
-
-                /*  $order->edit($order_id, $customer_name, $order_name, $price, $quantity, $total_price , $date, $time, $status); */
-                $order->admin_edit_order($order_id,  $date, $time, $status);
-            }
+    
+  $order->admin_edit_order($order_id,  $date, $time, $status);
+            
         }
     }
-    if ($_POST['action_order'] == 'fetch') {
-
-        $order->fetch();
-    }
-
+   
 
 
 
 
     if ($_POST['action_order'] == 'delete') {
+
         $del_notif = $_POST['del_notif'];
+        
+        
         $order_id = $_POST['order_id'];
         $user_id = $_POST['user_id'];
-        $order->admin_delete_order($order_id, $user_id, $del_notif);
+        $validate->validateLength($del_notif,'','del_notif_error', 'Required' );
+       
+
+
+        
+        if (count($validate->output) > 0) {
+            echo json_encode($validate->output);
+        } else {
+            $order->admin_delete_order($order_id, $user_id, $del_notif);
+        }
     }
-} else {
-    if (isset($_GET['fetch'])) {
-        $order->filter();
-    }
+} 
+
+if (isset($_POST['fetch_selected_order'])) {
+    $order_id = $_POST['order_id'];
+    $order->fetch_selected_order( $order_id);
 }
+
 
 /* 
 if (isset($_POST["display_menu"])) {

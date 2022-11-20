@@ -36,32 +36,33 @@ if (isset($_POST["register"])) {
     $contact = $_POST['contact'];
     $password = $_POST['password'];
     $retype_password = $_POST['retype_password'];
-    $region = $_POST['region'];
+ /*    $region = $_POST['region'];
     $province = $_POST['province'];
     $municipality = $_POST['municipality'];
     $barangay = $_POST['barangay'];
-    $street = $_POST['street'];
+    $street = $_POST['street']; */
     $user_type = $_SESSION['user_type'];
 
-   /*  $validate->validateLength($firstname,'','firstname_error', 'Required field' );
+    $validate->validateLength($firstname,'','firstname_error', 'Required field' );
     $validate->validateLength($lastname,'', 'lastname_error', 'Required field' );
     $validate->validateLength($contact,'', 'contact_error', 'Required field' );
 
-    $validate->validateLength($street,'', 'street_error', 'Required field' );
+/*     $validate->validateLength($street,'', 'street_error', 'Required field' );
     $validate->validateSelectorLength($region,'region_error', 'Required field' );
     $validate->validateSelectorLength($province,'province_error', 'Required field' );
     $validate->validateSelectorLength($municipality,'municipality_error', 'Required field' );
+    $validate->validateSelectorLength($barangay,'barangay_error', 'Required field'); */
 
-    $validate->validateSelectorLength($barangay,'barangay_error', 'Required field');
     $validate->validateLength($username, '', 'username_error', 'Required field' );
     $validate->validateLength($email,'', 'email_error', 'Required field' );
     $validate->validateLength($password, $retype_password, 'password_error', 'Required field' );
     $validate->validateLength($password,$retype_password, 'retype_password_error', 'Required field' );
- */
+
     if (count($validate->output) > 0) {
         echo json_encode($validate->output);
     } else {
-        $account->register($firstname, $lastname, $username, $email, $contact, $password, $retype_password, $region, $province, $municipality, $barangay, $street, $user_type);
+       /*  $account->register($firstname, $lastname, $username, $email, $contact, $password, $retype_password, $region, $province, $municipality, $barangay, $street, $user_type); */
+        $account->register($firstname, $lastname, $username, $email, $contact, $password, $retype_password, $user_type);
     }
 }
 
@@ -103,29 +104,30 @@ if (isset($_POST["update"])) {
     $email = $_POST['email'];
     $contact = $_POST['contact'];
     $region = $_POST['region'];
-    $province = $_POST['province'];
+    /* $province = $_POST['province'];
     $municipality = $_POST['municipality'];
     $barangay = $_POST['barangay'];
     $street = $_POST['street'];
-    $user_id  = $_POST['user_id'];
+    $user_id  = $_POST['user_id']; */
 
     $validate->validateLength($firstname,'','firstname_error', 'Required field' );
     $validate->validateLength($lastname,'', 'lastname_error', 'Required field' );
     $validate->validateLength($username, '', 'username_error', 'Required field' );
     $validate->validateLength($email,'', 'email_error', 'Required field' );
     $validate->validateLength($contact,'', 'contact_error', 'Required field' );
-/*     $validate->validateLength($password, $retype_password, 'password_error', 'Required field' );
-    $validate->validateLength($retype_password,$retype_password, 'retype_password_error', 'Required field' ); */
-    $validate->validateSelectorLength($region,'region_error', 'Required field' );
+    $validate->validateLength($password, $retype_password, 'password_error', 'Required field' );
+    $validate->validateLength($password,$retype_password, 'retype_password_error', 'Required field' );
+/*     $validate->validateSelectorLength($region,'region_error', 'Required field' );
     $validate->validateSelectorLength($province,'province_error', 'Required field' );
     $validate->validateSelectorLength($municipality,'municipality_error', 'Required field' );
     $validate->validateSelectorLength($barangay,'barangay_error', 'Required field');
-    $validate->validateLength($street,'', 'street_error', 'Required field' );
+    $validate->validateLength($street,'', 'street_error', 'Required field' ); */
 
     if (count($validate->output) > 0) {
         echo json_encode($validate->output);
     } else {
-        $account->update($user_id,$firstname, $lastname, $username, $email, $contact, $region, $province, $municipality, $barangay, $street, $image);
+        $account->update($user_id,$firstname, $lastname, $username, $email, $contact, $image);
+      /*   $account->update($user_id,$firstname, $lastname, $username, $email, $contact, $region, $province, $municipality, $barangay, $street, $image); */
     }
 }
 

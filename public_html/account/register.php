@@ -85,20 +85,20 @@ if (isset($_GET["staff"]) == 1) {
                 </div>
             </section>
 
-            <section class="address-information-sec input-section">
+            <!-- <section class="address-information-sec input-section">
                 <div class="row">
                     <span>Address Information</span>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <!-- <label for="street" for="">Street</label> -->
+                  
                         <input type="text" class="form-control m-2" name="street" id="street" placeholder="House Number / Street / Building No.">
                         <span class="" id="street_error"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-5 col-6">
-                        <!-- <label for="">Region</label> -->
+
                         <select name="region" class="form-select form-select-md m-2" id="region">
                             <option class="address_option" value="none">Region</option>
                         </select>
@@ -106,14 +106,14 @@ if (isset($_GET["staff"]) == 1) {
 
                     </div>
                     <div class="col-md-7 col-6">
-                        <!-- <label for="">Province</label> -->
+        
                         <select name="province" class="form-select form-select-md m-2" id="province">
                             <option class="address_option" value="none">Province</option>
                         </select>
                         <span class="" id="province_error"></span>
                     </div>
                     <div class="col-md-12 col-6">
-                        <!-- <label for="">Municipality</label> -->
+                
                         <select name="municipality" class="form-select form-select-md m-2" id="municipality">
                             <option class="address_option" value="none">Munincipality</option>
                         </select>
@@ -122,14 +122,14 @@ if (isset($_GET["staff"]) == 1) {
                     </div>
                     <div class="col-md-12 col-6">
 
-                        <!-- <label for="">Barangay</label> -->
+             
                         <select name="barangay" class="form-select form-select-md m-2" id="barangay">
                             <option class="address_option" value="none">Barangay</option>
                         </select>
                         <span class="" id="barangay_error"></span>
                     </div>
                 </div>
-            </section>
+            </section> -->
 
             <section class="account-information-sec input-section">
                 <div class="row">
@@ -191,7 +191,7 @@ if (isset($_GET["staff"]) == 1) {
 </script>
 
 <script src="../js/Account.js"></script>
-<script src="../js/Address.js"></script>
+<!-- <script src="../js/Address.js"></script> -->
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
         let account = new Account();
@@ -202,17 +202,13 @@ if (isset($_GET["staff"]) == 1) {
          } */
 
 
-
-
-
-
         document.getElementById("register").onclick = function() {
 
             account.register();
         }
 
 
-        new Address().addressSelector("region", "province", "municipality", "barangay");
+       /*  new Address().addressSelector("region", "province", "municipality", "barangay"); */
 
     });
 </script>

@@ -65,7 +65,7 @@ class Account extends DbConnection
             $fetch = $query->fetch(PDO::FETCH_ASSOC);
             return $fetch['email'];
         } else {
-            $output['error'] = '<div class="alert alert-success">Something went wrong! Please try again later.2</div>';
+            $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
             echo json_encode($output);
         }
     }
@@ -97,11 +97,10 @@ class Account extends DbConnection
                     /* checks if the account is verified */
                     if ($fetch_status == "verified") {
 
-
                         $_SESSION['user_id'] = $fetch_user_id;
                         $_SESSION['password'] = $password;
                         $_SESSION['user_type'] = $fetch_user_type;
-                        $output['success'] = 'Login Successfully';
+                        $output['success'] = '<div class="alert alert-success text-center">Login Successfully</div>';
                     } else {
                         $code = $this->generateCode();
                         if ($fetch_user_type == "customer") {
@@ -127,9 +126,9 @@ class Account extends DbConnection
 
                         if ($this->update_code($email, $subject, $body, $code)) {
                             $_SESSION['forgot-email'] = $email;
-                            $output['validate'] = 'Link to change your password has been sent to ' . $email . '';
+                            $output['validate'] = '<div class="alert alert-danger text-center">You still haven\'t verify your account.Verification code has been sent to ' . $email . '</=div>';
                         } else {
-                            $output['error'] = 'Something went wrong! Please try again later.';
+                            $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
                         }
                     }
                 }
@@ -137,13 +136,13 @@ class Account extends DbConnection
                 $query =  $this->connect()->prepare("UPDATE user SET attempt = :fetch_attempt WHERE user_id = :fetch_user_id");
                 $result = $query->execute([':fetch_attempt' =>  $fetch_attempt + 1, ':fetch_user_id' => $fetch_user_id]);
                 if ($result) {
-                    $output['error'] = 'Incorrect Password';
+                    $output['error'] = '<div class="alert alert-danger text-center">Incorrect Password</div>';
                 } else {
-                    $output['error'] = 'Something went wrong! Please try again later.';
+                    $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
                 }
             }
         } else {
-            $output['error'] = 'Something went wrong! Please try again later.';
+            $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
         }
         echo json_encode($output);
     }
@@ -171,9 +170,9 @@ class Account extends DbConnection
 
             if ($this->update_code($email, $subject, $body, $code)) {
                 $_SESSION['forgot-email'] = $email;
-                $output['error'] = 'Too many incorrect login attempts. We have sent an email to verify your identity.';
+                $output['error'] = '<div class="alert alert-danger text-center">Too many incorrect login attempts. We have sent an email to verify your identity.</div>';
             } else {
-                $output['error'] = 'Something went wrong! Please try again later.';
+                $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
             }
         }
         echo json_encode($output);
@@ -182,7 +181,8 @@ class Account extends DbConnection
    
 
     /* -------------------- register */
-    public function register($firstname, $lastname, $username, $email, $contact, $password, $retype_password, $region, $province, $municipality, $barangay, $street, $user_type)
+   /*  public function register($firstname, $lastname, $username, $email, $contact, $password, $retype_password, $region, $province, $municipality, $barangay, $street, $user_type) */
+    public function register($firstname, $lastname, $username, $email, $contact, $password, $retype_password, $user_type)
     {
         $attempt = 0;
         $status = "unverified";
@@ -191,8 +191,10 @@ class Account extends DbConnection
         $code_expiration = $this->get_current_date();
         $encryptPassword = $this->encryptPassword($password);
 
-        $query = $this->connect()->prepare("INSERT INTO user (firstname, lastname, username, email, contact, password, region, province, municipality, barangay, street,attempt,code,code_expiration, status, user_type) VALUES( :firstname, :lastname, :username, :email, :contact, :password, :region, :province, :municipality, :barangay, :street,:attempt,:code, :code_expiration,:status, :user_type)");
-        $result = $query->execute([":firstname" => $firstname, ":lastname" => $lastname, ":username" => $username, ":email" => $email, ":contact" => $contact, ":password" => $encryptPassword, ":region" => $region, ":province" => $province, ":municipality" => $municipality, ":barangay" => $barangay, ":street" => $street, ":attempt" => $attempt, ":code" => $code, ":code_expiration" => $code_expiration, ":status" => $status, ":user_type" => $user_type]);
+        $query = $this->connect()->prepare("INSERT INTO user (firstname, lastname, username, email, contact, password, attempt,code,code_expiration, status, user_type) VALUES( :firstname, :lastname, :username, :email, :contact, :password, :attempt,:code, :code_expiration,:status, :user_type)");
+        $result = $query->execute([":firstname" => $firstname, ":lastname" => $lastname, ":username" => $username, ":email" => $email, ":contact" => $contact, ":password" => $encryptPassword, ":attempt" => $attempt, ":code" => $code, ":code_expiration" => $code_expiration, ":status" => $status, ":user_type" => $user_type]);
+       /*  $query = $this->connect()->prepare("INSERT INTO user (firstname, lastname, username, email, contact, password, region, province, municipality, barangay, street,attempt,code,code_expiration, status, user_type) VALUES( :firstname, :lastname, :username, :email, :contact, :password, :region, :province, :municipality, :barangay, :street,:attempt,:code, :code_expiration,:status, :user_type)");
+        $result = $query->execute([":firstname" => $firstname, ":lastname" => $lastname, ":username" => $username, ":email" => $email, ":contact" => $contact, ":password" => $encryptPassword, ":region" => $region, ":province" => $province, ":municipality" => $municipality, ":barangay" => $barangay, ":street" => $street, ":attempt" => $attempt, ":code" => $code, ":code_expiration" => $code_expiration, ":status" => $status, ":user_type" => $user_type]); */
 
         if ($result) {
 
@@ -227,16 +229,16 @@ class Account extends DbConnection
                 $_SESSION['password'] = $password;
 
                 if ($user_type == "customer") {
-                    $output['success'] = 'Verification code has been sent to ' . $email . '';
+                    $output['success'] = '<div class="alert alert-success text-center">Verification code has been sent to ' . $email . '</div>';
                 } else {
                     $fetch_email = $this->get_admin_email();
-                    $output['success'] = 'Verification code has been sent to ' . $fetch_email . '';
+                    $output['success'] = '<div class="alert alert-success text-center">Verification code has been sent to ' . $fetch_email . '</div>';
                 }
             } else {
-                $output['error'] = 'Something went wrong! Please try again later.';
+                $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
             }
         } else {
-            $output['error'] = 'Something went wrong! Please try again later.';
+            $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
         }
         echo json_encode($output);
     }
@@ -282,12 +284,12 @@ class Account extends DbConnection
 
             if ($this->update_code($fetch_email, $subject, $body, $code)) {
                 $_SESSION['forgot-email'] = $fetch_email;
-                $output['success'] = 'Link to change your password has been sent to ' . $fetch_email . '';
+                $output['success'] = '<div class="alert alert-success text-center">Link to change your password has been sent to ' . $fetch_email . '</div>';
             } else {
-                $output['error'] = 'Something went wrong! Please try again later.';
+                $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
             }
         } else {
-            $output['error'] = 'Something went wrong! Please try again later.';
+            $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
         }
         echo json_encode($output);
     }
@@ -305,10 +307,10 @@ class Account extends DbConnection
         $query = $this->connect()->prepare("UPDATE user SET password = :password, code = :code, status = :status WHERE user_id = :user_id");
         $result = $query->execute([':password' => $encryptPassword, ':code' => $code, ':status' => $status, ':user_id' => $user_id]);
         if ($result) {
-            $output['success'] = 'Your password has been changed! Please login with your new password';
-            $_SESSION['activate_success'] = "Your password has been changed! Please login with your new password";
+            $output['success'] = '<div class="alert alert-success text-center">Your password has been changed! Please login with your new password</div>';
+            $_SESSION['activate_success'] =  '<div class="alert alert-success text-center">Your password has been changed! Please login with your new password</div>';
         } else {
-            $output['error'] = 'Something went wrong! Please try again later.';
+            $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
         }
         echo json_encode($output);
     }
@@ -324,10 +326,10 @@ class Account extends DbConnection
         $query  = $this->connect()->prepare("UPDATE user SET code = :code, status = :status WHERE code = :url_code");
         $result = $query->execute([':code' => $code, ':status' => $status, ':url_code' => $url_code]);
         if ($result) {
-            $_SESSION['activate_success'] = "Your account has been activated";
+            $_SESSION['activate_success'] = '<div class="alert alert-success text-center">Your account has been activated</div>';
             header('Location: login.php');
         } else {
-            header('Location: error');
+            header('Location: ../error');
         }
     }
 
@@ -352,22 +354,19 @@ class Account extends DbConnection
             $sub_array['username'] = $fetch['username'];
             $sub_array['email'] = $fetch['email'];
             $sub_array['contact'] = $fetch['contact'];
-            $sub_array['region'] = $fetch['region'];
-            $sub_array['municipality'] = $fetch['municipality'];
-            $sub_array['barangay'] = $fetch['barangay'];
-            $sub_array['street'] = $fetch['street'];
+      
             $sub_array['image'] = $fetch['image'];
             $data[] = $sub_array;
             $output = array("data" => $data);
         } else {
-            $output['activate_success'] = "Your account has been verified. You can now login";
+            $output['activate_success'] = '<div class="alert alert-success text-center">Your account has been verified. You can now login</div>';
         }
         echo json_encode($output);
     }
 
     /* -------------------- */
     /* updates the user account, it also allows the user to upload a profile picture  */
-    public function update($user_id, $firstname, $lastname, $username, $email, $contact, $region, $province, $municipality, $barangay, $street, $image)
+    public function update($user_id, $firstname, $lastname, $username, $email, $contact, $image)
     {
         /* determines if a new profile picture has been uploaded */
         if ($image == "") {
@@ -382,12 +381,14 @@ class Account extends DbConnection
             $image_link = "v" . $data['version'] . "/" . $data['public_id'];
         }
 
-        $query = $this->connect()->prepare("UPDATE user SET firstname =:firstname, lastname=:lastname, username=:username, email=:email, contact=:contact, region=:region, province=:province, municipality=:municipality, barangay=:barangay, street=:street, image=:image where user_id = :user_id");
-        $result = $query->execute([":firstname" => $firstname, ":lastname" => $lastname, ":username" => $username, ":email" => $email, ":contact" => $contact, ":region" => $region, ":province" => $province, ":municipality" => $municipality, ":barangay" => $barangay, ":street" => $street, ":image" => $image_link, ':user_id' => $user_id]);
+        $query = $this->connect()->prepare("UPDATE user SET firstname =:firstname, lastname=:lastname, username=:username, email=:email, contact=:contact, image=:image where user_id = :user_id");
+        $result = $query->execute([":firstname" => $firstname, ":lastname" => $lastname, ":username" => $username, ":email" => $email, ":contact" => $contact, ":image" => $image_link, ':user_id' => $user_id]);
+      /*   $query = $this->connect()->prepare("UPDATE user SET firstname =:firstname, lastname=:lastname, username=:username, email=:email, contact=:contact, region=:region, province=:province, municipality=:municipality, barangay=:barangay, street=:street, image=:image where user_id = :user_id");
+        $result = $query->execute([":firstname" => $firstname, ":lastname" => $lastname, ":username" => $username, ":email" => $email, ":contact" => $contact, ":region" => $region, ":province" => $province, ":municipality" => $municipality, ":barangay" => $barangay, ":street" => $street, ":image" => $image_link, ':user_id' => $user_id]); */
         if ($result) {
-            $output['error'] = 'Your profile has been updated';
+            $output['success'] = '<div class="alert alert-success text-center">Your profile has been updated</div>';
         } else {
-            $output['error'] = 'Something went wrong! Please try again later.';
+            $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
         }
         echo json_encode($output);
     }
@@ -399,12 +400,12 @@ class Account extends DbConnection
         $query = $this->connect()->prepare("UPDATE user SET password = :password WHERE user_id = :user_id");
         $result = $query->execute([':password' => $encryptPassword, ':user_id' => $user_id]);
         if ($result) {
-            $output['success'] = '<div class="alert alert-success">Your password has been changed! Please login with your new password</div>';
+            $output['success'] = '<div class="alert alert-success text-center">Your password has been changed! Please login with your new password</div>';
             echo json_encode($output);
             /*  header('Location: login'); */
             exit;
         } else {
-            $output['success'] = '<div class="alert alert-success">Your password has been changed! Please login with your new password</div>';
+            $output['success'] = '<div class="alert alert-success text-center">Your password has been changed! Please login with your new password</div>';
             echo json_encode($output);
         }
     }
@@ -417,11 +418,11 @@ class Account extends DbConnection
         $result = $query->execute([':user_id' => $user_id]);
 
         if ($result) {
-            $output['success'] = 'Account Deleted';
+            $output['success'] = '<div class="alert alert-success text-center">Account Deleted</div>';
             echo json_encode($output);
             header('Location: login');
         } else {
-            $output['error'] = 'Something went wrong! Please try again later.';
+            $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
             echo json_encode($output);
         }
     }
@@ -436,7 +437,7 @@ class Account extends DbConnection
         $query  = $this->connect()->prepare("UPDATE user SET code = :code, attempt = :attempt WHERE code = :url_code");
         $result = $query->execute([':code' => $code,  ':attempt' => $attempt, ':url_code' => $url_code]);
         if ($result) {
-            $_SESSION['activate_success'] = "Your account has been verified. You can now login";
+            $_SESSION['activate_success'] = '<div class="alert alert-success text-center">Your account has been verified. You can now login</div>';
             header('Location: login');
         } else {
             header('Location: error');
@@ -447,10 +448,10 @@ class Account extends DbConnection
      public function update_code($email, $subject, $body, $code)
      {
          $code_expiration = $this->get_current_date();
-         $status = "verified";
+
  
-         $query =  $this->connect()->prepare("UPDATE user SET code = :code, code_expiration = :code_expiration, status = :status WHERE email = :email");
-         $result = $query->execute([':code' => $code, ':code_expiration' => $code_expiration, ':status' => $status, ':email' => $email]);
+         $query =  $this->connect()->prepare("UPDATE user SET code = :code, code_expiration = :code_expiration WHERE email = :email");
+         $result = $query->execute([':code' => $code, ':code_expiration' => $code_expiration, ':email' => $email]);
          if ($result) {
  
  
@@ -473,32 +474,86 @@ class Account extends DbConnection
      public function email_template($link, $copy_link, $notice) {
         return "
         <body
-style='box-sizing: border-box; font-family:Roboto, sans-serif; font-size: 18px; background-image:url(https://res.cloudinary.com/dhzn9musm/image/upload/v1668344633/SnackWise/Background-Pattern_dpqbdy.jpg); height: 850px;width: 100%; text-align: center; position: relative;'>
-<div style='top: 50%; right: 50%; transform: translate(50%,-50%); position: absolute; '>
-
-    <h1 style='padding-top:100px ;'><span style='color: #DD1C1A;'>SNACK</span><span style='color: #F0C808; text-align: center;'>WISE</span></h1>
-    <div  style=' background-color: white; margin:0px auto 0px auto; border-radius: 20px;  width: 500px;'>
-        <div style=' width: 450px; padding: 80px 15px; text-align: center; margin: auto; '>
-            <p>" . $notice . "</p>
-
-            <button style='width: 100%; margin: 20px 0; font-weight: 600px;  font-size: 18px;padding: 20px 0; border-radius: 10px;border:none;background-color: #DD1C1A; color: white;'>" . $link . "</button>
-
-            <p>If the button does not work for any reason, you can <br> also paste the following into your browser: </p>
-            " . $copy_link . "
-        </div>
-
-    </div>
-
-
-<div style='text-align: center; font-size: 12px; margin: 0 70px;'>
-    <p>If you have any questions, simply respond to this email and we'll be happy to help.</p>
-    <p style='margin-top:3px;' >Copyright © <script>
-            document.write(new Date().getFullYear())
-        </script> Snackwise. All Rights Reserved.</p>
-</div>
-</div>
-</body>
-
+        style='font-family:Roboto, sans-serif; font-size: 18px;text-align: center; background-image:url(https://res.cloudinary.com/dhzn9musm/image/upload/v1668344633/SnackWise/Background-Pattern_dpqbdy.jpg); margin: 0; padding: 0;'>
+    
+        <table style='width: 100%;'>
+            <tr>
+                <td style='  vertical-align: middle;'>
+                    <table style=' margin:0 auto; padding: 50px 20px 80px 20px;'>
+                        <tr>
+                            <td>
+                                <h1><span style='color: #DD1C1A;'>SNACK</span><span
+                                        style='color: #F0C808; text-align: center;'>WISE</span></h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table
+                                    style='background-color: white!important; border-radius: 20px; padding: 100px 20px; width: 500px;'>
+                                    <tr>
+                                        <td style='color:black!important;'>
+                                            " . $notice . "
+                                        </td>
+                                    </tr>
+    
+                                    <tr>
+                                        <td>
+                                            <button style='width: 100%; margin: 20px 0; font-weight: 600px;  font-size: 18px;padding: 20px 0; border-radius: 10px;border:none;background-color: #DD1C1A; color: white;'>" . $link . "</button>
+    
+                                        </td>
+                                    </tr>
+    
+                                    <tr>
+                                        <td style='color:black!important;'>
+                                            If the button does not work for any reason, you can <br> also paste the
+                                            following into your browser:
+                                        </td>
+                                    </tr>
+    
+                                    <tr>
+                                        <td style='padding-top:15px; color:black!important;'>
+                                            " . $copy_link . "
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td style='font-size:17px; padding-top:15px;'>
+                                The link will expire after a day.
+                            </td>
+    
+                        </tr>
+    
+                        <tr>
+                            <td style='font-size:15px; padding-top:5px;'>
+                                Copyright © <script>
+                                    document.write(new Date().getFullYear())
+                                </script> Snackwise. All Rights Reserved.
+    
+                            </td>
+    
+                        </tr>
+                        <tr>
+                            <td style='opacity: 0;'>
+    
+                                <script>
+                                    document.write(Date.now())
+                                </script>
+                                </div>
+                            </td>
+                        </tr>
+    
+                    </table>
+    
+    
+    
+                </td>
+            </tr>
+        </table>
+    
+    
+    </body>
         ";
     }
 }

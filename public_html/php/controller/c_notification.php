@@ -24,10 +24,19 @@ if (isset($_POST["update_notification"]) == 'update_notification') {
 
 if (isset($_POST["notification_count"])) {
     $user_id = $_SESSION['user_id'];
+  
+        $notification->notification_count($user_id);
+    
+}
+if (isset($_POST["newsletter"])) {
+    $email = $_POST['email'];
+
+    $validate->validateLength($email, 'email-contact', 'newsletter_email_error', 'Required field');
+
     if (count($validate->output) > 0) {
         echo json_encode($validate->output);
     } else {
-        $notification->notification_count($user_id);
+        $notification->newsletter($email);
     }
 }
 
