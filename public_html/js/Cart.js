@@ -121,6 +121,7 @@ class Cart {
             if(document.getElementById("cartlist").value != "") {
                 let cart_id_list = (document.getElementById("cartlist").value).split(",");
                 for(let i = 0; i<cart_id_list.length; i++) {
+                   
                     document.getElementById(`cart_${cart_id_list[i]}`).checked=true;
         
                 }
@@ -206,7 +207,7 @@ class Cart {
                 console.log(total_discounted_price);
         });
 
-        document.getElementById("cart_total_price").innerHTML = `PHP ${total_discounted_price.toFixed(2)}`;
+        document.getElementById("cart_total_price").innerHTML = `PHP ${total_discounted_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
         });    
 }
 
@@ -333,6 +334,7 @@ class Cart {
             console.log(response_data);
             document.getElementById('add_to_order').innerHTML = "Checkout";
             document.getElementById('add_to_order').disabled = false;
+            document.getElementById("cartlist").value = "";
             new Cart().display_cart();
             if (response_data.success) {
                 new Notification().create_notification(response_data.success, "success");

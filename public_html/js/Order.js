@@ -17,6 +17,7 @@ class Order {
             return response.json();
         }).then(function (response_data) {
             let order_list = "";
+            
             let total_discounted_price = 0;
             console.log(response_data);
             if (response_data.error) {
@@ -40,9 +41,6 @@ class Order {
                         Download QR
                           </a>`;
                     }
-                    
-                    
-                 
                     } 
                     order_list += `
             <div class="text">
@@ -58,11 +56,11 @@ class Order {
             `;
       
                     total_discounted_price = total_discounted_price + parseFloat(order.total_discounted_price);
+                    order_list += `
+                    <div>PHP ${total_discounted_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                    `;
                 });
              
-                order_list += `
-                <div>${total_discounted_price}</div>
-                `;
             }
             
             document.getElementById("order_list").innerHTML = order_list;
@@ -141,10 +139,10 @@ class Order {
             </div>
             `;
                     total_discounted_price = total_discounted_price + parseFloat(order.total_discounted_price);
+                    order_list += `
+                    <div>PHP ${total_discounted_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                    `;
                 });
-                order_list += `
-                <div>${total_discounted_price}</div>
-                `;
             }
             document.getElementById("order_list").innerHTML = order_list;
         });
@@ -182,6 +180,13 @@ qr_claim_order() {
     }).then(function (response_data) {
         console.log(response_data);
         new Order().qr_close_modal();
+        if (response_data.success) {
+            table.update();
+            new Notification().create_notification(response_data.success,"success");
+      
+         } else if (response_data.error) {
+             new Notification().create_notification(response_data.error,"error");
+         }
     });
 }
 
@@ -271,7 +276,7 @@ order_fetch_info(identifier,type) {
       console.log(`${images[i]}`);
         };
         qr_to_claim_price += `
-          <div class="text-end fw-bold h6">PHP ${total_price.toFixed(2)}</div>
+          <div class="text-end fw-bold h6">PHP ${total_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
       `;
       
       if(type == "delete") {
@@ -325,6 +330,8 @@ close_del_notif() {
     document.getElementById('modal_backdrop').style.display = 'none';
     document.getElementById("del_notif_modal").style.display = "none";
     document.getElementById("del_notif_order_id").style.display = "none";
+    document.getElementById("to_claim_order_id").style.display = "none";
+    document.getElementById("to_claim_type").style.display = "none";
     document.getElementById("del_notif_order_id").value = "";
     document.getElementById("del_notif").value = "";
 
@@ -388,7 +395,7 @@ action_order_button() {
 }
 
 fetch_selected_order(order_id,type) {
-
+console.log(order_id);
     let form_data = new FormData();
     form_data.append('order_id', order_id);
     form_data.append('fetch_selected_order', 'fetch_selected_order');

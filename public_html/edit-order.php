@@ -64,7 +64,7 @@ min-width: 140px!important;
     <!-- toast_notif notification will be appended here -->
     <div class="toast_notif" id="toast_notif"></div>
 
-    <!-- modal to claim order, appears when a QR code is scanned -->
+    <!-- modal to claim order -->
     <div id="qr_modal" class="modal" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -75,8 +75,8 @@ min-width: 140px!important;
                     <!-- order to claim will be appended here -->
                     <div>
                         <div class="h6 fw-bold">Information</div>
-                        <input type="" value="" id="to_claim_order_id">
-                        <input type="" value="" id="to_claim_type">
+                        <input type="hidden" value="" id="to_claim_order_id">
+                        <input type="hidden" value="" id="to_claim_type">
                         <div class="qr_to_claim_info" id="qr_to_claim_info"></div>
                     </div>
                     <div>

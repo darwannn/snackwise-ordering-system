@@ -84,10 +84,10 @@ it checks if the code is associated with an order, if true it will display the o
     {
         if($type == "qr") {
        
-            $result=$query = $this->connect()->prepare("SELECT o.user_id,o.qr_image, u.firstname, u.lastname,CONCAT(u.firstname,' ', u.lastname) AS name,CONCAT(u.street,' ', u.barangay, ' ', u.municipality, ' ', u.province) AS address, o.order_id, o.date, o.time, o.qr_code,o.status,GROUP_CONCAT(m.menu_id SEPARATOR ', ') AS menu_id_list, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, GROUP_CONCAT(m.category SEPARATOR ', ') AS category_list, GROUP_CONCAT(m.price SEPARATOR ', ') AS price_list,GROUP_CONCAT(m.discount SEPARATOR ', ') AS discount_list,GROUP_CONCAT(m.image SEPARATOR ', ') AS image_list FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE qr_code = :identifier GROUP BY l.order_id");
+            $result=$query = $this->connect()->prepare("SELECT o.user_id,o.qr_image, u.firstname, u.lastname,CONCAT(u.firstname,' ', u.lastname) AS name, o.order_id, o.date, o.time, o.qr_code,o.status,GROUP_CONCAT(m.menu_id SEPARATOR ', ') AS menu_id_list, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, GROUP_CONCAT(m.category SEPARATOR ', ') AS category_list, GROUP_CONCAT(m.price SEPARATOR ', ') AS price_list,GROUP_CONCAT(m.discount SEPARATOR ', ') AS discount_list,GROUP_CONCAT(m.image SEPARATOR ', ') AS image_list FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE qr_code = :identifier GROUP BY l.order_id");
      
         } else {
-            $result=$query = $this->connect()->prepare("SELECT o.user_id,o.qr_image, u.firstname, u.lastname,CONCAT(u.firstname,' ', u.lastname) AS name,CONCAT(u.street,' ', u.barangay, ' ', u.municipality, ' ', u.province) AS address, o.order_id, o.date, o.time, o.qr_code,o.status,GROUP_CONCAT(m.menu_id SEPARATOR ', ') AS menu_id_list, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, GROUP_CONCAT(m.category SEPARATOR ', ') AS category_list, GROUP_CONCAT(m.price SEPARATOR ', ') AS price_list,GROUP_CONCAT(m.discount SEPARATOR ', ') AS discount_list,GROUP_CONCAT(m.image SEPARATOR ', ') AS image_list FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.order_id = :identifier GROUP BY l.order_id");
+            $result=$query = $this->connect()->prepare("SELECT o.user_id,o.qr_image, u.firstname, u.lastname,CONCAT(u.firstname,' ', u.lastname) AS name, o.order_id, o.date, o.time, o.qr_code,o.status,GROUP_CONCAT(m.menu_id SEPARATOR ', ') AS menu_id_list, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, GROUP_CONCAT(m.category SEPARATOR ', ') AS category_list, GROUP_CONCAT(m.price SEPARATOR ', ') AS price_list,GROUP_CONCAT(m.discount SEPARATOR ', ') AS discount_list,GROUP_CONCAT(m.image SEPARATOR ', ') AS image_list FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.order_id = :identifier GROUP BY l.order_id");
         }
         $query->execute(["identifier" => $identifier]);
         if ($query->rowCount() > 0) {
@@ -199,15 +199,15 @@ it checks if the code is associated with an order, if true it will display the o
     {
         $notification = new Notification();
         $notification->order_customer_to_staff();
-      /*   $status = "placed";
+        $status = "placed";
         $query = $this->connect()->prepare("DELETE FROM orders WHERE order_id = :order_id AND status = :status");
         $result = $query->execute([":order_id" => $order_id,":status"=> $status]);
         if ($result) {
             $output['success'] = 'Item Deleted Successfully';
         } else {
             $output['error'] = 'Something went wrong! Please try again later.';
-        } */
-        echo json_encode("output");
+        }
+        echo json_encode($output);
     }
 
 
@@ -241,8 +241,8 @@ it checks if the code is associated with an order, if true it will display the o
                 $result = $query->execute([":order_id" => $fetch_order_id, ":user_id" => $user_id, ":date" => $date, ":price" => $price]);
                 $output['success'] = 'Order has been claimed';
 
-              /*    $query = $this->connect()->prepare("DELETE FROM orders where order_id = :order_id");
-                     $result = $query->execute([":order_id" => $fetch_order_id]); */
+                 $query = $this->connect()->prepare("DELETE FROM orders where order_id = :order_id");
+                     $result = $query->execute([":order_id" => $fetch_order_id]);
 
                     
                      $message = "Your order has been claimed";

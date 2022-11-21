@@ -13,7 +13,7 @@ class Menu extends DbConnection
 	{
 		/* gets all available items */
 		$result = $query = $this->connect()->prepare("SELECT * FROM menu WHERE category = :category AND availability=:availability");
-		$query->execute([":category"=>$category, ":availability"=>'available']);
+		$query->execute([":category"=>$category, ":availability"=>'Available']);
 		if ($result->rowCount() > 0) {
 			$data = array();
 			foreach ($result as $row) {
