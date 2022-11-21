@@ -42,7 +42,7 @@ class Menu extends DbConnection
 	{
 		/* gets top 5 available bestseller items */
 		$result = $query = $this->connect()->prepare("SELECT o.menu_id, COUNT(o.menu_id), m.* FROM orderlist o INNER JOIN menu  m ON (m.menu_id = o.menu_id) WHERE m.availability=:availability GROUP BY o.menu_id ORDER BY COUNT(o.menu_id) DESC LIMIT 4");
-		$query->execute([":availability"=>'available']);
+		$query->execute([":availability"=>'Available']);
 		if ($result->rowCount() > 0) {
 			$data = array();
 			foreach ($result as $row) {

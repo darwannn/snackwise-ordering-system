@@ -6,9 +6,9 @@ $account = new Account();
 
 $validate = new Validate();
 /* if ($validate->validate_code() || $validate->validate_code() != null) { */
-// if (!$validate->validate_code()) {
-//     header('error.php');
-// }
+if (!$validate->validate_code()) {
+    header('error.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +83,7 @@ $validate = new Validate();
         //TEMPORARY
         // HIDE PASSWORD REQUIREMENTS
 
-        document.getElementsByClassName("password_requirements").style.display = "none";
+        // document.getElementsByClassName("password_requirements").style.display = "none";
 
         let account = new Account();
 
