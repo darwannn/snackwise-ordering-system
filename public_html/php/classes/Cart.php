@@ -111,7 +111,7 @@ class Cart extends DbConnection
                 $sub_array['discount'] = $row['discount'];
                 $sub_array['price'] = $row['price'];
                 $sub_array['image'] = $row['image'];
-
+                $sub_array['discounted_price'] = ($row['price'] - ($row['price'] * (floatval($row['discount']) / 100)));
                 //test
                 $sub_array['availability'] = $row['availability'];
                 $sub_array['total_price'] = $row['price'] * $row['quantity'];

@@ -12,7 +12,7 @@ body {
 /* SIDEBAR CSS */
 
 .sidecart {
-    width: 260px;
+    width: 300px;
     position: fixed;
     background-color: #ffffff;
     display: none;

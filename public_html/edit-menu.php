@@ -24,6 +24,7 @@ $menu = new Menu();
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" type="text/css" href="css/table.css" />
+    <link rel="stylesheet" type="text/css" href="css/notification.css" />
 
 
     <script src="js/Table.js" type="text/javascript"></script>
@@ -108,8 +109,8 @@ $menu = new Menu();
                 <div class="modal-content">
                     <div class="modal-header ">
 
-                        <div class="modal-title" id="modal_title">Add</div>
-                        <!--      <button type="button" class="btn " id="close_menu" ><i class="fa-solid fa-xmark"></i></button> -->
+                        <div class="modal-title h6 fw-bold" id="modal_title">Add</div>
+                            <!--  <button type="button" class="btn " id="close_menu" ><i class="fa-solid fa-xmark"></i></button> -->
                     </div>
 
 
@@ -131,7 +132,7 @@ $menu = new Menu();
                         <div class="form-group mt-2">
                             <label class="form-label" for="category">category</label>
                             <select class="form-control" name="category" id="category">
-                                <option value="select">select</option>
+                                <option value="none" style="display: none; opacity:0;">Category</option>
 
                                 <!-- display the items from the category table as dropdown -->
                                 <?php
@@ -168,11 +169,11 @@ $menu = new Menu();
                         </div>
 
                         <div class="form-group mt-2">
-                            <label class="form-label" for="availability">Status</label>
+                            <label class="form-label" for="availability">Availability</label>
                             <select class="form-select" name="availability" id="availability">
-                                <option value="select" disabled>select</option>
-                                <option value="available">Available</option>
-                                <option value="unavailable">Unavailable</option>
+                            <option value="none" style="display: none; opacity:0;">Select</option>
+                                <option value="Available">Available</option>
+                                <option value="Unavailable">Unavailable</option>
                             </select>
                             <span class="" id="availability_error"></span>
                         </div>
@@ -183,7 +184,7 @@ $menu = new Menu();
 
                         <div class="form-group mt-2  mb-5" style="height: 300px;">
                             <label class="form-label" for="upload_image">Image</label>
-                            <div style="width: 100%; height:100%; border:1px solid black; position:relative">
+                            <div style="width: 100%; height:100%; border:1px solid black; position:relative" id="image_container">
                                 <button type="button" class="upload_image " id="upload_image"
                                     style="position:absolute; width:100%; height:100%; opacity:0; z-index:100;"></button>
                                 <img class="show_menu_image" id="show_menu_image" src=""
@@ -192,13 +193,19 @@ $menu = new Menu();
                             </div>
                             <span class="" id="image_error"></span>
                         </div>
+                       <!--  <input type="hidden" name="action_menu" id="action_menu" value="Add" />
+                   
+                        
+                        <button type="button" class="btn btn-success btn-add w-100" id="action_menu_button" value="Add">Add</button> -->
+                        
                     </div>
 
                     <div class="modal-footer">
-
-                        <input type="hidden" name="action_menu" id="action_menu" value="Add" />
-                        <button type="button" class="btn " id="close_menu">Close</i></button>
-                        <button type="button" class="btn btn-add" id="action_menu_button" value="Add">Add</button>
+                    <input type="hidden" name="action_menu" id="action_menu" value="Add" />
+                         <button type="button" class="btn btn-danger w-25" id="close_menu">Close</i></button>
+                        
+                        <button type="button" class="btn btn-success btn-add w-25" id="action_menu_button" value="Add">Add</button>
+                       
                     </div>
                 </div>
             </div>
@@ -207,9 +214,13 @@ $menu = new Menu();
 
     <div class="modal-backdrop fade show" id="modal_backdrop"></div>
 
+    <!-- toast_notif notification will be appended here -->
+    <div class="toast_notif" id="toast_notif"></div>
 </body>
 
 <script src="js/Menu.js"></script>
+<script src="js/Notification.js"></script>
+
 <script>
     let edit_menu = new Menu();
 

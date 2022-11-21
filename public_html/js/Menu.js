@@ -1,7 +1,7 @@
 class Menu {
     constructor(table) {
         this.table = table;
-
+       
     }
     /* --------------------  */
 
@@ -24,6 +24,8 @@ class Menu {
             } else {
                 let menu_list = "";
                 response_data.data.map(function (menu) {
+
+                    /* if(menu.discount) */
                     menu_list += `
                 <div class="col-12 col-md-6">
                     <div class="menu-item">
@@ -34,8 +36,18 @@ class Menu {
                             <div class="product-details">
                                 <span class="product-title">${menu.name}</span>
                                 <span class="product-description">${menu.description}</span>
-                                <span class="product-price">PHP ${menu.price}</span>
-                            </div>
+                               `;
+                                
+                               if(menu.discount != 0 ) {
+                                    menu_list += `    <span class="product-price">PHP ${(menu.discounted_price).toFixed(2).replace(/[.,]00$/, "")} </span>`;
+
+                                    menu_list += `  <span class=" h6 text-decoration-line-through">PHP ${menu.price}</span>`;
+                                    /* menu_list += `  <div style="font-size:12px;"><span class=" text-decoration-line-through">PHP ${menu.price}</span> -${menu.discount}%</div>`; */
+                                } else {
+                                    menu_list += `   <span class="product-price">PHP ${menu.price}</span>`;
+                                }
+                           
+                                menu_list += `  </div>
                             <div class="interact">
                                 <button type="button" class="btn" onclick="new Cart().add_to_cart(${menu.menu_id});" name='${menu.menu_id}' id="add_to_cart">
                                     <i class="fa-solid fa-plus"></i>
@@ -98,7 +110,7 @@ class Menu {
                 //iterate and append response data
                 response_data.data.map(function (menu) {
                     bestseller_list += `
-                    <div class="col-12 col-md-3 product">
+                    <div class="col-12 col-md-3 product position-relative">
                         <div class="product-img-container">
                             <img src="https://res.cloudinary.com/dhzn9musm/image/upload/${menu.image}" alt="combo a image" class="product-img">
                         </div>
@@ -107,10 +119,18 @@ class Menu {
                                 <span class="product-name">${menu.name}</span>
                                 <span class="product-description">${menu.description}</span>
                             </div>
-                            <div class="cart-container">
-                                <span class="product-price">PHP ${menu.price}</span>
-                                <span class="add-to-cart-container">
-                                    <button class="add-to-cart-btn" type="submit" onclick="new Menu().open_cart();">
+                            <div class="cart-container">`;
+                            if(menu.discount != 0 ) {
+                                bestseller_list += `    <div class="d-flex flex-column" ><span class="product-price" style="margin-bottom:-15px;">PHP ${(menu.discounted_price).toFixed(2).replace(/[.,]00$/, "")} </span><br>`;
+                                bestseller_list += `  <span class=" h6 text-decoration-line-through" >PHP ${menu.price}</span></div>`;
+                                /* menu_list += `  <div style="font-size:12px;"><span class=" text-decoration-line-through">PHP ${menu.price}</span> -${menu.discount}%</div>`; */
+                            } else {
+                                
+                                bestseller_list += `   <span class="product-price">PHP ${menu.price}</span>`;
+                            }
+                                
+                            bestseller_list += `   <span class="add-to-cart-container">
+                                    <button class="add-to-cart-btn position-absolute" style="bottom:10px; right:10px;" type="submit" onclick="new Menu().add_best_cart(${menu.menu_id}); ">
                                         <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </span>
@@ -126,6 +146,10 @@ class Menu {
         });
     }
 
+
+    add_best_cart(menu_id) {
+        window.location.href = `menu.php?b=${menu_id}`;
+    }
 
     /* -------------------- admin  */
     action_menu_button() {
@@ -159,19 +183,28 @@ class Menu {
             document.getElementById('action_menu_button').disabled = false;
 
             if (response_data.success) {
-                document.getElementById('success_message').innerHTML = response_data.success;
+               /*  document.getElementById('success_message').innerHTML = response_data.success; */
+               new Notification().create_notification(response_data.success,"success");
                 new Menu().close_menu();
+               /*  new Account().scroll_to("top"); */
                 table.update();
+            } else if (response_data.error) {
+                new Notification().create_notification(response_data.error,"error");
+               /*  document.getElementById('error_message').innerHTML = response_data.error; */
+               /*  new Account().scroll_to("top"); */
             } else {
-                new Menu().show_error(response_data.name_error, 'name_error');
-                new Menu().show_error(response_data.description_error, 'description_error');
-                new Menu().show_error(response_data.category_error, 'category_error');
-                new Menu().show_error(response_data.discount_error, 'discount_error');
-                new Menu().show_error(response_data.price_error, 'price_error');
-                new Menu().show_error(response_data.date_error, 'date_error');
-                new Menu().show_error(response_data.availability_error, 'availability_error');
-                new Menu().show_error(response_data.image_error, 'image_error');
+                new Menu().scroll_to(Object.keys(response_data)[0]);
             }
+            new Menu().show_error(response_data.name_error, 'name_error');
+            new Menu().show_error(response_data.description_error, 'description_error');
+            new Menu().show_error(response_data.category_error, 'category_error');
+            new Menu().show_error(response_data.discount_error, 'discount_error');
+            new Menu().show_error(response_data.price_error, 'price_error');
+            new Menu().show_error(response_data.date_error, 'date_error');
+            new Menu().show_error(response_data.availability_error, 'availability_error');
+            new Menu().show_error(response_data.image_error, 'image_error');
+
+        
         });
     }
 
@@ -190,11 +223,22 @@ class Menu {
 
         }).then(function (response_data) {
             console.log(response_data);
+            document.getElementById('menu_id').style.border = "none";
+            document.getElementById('name').style.border = "none";
+            document.getElementById('description').style.border = "none";
+            document.getElementById('category').style.border = "none";
+            document.getElementById('discount').style.border = "none";
+            document.getElementById('availability').style.border = "none";
+            document.getElementById('price').style.border = "none";
+            document.getElementById('date').style.border = "none";
+            document.getElementById('image_container').style.border = "none";
+
             document.getElementById('menu_id').value = response_data.menu_id;
             document.getElementById('name').value = response_data.name;
             document.getElementById('description').value = response_data.description;
             document.getElementById('category').value = response_data.category;
             document.getElementById('discount').value = response_data.discount;
+            document.getElementById('availability').value = response_data.availability;
             document.getElementById('price').value = response_data.price;
             document.getElementById('date').value = response_data.date;
 
@@ -236,6 +280,7 @@ class Menu {
         document.getElementById('menu_modal').classList.add('show');
     }
     close_menu() {
+        document.getElementById("menu_modal").scrollTo({top:0});
         document.getElementById('modal_backdrop').style.display = 'none';
         document.getElementById('menu_modal').style.display = 'none';
         document.getElementById('menu_modal').classList.remove('show');
@@ -265,15 +310,6 @@ class Menu {
 
     }
 
-    /* displays or removes error messages */
-    show_error(error, element) {
-        if (error) {
-            document.getElementById(element).innerHTML = error;
-        } else {
-            document.getElementById(element).innerHTML = '';
-        }
-    }
-
     /* display the uploaded image file to an image element */
     upload_image() {
         document.getElementById("upload_image").addEventListener("click", function () {
@@ -285,4 +321,37 @@ class Menu {
             });
         });
     }
+
+     /* displays or removes error messages */
+     show_error(error, element) {
+        console.log(element.replace('_error',''));
+        error ? document.getElementById(element).innerHTML = error : document.getElementById(element).innerHTML = '';
+        if(error) {
+
+          document.getElementById(element.replace('_error','')).style.border = "red solid 1px"; 
+          document.getElementById('image_container').style.border = "red solid 1px"; 
+        }else {
+            document.getElementById('image_container').style.border = "none"; 
+           document.getElementById(element.replace('_error','')).style.border = "none";
+          }    
+    }
+
+    /* scroll to the position of the input field with an error */
+    scroll_to(element) {
+        console.log(element);
+        if(element == "top") {
+        document.getElementById("menu_modal").scrollTo({
+            top:0,
+            left:0,
+            behavior:"smooth"
+        });
+    } else {
+        document.getElementById("menu_modal").scrollTo({
+            top:(document.getElementById(element).offsetTop)-250,
+            left:0,
+            behavior:"smooth"
+        });
+    }
+    }
+
 }

@@ -245,6 +245,10 @@ a[name="log-in-btn"] {
 
 .top-wrapper {
     height: 100vh;
+}
+
+.hero-main {
+    width: 100%;
     background-image: url(../img/Background-Pattern.jpg);
 }
 
@@ -474,7 +478,7 @@ a[name="log-in-btn"] {
     border-radius: 10px;
 }
 
-.input-container form #newsletter-input {
+.input-container form #newsletter_email {
     border: none;
     background-color: #EEEEEE;
     font-size: 1.4em;

@@ -9,7 +9,7 @@ class Validate extends DbConnection
    if the input field is not empty, further input validation will be performed */
   public function validateLength($input, $compare_input, $name, $message)
   {
-    if (empty($input)) {
+    if (isset($input) && $input =='') {
       $this->output[$name] = $message;
     } else {
       unset($this->output[$name]);
@@ -50,14 +50,26 @@ class Validate extends DbConnection
         }
       }
 
-      if (strpos($name, "email")!== false && $compare_input != "email-contact") {
+      if (strpos($name, "email")!== false ) {
         if ($this->isEmail($input)) {
+          if($compare_input != "email-contact") {
           if ($this->isTakenEmail($input)) {
 
             unset($this->output[$name]);
           } else {
             $this->output[$name] = 'Email address is taken';
           }
+        } else {
+          if ($this->isNewsletterRegistered($input)) {
+            unset($this->output[$name]);
+          } else {
+            $this->output['error'] = 'You are already subscribed';
+          }
+        }
+         
+
+
+
         } else {
           $this->output[$name] = 'Invalid email address';
         }
@@ -98,6 +110,15 @@ class Validate extends DbConnection
           
         } else {
           $this->output['retype_password_error'] = 'Passwords do not match';
+        }
+      }
+      if (strpos($name, "discount")!== false || strpos($name, "price")!== false) {
+        if (ctype_digit(str_replace(", ","",$input)) )  {
+
+            unset($this->output[$name]);
+          
+        } else {
+          $this->output[$name] = 'Enter a valid number';
         }
       }
     }
@@ -204,6 +225,18 @@ class Validate extends DbConnection
     public function isTakenEmail($input)
     {
       $query = $this->connect()->prepare("SELECT email FROM user where email = :email");
+      $query->execute([':email' => $input]);
+  
+      if (!$query->rowCount() > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    /* checks if the email entered is already subscribed to newsletter */
+    public function isNewsletterRegistered($input)
+    {
+      $query = $this->connect()->prepare("SELECT email FROM newsletter where email = :email");
       $query->execute([':email' => $input]);
   
       if (!$query->rowCount() > 0) {

@@ -87,14 +87,29 @@ class Notification {
       console.log(response_data);
       if (response_data.data) {
         response_data.data.map(function (notif) {
+         
           notification_list += `
-              <div>
-              <div class="${notif.status}">${notif.message}</div>
+              <div class="${notif.status} d-flex align-items-center" style="padding: 20px 20px; ">`;
+          /* notification_list += `
+              <div class="${notif.status} d-flex align-items-center" style="padding: 20px 20px; margin:10px; border-radius:10px;">`; */
+             /*  if(notif.status == "read") {
+                notification_list += `<div style="margin-bottom:-10px;"><i class="fa-solid fa-circle-check h2"></i></div>`;
+              } else if(notif.status == "unread"){
+                notification_list += `<div style="margin-bottom:-10px;"><i class="fa-solid fa-circle-exclamation h2"></i></div>`;
+              } */
+
+              notification_list += `<div style=" background-color:rgb(238,149,0); padding:7px 7px 0px 7px ; border-radius:15px;"><i class="fa-solid fa-circle-info h2" style="white!impor"></i></div>`;
+              notification_list += ` <div style="margin-left:10px;"> <div class="h6 fw-bold" >${notif.message}</div>
+                <div class="" style="font-size:12px; margin-top:-10px;" >DEc 19, 2020</div></div>
               </div>
               `;
+              /* if(notif.status == "read") { */
+                notification_list += `<hr class="p-0 my-0 mx-3">`;
+              /* } */
         });
       }
       document.getElementById("notification_list").innerHTML = notification_list;
+/*       document.querySelector("#notification_list:first-child").style.padding = "110px!important";  */
     });
   }
 
@@ -133,11 +148,11 @@ class Notification {
   send_email_message() {
     document.getElementById('submit').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
     document.getElementById('submit').disabled = true;
-    var fetch_account_data = new FormData(document.getElementById('contact_form'));
-    fetch_account_data.append('send_email_message', 'send_email_message');
+    var form_data = new FormData(document.getElementById('contact_form'));
+    form_data.append('send_email_message', 'send_email_message');
     return fetch('php/controller/c_notification.php', {
         method: "POST",
-        body: fetch_account_data
+        body: form_data
     }).then(function (response) {
         return response.json();
     }).then(function (response_data) {
@@ -160,7 +175,43 @@ class Notification {
     });
 }
 show_error(error, element) {
+  console.log(element.replace('_error',''));
   error ? document.getElementById(element).innerHTML = error : document.getElementById(element).innerHTML = '';
+  error ? document.getElementById(element.replace('_error','')).style.border = "red solid 1px" : document.getElementById(element.replace('_error','')).style.border = "none";
+
 }
+
+
+newsletter() {
+  let form_data = new FormData(document.getElementById('newsletter_form'));
+/*   form_data.append('email', ); */
+  form_data.append('newsletter', 'newsletter');
+  return fetch('php/controller/c_notification.php', {
+      method: "POST",
+      body: form_data
+  }).then(function (response) {
+      return response.json();
+  }).then(function (response_data) {
+    console.log(response_data);
+     if(response_data.success){
+      new Notification().create_notification(response_data.success, "success");
+     }  else if (response_data.newsletter_email_error) {
+      new Notification().create_notification(response_data.newsletter_email_error, "error");
+/*       response_data.newsletter_email_error ? document.getElementById("newsletter_email_error").innerHTML = response_data.newsletter_email_error : document.getElementById('newsletter_email_error').innerHTML = '';
+      response_data.newsletter_email_error ? document.getElementById('newsletter_form').style.border = "red solid 1px" : document.getElementById('newsletter_form').style.border = "none"; */
+      document.getElementById("newsletter_email").focus();
+    }  else if (response_data.error) {
+     new Notification().create_notification(response_data.error, 'error');
+     }
+  });
+}
+
+
+
+
+
+
+
+
 
 }

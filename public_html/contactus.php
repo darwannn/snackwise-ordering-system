@@ -79,7 +79,7 @@ $validate = new Validate();
                                 <i class="fa-solid fa-circle-user"></i>
                             </button>
                             <ul class="drop-menu">
-                                <li><a href="#" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
+                                <li><a href="order.php" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
                                 <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                             </ul>
                         </div>
@@ -161,7 +161,7 @@ $validate = new Validate();
                         <input type="text" name="subject" id="subject" placeholder="Subject">
                         <span class="" id="subject_error"></span>
 
-                        <textarea name="message" placeholder="Your message here." cols="100" rows="10" minlength="10" maxlength="500" spellcheck required></textarea>
+                        <textarea name="message" id="message" placeholder="Your message here." cols="100" rows="10" minlength="10" maxlength="500" spellcheck required></textarea>
                         <span class="" id="message_error"></span>
 
                         <button type="button" class="btn" id="submit">SUBMIT</button>
@@ -276,11 +276,12 @@ $validate = new Validate();
                         </span>
 
                         <div class="input-container">
-                            <form action="#" class="newsletter-form">
-                                <input type="text" name="email" id="newsletter-input" placeholder="Email Address">
-                                <button type="submit">SUBSCRIBE</button>
+                            <form action="#" class="newsletter-form" id="newsletter_form">
+                                <input type="text" name="email" id="newsletter_email" placeholder="Email Address">
+                                <button type="button" id="newsletter" onclick="new Notification().newsletter()">SUBSCRIBE</button>
                             </form>
                         </div>
+                        <span id="newsletter_email_error"></span>
 
                     </div>
 

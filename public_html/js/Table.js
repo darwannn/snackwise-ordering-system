@@ -98,7 +98,7 @@ var JSTableDefaultConfig = {
             message: "dt-message"
         },
         labels: {
-            placeholder: "Search...",
+            placeholder: "Search",
             perPage: "{select} ",
             /* perPage: "{select} entries per page", */
             noRows: "No entries found",

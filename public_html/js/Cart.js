@@ -87,37 +87,29 @@ class Cart {
                 document.getElementById("cart_list").innerHTML  = response_data.error;
             } else {
                 response_data.data.map(function (cart) {
-            
-                  /*   cart_list += `
-                <div class="cart_item d-flex align-items-center my-3 mx-1 p-1 position-relative">
-                <input type="checkbox" class="" name='on_cart' value="${cart.cart_id}" data-price="${cart.total_discounted_price}" id="cart_${cart.cart_id}"/>
-                    
-                    <img class=" cart-image mx-2 " src='https://res.cloudinary.com/dhzn9musm/image/upload/${cart.image}' alt="">
-                    <div class="d-flex flex-column">
-                        <div class="item-name">${cart.name}</div>
-                        
-                        <div class="">x<input style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}"data-cart-id="${cart.cart_id}"/><span class="ms-3 bolder item-price">P ${cart.price}</span></div>
-                    </div>
-                  <i class="item-remove fa-solid fa-xmark position-absolute" name='delete_cart'  onclick="new Cart().delete_cart(${cart.cart_id});" style="top:5px;right:5px;"></i>
-                </div>
-            `; */
-
-
+         
             cart_list += `
-            <div class="cart_item d-flex align-items-center my-3 mx-1 p-1 position-relative">`
-            if(cart.availability == "available"){
+            <div class="cart_item d-flex align-items-center my-3 mx-1 p-2 position-relative">`
+            if(cart.availability == "Available"){
             cart_list += `<input type="checkbox" class="" name='on_cart' value="${cart.cart_id}" data-price="${cart.total_discounted_price}" id="cart_${cart.cart_id}"/>`
             }
-            cart_list += `   <img class=" cart-image mx-2 " src='https://res.cloudinary.com/dhzn9musm/image/upload/${cart.image}' alt="">
+            cart_list += `   
+            <div class="d-flex col">
+            <img class=" cart-image mx-2 " src='https://res.cloudinary.com/dhzn9musm/image/upload/${cart.image}' alt="">
                 <div class="d-flex flex-column">
                     <div class="item-name">${cart.name}</div>`
-                    if(cart.availability == "available"){   
-                    cart_list += `  <div class="">x<input style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}"data-cart-id="${cart.cart_id}"/><span class="ms-3 bolder item-price">P ${cart.price}</span></div>`;
+                    if(cart.availability == "Available"){  
+                        if(cart.discount != 0){   
+                            cart_list += `  <div class="">x<input style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}"data-cart-id="${cart.cart_id}"/><span class=" ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${(cart.discounted_price).toFixed(2).replace(/[.,]00$/, "")}</span></div>`;
+                        } else {
+                            cart_list += `  <div class="">x<input style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}"data-cart-id="${cart.cart_id}"/><span class="ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${cart.price}</span></div>`;
+                        }
                 } else {
                     cart_list += `  <span class="ms-3 bolder item-price" style="margin-left:8px!important;">UNAVAILABLE</span>`;
                 }
                 cart_list += `      </div>
-              <i class="item-remove fa-solid fa-xmark position-absolute" name='delete_cart'  onclick="new Cart().delete_cart(${cart.cart_id});" style="top:5px;right:5px;"></i>
+                </div>
+              <i class="item-remove fa-solid fa-xmark ms-1 position-absolute" name='delete_cart'  onclick="new Cart().delete_cart(${cart.cart_id});" style="top:5px;right:5px;"></i>
             </div>
         `;
                 });
@@ -129,6 +121,7 @@ class Cart {
             if(document.getElementById("cartlist").value != "") {
                 let cart_id_list = (document.getElementById("cartlist").value).split(",");
                 for(let i = 0; i<cart_id_list.length; i++) {
+                   
                     document.getElementById(`cart_${cart_id_list[i]}`).checked=true;
         
                 }
@@ -313,12 +306,15 @@ class Cart {
             } else {
                 response_data.data.map(function (cart) {
                     verify_list += `
-                    <div >
-                        <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${cart.image}' width='40px' height='40px'></img>
-                        <div>${cart.name}</div>
+                    <div class="  pb-2" style="margin:7px;box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+                    border-radius: 20px; width:30%;" >
+                        <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${cart.image}' class="w-100"></img>
+                        <div class="h6 text-center"><span class=" fw-bold">${cart.name}</span> (x${cart.quantity})</div>
+                     
                     </div>
                     `;
                 });
+                document.getElementById("verify_price").innerHTML = document.getElementById("cart_total_price").innerHTML;
             }
             document.getElementById("verify_list").innerHTML = verify_list;
         });
@@ -336,8 +332,9 @@ class Cart {
             return response.json();
         }).then(function (response_data) {
             console.log(response_data);
-            document.getElementById('add_to_order').innerHTML = "Order";
+            document.getElementById('add_to_order').innerHTML = "Checkout";
             document.getElementById('add_to_order').disabled = false;
+            document.getElementById("cartlist").value = "";
             new Cart().display_cart();
             if (response_data.success) {
                 new Notification().create_notification(response_data.success, "success");
@@ -358,11 +355,11 @@ class Cart {
         document.getElementById("order_modal").style.display = "none";
         document.getElementById('modal_backdrop').style.display = 'none';
         document.querySelector('body').style.overflow = 'visible';
-        new Cart().reset_form();
+        /* new Cart().reset_form(); */
     }
 
     cancel_order() {
-        new Cart().reset_form();
+       /*  new Cart().reset_form(); */
         new Cart().close_add_order();
     }
 

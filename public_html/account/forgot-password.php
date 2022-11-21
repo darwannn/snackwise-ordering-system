@@ -53,7 +53,7 @@
                 <span id="error_message" class="text-success"></span>
                 <input type="text" name="user_identifier" id="user_identifier" placeholder="Enter Email Address" value="" autocomplete="off">
                 <span id="user_identifier_error" class="text-danger"></span>
-                <button id="forgot_password">Submit</button>
+                <button type ="button"  id="forgot_password">Submit</button>
             </form>
         </div>
     </div>
@@ -62,10 +62,10 @@
 
 
 
-
+    <script src="../js/Account.js"></script>
     <script>
         let account = new Account();
-        let account = new Account();
+     
         document.getElementById("forgot_password").onclick = function() {
             account.forgot_password();
         }

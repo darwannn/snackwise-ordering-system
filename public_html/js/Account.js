@@ -1,8 +1,10 @@
 class Account {
 
-    fetch_image;
+    /* fetch_image; */
+ /*    button_text = ""; */
     constructor() {
         /* fetch_image = ""; */
+        this.button_text = "";
     }
     /* toggles input field type attribute value to text or password */
     toggle_password(passwordToggler, passwordField) {
@@ -12,7 +14,7 @@ class Account {
     }
 
     /* display a checkmark if the specific password requirement has been met, otherwise it will display an x */
-    verify_password(password) {
+    verify_password (password) {
         document.querySelector(".length").style.opacity = 1;
         document.querySelector(".case").style.opacity = 1;
         document.querySelector(".special").style.opacity = 1;
@@ -29,11 +31,12 @@ class Account {
     }
 
     /* login */
-    login() {
-        /* disables the button and changes its content to a loading animation so the user can not click while the server is processing */
-
-        document.getElementById('login').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        document.getElementById('login').disabled = true;
+    login () {
+       
+        let button_value = new Account().get_button_value("login");
+        new Account().button_loading("login", "loading","");
+      
+     
         var form_data = new FormData(document.getElementById('account_form'));
         form_data.append('login', 'login');
         fetch('../php/controller/c_account.php', {
@@ -42,19 +45,18 @@ class Account {
         }).then(function (response) {
             return response.json();
         }).then(function (response_data) {
+    
             console.log(response_data);
-            document.getElementById('login').innerHTML = "Login";
-            document.getElementById('login').disabled = false;
+            new Account().button_loading("login", "",button_value);
+          
             /* displays the message returned */
             if (response_data.success) {
-      /* 
-      
-                document.getElementById('success_message').innerHTML = response_data.success; */
+
                 document.getElementById('success_message').innerHTML = "";
 window.location.href = "../index.php";
             } else if (response_data.validate) {
                 document.getElementById('success_message').innerHTML = "";
-                document.getElementById('success_message').innerHTML = response_data.validate;
+                document.getElementById('error_message').innerHTML = response_data.validate;
             }else if (response_data.error) {
                 document.getElementById('success_message').innerHTML = "";
                 document.getElementById('error_message').innerHTML = "";
@@ -68,9 +70,11 @@ window.location.href = "../index.php";
     }
 
     /* register */
-    register() {
-        document.getElementById('register').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        document.getElementById('register').disabled = true;
+    register () {
+    
+        let button_value = new Account().get_button_value("register");
+        new Account().button_loading("register", "loading","");
+
         var form_data = new FormData(document.getElementById('account_form'));
         form_data.append('register', 'register');
         fetch('../php/controller/c_account.php', {
@@ -81,11 +85,26 @@ window.location.href = "../index.php";
         }).then(function (response_data) {
   
   
-            document.getElementById('register').innerHTML = "Register";
-            document.getElementById('register').disabled = false;
+            new Account().button_loading("register", "",button_value);
+
             if (response_data.success) {
-        
+                
+                document.getElementById('firstname').value = "";
+                document.getElementById('lastname').value = "";
+                document.getElementById('username').value = "";
+                document.getElementById('email').value = "";
+                document.getElementById('contact').value = "";
+                /*  document.getElementById('region').value = "";
+                document.getElementById('province').value = "";
+                document.getElementById('municipality').value = "";
+                document.getElementById('barangay').value = "";
+                document.getElementById('street').value = ""; */
+                document.getElementById('password').value = "";
+                document.getElementById('retype_password').value = "";
                 document.getElementById('success_message').innerHTML = response_data.success;
+                console.log(response_data);
+
+                
                 new Account().scroll_to("top");
             } else if (response_data.error) {
                 document.getElementById('error_message').innerHTML = response_data.error;
@@ -98,11 +117,11 @@ window.location.href = "../index.php";
                 new Account().show_error(response_data.username_error, 'username_error');
                 new Account().show_error(response_data.email_error, 'email_error');
                 new Account().show_error(response_data.contact_error, 'contact_error');
-                new Account().show_error(response_data.region_error, 'region_error');
+               /*  new Account().show_error(response_data.region_error, 'region_error');
                 new Account().show_error(response_data.province_error, 'province_error');
                 new Account().show_error(response_data.municipality_error, 'municipality_error');
                 new Account().show_error(response_data.barangay_error, 'barangay_error');
-                new Account().show_error(response_data.street_error, 'street_error');
+                new Account().show_error(response_data.street_error, 'street_error'); */
                 new Account().show_error(response_data.password_error, 'password_error');
                 new Account().show_error(response_data.retype_password_error, 'retype_password_error');
 
@@ -111,9 +130,11 @@ window.location.href = "../index.php";
     }
 
     /* forgot password */
-    forgot_password() {
-        document.getElementById('forgot_password').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        document.getElementById('forgot_password').disabled = true;
+    forgot_password () {
+
+        let button_value = new Account().get_button_value("forgot_password");
+        new Account().button_loading("forgot_password", "loading","");
+
         var form_data = new FormData(document.getElementById('account_form'));
         form_data.append('forgot_password', 'forgot_password');
         fetch('../php/controller/c_account.php', {
@@ -123,26 +144,26 @@ window.location.href = "../index.php";
             return response.json();
         }).then(function (response_data) {
             console.log(response_data);
-            document.getElementById('forgot_password').innerHTML = "Forgot Password";
-            document.getElementById('forgot_password').disabled = false;
+            new Account().button_loading("forgot_password", "",button_value);
             if (response_data.success) {
                 console.log("response_data");
                 document.getElementById('success_message').innerHTML = response_data.success;
-                document.getElementById('user_identifier_error').innerHTML = "";
+                document.getElementById('user_identifier').value = "";
                 /* window.location.href = "error.php" */
             } else if (response_data.error) {
                 document.getElementById('error_message').innerHTML = response_data.error;
             } else {
-                new Account().show_error(response_data.user_identifier_error, 'user_identifier_error');
                 new Account().scroll_to(Object.keys(response_data)[0]);
             }
+            new Account().show_error(response_data.user_identifier_error, 'user_identifier_error');
         });
     }
 
     /* new-password */
-    new_password(url_code) {
-        document.getElementById('new_password').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        document.getElementById('new_password').disabled = true;
+    new_password (url_code) {
+           let button_value = new Account().get_button_value("new_password");
+        new Account().button_loading("new_password", "loading","");
+
 
         var form_data = new FormData(document.getElementById('account_form'));
         form_data.append('new_password', 'new_password');
@@ -153,8 +174,7 @@ window.location.href = "../index.php";
             return response.json();
         }).then(function (response_data) {
             console.log(response_data);
-            document.getElementById('new_password').innerHTML = "New Password";
-            document.getElementById('new_password').disabled = false;
+            new Account().button_loading("new_password", "",button_value);
             if (response_data.success) {
   
                 /* document.getElementById('success_message').innerHTML = response_data.success; */
@@ -171,10 +191,11 @@ window.location.href = "../index.php";
 
 
     /* -------------------- update user profile */
-    update(user_id) {
-        console.log("Dsadasd");
-        document.getElementById('update').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        document.getElementById('update').disabled = true;
+    update (user_id)  {
+
+
+        let button_value = new Account().get_button_value("update");
+        new Account().button_loading("update", "loading","");
 
         var form_data = new FormData(document.getElementById('account_form'));
         form_data.append('user_id', user_id);
@@ -186,27 +207,19 @@ window.location.href = "../index.php";
         }).then(function (response) {
             return response.json();
         }).then(function (response_data) {
-            console.log(response_data);
-            document.getElementById('update').innerHTML = "update";
-            document.getElementById('update').disabled = false;
+       
+
+            new Account().button_loading("update", "",button_value);
+
             if (response_data.success) {
                 console.log("response_data");
                 document.getElementById('success_message').innerHTML = response_data.success;
-            /*     document.getElementById('image').value = "";
-                new Account().document.getElementById('lastname').innerHTML = "";
-                new Account().document.getElementById('username').innerHTML = "";
-                new Account().document.getElementById('email').innerHTML = "";
-                new Account().document.getElementById('contact').innerHTML = "";
-                new Account().document.getElementById('password').innerHTML = "";
-                new Account().document.getElementById('retype_password').innerHTML = "";
-                new Account().document.getElementById('region').innerHTML = "";
-                new Account().document.getElementById('province').value = "";
-                new Account().document.getElementById('municipality').value = "";
-                new Account().document.getElementById('barangay').value = "";
-                new Account().document.getElementById('street').innerHTML = ""; */
+
             } else if (response_data.error) {
                 document.getElementById('error_message').innerHTML = response_data.error;
-            } 
+            }  else {
+                new Account().scroll_to(Object.keys(response_data)[0]);
+            }
 
                 new Account().show_error(response_data.firstname_error, 'firstname_error');
                 new Account().show_error(response_data.lastname_error, 'lastname_error');
@@ -215,17 +228,17 @@ window.location.href = "../index.php";
                 new Account().show_error(response_data.contact_error, 'contact_error');
                 new Account().show_error(response_data.password_error, 'password_error');
                 new Account().show_error(response_data.retype_password_error, 'retype_password_error');
-                new Account().show_error(response_data.region_error, 'region_error');
+      /*           new Account().show_error(response_data.region_error, 'region_error');
                 new Account().show_error(response_data.province_error, 'province_error');
                 new Account().show_error(response_data.municipality_error, 'municipality_error');
                 new Account().show_error(response_data.barangay_error, 'barangay_error');
-                new Account().show_error(response_data.street_error, 'street_error');
+                new Account().show_error(response_data.street_error, 'street_error'); */
             
         });
     }
 
     /* fetch user information */
-    fetch(user_id) {
+    fetch  (user_id)  {
         var fetch_account_data = new FormData();
         fetch_account_data.append('fetch_account', 'fetch_account');
         fetch_account_data.append('user_id', user_id);
@@ -245,13 +258,13 @@ window.location.href = "../index.php";
             let profile_picture = user.image;
 
 
-            this.fetch_image = profile_picture;
+           /*  this.fetch_image = profile_picture; */
             return profile_picture;
         });
     }
 
     /*  */
-    password_requirment() {
+    password_requirment  () {
         var form_data = new FormData(document.getElementById('new_password_form'));
         form_data.append('password_requirment', 'password_requirment');
 
@@ -277,7 +290,7 @@ window.location.href = "../index.php";
         });
     }
 
-    delete_account(user_id) {
+    delete_account  (user_id) {
         var form_data = new FormData();
         form_data.append('delete_account', 'delete_account');
         form_data.append('user_id', user_id);
@@ -295,9 +308,10 @@ window.location.href = "../index.php";
         });
     }
 
-    change_password(user_id) {
-        document.getElementById('change_password').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        document.getElementById('change_password').disabled = true;
+    change_password  (user_id) {
+
+        let button_value = new Account().get_button_value("change_password");
+        new Account().button_loading("change_password", "loading","");
 
         var form_data = new FormData(document.getElementById('new_password_form'));
         form_data.append('change_password', 'change_password');
@@ -308,9 +322,8 @@ window.location.href = "../index.php";
         }).then(function (response) {
             return response.json();
         }).then(function (response_data) {
-            console.log(response_data);
-            document.getElementById('change_password').innerHTML = "change password";
-            document.getElementById('change_password').disabled = false;
+        
+            new Account().button_loading("change_password", "",button_value);
             if (response_data.success) {
                 console.log("response_data");
                 document.getElementById('success_message').innerHTML = response_data.success;
@@ -326,10 +339,12 @@ window.location.href = "../index.php";
 
 
 
-    match_password(user_id, type) {
+    match_password (user_id, type) {
         if (type == 'change') {
-            document.getElementById('match_password').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            document.getElementById('match_password').disabled = true;
+            
+            let button_value = new Account().get_button_value("match_password");
+            new Account().button_loading("match_password", "loading","");
+    
         }
         var form_data = new FormData(document.getElementById('match_password_form'));
         form_data.append('match_password', 'match_password');
@@ -344,8 +359,8 @@ window.location.href = "../index.php";
             console.log(response_data);
             console.log(type);
             if (type == 'change') {
-                document.getElementById('match_password').innerHTML = "Continue";
-                document.getElementById('match_password').disabled = false;
+             
+                new Account().button_loading("match_password", "",button_value);
             }
             if (response_data.error) {
                 if (type == 'change') {
@@ -364,9 +379,9 @@ window.location.href = "../index.php";
 
     }
 
-    get_image() {
+    /* get_image() {
         return this.fetch_image;
-    }
+    } */
 
     show_error(error, element) {
         console.log(element.replace('_error',''));
@@ -375,6 +390,25 @@ window.location.href = "../index.php";
     
     }
 
+     /* disables the button and changes its content to a loading animation so the user can not click while the server is processing */
+    button_loading(element, type,text) {
+        if(type == "loading") {
+        document.getElementById(element).innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        document.getElementById(element).disabled = true;
+        } else {
+            
+            document.getElementById(element).innerHTML =  text;
+            document.getElementById(element).disabled = false;
+        }
+    }
+
+    
+    /* gets button text */
+    get_button_value(element) {
+        return document.getElementById(element).innerHTML;
+    }
+
+    /* scroll to the position of the input field with an error */
     scroll_to(element) {
         if(element == "top") {
         window.scrollTo({

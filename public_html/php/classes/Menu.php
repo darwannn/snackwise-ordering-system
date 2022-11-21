@@ -13,7 +13,7 @@ class Menu extends DbConnection
 	{
 		/* gets all available items */
 		$result = $query = $this->connect()->prepare("SELECT * FROM menu WHERE category = :category AND availability=:availability");
-		$query->execute([":category"=>$category, ":availability"=>'available']);
+		$query->execute([":category"=>$category, ":availability"=>'Available']);
 		if ($result->rowCount() > 0) {
 			$data = array();
 			foreach ($result as $row) {
@@ -25,7 +25,9 @@ class Menu extends DbConnection
 				$sub_array['price'] = $row['price'];
 				$sub_array['date'] = $row['date'];
 				$sub_array['availability'] = $row['availability'];
+				$sub_array['discount'] = $row['discount'];
 				$sub_array['image'] = $row['image'];
+				$sub_array['discounted_price'] = ($row['price'] - ($row['price'] * (floatval($row['discount']) / 100)));
 				$data[] = $sub_array;
 			}
 			$output = array("data" => $data);
@@ -40,7 +42,7 @@ class Menu extends DbConnection
 	{
 		/* gets top 5 available bestseller items */
 		$result = $query = $this->connect()->prepare("SELECT o.menu_id, COUNT(o.menu_id), m.* FROM orderlist o INNER JOIN menu  m ON (m.menu_id = o.menu_id) WHERE m.availability=:availability GROUP BY o.menu_id ORDER BY COUNT(o.menu_id) DESC LIMIT 4");
-		$query->execute([":availability"=>'available']);
+		$query->execute([":availability"=>'Available']);
 		if ($result->rowCount() > 0) {
 			$data = array();
 			foreach ($result as $row) {
@@ -48,9 +50,12 @@ class Menu extends DbConnection
 				$sub_array['menu_id'] = $row['menu_id'];
 				$sub_array['name'] = $row['name'];
 				$sub_array['description'] = $row['description'];
+				$sub_array['discount'] = $row['discount'];
 				$sub_array['category'] = $row['category'];
 				$sub_array['price'] = $row['price'];
 				$sub_array['image'] = $row['image'];
+				$sub_array['discounted_price'] = ($row['price'] - ($row['price'] * (floatval($row['discount']) / 100)));
+				
 				$data[] = $sub_array;
 			}
 			$output = array("data" => $data);
