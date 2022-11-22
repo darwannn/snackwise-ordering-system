@@ -2,8 +2,12 @@
 :root {
     --snackred: #DD1C1A;
     --wiseyellow: #F0C808;
+    --labelCol: #A3A3A3;
+    --valueCol: #595959;
+
     --fontOutfit: 'Outfit', sans-serif;
     --fontPoppins: 'Poppins', sans-serif;
+    
 }
 
 
@@ -131,6 +135,178 @@ a[name="log-in-btn"] {
 /* END OF USER DROPDOWN CSS */
 
 
+.order-container {
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 2em;
+    height: calc(100vh - 71px);
+    display: flex;
+    flex-flow: column;
+}
+
+.order-header {
+    flex: 0 1 auto;
+}
+
+.order-header h1 {
+    font-family: var(--fontOutfit);
+    font-weight: bold;
+    font-size: 2.0rem;
+    color: var(--snackred);
+    margin-bottom: 1em;
+}
+
+.order-sort-container {
+    flex: 0 1 auto;
+    border-bottom: solid 1px #d4d4d4;
+    margin-bottom: 1em;
+}
+
+.sort-list {
+    padding: 0;
+    margin: 0; 
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    list-style: none;
+}
+
+.sort-list .sort-item {
+    width: 20em;
+    margin-right: 2em;
+    font-size: 1.6em;
+    font-family: var(--fontPoppins);
+    font-weight: bold;
+    color: var(--valueCol);
+    white-space: nowrap;
+    width: fit-content;
+    padding: 1em 0;
+    transition: all .2s ease-in-out;
+}
+
+.sort-list #active-sort {
+    color: var(--wiseyellow);
+    border-top: 2px var(--wiseyellow) solid;
+}
+
+.sort-list .sort-item:hover {
+    color: var(--wiseyellow);
+    border-top: 2px var(--wiseyellow) solid;
+}
+
+
+.order-list {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.order-list .order-item {
+    background-color: #F4F4F4;
+    padding: 1em;
+    border-radius: 8px;
+    margin: .5em 0;
+}
+
+.order-item .order-details-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--fontPoppins);
+    margin-bottom: .3em
+;
+}
+
+.order-no-container span {
+    font-family: var(--fontOutfit);
+    color: var(--wiseyellow);
+    font-size: 2.0em;
+}
+
+.tracking-container, .order-date-container, .quantity-container, .amount-container {
+    font-size: 1.6em;
+    color: var(--labelCol);
+}
+
+.tracking-number, .quantity, .total-amt {
+    color: var(--valueCol);
+}
+
+.details-btn-container .details-btn {
+    font-size: 1.7em;
+    /* font-weight: bold; */
+    color: var(--labelCol);
+    border: solid 1px var(--labelCol);
+    border-radius: 5px;
+    padding: .3em 1em;
+}
+
+.status-container span{
+    font-size: 1.7em;
+    font-weight: bold;
+}
+
+/* COLORS FOR DIFFERENT PENDING TYPES */
+
+.pending-stat {
+    color: #737373;
+}
+
+.preparing-stat {
+    color: #FFD600;
+}
+
+.pickup-stat {
+    color: #21A67A;
+}
+
+.complete-stat {
+    color: #110EC1;
+}
+
+.cancelled-stat {
+    color: #FF0300;
+}
+
+/* END OF COLORS FOR DIFFERENT PENDING TYPES */
+
+.no-orders-container {
+    /* 
+        This should be 'display: flex;' if naka appear.
+    */
+    display: none; 
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em 2em;
+}
+
+.no-orders-container .no-order-message {
+    font-size: 2.5em;
+    font-family: var(--fontOutfit);
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1em;
+    color: var(--labelCol);
+}
+
+.no-orders-container a {
+    font-family: var(--fontPoppins);
+    font-size: 2.0em;
+    color: var(--snackred);
+    text-decoration: none;
+    padding: .5em 1em;
+    border: solid 1px var(--snackred);
+    border-radius: 10px; 
+    transition: all .3s ease;
+}
+
+.no-orders-container a:hover {
+    background-color: var(--snackred);
+    color: white;
+}
 
 
 

@@ -124,16 +124,76 @@ if ($validate->is_logged_in("customer")) {
             </div>
             <div class="order-sort-container">
                 <ul class="sort-list">
-                    <li class="sort-items">Pending</li>
-                    <li class="sort-items">To Pickup</li>
-                    <li class="sort-items">Completed</li>
-                    <li class="sort-items">Cancelled</li>
+                    <li class="sort-item" id="active-sort">All</li>
+                    <li class="sort-item" id="">Pending</li>
+                    <li class="sort-item">Preparing</li>
+                    <li class="sort-item">To Pickup</li>
+                    <li class="sort-item">Completed</li>
+                    <li class="sort-item">Cancelled</li>
                 </ul>
             </div>
             <div class="order-list"> <!-- ORDERS TO BE APPENDED HERE -->
+                
                 <div class="order-item"> <!-- FOR REFERENCE ONLY --> 
                     <!-- ORDER DETAILS HERE -->
+                    <div class="order-details-row">
+                        <div class="order-no-container">
+                            <span>Order No.</span>
+                            <span class="order-number">8215185238</span>
+                        </div>
+                        <div class="order-date-container">
+                            <span>10-18-2022</span>
+                        </div>
+                    </div>
+                    <!-- PWEDENG TANGGALIN TONG TRACKING NUMBER
+                         KUNG WALA TAYONG GANTO -->
+                    <div class="order-details-row">
+                        <div class="tracking-container">
+                            <span>Tracking Number:</span>
+                            <span class="tracking-number">3145185238</span>
+                        </div>
+                    </div>
+                    <div class="order-details-row">
+                        <div class="quantity-container">
+                            <span>Quantity:</span>
+                            <span class="quantity">3</span>
+                        </div>
+                        <div class="amount-container">
+                            <span>Amount:</span>
+                            <span class="total-amt">253.50PHP</span>
+                        </div>
+                    </div>
+                    <div class="order-details-row">
+                        <div class="details-btn-container">
+                            <button class="details-btn">Details</button>
+                        </div>
+                        <div class="status-container">
+                            <!-- 
+                                Napapalitan kulay nung status pa apply nalang nung class:
+                                    .pending-stat
+                                    .preparing-stat
+                                    .pickup-stat
+                                    .complete-stat
+                                    .cancelled-stat
+                             -->
+                            <span class="order-status pending-stat">Pending</span>
+                        </div>
+                    </div>
                 </div>
+
+
+                <!-- 
+                    If wala pang order ito ung mag di-display
+                    
+                    P.S
+                        NAKA DISPLAY BLOCK TO SA CSS.
+                 -->
+                <div class="no-orders-container">
+                    <span class="no-order-message">Looks like you haven't made an order yet.</span>
+                    <a href="menu.php">Order Now</a>
+                </div>
+
+                
             </div>
         </div>
         
