@@ -79,8 +79,7 @@ $validate = new Validate();
                                 <i class="fa-solid fa-circle-user"></i>
                             </button>
                             <ul class="drop-menu">
-                                <li><a href="order.php" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
-                                <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                            <div id="notification_list" class="position-absolute r-0" style="max-height:300px; min-width:400px; overflow:auto; "></div>
                             </ul>
                         </div>
                     <?php
@@ -345,6 +344,8 @@ $validate = new Validate();
                 notification.send_email_message();
             };
         });
+
+        new Notification().notification();
     </script>
 </body>
 
