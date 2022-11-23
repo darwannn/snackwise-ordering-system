@@ -64,6 +64,37 @@ if ($validate->is_logged_in("customer")) {
     toast_notif notification will be appended here
     <div class="toast_notif" id="toast_notif"></div> -->
 
+    <div class="details-modal">
+        <div class="content-container">
+            <div class="mod-top">
+                <div class="header-col with-details">
+                   <span class="order-number-label">Order No.:</span> 
+                   <span class="order-number">8215185238</span><br>
+
+                   <span class="label">Order Date:</span>
+                   <span class="order-date value">10-18-22</span><br>
+
+                   <span class="label">Status:</span>
+                   <span class="status pending-stat value">Pending</span>
+                </div>
+                <div class="header-col">
+                    <!-- ORDER QR CODE HERE -->
+                    INSERT QR HERE
+                </div> 
+            </div>
+            <div class="items-list">
+
+            </div>
+            <div class="mod-footer">
+                <div class="footer-col">
+                    <span>Subtotal: </span>
+                </div>
+                <div class="footer-col">
+                    <span class="sub-total">253.50PHP</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="parent-container">
         <!-- START OF NAVBAR -->
@@ -362,9 +393,26 @@ if ($validate->is_logged_in("customer")) {
 
             })
         }
-
-
         /* END OF DROPDOWN */
+
+        // DETAILS MODAL OPENING
+        const detailsBtn = document.querySelector('.details-btn')
+        const modal = document.querySelector('.details-modal')
+        let modalOpen = false;
+        
+        if(detailsBtn) {
+            detailsBtn.addEventListener("click", ()=>{
+                if(!modalOpen) {
+                    modal.style.display = "flex";
+                    modalOpen = true;
+                } else {
+                    dropOpen = false;
+                    modal.style.display = "none";
+                }
+                
+            })
+        }
+        
     </script>
 
 

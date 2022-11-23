@@ -13,6 +13,7 @@
 
 body {
     font-size: 62.5%;
+    font-family: var(--fontPoppins);
     background-image: url(../img/Background-Pattern.jpg);
 }
 
@@ -285,6 +286,90 @@ a[name="log-in-btn"] {
 }
 
 /* END OF COLORS FOR DIFFERENT PENDING TYPES */
+
+/* START OF ORDER DETAILS MODAL */
+
+.details-modal {
+    display: none;
+    /* display: flex; */
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.content-container {
+    background-color: white;
+    margin: 15% auto;
+    width: 95%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 2em 1.5em;
+}
+
+.mod-top {
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 1px var(--labelCol);
+    padding-bottom: .5em;
+}
+
+
+.with-details .order-number-label, .with-details .order-number {
+    font-size: 2.0em;
+    font-weight: bold;
+    color: var(--wiseyellow);
+}
+
+.with-details .order-number {
+    margin-left: .3em;
+}
+
+.mod-top .with-details .label {
+    font-size: 1.6em;
+}
+
+.mod-top .with-details .value {
+    font-size: 1.7em;
+    color: var(--valueCol);
+    font-weight: bold;
+    margin-left: .3em;
+}
+
+.items-list {
+    flex: 1 1 auto;
+    overflow-x: auto;
+    margin: 1em 0;
+}
+
+.mod-footer {
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-top: solid 1px var(--labelCol);
+    padding-top: .5em;
+}
+
+.mod-footer .footer-col {
+    font-family: var(--fontOutfit);
+    font-weight: bold;
+    font-size: 1.8em;
+    color: var(--wiseyellow);
+}
+
+
+
+/* END OF ORDER DETAILS MODAL */
 
 .no-orders-container {
     /* 
