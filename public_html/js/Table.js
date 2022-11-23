@@ -183,6 +183,7 @@ var JSTableDefaultConfig = {
                     t = this.isSearching ? this.config.labels.infoFiltered : this.config.labels.info;
                 if (e && t.length) {
                     var a = t.replace("{start}", this.getDataCount() > 0 ? this._getPageStartIndex() + 1 : 0).replace("{end}", this.updateDataCountTotal()).replace("{page}", this.currentPage).replace("{pages}", this.pager.getPages()).replace("{rows}", this.updateDataCountTotal()).replace("{rowsTotal}", this.updateDataCountTotal());
+                    var a = t.replace("{start}", currentRowCount > 0 ? this._getPageStartIndex() + 1 : 0).replace("{end}", this.updateDataCountTotal()).replace("{page}", this.currentPage).replace("{pages}", this.pager.getPages()).replace("{rows}", this.updateDataCountTotal()).replace("{rowsTotal}", this.updateDataCountTotal());
                     e.innerHTML = a
                 }
             }

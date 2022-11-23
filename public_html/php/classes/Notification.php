@@ -12,8 +12,10 @@ class Notification extends DbConnection
     public $app_cluster = "ap1";
 
 
+     /* -------------------- notification */
     public function insert_notif( $user_id,$message) {
         $status = "unread";
+        date_default_timezone_set('Asia/Manila');
         $date_time =  date("Y-m-d H:i:s");
         $query = $this->connect()->prepare("INSERT INTO notification ( user_id, message, date, status) VALUES( :user_id, :message, :date, :status)");
         $result = $query->execute([":user_id" => $user_id, ":message" => $message, ":date" => $date_time, ":status" => $status]);
@@ -56,6 +58,7 @@ class Notification extends DbConnection
     public function display_notification($user_id)
     {
         $result = $query = $this->connect()->prepare("SELECT notification_id, user_id, message, status FROM notification WHERE user_id =:user_id ORDER BY notification_id DESC");
+        $result = $query = $this->connect()->prepare("SELECT * FROM notification WHERE user_id =:user_id ORDER BY notification_id DESC");
         $query->execute([":user_id" => $user_id]);
         if ($result) {
             $data = array();
@@ -64,6 +67,7 @@ class Notification extends DbConnection
                 $sub_array['notification_id'] = $row['notification_id'];
                 $sub_array['user_id'] = $row['user_id'];
                 $sub_array['message'] = $row['message'];
+                $sub_array['date'] = $row['date'];
                 $sub_array['status'] = $row['status'];
                 $data[] = $sub_array;
             }
@@ -79,6 +83,7 @@ class Notification extends DbConnection
         $status = 'unread';
         $query = $this->connect()->prepare("SELECT * FROM notification WHERE user_id = :user_id AND status = :status");
         $query->execute([":user_id" => $user_id, ":status" => $status]);
+        $query->execute([":user_id" => $user_id, ":status" => 'unread']);
         $output['notification_count'] = $query->rowCount();
         echo json_encode($output);
     }
@@ -88,6 +93,8 @@ class Notification extends DbConnection
         $status = 'read';
 /*         $query  = $this->connect()->prepare("UPDATE notification SET status = :status WHERE user_id = :user_id");
         $query->execute([':status' => $status, ':user_id' => $user_id]); */
+        $query  = $this->connect()->prepare("UPDATE notification SET status = :status WHERE user_id = :user_id");
+        $query->execute([':status' => $status, ':user_id' => $user_id]);
         echo json_encode("");
     }
 
@@ -103,6 +110,7 @@ class Notification extends DbConnection
        echo json_encode($output);
     }
 
+     /* -------------------- newsletter*/
     public function newsletter($email) {
         $query = $this->connect()->prepare("INSERT INTO newsletter (email) VALUES( :email)");
         $result = $query->execute([":email" => $email]);
@@ -113,5 +121,17 @@ class Notification extends DbConnection
             
         }
         echo json_encode($output);
+    }
+
+    /* -------------------- contact-us.php */
+    /* invoked when a customer submits a message from contact us  */
+    public function send_email_message($name, $email,$subject,$message){
+        $email_verification = new Email();
+       if ($email_verification->sendEmail("Customer: ". $name,$email, $subject, $message, "contact")) {
+        $output['success'] = 'Message sent successfully';
+    } else {
+        $output['error'] = 'Something went wrong! Please try again later.';
+    }
+       echo json_encode($output);
     }
 }

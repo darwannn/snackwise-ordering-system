@@ -73,6 +73,7 @@ class Account extends DbConnection
 
     /* -------------------- login */
 
+    /* -------------------- login.php  */
     public function login($user_identifier, $table_identifier, $password)
     {
         /* checks if the information entered exist  */
@@ -95,6 +96,7 @@ class Account extends DbConnection
 
                 if ($result) {
                     /* checks if the account is verified */
+                    /* checks if the account is verified or not, if the account is still unverified it will resend a verificatione email to the user */
                     if ($fetch_status == "verified") {
 
                         $_SESSION['user_id'] = $fetch_user_id;
@@ -103,6 +105,7 @@ class Account extends DbConnection
                         $output['success'] = '<div class="alert alert-success text-center">Login Successfully</div>';
                     } else {
                         $code = $this->generateCode();
+                        $code = $this->generate_code();
                         if ($fetch_user_type == "customer") {
                             $email =  $fetch_email;
                             $subject = 'SnackWise Account Verification';
@@ -111,6 +114,7 @@ class Account extends DbConnection
                             $notice = "Click the button <br> below to verify your account.";
                             
                          
+                            $notice = "Click the button <br> below to verify your account."; 
                         } else {
                             $email = $this->get_admin_email();
                             $subject = 'SnackWise Staff Account Verification';
@@ -123,6 +127,8 @@ class Account extends DbConnection
                       
             
                         $body = $this->email_template( $link, $copy_link,  $notice );
+                        $link = "/account/activate.php?code=" . $code ;
+                        $body = $this->email_template( $link, $notice );
 
                         if ($this->update_code($email, $subject, $body, $code)) {
                             $_SESSION['forgot-email'] = $email;
@@ -183,19 +189,24 @@ class Account extends DbConnection
     /* -------------------- register */
    /*  public function register($firstname, $lastname, $username, $email, $contact, $password, $retype_password, $region, $province, $municipality, $barangay, $street, $user_type) */
     public function register($firstname, $lastname, $username, $email, $contact, $password, $retype_password, $user_type)
+    /* -------------------- register.php  */
+    public function register($firstname, $lastname, $username, $email, $contact, $password, $user_type)
     {
         $attempt = 0;
         $status = "unverified";
 
         $code = $this->generateCode();
+        $code = $this->generate_code();
         $code_expiration = $this->get_current_date();
         $encryptPassword = $this->encryptPassword($password);
 
+        $encrypt_password = $this->encrypt_password($password);
         $query = $this->connect()->prepare("INSERT INTO user (firstname, lastname, username, email, contact, password, attempt,code,code_expiration, status, user_type) VALUES( :firstname, :lastname, :username, :email, :contact, :password, :attempt,:code, :code_expiration,:status, :user_type)");
         $result = $query->execute([":firstname" => $firstname, ":lastname" => $lastname, ":username" => $username, ":email" => $email, ":contact" => $contact, ":password" => $encryptPassword, ":attempt" => $attempt, ":code" => $code, ":code_expiration" => $code_expiration, ":status" => $status, ":user_type" => $user_type]);
        /*  $query = $this->connect()->prepare("INSERT INTO user (firstname, lastname, username, email, contact, password, region, province, municipality, barangay, street,attempt,code,code_expiration, status, user_type) VALUES( :firstname, :lastname, :username, :email, :contact, :password, :region, :province, :municipality, :barangay, :street,:attempt,:code, :code_expiration,:status, :user_type)");
         $result = $query->execute([":firstname" => $firstname, ":lastname" => $lastname, ":username" => $username, ":email" => $email, ":contact" => $contact, ":password" => $encryptPassword, ":region" => $region, ":province" => $province, ":municipality" => $municipality, ":barangay" => $barangay, ":street" => $street, ":attempt" => $attempt, ":code" => $code, ":code_expiration" => $code_expiration, ":status" => $status, ":user_type" => $user_type]); */
 
+        $result = $query->execute([":firstname" => $firstname, ":lastname" => $lastname, ":username" => $username, ":email" => $email, ":contact" => $contact, ":password" => $encrypt_password, ":attempt" => $attempt, ":code" => $code, ":code_expiration" => $code_expiration, ":status" => $status, ":user_type" => $user_type]);
         if ($result) {
 
             /* user_type determines wether the person registering is a customer or staff,
@@ -221,6 +232,8 @@ class Account extends DbConnection
 
             $body = $this->email_template( $link, $copy_link,  $notice );
 
+            $link = "/account/activate.php?code=" . $code;
+            $body = $this->email_template( $link, $notice );
 
             $email_verification = new Email();
             if ($email_verification->sendEmail("SnackWise", $email, $subject, $body, "account")) {
@@ -244,18 +257,21 @@ class Account extends DbConnection
     }
 
     /* -------------------- register */
+    /* -------------------- forgot-password.php  */
     /* when a user (both customer and staff) forgot their password, they can change their password using the link that will be sent to their email address*/
     public function forgot_password($user_identifier, $table_identifier)
     {
         $query  = $this->connect()->prepare("SELECT email, username, contact FROM user where " . $table_identifier . " = :table_identifier");
         $query->execute([':table_identifier' => $user_identifier]);
         $code = $this->generateCode();
+        $code = $this->generate_code();
         if ($query->rowCount() > 0) {
             $fetch = $query->fetch(PDO::FETCH_ASSOC);
             $fetch_email = $fetch['email'];
 
             $subject = 'SnackWise Forgot Password';
 
+            $notice = "Click the button <br> to change your password.";  
             //the link will redirect the user to account/new-password
            
 
@@ -282,6 +298,8 @@ class Account extends DbConnection
 
 
 
+            $link = "/account/new-password.php?code=" . $code;
+            $body = $this->email_template( $link, $notice );
             if ($this->update_code($fetch_email, $subject, $body, $code)) {
                 $_SESSION['forgot-email'] = $fetch_email;
                 $output['success'] = '<div class="alert alert-success text-center">Link to change your password has been sent to ' . $fetch_email . '</div>';
@@ -300,12 +318,18 @@ class Account extends DbConnection
     /* -------------------- new-password */
     /* invoked when a user changes its password from new-password */
     public function new_password($user_id, $password, $retypePassword)
+    /* -------------------- new-password.php  */
+    public function new_password($user_id, $password)
     {
         $status = 'verified';
         $code = 0;
         $encryptPassword = $this->encryptPassword($password);
         $query = $this->connect()->prepare("UPDATE user SET password = :password, code = :code, status = :status WHERE user_id = :user_id");
         $result = $query->execute([':password' => $encryptPassword, ':code' => $code, ':status' => $status, ':user_id' => $user_id]);
+        $attempt = 0;
+        $encrypt_password = $this->encrypt_password($password);
+        $query = $this->connect()->prepare("UPDATE user SET password = :password, code = :code, attempt = :attempt, status = :status WHERE user_id = :user_id");
+        $result = $query->execute([':password' => $encrypt_password, ':code' => $code,  ':attempt' => $attempt, ':status' => $status, ':user_id' => $user_id]);
         if ($result) {
             $output['success'] = '<div class="alert alert-success text-center">Your password has been changed! Please login with your new password</div>';
             $_SESSION['activate_success'] =  '<div class="alert alert-success text-center">Your password has been changed! Please login with your new password</div>';
@@ -315,6 +339,7 @@ class Account extends DbConnection
         echo json_encode($output);
     }
 
+    /* -------------------- activate.php */
     /* changes the status of the user account to verified */
     public function activate()
     {
@@ -428,6 +453,7 @@ class Account extends DbConnection
     }
 
     /* -------------------- */
+   /* -------------------- reset.php */
     /* changes the login incorrect attempt counter to 0 */
     public function reset_attempt()
     {
@@ -444,6 +470,7 @@ class Account extends DbConnection
         }
     }
 
+    /* -------------------- */
      /* updates verification code */
      public function update_code($email, $subject, $body, $code)
      {
@@ -469,9 +496,85 @@ class Account extends DbConnection
          }
      }
  
+/* sends an email verification when the maximum login incorrect attempt has been met */
+public function email_attempt($user_identifier, $table_identifier)
+{
+    $query  = $this->connect()->prepare("SELECT email FROM user where " . $table_identifier . " = :table_identifier");
+    $query->execute([':table_identifier' => $user_identifier]);
+    if ($query->rowCount() > 0) {
+        $fetch = $query->fetch(PDO::FETCH_ASSOC);
+        $fetch_email = $fetch['email'];
+        $code = $this->generate_code();
+        $email = $fetch_email;
+        $subject = 'SnackWise Reset Login Attempts';
+        $link = "/account/reset.php?code=" . $code;
+        $notice = "Click the button <br> below to verify your account.";
+        $body = $this->email_template( $link,  $notice );
+        if ($this->update_code($email, $subject, $body, $code)) {
+            $_SESSION['forgot-email'] = $email;
+            $output['error'] = '<div class="alert alert-danger text-center">Too many incorrect login attempts. We have sent an email to verify your identity.</div>';
+        } else {
+            $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
+        }
+    }
+    echo json_encode($output);
+}
+
+    /* generates email verification code */
+    public function generate_code()
+    {
+        $code = substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', mt_rand(1, 16))), 1, 16);
+
+        /* check if the verification code already exists, if true it will regenerate again */
+        $query = $this->connect()->prepare("SELECT * FROM user WHERE code = :code");
+        $query->execute([':code' => $code]);
+
+        if ($query->rowCount() > 0) {
+            $code = $this->generate_code();
+        } else {
+            return $code;
+        }
+    }
+
+    /* deletes verification codes that exist for more than the specified expiration time */
+    public function delete_code()
+    {
+        $query  = $this->connect()->prepare("UPDATE user SET code =:code  WHERE UNIX_TIMESTAMP(NOW())- UNIX_TIMESTAMP(code_expiration) >= :unixtime");
+        /* 86400 seconds is equal to 1 day */
+        $query->execute([':code' => "", ':unixtime' => 86400]);
+    }
+
+    /* returns current date and time  */
+    public function get_current_date()
+    {
+        date_default_timezone_set('Asia/Manila');
+        return  date('Y-m-d H:i:s');
+    }
+
+    /* encrypts  entered password */
+    public function encrypt_password($password)
+    {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    /* gets admin registered email address */
+    public function get_admin_email()
+    {
+        $query = $this->connect()->prepare("SELECT email FROM user WHERE user_type = :user_type");
+        $result = $query->execute([":user_type" => "admin"]);
+
+        if ($result) {
+            $fetch = $query->fetch(PDO::FETCH_ASSOC);
+            return $fetch['email'];
+        } else {
+            $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
+            echo json_encode($output);
+        }
+    }
 
      /* email content template */
      public function email_template($link, $copy_link, $notice) {
+     public function email_template($link, $notice) {
         return "
         <body
         style='font-family:Roboto, sans-serif; font-size: 18px;text-align: center; background-image:url(https://res.cloudinary.com/dhzn9musm/image/upload/v1668344633/SnackWise/Background-Pattern_dpqbdy.jpg); margin: 0; padding: 0;'>
@@ -500,6 +603,7 @@ class Account extends DbConnection
                                         <td>
                                             <button style='width: 100%; margin: 20px 0; font-weight: 600px;  font-size: 18px;padding: 20px 0; border-radius: 10px;border:none;background-color: #DD1C1A; color: white;'>" . $link . "</button>
     
+                                            <button style='width: 100%; margin: 20px 0; font-weight: 600px;  font-size: 18px;padding: 20px 0; border-radius: 10px;border:none;background-color: #DD1C1A; color: white;'> <a style =' color: white; text-decoration: none' href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . $link . "'>Verify Your Account</a></button>
                                         </td>
                                     </tr>
     
@@ -513,6 +617,7 @@ class Account extends DbConnection
                                     <tr>
                                         <td style='padding-top:15px; color:black!important;'>
                                             " . $copy_link . "
+                                        <a style='font-size:16px!important; overflow-wrap: break-word;'  href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . $link . "' >" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . $link . "</a>
                                         </td>
                                     </tr>
                                 </table>

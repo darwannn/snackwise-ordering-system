@@ -9,6 +9,10 @@ $validate = new Validate();
 if (!$validate->validate_code()) {
     header('error.php');
 }
+
+ /* checks if the verification code in the URL parameter is in the database */
+$validate->validate_code();
+  
 ?>
 
 <!DOCTYPE html>
@@ -60,15 +64,20 @@ if (!$validate->validate_code()) {
             <form action="POST" id="account_form">
                 <div class="input-container">
                     <input type="password" class="password" name="password" id="password" placeholder="Password" value="" onkeyup="new Account().verify_password(this.value);" autocomplete="off">
+               <!--  onkeyup="new Account().verify_password(this.value);" -->
+                    <input type="password" class="password" name="password" id="password" placeholder="Password" value=""  autocomplete="off">
                     <i class="fa-solid fa-eye-slash toggler" id="password_toggler" for="password" onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
                     <span class="" id="password_error" class="text-danger"></span>
+                    <span class="input_error" id="password_error" class="text-danger"></span>
                 </div>
                 <div class="input-container">
                     <input type="password" class="retype_password" name="retype_password" id="retype_password" placeholder="Retype Password" value="" autocomplete="off">
                     <i class="fa-solid fa-eye-slash toggler" id="retype_password_toggler" for="retype_password" onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
                     <span class="" id="retype_password_error" class="text-danger"></span>
+                    <span class="input_error" id="retype_password_error" class="text-danger"></span>
                 </div>
                 <button id="new_password" class="new-password-btn">Submit New Password</button>
+                <button id="new_password" class="new-password-btn" onclick=" new Account().new_password('<?php echo $_GET['code'] ?>');">Submit New Password</button>
             </form>
         </div>
 
@@ -86,12 +95,16 @@ if (!$validate->validate_code()) {
         // document.getElementsByClassName("password_requirements").style.display = "none";
 
         let account = new Account();
+/*         document.getElementsByClassName("password_requirements").style.display = "none"; */
 
         let url_code = '<?php echo $_GET['code'] ?>';
         document.getElementById("new_password").onclick = function() {
             console.log(url_code);
             account.new_password(url_code);
         }
+     
+           
+        
     </script>
 </body>
 

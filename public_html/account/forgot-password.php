@@ -54,6 +54,9 @@
                 <input type="text" name="user_identifier" id="user_identifier" placeholder="Enter Email Address" value="" autocomplete="off">
                 <span id="user_identifier_error" class="text-danger"></span>
                 <button type ="button"  id="forgot_password">Submit</button>
+                <input type="text" name="user_identifier" id="user_identifier" placeholder="Username / Email Address / Contact Number" value="" autocomplete="off">
+                <span id="user_identifier_error" class="input_error"></span>
+                <button type ="button"  id="forgot_password" onclick=" new Account().forgot_password();">Submit</button>
             </form>
         </div>
     </div>
@@ -70,6 +73,7 @@
             account.forgot_password();
         }
     </script>
+    
 </body>
 
 </html>

@@ -33,10 +33,15 @@ class Account {
     /* login */
     login () {
        
+    /* -------------------- login.php */
+    login() {
+        /* changes button text to font awesome loading spinner */
         let button_value = new Account().get_button_value("login");
         new Account().button_loading("login", "loading","");
       
      
+        new Account().button_loading("login", "loading", "");
+
         var form_data = new FormData(document.getElementById('account_form'));
         form_data.append('login', 'login');
         fetch('../php/controller/c_account.php', {
@@ -49,15 +54,18 @@ class Account {
             console.log(response_data);
             new Account().button_loading("login", "",button_value);
           
+            new Account().button_loading("login", "", button_value);
             /* displays the message returned */
             if (response_data.success) {
 
                 document.getElementById('success_message').innerHTML = "";
 window.location.href = "../index.php";
+                window.location.href = "../index.php";
             } else if (response_data.validate) {
                 document.getElementById('success_message').innerHTML = "";
                 document.getElementById('error_message').innerHTML = response_data.validate;
             }else if (response_data.error) {
+            } else if (response_data.error) {
                 document.getElementById('success_message').innerHTML = "";
                 document.getElementById('error_message').innerHTML = "";
                 document.getElementById('error_message').innerHTML = response_data.error;
@@ -72,9 +80,12 @@ window.location.href = "../index.php";
     /* register */
     register () {
     
+    /* -------------------- register.php */
+    register() {
         let button_value = new Account().get_button_value("register");
         new Account().button_loading("register", "loading","");
 
+        new Account().button_loading("register", "loading", "");
         var form_data = new FormData(document.getElementById('account_form'));
         form_data.append('register', 'register');
         fetch('../php/controller/c_account.php', {
@@ -87,6 +98,7 @@ window.location.href = "../index.php";
   
             new Account().button_loading("register", "",button_value);
 
+            new Account().button_loading("register", "", button_value);
             if (response_data.success) {
                 
                 document.getElementById('firstname').value = "";
@@ -126,14 +138,24 @@ window.location.href = "../index.php";
                 new Account().show_error(response_data.retype_password_error, 'retype_password_error');
 
         
+            new Account().show_error(response_data.firstname_error, 'firstname_error');
+            new Account().show_error(response_data.lastname_error, 'lastname_error');
+            new Account().show_error(response_data.username_error, 'username_error');
+            new Account().show_error(response_data.email_error, 'email_error');
+            new Account().show_error(response_data.contact_error, 'contact_error');
+            new Account().show_error(response_data.password_error, 'password_error');
+            new Account().show_error(response_data.retype_password_error, 'retype_password_error');
         });
     }
 
     /* forgot password */
     forgot_password () {
+    /* -------------------- forgot-password.php */
+    forgot_password() {
 
         let button_value = new Account().get_button_value("forgot_password");
         new Account().button_loading("forgot_password", "loading","");
+        new Account().button_loading("forgot_password", "loading", "");
 
         var form_data = new FormData(document.getElementById('account_form'));
         form_data.append('forgot_password', 'forgot_password');
@@ -145,6 +167,7 @@ window.location.href = "../index.php";
         }).then(function (response_data) {
             console.log(response_data);
             new Account().button_loading("forgot_password", "",button_value);
+            new Account().button_loading("forgot_password", "", button_value);
             if (response_data.success) {
                 console.log("response_data");
                 document.getElementById('success_message').innerHTML = response_data.success;
@@ -164,6 +187,10 @@ window.location.href = "../index.php";
            let button_value = new Account().get_button_value("new_password");
         new Account().button_loading("new_password", "loading","");
 
+    /* -------------------- new-password.php  */
+    new_password(url_code) {
+        let button_value = new Account().get_button_value("new_password");
+        new Account().button_loading("new_password", "loading", "");
 
         var form_data = new FormData(document.getElementById('account_form'));
         form_data.append('new_password', 'new_password');
@@ -175,6 +202,7 @@ window.location.href = "../index.php";
         }).then(function (response_data) {
             console.log(response_data);
             new Account().button_loading("new_password", "",button_value);
+            new Account().button_loading("new_password", "", button_value);
             if (response_data.success) {
   
                 /* document.getElementById('success_message').innerHTML = response_data.success; */
@@ -334,6 +362,11 @@ window.location.href = "../index.php";
                 new Account().show_error(response_data.retype_password_error, 'retype_password_error');
             }
         });
+    /* -------------------- */
+    show_error(error, element) {
+        console.log(element.replace('_error', ''));
+        error ? document.getElementById(element).innerHTML = error : document.getElementById(element).innerHTML = '';
+        error ? document.getElementById(element.replace('_error', '')).style.border = "red solid 1px" : document.getElementById(element.replace('_error', '')).style.border = "none";
 
     }
 
@@ -377,17 +410,35 @@ window.location.href = "../index.php";
             }
         });
 
+     /* toggles input field type attribute value to text or password */
+     toggle_password(passwordToggler, passwordField) {
+        document.getElementById(passwordField).setAttribute('type', (document.getElementById(passwordField).getAttribute('type') === 'password') ? 'text' : 'password');
+        document.getElementById(passwordToggler).classList.toggle('fa-eye');
+        document.getElementById(passwordToggler).classList.toggle('fa-eye-slash');
     }
 
     /* get_image() {
         return this.fetch_image;
     } */
+    /* display a checkmark if the specific password requirement has been met, otherwise it will display an x */
+    verify_password(password) {
+        document.querySelector(".length").style.opacity = 1;
+        document.querySelector(".case").style.opacity = 1;
+        document.querySelector(".special").style.opacity = 1;
+        document.querySelector(".number").style.opacity = 1;
+        let caseRequirments = /^(?=.*[a-z])(?=.*[A-Z])/;
+        let specialRequirments = /(?=.*[!@#$%^&,*.])/;
+        let numberRequirments = /(?=.*\d)/;
 
     show_error(error, element) {
         console.log(element.replace('_error',''));
         error ? document.getElementById(element).innerHTML = error : document.getElementById(element).innerHTML = '';
         error ? document.getElementById(element.replace('_error','')).style.border = "red solid 1px" : document.getElementById(element.replace('_error','')).style.border = "none";
     
+        (password.length >= 8 && password.length <= 16) ? document.getElementById("length").innerHTML = "&#x2714": document.getElementById("length").innerHTML = "&#x2716";
+        (password.match(caseRequirments)) ? document.getElementById("case").innerHTML = "&#x2714": document.getElementById("case").innerHTML = "&#x2716";
+        (password.match(specialRequirments)) ? document.getElementById("special").innerHTML = "&#x2714": document.getElementById("special").innerHTML = "&#x2716";
+        (password.match(numberRequirments)) ? document.getElementById("number").innerHTML = "&#x2714": document.getElementById("number").innerHTML = "&#x2716";
     }
 
      /* disables the button and changes its content to a loading animation so the user can not click while the server is processing */
@@ -395,9 +446,16 @@ window.location.href = "../index.php";
         if(type == "loading") {
         document.getElementById(element).innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
         document.getElementById(element).disabled = true;
+    /* disables the button and changes its content to a loading animation so the user can not click while the server is processing */
+    button_loading(element, type, text) {
+        if (type == "loading") {
+            document.getElementById(element).innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            document.getElementById(element).disabled = true;
         } else {
             
             document.getElementById(element).innerHTML =  text;
+
+            document.getElementById(element).innerHTML = text;
             document.getElementById(element).disabled = false;
         }
     }
@@ -423,6 +481,19 @@ window.location.href = "../index.php";
             behavior:"smooth"
         });
     }
+        if (element == "top") {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth"
+            });
+        } else {
+            window.scrollTo({
+                top: (document.getElementById(element).offsetTop) - 250,
+                left: 0,
+                behavior: "smooth"
+            });
+        }
     }
 
 }

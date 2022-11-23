@@ -8,8 +8,10 @@ class Validate extends DbConnection
   /* checks if an input field is empty or not,
    if the input field is not empty, further input validation will be performed */
   public function validateLength($input, $compare_input, $name, $message)
+  public function validate_length($input, $compare_input, $name, $message)
   {
     if (isset($input) && $input =='') {
+    if (isset($input) && $input == '') {
       $this->output[$name] = $message;
     } else {
       unset($this->output[$name]);
@@ -18,6 +20,9 @@ class Validate extends DbConnection
       if (strpos($name, "identifier")!== false) {
         if ($this->isEmail($input) == "email") {
           if ($this->isTakenEmail($input)) {
+      if (strpos($name, "identifier") !== false) {
+        if ($this->is_email($input) == "email") {
+          if ($this->is_taken_email($input)) {
             $this->output[$name] = 'Account not found';
           } else {
             $this->output[$name] = '';
@@ -25,6 +30,8 @@ class Validate extends DbConnection
           }
         } else   if ($this->isContact($input) == "contact") {
           if ($this->isTakenContact($input)) {
+        } else  if ($this->is_contact($input) == "contact") {
+          if ($this->is_taken_contact($input)) {
             $this->output[$name] = 'Account not found';
           } else {
 
@@ -33,6 +40,7 @@ class Validate extends DbConnection
           }
         } else {
           if ($this->isTakenUsername($input)) {
+          if ($this->is_taken_username($input)) {
             $this->output[$name] = 'Account not found';
           } else {
 
@@ -58,6 +66,20 @@ class Validate extends DbConnection
             unset($this->output[$name]);
           } else {
             $this->output[$name] = 'Email address is taken';
+      if (strpos($name, "email") !== false) {
+        if ($this->is_email($input)) {
+          if ($compare_input != "email-contact" && $compare_input != "email-newsletter") {
+            if ($this->is_taken_email($input)) {
+              unset($this->output[$name]);
+            } else {
+              $this->output[$name] = 'Email address is taken';
+            }
+          } else if($compare_input == "email-newsletter") {
+            if ($this->is_newsletter_registered($input)) {
+              unset($this->output[$name]);
+            } else {
+              $this->output['error'] = 'You are already subscribed';
+            }
           }
         } else {
           if ($this->isNewsletterRegistered($input)) {
@@ -78,6 +100,9 @@ class Validate extends DbConnection
         if ($this->isContact($input)) {
           if ($this->isTakenContact($input)) {
 
+      if (strpos($name, "contact") !== false) {
+        if ($this->is_contact($input)) {
+          if ($this->is_taken_contact($input)) {
             unset($this->output[$name]);
           } else {
             $this->output[$name] = 'Phone number is taken';
@@ -89,6 +114,8 @@ class Validate extends DbConnection
       if (strpos($name, "username")!== false) {
         if ($this->isTakenUsername($input)) {
 
+      if (strpos($name, "username") !== false) {
+        if ($this->is_taken_username($input)) {
           unset($this->output[$name]);
         } else {
           $this->output[$name] = 'Username is taken';
@@ -99,6 +126,9 @@ class Validate extends DbConnection
   
             unset($this->output[$name]);
           
+      if (strpos($name, "password") !== false && $compare_input != "login") {
+        if ($this->has_meet_password($input)) {
+          unset($this->output[$name]);
         } else {
           $this->output['password_error'] = 'Password does not meet the requirements';
         }
@@ -108,6 +138,9 @@ class Validate extends DbConnection
 
             unset($this->output[$name]);
           
+      if (strpos($name, "retype_password") !== false) {
+        if ($this->is_match($input, $compare_input)) {
+          unset($this->output[$name]);
         } else {
           $this->output['retype_password_error'] = 'Passwords do not match';
         }
@@ -117,6 +150,9 @@ class Validate extends DbConnection
 
             unset($this->output[$name]);
           
+      if (strpos($name, "discount") !== false || strpos($name, "price") !== false) {
+        if (ctype_digit(str_replace(", ", "", $input))) {
+          unset($this->output[$name]);
         } else {
           $this->output[$name] = 'Enter a valid number';
         }
@@ -159,6 +195,8 @@ class Validate extends DbConnection
 
 /* checks if a user does not select an item in dropdown */
   public function validateSelectorLength($input, $name, $message)
+  /* checks if a user does not select an item in dropdown */
+  public function validate_selector_length($input, $name, $message)
   {
     if ($input == "none") {
       $this->output[$name] = $message;
@@ -170,8 +208,10 @@ class Validate extends DbConnection
 
   /* determines if the entered value in the contact field is a valid phone number */
   public function isContact($input)
+  public function is_contact($input)
   {
     if (strlen($input) == 11 && is_numeric((int)$input)) {
+    if (strlen($input) == 11 && is_numeric($input) && substr($input, 0, 2 ) === "09") {
       return true;
     } else {
       return false;
@@ -180,6 +220,7 @@ class Validate extends DbConnection
 
   /* determines if the entered value in the email field is a valid email address */
   public function isEmail($input)
+  public function is_email($input)
   {
     if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
       return true;
@@ -191,6 +232,7 @@ class Validate extends DbConnection
 
   /* checks if the password and retype password entered matches */
   public function isMatch($input, $compare_input)
+  public function is_match($input, $compare_input)
   {
     if ($input == $compare_input) {
       return true;
@@ -203,6 +245,10 @@ class Validate extends DbConnection
   public function hasMeet($input)
   {
     if (preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&,*.]{8,16}$/', $input)) {
+  public function has_meet_password($input)
+  {/* ^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&,*.]{8,16}$ */
+    /* it must have 8-20 alphanumeric and must have at least one lowercase, uppercase and special character */
+    if (preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@#$%^&,*.]).{8,16}$/', $input)) {
       return true;
     } else {
       return false;
@@ -211,6 +257,7 @@ class Validate extends DbConnection
 
   /* checks if the phone number entered is taken */
   public function isTakenContact($input)
+  public function is_taken_contact($input)
   {
     $query = $this->connect()->prepare("SELECT contact FROM user where contact = :contact");
     $query->execute([':contact' => $input]);
@@ -232,6 +279,16 @@ class Validate extends DbConnection
       } else {
         return false;
       }
+  /* checks if the email entered is taken */
+  public function is_taken_email($input)
+  {
+    $query = $this->connect()->prepare("SELECT email FROM user where email = :email");
+    $query->execute([':email' => $input]);
+
+    if (!$query->rowCount() > 0) {
+      return true;
+    } else {
+      return false;
     }
     /* checks if the email entered is already subscribed to newsletter */
     public function isNewsletterRegistered($input)
@@ -244,10 +301,23 @@ class Validate extends DbConnection
       } else {
         return false;
       }
+  }
+  /* checks if the email entered is already subscribed to newsletter */
+  public function is_newsletter_registered($input)
+  {
+    $query = $this->connect()->prepare("SELECT email FROM newsletter where email = :email");
+    $query->execute([':email' => $input]);
+
+    if (!$query->rowCount() > 0) {
+      return true;
+    } else {
+      return false;
     }
 
 /* checks if the username entered is taken */
   public function isTakenUsername($input)
+  /* checks if the username entered is taken */
+  public function is_taken_username($input)
   {
 
     $query = $this->connect()->prepare("SELECT username FROM user where username = :username");
@@ -262,6 +332,7 @@ class Validate extends DbConnection
   }
 
   /* checks if the verification code in the URL parameter exists */
+  /* checks if the verification code in the URL parameter is in the database */
   public function validate_code()
   {
     if (isset($_GET["code"])) {
@@ -273,9 +344,11 @@ class Validate extends DbConnection
         return  true;
       } else {
         header('location: error');
+        header('location: ../error.php');
       }
     } else {
       header('location: error');
+      header('location: ../error.php');
     }
   }
 
@@ -299,8 +372,10 @@ class Validate extends DbConnection
   public function table_identifier($input, $name)
   {
     if ($this->isEmail($input)) {
+    if ($this->is_email($input)) {
       return "email";
     } else if ($this->isContact($input)) {
+    } else if ($this->is_contact($input)) {
       return "contact";
     } else {
       return "username";
@@ -308,21 +383,27 @@ class Validate extends DbConnection
   }
 
     public function user_identifier($table, $user, $name)
+  public function user_identifier($table, $user, $name)
   {
     if ($this->isEmail($user) == "email") {
       if ($this->isTakenEmail($user)) {
+    if ($this->is_email($user) == "email") {
+      if ($this->is_taken_email($user)) {
         $this->output[$name] = 'Account not found';
       } else {
         unset($this->output[$name]);
       }
     } else   if ($this->isContact($user) == "contact") {
       if ($this->isTakenContact($user)) {
+    } else   if ($this->is_contact($user) == "contact") {
+      if ($this->is_taken_contact($user)) {
         $this->output[$name] = 'Account not found';
       } else {
         unset($this->output[$name]);
       }
     } else {
       if ($this->isTakenUsername($user)) {
+      if ($this->is_taken_username($user)) {
         $this->output[$name] = 'Account not found';
       } else {
         unset($this->output[$name]);
@@ -351,6 +432,26 @@ if($type == "customer") {
     header('Location: account/login.php');
   }
 }
+  /* determines if a user is logged in and if it is a customer or an employee */
+  public function is_logged_in($type)
+  {
+    if ($type == "customer") {
+      if (isset($_SESSION['user_id']) == false && isset($_SESSION['password']) == false) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      if (isset($_SESSION['user_id']) == true && isset($_SESSION['password']) == true) {
+        if (isset($_SESSION["user_type"]) && $_SESSION['user_type'] == "user") {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        header('Location: account/login.php');
+      }
+    }
   }
 
   public function sanitizeString($input)

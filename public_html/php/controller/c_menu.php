@@ -6,6 +6,12 @@ $menu = new Menu();
 $validate = new Validate();
 
 /* --------------------  */
+/* -------------------- index.php */
+if (isset($_POST["display_bestseller"])) {
+    $menu->display_bestseller();
+}
+
+/* -------------------- menu.php */
 if (isset($_POST["display_menu"])) {
     $category = $_POST["category"];
     $menu->display_menu($category);
@@ -17,6 +23,8 @@ if (isset($_POST["display_bestseller"])) {
 }
 
 /* --------------------  */
+/* -------------------- STAFF --------------------  */
+/* -------------------- edit-menu.php */
 if (isset($_POST["action_menu"])) {
     if ($_POST['action_menu'] == 'Add' || $_POST['action_menu'] == 'Update') {
 
@@ -47,6 +55,14 @@ if (isset($_POST["action_menu"])) {
         $validate->validateLength($date,'','date_error', 'Required field' ); 
         $validate->validateSelectorLength($availability,'availability_error', 'Required field' );
         $validate->validateLength($image, '', 'image_error', 'Required field');
+        $validate->validate_length($name,'','name_error', 'Required field' );
+        $validate->validate_length($description,'','description_error', 'Required field' );
+        $validate->validate_selector_length($category,'category_error', 'Required field' );
+        $validate->validate_length($discount,'','discount_error', 'Required field' );
+        $validate->validate_length($price,'','price_error', 'Required field' );
+        $validate->validate_length($date,'','date_error', 'Required field' ); 
+        $validate->validate_selector_length($availability,'availability_error', 'Required field' );
+        $validate->validate_length($image, '', 'image_error', 'Required field');
 
         if (count($validate->output) > 0) {
             echo json_encode($validate->output);

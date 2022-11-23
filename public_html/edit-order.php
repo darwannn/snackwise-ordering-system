@@ -92,6 +92,7 @@ min-width: 140px!important;
                 <div class="modal-footer">
                     <button type="button" name="qr_confirm" id="qr_confirm"
                         class="btn btn-success w-25">Confirm</button>
+                        class="btn btn-success w-25" onclick=" new Order().claim_order();">Confirm</button>
                     <button type="button" name="qr_close" id="qr_close" class="btn btn-danger w-25"
                         onclick="new Order().qr_close_modal();">Cancel</button>
                 </div>
@@ -104,6 +105,7 @@ min-width: 140px!important;
     <div class="container my-5">
 
         <span id="success_message"></span>
+
 
         <div class="card">
 
@@ -129,6 +131,7 @@ min-width: 140px!important;
                             <th>#</th>
                             <th>Customer Name</th>
                             <th>order</th>
+                            <th>Quantity</th>
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Total Price</th>
@@ -141,6 +144,7 @@ min-width: 140px!important;
                     </thead>
                     <tbody>
                         <?php echo $order->fetch_top_five_data(); ?>
+                        <?php echo $order->fetch_five(); ?>
                     </tbody>
                 </table>
 
@@ -155,6 +159,7 @@ min-width: 140px!important;
 
     <!-- modal to edit an order -->
     <div class="modal fade" id="order_modal">
+    <div id="order_modal">
         <form method="post" id="order_form">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -240,6 +245,7 @@ min-width: 140px!important;
 
                 </div>
             </div>
+                            </select> 
         </form>
     </div>
 
@@ -273,6 +279,7 @@ min-width: 140px!important;
 
 
                        
+                    
                         <div>
                             <div class="h6 fw-bold">Information</div>
                             <div class="to_delete_info" id="to_delete_info"></div>
@@ -297,6 +304,7 @@ min-width: 140px!important;
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="del_notif_button" class="btn btn-success w-25">Delete</button>
+                    <button type="button" id="del_notif_button" class="btn btn-success w-25" onclick="new Order().staff_delete_order();">Delete</button>
                     <button type="button" id="close_del_notif" class="btn btn-danger w-25"
                         onclick="new Order().close_del_notif();">Close</button>
                 </div>
@@ -355,6 +363,8 @@ min-width: 140px!important;
 
     /* instantiate JSTable class */
     let table = new JSTable("#order_table", {
+     /* instantiate JSTable class */
+     let table = new JSTable("#order_table", {
         serverSide: true,
         deferLoading: <?php echo $order->count_all_data();?> ,
         ajax : "php/controller/f_order.php"
@@ -414,6 +424,8 @@ function get_notification() {
 
 
 
+order = new Order(table);
+    order.staff_order();
 </script>
 
 </html>

@@ -210,6 +210,9 @@ $account->delete_code();
 
                 </div>
         </section>
+                <div class="bestseller_list row justify-content-start" id="bestseller_list"></div>
+        
+            </section>
 
         <section class="how-to-container">
             <div class="container">
@@ -374,6 +377,8 @@ $account->delete_code();
         function close_cart() {
             document.getElementById('sidecart').style.animationName = "close_cart";
         }
+new Menu().display_bestseller();
+   
 
         /* DROPDOWN */
 

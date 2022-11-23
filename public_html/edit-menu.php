@@ -93,6 +93,7 @@ $menu = new Menu();
                     </thead>
                     <tbody>
                         <?php echo $menu->fetch_top_five_data(); ?>
+                        <?php echo $menu->fetch_five(); ?>
                     </tbody>
                 </table>
 
@@ -173,6 +174,7 @@ $menu = new Menu();
                             <select class="form-select" name="availability" id="availability">
                             <option value="none" style="display: none; opacity:0;">Select</option>
                                 <option value="Available">Available</option>
+                                <option value="Available" selected>Available</option>
                                 <option value="Unavailable">Unavailable</option>
                             </select>
                             <span class="" id="availability_error"></span>

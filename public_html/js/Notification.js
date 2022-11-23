@@ -4,6 +4,7 @@ class Notification {
     new Notification().notification_count();
     new Notification().display_notification();
     new Notification().display_toast_notif();
+  
   }
 
   /* hides or shows notifications */
@@ -58,6 +59,7 @@ class Notification {
   notification_count() {
     document.getElementById("notification_list").style.display = "none";
 
+    /* document.getElementById("notification_list").style.display = "none"; */
     let form_data = new FormData();
     form_data.append('notification_count', 'notification_count');
     fetch('php/controller/c_notification.php', {
@@ -90,6 +92,7 @@ class Notification {
          
           notification_list += `
               <div class="${notif.status} d-flex align-items-center" style="padding: 20px 20px; ">`;
+              <div class="${notif.status} d-flex align-items-center" style="padding: 10px 10px; w-100">`;
           /* notification_list += `
               <div class="${notif.status} d-flex align-items-center" style="padding: 20px 20px; margin:10px; border-radius:10px;">`; */
              /*  if(notif.status == "read") {
@@ -101,10 +104,14 @@ class Notification {
               notification_list += `<div style=" background-color:rgb(238,149,0); padding:7px 7px 0px 7px ; border-radius:15px;"><i class="fa-solid fa-circle-info h2" style="white!impor"></i></div>`;
               notification_list += ` <div style="margin-left:10px;"> <div class="h6 fw-bold" >${notif.message}</div>
                 <div class="" style="font-size:12px; margin-top:-10px;" >DEc 19, 2020</div></div>
+              notification_list += `<div style=" background-color:rgb(238,149,0); padding:6px 6px 0 6px; border-radius:15px;"><i class="fa-solid fa-circle-info h4" margin-bottom:-10px; style="color:white!important"></i></div>`;
+              notification_list += ` <div style="margin-left:10px;font-size:14px;"> <div class=" fw-bold" >${notif.message}</div>
+                <div class="" style="font-size:11px; margin-top:-5px;" >${notif.date}</div></div>
               </div>
               `;
               /* if(notif.status == "read") { */
                 notification_list += `<hr class="p-0 my-0 mx-3">`;
+                notification_list += `<hr class="p-0 my-0">`;
               /* } */
         });
       }
@@ -115,6 +122,7 @@ class Notification {
 
 
   /* create  and display a notification */
+  /* creates  and display a notification */
   create_notification(message, type) {
     let create_toast_notif_dialog = document.createElement("div");
     /* adds an id to the element which will be used to automatically remove it to the DOM after a specific time */
@@ -144,7 +152,30 @@ class Notification {
     }, 5000);
   }
 
+/* -------------------- newsletter */
+newsletter() {
+  let form_data = new FormData(document.getElementById('newsletter_form'));
+  form_data.append('newsletter', 'newsletter');
+  return fetch('php/controller/c_notification.php', {
+      method: "POST",
+      body: form_data
+  }).then(function (response) {
+      return response.json();
+  }).then(function (response_data) {
+    console.log(response_data);
+     if(response_data.success){
+      new Notification().create_notification(response_data.success, "success");
+      document.getElementById('newsletter_email').value = "";
+     }  else if (response_data.newsletter_email_error) {
+      new Notification().create_notification(response_data.newsletter_email_error, "error");
+      document.getElementById("newsletter_email").focus();
+    }  else if (response_data.error) {
+     new Notification().create_notification(response_data.error, 'error');
+     }
+  });
+}
 
+/* -------------------- contact-us.php */
   send_email_message() {
     document.getElementById('submit').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
     document.getElementById('submit').disabled = true;
@@ -162,6 +193,10 @@ class Notification {
        if(response_data.success){
         new Notification().create_notification(response_data.success, "success");
     
+    document.getElementById('name').value = "";
+    document.getElementById('email').value = "";
+    document.getElementById('subject').value = "";
+    document.getElementById('message').value = "";
        }  else if(response_data.error){
         new Notification().create_notification(response_data.error, "error");
        } 
@@ -174,6 +209,7 @@ class Notification {
   
     });
 }
+
 show_error(error, element) {
   console.log(element.replace('_error',''));
   error ? document.getElementById(element).innerHTML = error : document.getElementById(element).innerHTML = '';
