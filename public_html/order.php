@@ -83,6 +83,23 @@ if ($validate->is_logged_in("customer")) {
                 </div> 
             </div>
             <div class="items-list">
+                <!-- ORDER ITEMS APPEND HERE -->
+                <div class="item">
+                    <div class="item-img-container">
+                        <img src="img/menu-imgs/a.jpg" alt="Combo A">
+                    </div>
+                    <div class="item-details">
+                        <div class="quantity-con">
+                            <span><span class="modal-quantity">3</span>x</span> 
+                        </div> 
+                        <div class="item-name-con">
+                            <span class="item-name">Combo A</span>
+                        </div>
+                        <div class="item-price-con">
+                            <span class="item-price">75.00PHP</span>
+                        </div>
+                    </div>
+                </div>
 
             </div>
             <div class="mod-footer">

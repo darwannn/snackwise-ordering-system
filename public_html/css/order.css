@@ -290,8 +290,8 @@ a[name="log-in-btn"] {
 /* START OF ORDER DETAILS MODAL */
 
 .details-modal {
-    display: none;
-    /* display: flex; */
+    /* display: none; */
+    display: flex;
     position: fixed;
     z-index: 10;
     top: 0;
@@ -346,9 +346,47 @@ a[name="log-in-btn"] {
 
 .items-list {
     flex: 1 1 auto;
-    overflow-x: auto;
+    overflow-y: auto;
     margin: 1em 0;
 }
+
+.items-list .item {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    background-color: #f7f7f7;
+    padding: 1em;
+    border-radius: 5px;
+    margin: .5em 0;
+}
+
+.items-list .item:nth-child(even){
+    background-color: #efefef;
+}
+
+.item .item-img-container {
+    flex: 0 1 30%;
+    margin-right: 1em;
+}
+
+.item .item-img-container img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.item .item-details {
+    flex: 1 1 auto;
+    font-size: 1.6em;
+    font-weight: bold;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.item-price-con .item-price {
+    color: var(--wiseyellow);
+}
+
 
 .mod-footer {
     flex: 0 1 auto;
