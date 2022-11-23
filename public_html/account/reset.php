@@ -12,6 +12,7 @@ $validate = new Validate();
     if ($validate->validate_code() ) {
 $account->reset_attempt();
 }
+
  /* checks if the verification code in the URL parameter is in the database */
 if ($validate->validate_code()) {
     $account->reset_attempt();

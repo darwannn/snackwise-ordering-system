@@ -313,6 +313,7 @@ class Validate extends DbConnection
     } else {
       return false;
     }
+  }
 
 /* checks if the username entered is taken */
   public function isTakenUsername($input)
