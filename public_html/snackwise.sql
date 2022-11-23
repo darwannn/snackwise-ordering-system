@@ -3,7 +3,6 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2022 at 06:23 AM
 -- Generation Time: Nov 23, 2022 at 12:10 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
@@ -40,8 +39,6 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `user_id`, `menu_id`, `quantity`) VALUES
-(104, 1, 65, 3),
-(124, 105, 70, 1);
 (137, 105, 65, 1),
 (140, 105, 68, 1);
 
@@ -77,13 +74,6 @@ CREATE TABLE `holiday` (
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs;
 
---
--- Dumping data for table `holiday`
---
-
-INSERT INTO `holiday` (`holiday_id`, `date`) VALUES
-(10, '2022-11-23');
-
 -- --------------------------------------------------------
 
 --
@@ -108,26 +98,8 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`menu_id`, `name`, `description`, `category`, `discount`, `price`, `date`, `availability`, `image`) VALUES
 (65, 'Combo A', 'Includes: Regular Burger, Regular Fries, Blue Lemonade', 1, '0', 75, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(66, 'Combo B', 'Includes: Regular Burger, Carbonara, Blue Lemonade', 1, '0', 890, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
 (66, 'Combo B', 'Includes: Regular Burger, Carbonara, Blue Lemonade', 1, '0', 890, '2022-11-18', 'Available', 'v1669200184/SnackWise/Menu/Combo B'),
 (67, 'Combo C', 'Includes: Regular Hotdog, Regular Fries, Blue Lemonade', 1, '5', 80, '2022-11-18', 'Available', 'v1668702383/SnackWise/Menu/Combo C'),
-(68, 'Combo D', 'Includes: Regular Fries, Carbonara, Blue Lemonade', 1, '10', 85, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(69, 'Combo E', 'Includes: Regular Burger, Regular Fries, Spaghetti, Blue Lemonade', 1, '0', 120, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(70, 'Barkada Meal', 'Good for 4 People. Includes: 4 Regular Fries, 4 Regular Burger, 4 Blue Lemonade', 1, '0', 299, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(71, 'F1', 'Includes: Cheesy Fries, Blue Lemonade', 2, '0', 29, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(72, 'F2', 'Includes: Cheesy Fries, Hotdog, Blue Lemonade', 2, '0', 39, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(73, 'F3', 'Includes: Cheesy Fries, Nuggets, Blue Lemonade', 2, '0', 39, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(74, 'F4', 'Includes: Cheesy Fries, Cheese Sticks, Blue Lemonade', 2, '0', 39, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(75, 'Nacho Fries', 'Seasoned french fries, topped with nacho cheese sauce, and sautéed ground pork', 2, '0', 55, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(76, 'Regular Burger', 'A classic burger with beef patty, ketchup, and mayonnaise', 3, '0', 29, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(77, 'Bacon Cheese Burger', 'Burger with  bacon, beef patty, cheese, ketchup, and mayonnaise', 3, '0', 49, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(78, 'Chicken Burger', 'Burger with crispy seasoned chicken breast, topped with mayonnaise', 3, '0', 49, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(79, 'Double Dutch Frappé', 'Double Dutch flavored milk shake with kream puff, and pearl', 4, '0', 55, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(80, 'Cookies and Cream Frappé', 'Vanilla milk shake mixed with crushed oreo cookies, and pearl', 4, '0', 55, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(81, 'Buko Pandan Frappé', 'Buko pandan flavored milkshake with pandan jelly, coconut meat, and pearl', 4, '0', 55, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(82, 'Ube  Frappé', 'A classic flavoured milk shake vanilla mixed with purple yam (ube), and pearl', 4, '0', 55, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(83, 'Chocolate Milk Tea', 'Chocolate flavored milk tea with kream puff, and pearl', 4, '0', 55, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
-(84, 'Mango Cheese Cake Milk Tea', 'Mango flavored milk tea with a creamy cheesecake, and pearl', 4, '0', 55, '2022-11-18', 'Available', 'v1668393471/SnackWise/Menu/Alpha'),
 (68, 'Combo D', 'Includes: Regular Fries, Carbonara, Blue Lemonade', 1, '10', 85, '2022-11-18', 'Available', 'v1669200230/SnackWise/Menu/Combo D'),
 (69, 'Combo E', 'Includes: Regular Burger, Regular Fries, Spaghetti, Blue Lemonade', 1, '0', 120, '2022-11-18', 'Available', 'v1669200270/SnackWise/Menu/Combo E'),
 (70, 'Barkada Meal', 'Good for 4 People. Includes: 4 Regular Fries, 4 Regular Burger, 4 Blue Lemonade', 1, '0', 299, '2022-11-18', 'Available', 'v1669200309/SnackWise/Menu/Barkada Meal'),
@@ -164,7 +136,6 @@ CREATE TABLE `newsletter` (
 
 INSERT INTO `newsletter` (`newsletter_id`, `email`) VALUES
 (1, 'darwinsanluis.ramos14@gmail.com'),
-(2, 'rowenasanluis.ramos50@gmail.com');
 (2, 'rowenasanluis.ramos50@gmail.com'),
 (3, 'darwin.ramos.sl@bulsu.edu.ph'),
 (4, 'darwinsanluis.ramddddos14@gmail.com');
@@ -248,7 +219,6 @@ INSERT INTO `notification` (`notification_id`, `message`, `user_id`, `date`, `st
 (86, 'Your order has been claimed', 105, '2022-11-21 06:15:03', 'unread'),
 (87, 'Your order has been claimed', 105, '2022-11-21 06:16:32', 'unread'),
 (88, 'Your order has been claimed', 105, '2022-11-21 06:20:51', 'unread'),
-(89, 'Item Unvailable', 105, '2022-11-21 06:21:01', 'unread');
 (89, 'Item Unvailable', 105, '2022-11-21 06:21:01', 'unread'),
 (90, 'dsada', 105, '2022-11-23 01:49:09', 'unread'),
 (91, 'dsada', 105, '2022-11-23 01:49:59', 'unread'),
@@ -320,7 +290,6 @@ INSERT INTO `orderlist` (`orderlist_id`, `order_id`, `menu_id`, `quantity`) VALU
 (107, 13, 65, 82),
 (108, 14, 67, 1),
 (109, 14, 66, 2),
-(110, 15, 66, 1);
 (110, 15, 66, 1),
 (111, 16, 65, 1),
 (112, 17, 70, 1),
@@ -353,10 +322,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `date`, `time`, `qr_code`, `qr_image`, `status`) VALUES
-(9, 1, '2022-11-20', '01:24:00', 'owqFRXBNfi6UD18A', 'v1668878662/SnackWise/QR/owqFRXBNfi6UD18A', 'Placed'),
 (13, 105, '2022-11-21', '13:17:00', 'BbjVxWdqK8OAMvu7', 'v1669007875/SnackWise/QR/BbjVxWdqK8OAMvu7', 'Placed'),
-(14, 105, '2022-11-21', '13:17:00', 'fPXZ84HGZEd80a27', 'v1669007887/SnackWise/QR/fPXZ84HGZEd80a27', 'Placed'),
-(15, 105, '2022-11-21', '13:20:00', 'sql9pIsO0jNrVfFc', 'v1669008028/SnackWise/QR/sql9pIsO0jNrVfFc', 'Placed');
 (14, 105, '2022-11-28', '13:17:00', 'fPXZ84HGZEd80a27', 'v1669007887/SnackWise/QR/fPXZ84HGZEd80a27', 'Placed'),
 (18, 105, '2022-11-21', '18:39:00', 'h0FsU69uU3Jh7Kvi', 'v1669027186/SnackWise/QR/h0FsU69uU3Jh7Kvi', 'Placed');
 
@@ -385,7 +351,6 @@ INSERT INTO `transaction` (`transaction_id`, `order_id`, `user_id`, `date`, `pri
 (82, 7, 105, '2022-11-21', 75),
 (83, 11, 105, '2022-11-21', 240),
 (84, 6, 105, '2022-11-21', 120),
-(85, 12, 105, '2022-11-21', 76.5);
 (85, 12, 105, '2022-11-21', 76.5),
 (86, 20, 105, '2022-11-23', 890),
 (87, 16, 105, '2022-11-23', 75),
@@ -406,7 +371,6 @@ CREATE TABLE `user` (
   `username` varchar(255) COLLATE latin1_general_cs NOT NULL,
   `email` varchar(255) COLLATE latin1_general_cs NOT NULL,
   `contact` varchar(255) COLLATE latin1_general_cs NOT NULL,
-  `region` varchar(255) COLLATE latin1_general_cs NOT NULL,
   `password` varchar(255) COLLATE latin1_general_cs NOT NULL,
   `attempt` int(11) NOT NULL,
   `status` varchar(255) COLLATE latin1_general_cs NOT NULL,
@@ -419,12 +383,6 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `username`, `email`, `contact`, `region`, `password`, `attempt`, `status`, `code`, `code_expiration`, `user_type`) VALUES
-(94, 'SnackWise', 'SnackWise', 'SnackWise', 'snackwise.hagonoy@gmail.com', '01234567890', 'Region IV-A (CALABARZON)', '$2y$10$EEuIXZf5wXS6.xOh6WWDIuSER.fkrQw4Ow2JUQCZmqxL3fwHKoKOG', 0, 'verified', '', '2022-11-14 03:45:54', 'admin'),
-(105, 'Darwin', 'Ramos', 'darwin', 'darwinsanluis.ramos14@gmail.com', '09327887941', 'Region XII (SOCCSKSARGEN)', '$2y$10$Aji52BspPEJMghCBo1zK/OV8sjhvSQbfMaT7lPT3YAUy.yvUectai', 0, 'verified', '', '2022-11-19 02:58:20', 'customer'),
-(107, 'Angel', 'Padilla', 'angelpadilla', 'padilla.angel.g.7227@gmail.com', '09514401253', '', '$2y$10$z7q/bME693eSz2oTRnJ.KO5eQFx7yYrncMS.KIg1by2BWrvCjO0vm', 0, 'verified', '', '2022-11-16 16:04:06', 'customer'),
-(115, 'Dar', 'dsdsd', 'asd', 'darwin.ramos.sl@bulsu.edu.ph', '09323887942', '', '$2y$10$8B0oip3Dp1ECiZNlkomRNuzmWc3kJokUuurjZeADQW2hJFlz0gJaG', 0, 'unverified', '', '2022-11-19 17:54:44', 'customer'),
-(116, 'Ramos, Darwin S.', 'Ramos', 'jjjjjjjjj', 'darwinsanluis.rdsddsamos14@gmail.com', '09323887940', '', '$2y$10$rYdg/ewXIkKG5tdrx2QIKuD94XMyrQNl1DtPm1c15J2.ApBfO0.HO', 0, 'unverified', '', '2022-11-20 02:54:27', 'customer');
 INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `username`, `email`, `contact`, `password`, `attempt`, `status`, `code`, `code_expiration`, `user_type`) VALUES
 (94, 'SnackWise', 'SnackWise', 'SnackWise', 'snackwise.hagonoy@gmail.com', '01234567890', '$2y$10$EEuIXZf5wXS6.xOh6WWDIuSER.fkrQw4Ow2JUQCZmqxL3fwHKoKOG', 0, 'verified', '', '2022-11-14 03:45:54', 'admin'),
 (105, 'Darwin', 'Ramos', 'darwin', 'darwinsanluis.ramos14@gmail.com', '09327887941', '$2y$10$/VhKlCvXxIOjdE4J48vcy.H.LCzDDkezvaJGpULJwDvWB80B.OXYG', 0, 'verified', '', '2022-11-22 01:47:44', 'customer'),
@@ -502,7 +460,6 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
   MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
@@ -521,49 +478,42 @@ ALTER TABLE `holiday`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
   MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `newsletter`
 --
 ALTER TABLE `newsletter`
-  MODIFY `newsletter_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
   MODIFY `newsletter_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
   MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `orderlist`
 --
 ALTER TABLE `orderlist`
-  MODIFY `orderlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
   MODIFY `orderlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
   MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 COMMIT;
 

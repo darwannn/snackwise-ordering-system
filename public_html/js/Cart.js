@@ -1,9 +1,7 @@
 class Cart {
-
     
     /* -------------------- cart */
     constructor() {
-        
         document.getElementById('cartlist').style.display = "none";
     }
 
@@ -17,7 +15,6 @@ class Cart {
         /* redisplay the customers selected item for them to be able to verify their orders */
         document.getElementById('verify_order').onclick = function () {
             new Cart().open_add_order();
-            new Cart().verify_order(document.getElementById('cartlist').value);
             let verify_list = "";
 
             let cart_id_list = (document.getElementById("cartlist").value).split(",");
@@ -42,53 +39,7 @@ class Cart {
         }
     }
 
-    /* fetches dates where the business is closed and removes it from the date picker */
-    fetch_holiday() {
     
-        let form_data = new FormData();
-        form_data.append('display_holiday', 'display_holiday');
-
-        fetch('php/controller/c_holiday.php', {
-            method: "POST",
-            body: form_data
-        }).then(function (response) {
-            return response.json();
-
-        }).then(function (response_data) {
-            let holiday_list = [];
-           /* gets the current date and time and displays it to the date and time picker with a format of YYYY-MM-DD for date and HH: MM for time*/
-            let date = new Date();
-            let day = date.getDate(),
-                month = date.getMonth() + 1,
-                year = date.getFullYear(),
-                hour = date.getHours(),
-                min = date.getMinutes();
-
-            month = (month < 10 ? "0" : "") + month;
-            day = (day < 10 ? "0" : "") + day;
-            hour = (hour < 10 ? "0" : "") + hour;
-            min = (min < 10 ? "0" : "") + min;
-
-            response_data.data.map(function (holiday) {
-                holiday_list.push(holiday.date);
-            });
-
-            document.getElementById('date').flatpickr({
-                "disable": holiday_list,
-                minDate: "today",
-                defaultDate: `${year}-${month}-${day}`
-            });
-            document.getElementById('time').flatpickr({
-                enableTime: true,
-                noCalendar: true,
-                defaultDate: `${hour}:${min}`,
-                maxTime: "20:00",
-                minTime: "8:00",
-                minuteIncrement: 15,
-            });
-
-        });
-    }
 
 
     /* gets and displays customers added to cart items */
@@ -115,17 +66,13 @@ class Cart {
             }
             cart_list += `   
             <div class="d-flex col">
-            <img class=" cart-image mx-2 " src='https://res.cloudinary.com/dhzn9musm/image/upload/${cart.image}' alt="">
             <img class=" cart-image mx-2 " id="cart-image${cart.cart_id}" src='https://res.cloudinary.com/dhzn9musm/image/upload/${cart.image}' alt="">
                 <div class="d-flex flex-column">
-                    <div class="item-name">${cart.name}</div>`
                     <div class="item-name" id="cart-name${cart.cart_id}">${cart.name}</div>`
                     if(cart.availability == "Available"){  
                         if(cart.discount != 0){   
-                            cart_list += `  <div class="">x<input style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}"data-cart-id="${cart.cart_id}"/><span class=" ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${(cart.discounted_price).toFixed(2).replace(/[.,]00$/, "")}</span></div>`;
                             cart_list += `  <div class="">x<input id="cart-quantity${cart.cart_id}"  style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}" data-cart-id="${cart.cart_id}"/><span  class=" ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${(cart.discounted_price).toFixed(2).replace(/[.,]00$/, "")}</span></div>`;
                         } else {
-                            cart_list += `  <div class="">x<input style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}"data-cart-id="${cart.cart_id}"/><span class="ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${cart.price}</span></div>`;
                             cart_list += `  <div class="" >x<input id="cart-quantity${cart.cart_id}"  style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}" data-cart-id="${cart.cart_id}" /><span  class="ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${cart.price}</span></div>`;
                         }
                 } else {
@@ -141,13 +88,10 @@ class Cart {
             document.getElementById("cart_list").innerHTML = cart_list;
             get_checkbox_status();
 
-            //keeps checkbox state
             /* keeps checkbox state */
             if(document.getElementById("cartlist").value != "") {
-                let cart_id_list = (document.getElementById("cartlist").value).split(",");
                 let cart_id_list = (document.getElementById("cartlist").value).split(",");  
                 for(let i = 0; i<cart_id_list.length; i++) {
-                   
                     document.getElementById(`cart_${cart_id_list[i]}`).checked=true;
         
                 }
@@ -190,10 +134,8 @@ class Cart {
                     new Cart().get_price();
                     var len = document.querySelectorAll('input[type="checkbox"]:checked').length
                     if (len <= 0) {
-                        document.getElementById('cart_summay').style.display = "none";
                         document.getElementById('cart_summary').style.display = "none";
                     } else {
-                         document.getElementById('cart_summay').style.display = "flex";
                          document.getElementById('cart_summary').style.display = "flex";
                     }
                 }
@@ -219,7 +161,6 @@ class Cart {
 
     /* calculate the total price of all the selected item */
      get_price() {  
-        
         let form_data = new FormData();
         form_data.append('get_price', 'get_price');
         form_data.append('cart_id', document.getElementById("cartlist").value);
@@ -237,7 +178,6 @@ class Cart {
 
         document.getElementById("cart_total_price").innerHTML = `PHP ${total_discounted_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
         });    
-}
     }
 
     delete_cart(cart_id) {
@@ -275,14 +215,10 @@ class Cart {
             console.log(response_data);
             if (response_data.success) {
                 new Cart().display_cart();
-          
-
-               
                /*  new Notification().create_notification(response_data.success, "success"); */
                 new Cart().cart_count();
         /*         new Cart().cancel_cart(); */
                 new Cart().open_cart();
-               
             } else if (response_data.error){
                 new Notification().create_notification(response_data.error, "error");
             }
@@ -304,11 +240,9 @@ class Cart {
     });
 }
 
-    
     open_cart() {
         document.getElementById('sidecart').style.display = "flex";
         document.getElementById('sidecart').style.animationName = "open_cart";
-
     }
 
      close_cart() {
@@ -317,38 +251,6 @@ class Cart {
 
     
 
-    /* redisplay the customers selected item */
-    verify_order(cart_id) {
-        let form_data = new FormData();
-        form_data.append('verify_order', 'verify_order');
-        form_data.append('cart_id', cart_id);
-        fetch('php/controller/c_cart.php', {
-            method: "POST",
-            body: form_data
-        }).then(function (response) {
-            return response.json();
-        }).then(function (response_data) {
-            console.log(response_data);
-            let verify_list = "";
-
-            if (response_data.error) {
-                document.getElementById("verify_list").innerHTML = response_data.error;
-            } else {
-                response_data.data.map(function (cart) {
-                    verify_list += `
-                    <div class="  pb-2" style="margin:7px;box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-                    border-radius: 20px; width:30%;" >
-                        <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${cart.image}' class="w-100"></img>
-                        <div class="h6 text-center"><span class=" fw-bold">${cart.name}</span> (x${cart.quantity})</div>
-                     
-                    </div>
-                    `;
-                });
-                document.getElementById("verify_price").innerHTML = document.getElementById("cart_total_price").innerHTML;
-            }
-            document.getElementById("verify_list").innerHTML = verify_list;
-        });
-    }
    
 
     /* transfers selected cart items to the order table */
@@ -372,8 +274,6 @@ class Cart {
 
             new Cart().display_cart();
             if (response_data.success) {
-                new Notification().create_notification(response_data.success, "success");
-                new Cart().close_add_order();
                 /* new Notification().create_notification(response_data.success, "success");
                 new Cart().close_add_order(); */
                 window.location.href = "order.php?order=1"
@@ -441,15 +341,5 @@ class Cart {
         document.getElementById("order_modal").style.display = "none";
         document.getElementById('modal_backdrop').style.display = 'none';
         document.querySelector('body').style.overflow = 'visible';
-        /* new Cart().reset_form(); */
-    }
-
-    cancel_order() {
-       /*  new Cart().reset_form(); */
-        new Cart().close_add_order();
-    }
-
-    reset_form() {
-        document.getElementById("cartlist").value = "";
     }
 }

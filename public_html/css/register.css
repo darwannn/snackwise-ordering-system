@@ -8,7 +8,6 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
     font-family: var(--fontPoppins);
     background-image: url(../img/Background-Pattern.jpg);
 }
@@ -44,19 +43,16 @@ body {
 }
 
 .snackwise-label{
-    font-family: 'Outfit', sans-serif;
     font-family: var(--fontOutfit);
     font-weight: bold;
     font-size: 30px;
 }
 
 .brand-name .red {
-    color: #DD1C1A;
     color: var(--snackRed);
 }
 
 .brand-name .yellow {
-    color: #F0C808;
     color: var(--wiseYellow);
 }
 
@@ -68,7 +64,6 @@ body {
     font-family: 'Outfit', sans-serif;
     font-weight: bold;
     font-size: 36px;
-    color: #DD1C1A;
     color: var(--snackRed);
 }
 .input-group-text {
@@ -87,7 +82,6 @@ body {
 
 .form-group input[type="text"], input[type="password"], input[type="text"] {
     border: none;
-    background-color: #eeeeee;
     background-color:#F2F1F9;
     border-radius: 10px;
     height: 65px;
@@ -102,8 +96,6 @@ body {
 
 .password-container .toggler {
     position: absolute;
-    top: 35%;
-    right: 25px;
     top: 30px;
     right: 30px;
     color: #75758A;
@@ -132,14 +124,12 @@ body {
     font-size: 18px;
     padding: .8em 0; 
     margin: 1em ;
-    background-color: #DD1C1A;
     background-color: var(--snackRed);
     width: 10em;
 }
 
 #cancel {
     margin: 0 3em;
-    color: #DD1C1A;
     color: var(--snackRed);
     font-size: 18px;
     text-decoration: none;

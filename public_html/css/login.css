@@ -7,7 +7,6 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
     font-family: var(--fontPoppins);
     background-image: url(../img/Background-Pattern.jpg);
 }
@@ -33,19 +32,16 @@ body {
 }
 
 .snackwise-label{
-    font-family: 'Outfit', sans-serif;
     font-family: var(--fontOutfit);
     font-weight: bold;
     font-size: 30px;
 }
 
 .brand-name .red {
-    color: #DD1C1A;
     color: var(--snackRed);
 }
 
 .brand-name .yellow {
-    color: #F0C808;
     color: var(--wiseYellow);
 }
 
@@ -60,7 +56,6 @@ body {
 }
 
 .form-header h3 {
-    font-family: 'Outfit', sans-serif;
     font-family: var(--fontOutfit);
     font-weight: bold;
     font-size: 36px;
@@ -73,7 +68,6 @@ body {
 
 .col input {
     border: none;
-    background-color: #eeeeee;
     border-radius: 10px;
     background-color: #F2F1F9;
     height: 65px;
@@ -105,8 +99,6 @@ body {
 
 .toggler {
     position: absolute;
-    top: 40%;
-    right: 25px;
     top: 40px;
     right: 30px;
     color: #75758A;
