@@ -15,7 +15,7 @@ if ($validate->is_logged_in("customer")) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Orders | Snackwise</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
    
@@ -181,6 +181,147 @@ if ($validate->is_logged_in("customer")) {
                     </div>
                 </div>
 
+
+                <div class="order-item"> <!-- FOR REFERENCE ONLY --> 
+                    <!-- ORDER DETAILS HERE -->
+                    <div class="order-details-row">
+                        <div class="order-no-container">
+                            <span>Order No.</span>
+                            <span class="order-number">8215185238</span>
+                        </div>
+                        <div class="order-date-container">
+                            <span>10-18-2022</span>
+                        </div>
+                    </div>
+                    <!-- PWEDENG TANGGALIN TONG TRACKING NUMBER
+                         KUNG WALA TAYONG GANTO -->
+                    <div class="order-details-row">
+                        <div class="tracking-container">
+                            <span>Tracking Number:</span>
+                            <span class="tracking-number">3145185238</span>
+                        </div>
+                    </div>
+                    <div class="order-details-row">
+                        <div class="quantity-container">
+                            <span>Quantity:</span>
+                            <span class="quantity">3</span>
+                        </div>
+                        <div class="amount-container">
+                            <span>Amount:</span>
+                            <span class="total-amt">253.50PHP</span>
+                        </div>
+                    </div>
+                    <div class="order-details-row">
+                        <div class="details-btn-container">
+                            <button class="details-btn">Details</button>
+                        </div>
+                        <div class="status-container">
+                            <!-- 
+                                Napapalitan kulay nung status pa apply nalang nung class:
+                                    .pending-stat
+                                    .preparing-stat
+                                    .pickup-stat
+                                    .complete-stat
+                                    .cancelled-stat
+                             -->
+                            <span class="order-status preparing-stat">Preparing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-item"> <!-- FOR REFERENCE ONLY --> 
+                    <!-- ORDER DETAILS HERE -->
+                    <div class="order-details-row">
+                        <div class="order-no-container">
+                            <span>Order No.</span>
+                            <span class="order-number">8215185238</span>
+                        </div>
+                        <div class="order-date-container">
+                            <span>10-18-2022</span>
+                        </div>
+                    </div>
+                    <!-- PWEDENG TANGGALIN TONG TRACKING NUMBER
+                         KUNG WALA TAYONG GANTO -->
+                    <div class="order-details-row">
+                        <div class="tracking-container">
+                            <span>Tracking Number:</span>
+                            <span class="tracking-number">3145185238</span>
+                        </div>
+                    </div>
+                    <div class="order-details-row">
+                        <div class="quantity-container">
+                            <span>Quantity:</span>
+                            <span class="quantity">3</span>
+                        </div>
+                        <div class="amount-container">
+                            <span>Amount:</span>
+                            <span class="total-amt">253.50PHP</span>
+                        </div>
+                    </div>
+                    <div class="order-details-row">
+                        <div class="details-btn-container">
+                            <button class="details-btn">Details</button>
+                        </div>
+                        <div class="status-container">
+                            <!-- 
+                                Napapalitan kulay nung status pa apply nalang nung class:
+                                    .pending-stat
+                                    .preparing-stat
+                                    .pickup-stat
+                                    .complete-stat
+                                    .cancelled-stat
+                             -->
+                            <span class="order-status pickup-stat">Ready for Pickup</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-item"> <!-- FOR REFERENCE ONLY --> 
+                    <!-- ORDER DETAILS HERE -->
+                    <div class="order-details-row">
+                        <div class="order-no-container">
+                            <span>Order No.</span>
+                            <span class="order-number">8215185238</span>
+                        </div>
+                        <div class="order-date-container">
+                            <span>10-18-2022</span>
+                        </div>
+                    </div>
+                    <!-- PWEDENG TANGGALIN TONG TRACKING NUMBER
+                         KUNG WALA TAYONG GANTO -->
+                    <div class="order-details-row">
+                        <div class="tracking-container">
+                            <span>Tracking Number:</span>
+                            <span class="tracking-number">3145185238</span>
+                        </div>
+                    </div>
+                    <div class="order-details-row">
+                        <div class="quantity-container">
+                            <span>Quantity:</span>
+                            <span class="quantity">3</span>
+                        </div>
+                        <div class="amount-container">
+                            <span>Amount:</span>
+                            <span class="total-amt">253.50PHP</span>
+                        </div>
+                    </div>
+                    <div class="order-details-row">
+                        <div class="details-btn-container">
+                            <button class="details-btn">Details</button>
+                        </div>
+                        <div class="status-container">
+                            <!-- 
+                                Napapalitan kulay nung status pa apply nalang nung class:
+                                    .pending-stat
+                                    .preparing-stat
+                                    .pickup-stat
+                                    .complete-stat
+                                    .cancelled-stat
+                             -->
+                            <span class="order-status cancelled-stat">Cancelled</span>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- 
                     If wala pang order ito ung mag di-display
