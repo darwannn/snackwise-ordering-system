@@ -173,8 +173,10 @@ a[name="log-in-btn"] {
 }
 
 .sort-list .sort-item {
-    width: 20em;
     margin-right: 2em;
+}
+
+.sort-list .sort-item label {
     font-size: 1.6em;
     font-family: var(--fontPoppins);
     font-weight: bold;
@@ -182,15 +184,20 @@ a[name="log-in-btn"] {
     white-space: nowrap;
     width: fit-content;
     padding: 1em 0;
+    border-top: 2px solid transparent;
     transition: all .2s ease-in-out;
 }
 
-.sort-list #active-sort {
+.sort-list .sort-item input {
+    display: none;
+}
+
+.sort-list .sort-item input:checked + label {
     color: var(--wiseyellow);
     border-top: 2px var(--wiseyellow) solid;
 }
 
-.sort-list .sort-item:hover {
+.sort-list .sort-item label:hover {
     color: var(--wiseyellow);
     border-top: 2px var(--wiseyellow) solid;
 }
@@ -291,7 +298,7 @@ a[name="log-in-btn"] {
 
 .details-modal {
     /* display: none; */
-    display: flex;
+    display: none;
     position: fixed;
     z-index: 10;
     top: 0;
@@ -305,11 +312,25 @@ a[name="log-in-btn"] {
 .content-container {
     background-color: white;
     margin: 15% auto;
-    width: 95%;
+    width: min(95%, 500px);
     border-radius: 10px;
+    border: solid 1px var(--valueCol);
     display: flex;
     flex-direction: column;
-    padding: 2em 1.5em;
+    padding: 1em 1.5em 2em;
+}
+
+.closing-bar .close-btn {
+    float: right;
+    border-style: none;
+    background-color: transparent;
+    color: var(--labelCol);
+    font-size: 2em;
+    transition: all .2s ease;
+}
+
+.closing-bar .close-btn:hover {
+    color: var(--valueCol);
 }
 
 .mod-top {
@@ -365,13 +386,14 @@ a[name="log-in-btn"] {
 }
 
 .item .item-img-container {
-    flex: 0 1 30%;
+    flex: 0 1 min(20%, 100px);
     margin-right: 1em;
 }
 
 .item .item-img-container img {
     max-width: 100%;
     border-radius: 5px;
+    object-fit: contain;
 }
 
 .item .item-details {
@@ -403,6 +425,14 @@ a[name="log-in-btn"] {
     font-weight: bold;
     font-size: 1.8em;
     color: var(--wiseyellow);
+}
+
+.cancel-bar {
+    margin-top: 2em;
+}
+
+.cancel-bar .cancel-btn {
+    float: right;
 }
 
 
@@ -489,6 +519,10 @@ a[name="log-in-btn"] {
     /* Handle on hover */
     .order-list::-webkit-scrollbar-thumb:hover {
         background: #555;
+    }
+
+    .content-container {
+        margin: 10em auto !important;
     }
 
 }

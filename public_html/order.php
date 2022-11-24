@@ -18,7 +18,7 @@ if ($validate->is_logged_in("customer")) {
     <title>My Orders | Snackwise</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-   
+
     <!-- PAGE ICON -->
     <link rel="icon" href="img/penguin.png" type="image/icon type">
 
@@ -29,11 +29,11 @@ if ($validate->is_logged_in("customer")) {
 
     <!-- BOOTSTRAP CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    
+
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
-   
+
 
     <!-- EXTERNAL CSS -->
     <link rel="stylesheet" href="css/order.css">
@@ -48,7 +48,7 @@ if ($validate->is_logged_in("customer")) {
         .lg-backdrop {
             opacity: 0.8 !important;
         }
-        </style>
+    </style>
 </head>
 
 <!-- <button type="button" id="current_order">Ordes</button>
@@ -66,21 +66,26 @@ if ($validate->is_logged_in("customer")) {
 
     <div class="details-modal">
         <div class="content-container">
+            <div class="closing-bar">
+                <button class="close-btn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
             <div class="mod-top">
                 <div class="header-col with-details">
-                   <span class="order-number-label">Order No.:</span> 
-                   <span class="order-number">8215185238</span><br>
+                    <span class="order-number-label">Order No.:</span>
+                    <span class="order-number">8215185238</span><br>
 
-                   <span class="label">Order Date:</span>
-                   <span class="order-date value">10-18-22</span><br>
+                    <span class="label">Order Date:</span>
+                    <span class="order-date value">10-18-22</span><br>
 
-                   <span class="label">Status:</span>
-                   <span class="status pending-stat value">Pending</span>
+                    <span class="label">Status:</span>
+                    <span class="status pending-stat value">Pending</span>
                 </div>
                 <div class="header-col">
                     <!-- ORDER QR CODE HERE -->
                     INSERT QR HERE
-                </div> 
+                </div>
             </div>
             <div class="items-list">
                 <!-- ORDER ITEMS APPEND HERE -->
@@ -90,8 +95,8 @@ if ($validate->is_logged_in("customer")) {
                     </div>
                     <div class="item-details">
                         <div class="quantity-con">
-                            <span><span class="modal-quantity">3</span>x</span> 
-                        </div> 
+                            <span><span class="modal-quantity">3</span>x</span>
+                        </div>
                         <div class="item-name-con">
                             <span class="item-name">Combo A</span>
                         </div>
@@ -109,6 +114,9 @@ if ($validate->is_logged_in("customer")) {
                 <div class="footer-col">
                     <span class="sub-total">253.50PHP</span>
                 </div>
+            </div>
+            <div class="cancel-bar">
+                <button class="btn btn-danger cancel-btn">Cancel Order</button>
             </div>
         </div>
     </div>
@@ -165,24 +173,44 @@ if ($validate->is_logged_in("customer")) {
             </div>
         </nav>
         <!-- ENG OF NAVBAR -->
-       
+
         <div class="order-container">
             <div class="order-header">
                 <h1>My Orders</h1>
             </div>
             <div class="order-sort-container">
                 <ul class="sort-list">
-                    <li class="sort-item" id="active-sort">All</li>
-                    <li class="sort-item" id="">Pending</li>
-                    <li class="sort-item">Preparing</li>
-                    <li class="sort-item">To Pickup</li>
-                    <li class="sort-item">Completed</li>
-                    <li class="sort-item">Cancelled</li>
+                    <li class="sort-item" id="active-sort">
+                        <input type="radio" name="category" value="All" id="category1" checked>
+                        <label for="category1">All</label>
+                    </li>
+                    <li class="sort-item" id="">
+                        <input type="radio" name="category" value="Placed" id="category2"> 
+                        <label for="category2">Pending</label>
+                    </li>
+                    <li class="sort-item">
+                        <input type="radio" name="category" value="Preparing" id="category3">
+                        <label for="category3">Preparing</label>
+                    </li>
+                    <li class="sort-item">
+                        <input type="radio" name="category" value="Ready" id="category4">
+                        <label for="category4">To Pickup</label>
+                    </li>
+                    <li class="sort-item">
+                        <input type="radio" name="category" value="Completed" id="category5">
+                        <label for="category5">Completed</label>
+                    </li>
+                    <li class="sort-item">
+                        <input type="radio" name="category" value="Cancelled" id="category6">
+                        <label for="category6">Cancelled</label>
+                    </li>
                 </ul>
             </div>
-            <div class="order-list"> <!-- ORDERS TO BE APPENDED HERE -->
-                
-                <div class="order-item"> <!-- FOR REFERENCE ONLY --> 
+            <div class="order-list">
+                <!-- ORDERS TO BE APPENDED HERE -->
+
+                <div class="order-item">
+                    <!-- FOR REFERENCE ONLY -->
                     <!-- ORDER DETAILS HERE -->
                     <div class="order-details-row">
                         <div class="order-no-container">
@@ -230,7 +258,8 @@ if ($validate->is_logged_in("customer")) {
                 </div>
 
 
-                <div class="order-item"> <!-- FOR REFERENCE ONLY --> 
+                <div class="order-item">
+                    <!-- FOR REFERENCE ONLY -->
                     <!-- ORDER DETAILS HERE -->
                     <div class="order-details-row">
                         <div class="order-no-container">
@@ -277,7 +306,8 @@ if ($validate->is_logged_in("customer")) {
                     </div>
                 </div>
 
-                <div class="order-item"> <!-- FOR REFERENCE ONLY --> 
+                <div class="order-item">
+                    <!-- FOR REFERENCE ONLY -->
                     <!-- ORDER DETAILS HERE -->
                     <div class="order-details-row">
                         <div class="order-no-container">
@@ -324,7 +354,8 @@ if ($validate->is_logged_in("customer")) {
                     </div>
                 </div>
 
-                <div class="order-item"> <!-- FOR REFERENCE ONLY --> 
+                <div class="order-item">
+                    <!-- FOR REFERENCE ONLY -->
                     <!-- ORDER DETAILS HERE -->
                     <div class="order-details-row">
                         <div class="order-no-container">
@@ -382,10 +413,10 @@ if ($validate->is_logged_in("customer")) {
                     <a href="menu.php">Order Now</a>
                 </div>
 
-                
+
             </div>
         </div>
-        
+
     </div>
 
     <!-- BOOTSTRAP JS -->
@@ -413,23 +444,22 @@ if ($validate->is_logged_in("customer")) {
         /* END OF DROPDOWN */
 
         // DETAILS MODAL OPENING
-        const detailsBtn = document.querySelector('.details-btn')
-        const modal = document.querySelector('.details-modal')
+        const detailsBtn = document.querySelector('.details-btn');
+        const closeBtn = document.querySelector('.close-btn');
+        const modal = document.querySelector('.details-modal');
         let modalOpen = false;
-        
-        if(detailsBtn) {
-            detailsBtn.addEventListener("click", ()=>{
-                if(!modalOpen) {
-                    modal.style.display = "flex";
-                    modalOpen = true;
-                } else {
-                    dropOpen = false;
-                    modal.style.display = "none";
-                }
-                
+
+        if (detailsBtn) {
+            detailsBtn.addEventListener("click", () => {
+                modal.style.display = "flex";
+                modalOpen = true;
             })
         }
-        
+
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+            modalOpen = false;
+        })
     </script>
 
 
