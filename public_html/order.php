@@ -6,6 +6,7 @@ $validate = new Validate();
 if ($validate->is_logged_in("customer")) {
     header('Location: account/login.php');
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +56,7 @@ if ($validate->is_logged_in("customer")) {
 
 
     <button type="button" id="completed_order">Order History</button> -->
-
+</head>
 
 <body>
     <!-- orders will be appended here
@@ -461,15 +462,15 @@ if ($validate->is_logged_in("customer")) {
             modalOpen = false;
         })
     </script>
-
-
 </body>
 
 
+    <!-- BOOTSTRAP JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 
 <script src="js/Order.js"></script>
 <script src="js/Notification.js"></script>
-
 <script src='https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.3/lightgallery.umd.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.3/plugins/thumbnail/lg-thumbnail.umd.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.3/plugins/zoom/lg-zoom.umd.js'></script>
