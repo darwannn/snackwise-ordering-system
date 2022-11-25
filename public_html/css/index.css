@@ -246,6 +246,14 @@ a[name="log-in-btn"] {
     margin: .5em 0;
 }
 
+#notif-success {
+    background-color: #FFF5C7;
+}
+
+#notif-cancelled {
+    background-color: #FFC2C1;
+}
+
 .notification-header-container {
     display: flex;
     flex-flow: row;
@@ -263,7 +271,7 @@ a[name="log-in-btn"] {
 }
 
 .notification-header-container .header-info .notification-header {
-    font-size: 1.8em;
+    font-size: 1.6em;
     font-weight: bold;
     color: var(--valueCol);
 }
@@ -292,6 +300,11 @@ a[name="log-in-btn"] {
 .notification .notification-body-container .notification-body {
     font-size: 1.4em;
     color: var(--valueCol);
+}
+
+.additional-message {
+    font-size: 1.3em;
+    font-style: italic;
 }
 
 /* END OF NOTIFICATION DROPDOWN */
