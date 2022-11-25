@@ -99,6 +99,15 @@ $account->delete_code();
                                     <!-- NOTIFICATIONS TO BE APPENDED HERE -->
                                     
                                     <!-- START OF DUMMY NOTIFICATIONS -->
+
+                                    <!--FOR EMPTY NOTIFICATION
+                                        Naka 'display:none' pa to sa css (Line 271).
+                                    -->
+                                    <div class="empty-notification">
+                                        <span class="empty-message"> 
+                                            Looks like you doesn't have notifications yet. 
+                                        </span>
+                                    </div>
                                     <!-- Notes: 
                                         If yung status is either completed or ready for pick up
                                         lagyan ng id="notif-success" to highlight the notification.

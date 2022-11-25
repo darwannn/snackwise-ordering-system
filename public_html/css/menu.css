@@ -273,6 +273,18 @@ a[name="log-in-btn"] {
         background: rgb(139, 139, 139);
     }
 
+.empty-notification {
+    display: none;
+}
+
+.empty-notification .empty-message{
+    font-family: var(--fontOutfit);
+    font-size: 2em;
+    display: block;
+    text-align: center;
+    color: var(--labelCol);
+}   
+
 .notifications-container .notification {
     background-color: #EFF1F5;
     padding: 1.5em;

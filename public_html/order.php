@@ -168,6 +168,15 @@ if ($validate->is_logged_in("customer")) {
                                 </div>
                                 <div class="notifications-container">
                                     <!-- NOTIFICATIONS TO BE APPENDED HERE -->
+                                   
+                                    <!--FOR EMPTY NOTIFICATION
+                                        Naka 'display:none' pa to sa css.
+                                    -->
+                                    <div class="empty-notification">
+                                        <span class="empty-message"> 
+                                            Looks like you doesn't have notifications yet. 
+                                        </span>
+                                    </div> 
                                     
                                     <!-- START OF DUMMY NOTIFICATIONS -->
                                     <div class="notification" id="notif-success">
