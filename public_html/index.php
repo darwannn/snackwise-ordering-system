@@ -99,6 +99,13 @@ $account->delete_code();
                                     <!-- NOTIFICATIONS TO BE APPENDED HERE -->
                                     
                                     <!-- START OF DUMMY NOTIFICATIONS -->
+                                    <!-- Notes: 
+                                        If yung status is either completed or ready for pick up
+                                        lagyan ng id="notif-success" to highlight the notification.
+
+                                        If cancelled / rejected naman: id="notif-cancelled".
+                                        You can also refer to our Figma Design for reference.
+                                    -->
                                     <div class="notification" id="notif-success">
                                         <div class="notification-header-container">
                                             <div class="header-info">
