@@ -86,6 +86,22 @@ $account->delete_code();
                     } else {
 
                     ?>
+                        <div class="user-notifications-container">
+                            <button class="notification-button">
+                                <i class="fa-solid fa-bell"></i>
+                            </button>
+
+                            <div class="notifications-panel">
+                                <div class="panel-header-container">
+                                    <span class="panel-header">Notifications</span>
+                                </div>
+                                <div class="notifications-container">
+
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="user-dropdown-container">
                             <button class="user-button">
                                 <i class="fa-solid fa-circle-user"></i>
