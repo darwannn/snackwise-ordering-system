@@ -98,6 +98,7 @@ $account->delete_code();
                                 <div class="notifications-container">
                                     <!-- NOTIFICATIONS TO BE APPENDED HERE -->
                                     
+                                    <!-- START OF DUMMY NOTIFICATIONS -->
                                     <div class="notification" id="notif-success">
                                         <div class="notification-header-container">
                                             <div class="header-info">
@@ -195,7 +196,7 @@ $account->delete_code();
                                             Reason: Item unavailable.
                                         </span>
                                     </div>
-
+                                    <!-- END OF DUMMY NOTIFICATION -->
                                 </div>
                             </div>
 

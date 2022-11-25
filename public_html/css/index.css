@@ -210,15 +210,20 @@ a[name="log-in-btn"] {
 .notifications-panel {
     position: absolute;
     z-index: 10;
-    right: 0;
     display: none; /*FLEX*/
     flex-flow: column;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 10px;
-    width: 370px;
     height: 450px;
     padding: 2em;
+}
+
+@media (min-width: 768px) {
+    .notifications-panel {
+        width: 370px;
+        right: 0;
+    }
 }
 
 .notifications-panel .panel-header-container {
