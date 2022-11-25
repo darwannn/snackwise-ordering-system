@@ -96,7 +96,22 @@ $account->delete_code();
                                     <span class="panel-header">Notifications</span>
                                 </div>
                                 <div class="notifications-container">
-
+                                    <!-- NOTIFICATIONS TO BE APPENDED HERE -->
+                                    <div class="notification">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header unread-notification">Order Placed ✔</span>
+                                            </div>
+                                            <span class="notification-time">1m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order #3145185238 is now confirmed and now processing.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
                                 </div>
                             </div>
 

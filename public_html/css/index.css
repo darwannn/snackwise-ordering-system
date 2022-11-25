@@ -211,13 +211,13 @@ a[name="log-in-btn"] {
     position: absolute;
     z-index: 10;
     right: 0;
-    display: none; /*FLEX*/
+    display: flex; /*FLEX*/
     flex-flow: column;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 10px;
-    width: 350px;
-    height: 400px;
+    width: 370px;
+    height: 450px;
     padding: 2em;
 }
 
@@ -234,12 +234,65 @@ a[name="log-in-btn"] {
     font-weight: bold;
 }
 
-
-
 .notifications-panel .notifications-container {
     flex: 1 1 auto;
+    overflow-y: auto;
 }
 
+.notifications-container .notification {
+    background-color: #EFF1F5;
+    padding: 1.5em;
+    border-radius: 5px;
+    margin: .5em 0;
+}
+
+.notification-header-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.notification-header-container .header-info span {
+    display: block;
+}
+
+.notification-header-container .header-info .order-number, .notification-time {
+    font-size: 1.3em;
+    color: var(--labelCol);
+}
+
+.notification-header-container .header-info .notification-header {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--valueCol);
+}
+
+.unread-notification {
+    position: relative;
+}
+
+.unread-notification::before {
+    position: absolute;
+    content: '';
+    width: 6px;
+    height: 20px;
+    top: 4px;
+    left: -1em;
+    border-radius: 5px;
+    background-color: var(--snackred);
+    color: var(--snackred);
+    z-index: 11;
+}
+
+.notification .notification-body-container {
+    margin-top: .7em 0;
+}
+
+.notification .notification-body-container .notification-body {
+    font-size: 1.4em;
+    color: var(--valueCol);
+}
 
 /* END OF NOTIFICATION DROPDOWN */
 
