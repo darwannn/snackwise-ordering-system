@@ -3,7 +3,6 @@ class Notification {
   notification() {
     new Notification().notification_count();
     new Notification().display_notification();
-  
     
     const notificationBtn = document.querySelector('.notification-button');
     const notificationPanel = document.querySelector('.notifications-panel')

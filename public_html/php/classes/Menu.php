@@ -184,14 +184,11 @@ class Menu extends DbConnection
 		$start = $startGET ? intval($startGET) : 0;
 		$lengthGET = filter_input(INPUT_GET, "length", FILTER_SANITIZE_NUMBER_INT);
 		$length = $lengthGET ? intval($lengthGET) : 10;
-		$searchQuery = filter_input(INPUT_GET, "searchQuery", FILTER_SANITIZE_STRING);
 		$searchQuery = filter_input(INPUT_GET, "searchQuery", FILTER_UNSAFE_RAW);
 		$search = empty($searchQuery) || $searchQuery === "null" ? "" : $searchQuery;
 		$sortColumnIndex = filter_input(INPUT_GET, "sortColumn", FILTER_SANITIZE_NUMBER_INT);
-		$sortDirection = filter_input(INPUT_GET, "sortDirection", FILTER_SANITIZE_STRING);
 		$sortDirection = filter_input(INPUT_GET, "sortDirection", FILTER_UNSAFE_RAW);
 
-		$column = array("menu_id", "menu_name", "description", "category", "price", "date", "availability", "image");
 		/* order by */
 		$column = array("menu_id", "menu_name", "description", "category", "price", "date", "availability", "menu_id");
 		$sql = "SELECT m.*,m.name AS menu_name, c.category_id, c.name AS cat_name FROM category c INNER JOIN menu m ON(c.category_id = m.category) ";
@@ -200,13 +197,7 @@ class Menu extends DbConnection
 		$sql .= '
 			WHERE m.menu_id LIKE "%' . $search . '%"
 			OR m.name LIKE "%' . $search . '%"
-			OR m.description LIKE "%' . $search . '%"
-			OR c.name LIKE "%' . $search . '%"
-			OR m.discount LIKE "%' . $search . '%"
-			OR m.price LIKE "%' . $search . '%"
 			OR m.date LIKE "%' . $search . '%"
-			OR m.availability LIKE "%' . $search . '%"
-			OR m.image LIKE "%' . $search . '%"
 		';
 
 		/* pagination */

@@ -192,10 +192,8 @@ a[name="log-in-btn"] {
     padding: .5em 2em;
 }
 
-/* USER DROPDOWN */
 /* NOTIFICATION DROPDOWN */
 
-.dropdown button {
 .user-notifications-container, .user-dropdown-container {
     margin: 0 .5em;
     position: relative;

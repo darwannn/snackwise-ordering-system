@@ -1,10 +1,5 @@
 <?php
 require_once dirname(__FILE__) . '/../php/classes/DbConnection.php';
-if (isset($_GET["staff"]) == 1) {
-    $_SESSION['user_type'] = 'staff';
-} else {
-    $_SESSION['user_type'] = "customer";
-}
  if (isset($_GET["staff"]) == 1) { 
      $_SESSION['user_type'] = 'staff'; 
  } else if (isset($_GET["admin"]) == 1) { 

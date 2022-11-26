@@ -245,8 +245,6 @@ class Account {
         error ? document.getElementById(element.replace('_error', '')).style.border = "red solid 1px" : document.getElementById(element.replace('_error', '')).style.border = "none";
 
     }
-     /* toggles input field type attribute value to text or password */
-     toggle_password(passwordToggler, passwordField) {
     /* toggles input field type attribute value to text or password */
     toggle_password(passwordToggler, passwordField) {
         document.getElementById(passwordField).setAttribute('type', (document.getElementById(passwordField).getAttribute('type') === 'password') ? 'text' : 'password');

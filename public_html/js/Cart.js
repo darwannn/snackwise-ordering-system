@@ -1,9 +1,7 @@
 class Cart {
-    
 
     /* -------------------- cart */
     constructor() {
-        document.getElementById('cartlist').style.display = "none";
            document.getElementById('cartlist').style.display = "none";
     }
 
@@ -12,8 +10,6 @@ class Cart {
         new Cart().fetch_holiday();
         new Cart().display_cart();
         new Cart().close_add_order();
-        
-        
 
 
         /* redisplay the customers selected item for them to be able to verify their orders */
@@ -22,8 +18,6 @@ class Cart {
             let verify_list = "";
 
             let cart_id_list = (document.getElementById("cartlist").value).split(",");
-            for(let i = 0; i<cart_id_list.length; i++) {
-                let selected_cart_image =document.getElementById(`cart-image${cart_id_list[i]}`).src;
             for (let i = 0; i < cart_id_list.length; i++) {
                 let selected_cart_image = document.getElementById(`cart-image${cart_id_list[i]}`).src;
                 let selected_cart_name = document.getElementById(`cart-name${cart_id_list[i]}`).innerHTML;
@@ -38,17 +32,12 @@ class Cart {
                     `;
             }
             document.getElementById("verify_list").innerHTML = verify_list;
-         
             document.getElementById("verify_price").innerHTML = document.getElementById("cart_total_price").innerHTML;
         }
         document.getElementById('add_to_order').onclick = function () {
-            new Cart().add_to_order();
             new Cart().add_order();
         }
     }
-
-    
-
 
     /* gets and displays customers added to cart items */
     display_cart() {
@@ -63,19 +52,12 @@ class Cart {
             let cart_list = "";
 
             if (response_data.error) {
-                document.getElementById("cart_list").innerHTML  = response_data.error;
                 document.getElementById("cart_list").innerHTML = response_data.error;
             } else {
                 response_data.data.map(function (cart) {
-         
-            cart_list += `
 
                     cart_list += `
             <div class="cart_item d-flex align-items-center my-3 mx-1 p-2 position-relative">`
-            if(cart.availability == "Available"){
-            cart_list += `<input type="checkbox" class="" name='on_cart' value="${cart.cart_id}" data-price="${cart.total_discounted_price}" id="cart_${cart.cart_id}"/>`
-            }
-            cart_list += `   
                     if (cart.availability == "Available") {
                         cart_list += `<input type="checkbox" class="" name='on_cart' value="${cart.cart_id}" data-price="${cart.total_discounted_price}" id="cart_${cart.cart_id}"/>`
                     }
@@ -84,25 +66,17 @@ class Cart {
             <img class=" cart-image mx-2 " id="cart-image${cart.cart_id}" src='https://res.cloudinary.com/dhzn9musm/image/upload/${cart.image}' alt="">
                 <div class="d-flex flex-column">
                     <div class="item-name" id="cart-name${cart.cart_id}">${cart.name}</div>`
-                    if(cart.availability == "Available"){  
-                        if(cart.discount != 0){   
-                            cart_list += `  <div class="">x<input id="cart-quantity${cart.cart_id}"  style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}" data-cart-id="${cart.cart_id}"/><span  class=" ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${(cart.discounted_price).toFixed(2).replace(/[.,]00$/, "")}</span></div>`;
                     if (cart.availability == "Available") {
                         if (cart.discount != 0) {
                             cart_list += `  <div class="">x<input id="cart-quantity${cart.cart_id}"  style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}" data-cart-id="${cart.cart_id}"/><span  class=" ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${(cart.discounted_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(".00", "")}</span></div>`;
                         } else {
                             cart_list += `  <div class="" >x<input id="cart-quantity${cart.cart_id}"  style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}" data-cart-id="${cart.cart_id}" /><span  class="ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${cart.price}</span></div>`;
                         }
-                } else {
-                    cart_list += `  <span class="ms-3 bolder item-price" style="margin-left:8px!important;">UNAVAILABLE</span>`;
-                }
-                cart_list += `      </div>
                     } else {
                         cart_list += `  <span class="ms-3 bolder item-price" style="margin-left:8px!important;">UNAVAILABLE</span>`;
                     }
                     cart_list += `      </div>
                 </div>
-              <i class="item-remove fa-solid fa-xmark ms-1 position-absolute" name='delete_cart'  onclick="new Cart().delete_cart(${cart.cart_id});" style="top:5px;right:5px;"></i>
               <i class="item-remove fa-solid fa-xmark ms-1 position-absolute" name='delete_cart'  onclick="new Cart().delete_cart(${cart.cart_id},'delete');" style="top:5px;right:5px;"></i>
             </div>
         `;
@@ -112,11 +86,6 @@ class Cart {
             get_checkbox_status();
 
             /* keeps checkbox state */
-            if(document.getElementById("cartlist").value != "") {
-                let cart_id_list = (document.getElementById("cartlist").value).split(",");  
-                for(let i = 0; i<cart_id_list.length; i++) {
-                    document.getElementById(`cart_${cart_id_list[i]}`).checked=true;
-        
             if (document.getElementById("cartlist").value != "") {
                 let cart_id_list = (document.getElementById("cartlist").value).split(",");
                 for (let i = 0; i < cart_id_list.length; i++) {
@@ -124,20 +93,10 @@ class Cart {
 
                 }
             }
-            
 
             /* determines if the quantity has been changed,
             changes made will automatically be saved */
             document.querySelectorAll('input[name=quantity_change]').forEach(function (checkbox) {
-                checkbox.onchange = function (e) {  
-                
-                /*  sets minimum and maximum values of the quantity */
-                if(checkbox.value>99) {
-                    checkbox.value=99;
-                } 
-                if(checkbox.value<1) {
-                    checkbox.value=1;
-                }      
                 checkbox.onchange = function (e) {
 
                     /*  sets minimum and maximum values of the quantity */
@@ -156,7 +115,6 @@ class Cart {
                         body: form_data
                     }).then(function (response) {
                         return response.json();
-                    }).then(function (response_data) { 
                     }).then(function (response_data) {
                         console.log(response_data);
                         new Cart().get_price();
@@ -176,7 +134,6 @@ class Cart {
                         document.getElementById('cart_summary').style.display = "none";
                         document.getElementById("cartlist").value = "";
                     } else {
-                         document.getElementById('cart_summary').style.display = "flex";
                         document.getElementById('cart_summary').style.display = "flex";
                     }
                 }
@@ -195,24 +152,18 @@ class Cart {
             });
             return values;
         }
-
-        
-
     }
 
     /* calculate the total price of all the selected item */
-     get_price() {  
     get_price() {
         let form_data = new FormData();
         form_data.append('get_price', 'get_price');
-        form_data.append('cart_id', document.getElementById("cartlist").value);
         form_data.append('cartlist', document.getElementById("cartlist").value);
         fetch('php/controller/c_cart.php', {
             method: "POST",
             body: form_data
         }).then(function (response) {
             return response.json();
-        }).then(function (response_data) { 
         }).then(function (response_data) {
             let total_discounted_price = 0;
             response_data.data.map(function (price) {
@@ -224,8 +175,6 @@ class Cart {
         });
     }
 
-        document.getElementById("cart_total_price").innerHTML = `PHP ${total_discounted_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
-        });    
     delete_cart(cart_id, type) {
         if (type == "empty") {
             if (confirm("Are you sure you want to delete all items in cart?")) {
@@ -236,7 +185,6 @@ class Cart {
         }
     }
 
-    delete_cart(cart_id) {
     continue_delete(cart_id, type) {
         let form_data = new FormData();
         form_data.append('delete_cart', 'delete_cart');
@@ -248,10 +196,6 @@ class Cart {
         }).then(function (response) {
             return response.json();
         }).then(function (response_data) {
-           /*  console.log(response_data); */
-           new Cart().display_cart();
-           new Cart().cart_count();
-           new Cart().get_price();
             console.log(response_data);
             if (response_data.success) {
                 /* removes the deleted item to the cartlist*/
@@ -280,11 +224,6 @@ class Cart {
         });
     }
 
-
-
-     /* add an item to the cart table */
-     add_to_cart(menu_id) {
-
     /* add an item to the cart table */
     add_to_cart(menu_id) {
         let form_data = new FormData();
@@ -299,34 +238,15 @@ class Cart {
             console.log(response_data);
             if (response_data.success) {
                 new Cart().display_cart();
-               /*  new Notification().create_notification(response_data.success, "success"); */
                 /*  new Notification().create_notification(response_data.success, "success"); */
                 new Cart().cart_count();
-        /*         new Cart().cancel_cart(); */
                 /*         new Cart().cancel_cart(); */
                 new Cart().open_cart();
-            } else if (response_data.error){
                 document.getElementById('empty_cart').style.display = "block";
             } else if (response_data.error) {
                 new Notification().create_notification(response_data.error, "error");
             }
         });
-       
-}
-
- /* gets customers cart items count */
- cart_count() {
-    let form_data = new FormData();
-    form_data.append('add_to_cart_count', 'add_to_cart_count');
-    fetch('php/controller/c_cart.php', {
-        method: "POST",
-        body: form_data
-    }).then(function (response) {
-        return response.json();
-    }).then(function (response_data) {
-        document.getElementById('cart_count').innerHTML = `(${response_data.cart_count})`;
-    });
-}
 
     }
 
@@ -356,19 +276,15 @@ class Cart {
         document.getElementById('sidecart').style.animationName = "open_cart";
     }
 
-     close_cart() {
     close_cart() {
         document.getElementById('sidecart').style.animationName = "close_cart";
     }
 
-    
 
-   
 
 
 
     /* transfers selected cart items to the order table */
-    add_to_order() {
     add_order() {
         document.getElementById('add_to_order').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
         document.getElementById('add_to_order').disabled = true;
@@ -400,7 +316,6 @@ class Cart {
 
     /* fetches dates where the business is closed and removes it from the date picker */
     fetch_holiday() {
-    
 
         let form_data = new FormData();
         form_data.append('display_holiday', 'display_holiday');
@@ -413,7 +328,6 @@ class Cart {
 
         }).then(function (response_data) {
             let holiday_list = [];
-           /* gets the current date and time and displays it to the date and time picker with a format of YYYY-MM-DD for date and HH: MM for time*/
             /* gets the current date and time and displays it to the date and time picker with a format of YYYY-MM-DD for date and HH: MM for time*/
             let date = new Date();
             let day = date.getDate(),
@@ -454,7 +368,6 @@ class Cart {
         document.querySelector('body').style.overflow = 'hidden';
     }
 
-    close_add_order() { 
     close_add_order() {
         document.getElementById("order_modal").style.display = "none";
         document.getElementById('modal_backdrop').style.display = 'none';

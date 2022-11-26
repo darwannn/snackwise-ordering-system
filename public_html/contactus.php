@@ -42,7 +42,6 @@ $validate = new Validate();
 
     <div class="parent-container">
 
-        <nav class="navbar navbar-light bg-light navbar-expand-md">
     <nav class="navbar navbar-light bg-light navbar-expand-md">
             <div class="container">
                 <a href="index.php" class="navbar-brand">
@@ -206,7 +205,6 @@ $validate = new Validate();
                                 <i class="fa-solid fa-circle-user"></i>
                             </button>
                             <ul class="drop-menu">
-                            <div id="notification_list" class="position-absolute r-0" style="max-height:300px; min-width:400px; overflow:auto; "></div>
                                 <li><a href="order.php" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
                                 <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                             </ul>
@@ -276,7 +274,6 @@ $validate = new Validate();
                     <img src="https://images.pexels.com/photos/4109234/pexels-photo-4109234.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" srcset="">
                 </div>
                 <div class="contact-form-container">
-                    <form action="/submit" class="contact-form" id="contact_form">
                     <form action="#" class="contact-form" id="contact_form">
                         <span class="form-title">
                             Send us a message:
@@ -293,7 +290,6 @@ $validate = new Validate();
                         <textarea name="message" id="message" placeholder="Your message here." cols="100" rows="10" minlength="10" maxlength="500" spellcheck required></textarea>
                         <span class="" id="message_error"></span>
 
-                        <button type="button" class="btn" id="submit">SUBMIT</button>
                         <button type="button" class="btn" id="submit" onclick=" new Notification().send_email_message();">SUBMIT</button>
                     </form>
                 </div>
@@ -464,18 +460,7 @@ $validate = new Validate();
 
             })
         }
-
-
         /* END OF DROPDOWN */
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-            let notification = new Notification();
-
-            document.getElementById('submit').onclick = function() {
-                notification.send_email_message();
-            };
-        });
-
         new Notification().notification();
     </script>
 </body>

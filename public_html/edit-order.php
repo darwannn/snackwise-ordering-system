@@ -7,7 +7,6 @@ require_once dirname(__FILE__) . '/php/classes/Validate.php';
 
 $validate = new Validate();
 if ($validate->is_logged_in("staff")) {
-    header('Location: account/login.php');
     header('Location: error.php');
 }
 $db = new DbConnection();
@@ -51,7 +50,6 @@ $order = new Order();
     </script>
     <style>
         td:nth-child(9) {
-min-width: 140px!important;
 min-width: 145px!important;
         }
         td:nth-child(3) {
@@ -100,8 +98,6 @@ min-width: 140px!important;
                 <div class="modal-footer">
                     <button type="button" name="qr_confirm" id="qr_confirm"
                         class="btn btn-success w-25" onclick=" new Order().claim_order();">Confirm</button>
-                    <button type="button" name="qr_close" id="qr_close" class="btn btn-danger w-25"
-                        onclick="new Order().qr_close_modal();">Cancel</button>
                 
                 </div>
             </div>
@@ -162,7 +158,6 @@ min-width: 140px!important;
                             <input type="time" class="form-control" name="time" id="time" />
 
                             <select name="status" id="status" class="form-select">
-                                <option value="select" disabled>select</option>
                                 <option value="Placed">Placed</option>
                                 <option value="Confirmed">Confirmed</option>
                                 <option value="Preparing">Preparing</option>
@@ -217,8 +212,6 @@ min-width: 140px!important;
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="del_notif_button" class="btn btn-success w-25" onclick="new Order().staff_delete_order();">Delete</button>
-                    <button type="button" id="close_del_notif" class="btn btn-danger w-25"
-                        onclick="new Order().close_del_notif();">Close</button>
     
                 </div>
             </div>

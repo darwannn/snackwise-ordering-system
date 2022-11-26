@@ -63,17 +63,14 @@ $conn = $db->connect();
 
 
     <!-- SIDEBAR -->
-    <div class="sidecart  flex-column h-100 top-0  " id="sidecart">
     <div class="sidecart  flex-column h-100 top-0 " id="sidecart">
 
         <div class="mx-3 mt-3">
             <p class="cart-label bold mb-0"> SHOPPING CART <i class=" sidecart-close fa-solid fa-xmark float-end" onclick="new Cart().close_cart();"></i></p>
             <hr class="w-100 my-2">
         </div>
-
        <div class="text-end mt-2" id="empty_cart"><button class="text-end mx-3 btn p-0" style="font-size:12px;" onclick="new Cart().delete_cart('','empty');" >Empty Cart</button></div>
         <!-- customers added to cart items will be appended here -->
-        <div class="cart_list cart_list flex-grow-1 mx-3" id="cart_list">
         <div class="cart_list cart_list flex-grow-1 mx-3" id="cart_list" style="margin-top: -5px;">
 
         </div>
@@ -91,7 +88,6 @@ $conn = $db->connect();
     <!-- SIDEBAR -->
 
     <div class="parent-container">
-        <nav class="navbar navbar-light bg-light navbar-expand-md">
     <nav class="navbar navbar-light bg-light navbar-expand-md">
             <div class="container">
                 <a href="index.php" class="navbar-brand">
@@ -529,7 +525,6 @@ $conn = $db->connect();
 
             })
         }
-
      /*    new Notification().notification(); */
         /* END OF DROPDOWN */
             new Menu().menu();

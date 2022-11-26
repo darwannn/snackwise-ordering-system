@@ -1,5 +1,4 @@
 <?php
-require dirname(__FILE__) . '/../classes/Order.php';
 require_once dirname(__FILE__) . '/../classes/DbConnection.php';
 require_once dirname(__FILE__) . '/../classes/Order.php';
 require_once dirname(__FILE__) . '/../classes/Validate.php';
@@ -19,7 +18,6 @@ if (isset($_POST["display_details"])) {
     $display_details = $_POST['display_details'];
     $category = $_POST['category'];
     $order_id = $_POST['order_id'];
-    $order->display_order($order_id, "details");
     if($category == "Completed") {
         $order->display_order($order_id, "details-completed");
     } else {
@@ -54,7 +52,6 @@ if (isset($_POST["claim_order"]) == 'claim_order') {
     $order->claim_order($identifier,$type);
 }
 
-
 if (isset($_POST["order_fetch_info"]) == 'order_fetch_info') {
     $identifier = $_POST['identifier'];
 $type = $_POST['type'];
@@ -76,8 +73,6 @@ $type = $_POST['type'];
 
 
 
-/* -------------------- ADMIN -------------------- */
-/* --------------------admin */
 /* -------------------- Staff -------------------- */
 /* -------------------- staff */
 if (isset($_POST["action_order"])) {

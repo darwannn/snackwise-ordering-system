@@ -4,8 +4,6 @@ require_once dirname(__FILE__) . '/php/classes/DbConnection.php';
 require_once dirname(__FILE__).'/php/classes/Validate.php';
 
 $validate=new Validate();
-if($validate->is_logged_in("staff")){
-     header('Location: account/login.php');
 if($validate->is_logged_in("admin")){
      header('Location: error.php');
 }
@@ -110,7 +108,6 @@ $menu = new Menu();
                     <div class="modal-header ">
 
                         <div class="modal-title h6 fw-bold" id="modal_title">Add</div>
-                            <!--  <button type="button" class="btn " id="close_menu" ><i class="fa-solid fa-xmark"></i></button> -->
                              <div  style="color:#A3A3A3; " id="close_menu" ><i class="fa-solid fa-xmark"></i></div>
                     </div>
 
@@ -203,7 +200,6 @@ $menu = new Menu();
 
                     <div class="modal-footer">
                     <input type="hidden" name="action_menu" id="action_menu" value="Add" />
-                         <button type="button" class="btn btn-danger w-25" id="close_menu">Close</i></button>
                      <!--     <button type="button" class="btn btn-danger w-25" id="close_menu">Close</i></button> -->
                         
                         <button type="button" class="btn btn-success btn-add w-25" id="action_menu_button" value="Add">Add</button>

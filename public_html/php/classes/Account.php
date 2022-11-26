@@ -9,7 +9,6 @@ class Account extends DbConnection
     public function login($user_identifier, $table_identifier, $password)
     {
         /* checks if the information entered exist  */
-        $query  = $this->connect()->prepare("SELECT user_id ,email, password, attempt, user_type,status FROM user where " . $table_identifier . " = :user_identifier");
         $query  = $this->connect()->prepare("SELECT user_id ,email, password, firstname, image, lastname, attempt, user_type,status FROM user where " . $table_identifier . " = :user_identifier");
         $query->execute([':user_identifier' => $user_identifier]);
         if ($query->rowCount() > 0) {
@@ -43,25 +42,19 @@ class Account extends DbConnection
                         if ($fetch_user_type == "customer") {
                             $email =  $fetch_email;
                             $subject = 'SnackWise Account Verification';
-                            $notice = "Click the button <br> below to verify your account."; 
                             $notice = "Click the button <br> below to verify your account.";
                         } else {
                             $email = $this->get_admin_email();
-                            $subject = 'SnackWise Staff Account Verification';
-                            $notice = "Click the button <br> below to verify " . $fetch_email.".";
                             $subject = 'SnackWise '. ucfirst($fetch_user_type) .' Account Verification';
                             $notice = "Click the button below to verify " . $fetch_email . ".";
                         }
 
-                        $link = "/account/activate.php?code=" . $code ;
-                        $body = $this->email_template( $link, $notice );
                         $link = "/account/activate.php?code=" . $code;
                         $button_value = "Verify Account";
+                        $body = $this->email_template($link, $notice, $button_value);
 
-                        if ($this->update_code($email, $subject, $body, $code)) {
                         if ($this->update_code($fetch_user_id, $email, $subject, $body, $code)) {
                             $_SESSION['forgot-email'] = $email;
-                            $output['validate'] = '<div class="alert alert-danger text-center">You still haven\'t verify your account.Verification code has been sent to ' . $email . '</=div>';
                             $output['validate'] = '<div class="alert alert-danger text-center">You still haven\'t verify your account.Verification code has been sent to ' . $email . '</div>';
                         } else {
                             $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
@@ -91,8 +84,6 @@ class Account extends DbConnection
         $code = $this->generate_code();
         $code_expiration = $this->get_current_date();
         $encrypt_password = $this->encrypt_password($password);
-        $query = $this->connect()->prepare("INSERT INTO user (firstname, lastname, username, email, contact, password, attempt,code,code_expiration, status, user_type) VALUES( :firstname, :lastname, :username, :email, :contact, :password, :attempt,:code, :code_expiration,:status, :user_type)");
-        $result = $query->execute([":firstname" => $firstname, ":lastname" => $lastname, ":username" => $username, ":email" => $email, ":contact" => $contact, ":password" => $encrypt_password, ":attempt" => $attempt, ":code" => $code, ":code_expiration" => $code_expiration, ":status" => $status, ":user_type" => $user_type]);
         $image_link= "v1669374591/SnackWise/User/no-image_sohawv.jpg";
         $query = $this->connect()->prepare("INSERT INTO user (firstname, lastname, username, email, contact, password, attempt,code,code_expiration, status, user_type, image) VALUES( :firstname, :lastname, :username, :email, :contact, :password, :attempt,:code, :code_expiration,:status, :user_type, :image)");
         $result = $query->execute([":firstname" => $firstname, ":lastname" => $lastname, ":username" => $username, ":email" => $email, ":contact" => $contact, ":password" => $encrypt_password, ":attempt" => $attempt, ":code" => $code, ":code_expiration" => $code_expiration, ":status" => $status, ":user_type" => $user_type, ":image" => $image_link]);
@@ -102,20 +93,15 @@ class Account extends DbConnection
             if it is equal to customer, the email verification will be sent to the entered emeil address, 
             else it will be send to the admin email address */
             if ($user_type == "customer") {
-                $email=$email;
                 $email = $email;
                 $subject = 'SnackWise Account Verification';
-                $notice = "Click the button <br> below to verify your account." . $user_type;
                 $notice = "Click the button <br> below to verify your account.";
             } else {
                 $email = $this->get_admin_email();
-                $subject = 'SnackWise Staff Account Verification';
-                $notice = "Click the button <br> below to verify " . $user_type.".";
                 $subject = 'SnackWise '. ucfirst($user_type) .' Account Verification';
                 $notice = "Click the button below to verify " . $email . ".";
             }
             $link = "/account/activate.php?code=" . $code;
-            $body = $this->email_template( $link, $notice );
             $button_value = "Verify Account";
             $body = $this->email_template($link, $notice, $button_value);
 
@@ -142,7 +128,6 @@ class Account extends DbConnection
     /* when a user (both customer and staff) forgot their password, they can change their password using the link that will be sent to their email address*/
     public function forgot_password($user_identifier, $table_identifier)
     {
-        $query  = $this->connect()->prepare("SELECT email, username, contact FROM user where " . $table_identifier . " = :table_identifier");
         $query  = $this->connect()->prepare("SELECT email, username, contact, user_id FROM user where " . $table_identifier . " = :table_identifier");
         $query->execute([':table_identifier' => $user_identifier]);
         $code = $this->generate_code();
@@ -151,14 +136,10 @@ class Account extends DbConnection
             $fetch_email = $fetch['email'];
             $fetch_user_id = $fetch['user_id'];
             $subject = 'SnackWise Forgot Password';
-            $notice = "Click the button <br> to change your password.";  
             $notice = "Click the button <br> to change your password.";
             //the link will redirect the user to account/new-password
-           
 
             $link = "/account/new-password.php?code=" . $code;
-            $body = $this->email_template( $link, $notice );
-            if ($this->update_code($fetch_email, $subject, $body, $code)) {
             $button_value = "New Password";
             $body = $this->email_template($link, $notice, $button_value);
             if ($this->update_code($fetch_user_id, $fetch_email, $subject, $body, $code)) {
@@ -209,7 +190,6 @@ class Account extends DbConnection
             header('Location: ../error');
         }
     }
-   /* -------------------- reset.php */
     /* -------------------- reset.php */
     /* changes the login incorrect attempt counter to 0 */
     public function reset_attempt()
@@ -308,41 +288,6 @@ class Account extends DbConnection
     }
 
     /* -------------------- */
-     /* updates verification code */
-     public function update_code($email, $subject, $body, $code)
-     {
-         $code_expiration = $this->get_current_date();
-         $query =  $this->connect()->prepare("UPDATE user SET code = :code, code_expiration = :code_expiration WHERE email = :email");
-         $result = $query->execute([':code' => $code, ':code_expiration' => $code_expiration, ':email' => $email]);
-         if ($result) {
-             $email_verification = new Email();
-             if ($email_verification->sendEmail("SnackWise", $email, $subject, $body, "account")) {
-                 return true;
-             } else {
-                 return false;
-             }
-         } else {
-             return false;
-         }
-     }
- 
-/* sends an email verification when the maximum login incorrect attempt has been met */
-public function email_attempt($user_identifier, $table_identifier)
-{
-    $query  = $this->connect()->prepare("SELECT email FROM user where " . $table_identifier . " = :table_identifier");
-    $query->execute([':table_identifier' => $user_identifier]);
-    if ($query->rowCount() > 0) {
-        $fetch = $query->fetch(PDO::FETCH_ASSOC);
-        $fetch_email = $fetch['email'];
-        $code = $this->generate_code();
-        $email = $fetch_email;
-        $subject = 'SnackWise Reset Login Attempts';
-        $link = "/account/reset.php?code=" . $code;
-        $notice = "Click the button <br> below to verify your account.";
-        $body = $this->email_template( $link,  $notice );
-        if ($this->update_code($email, $subject, $body, $code)) {
-            $_SESSION['forgot-email'] = $email;
-            $output['error'] = '<div class="alert alert-danger text-center">Too many incorrect login attempts. We have sent an email to verify your identity.</div>';
     /* updates verification code */
     public function update_code($user_id, $email, $subject, $body, $code)
     {
@@ -357,12 +302,9 @@ public function email_attempt($user_identifier, $table_identifier)
                 return false;
             }
         } else {
-            $output['error'] = '<div class="alert alert-danger text-center">Something went wrong! Please try again later.</div>';
             return false;
         }
     }
-    echo json_encode($output);
-}
 
     /* sends an email verification when the maximum login incorrect attempt has been met */
     public function email_attempt($user_identifier, $table_identifier)
@@ -442,8 +384,6 @@ public function email_attempt($user_identifier, $table_identifier)
         }
     }
 
-     /* email content template */
-     public function email_template($link, $notice) {
     /* email content template */
     public function email_template($link, $notice, $button_value)
     {
@@ -471,7 +411,6 @@ public function email_attempt($user_identifier, $table_identifier)
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button style='width: 100%; margin: 20px 0; font-weight: 600px;  font-size: 18px;padding: 20px 0; border-radius: 10px;border:none;background-color: #DD1C1A; color: white;'> <a style =' color: white; text-decoration: none' href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . $link . "'>Verify Your Account</a></button>
                                             <button style='width: 100%; margin: 20px 0; font-weight: 600px;  font-size: 18px;padding: 20px 0; border-radius: 10px;border:none;background-color: #DD1C1A; color: white;'> <a style =' color: white; text-decoration: none' href='" . $_SERVER['SERVER_NAME'] . dirname(pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME), 2) . $link . "'>". $button_value ."</a></button>
                                         </td>
                                     </tr>

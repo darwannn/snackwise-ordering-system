@@ -17,7 +17,6 @@
   position: fixed;
   top: -10px;
   right: 13px;
-  min-width: 300px;
   max-width: 300px;
   height: 100vh;
   display: flex;
@@ -59,8 +58,6 @@
 .success::after {
   content: url('data:image/svg+xml; utf8, <svg height="29" width="29" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="fill: white" d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>');
   position: absolute;
-  top: 5px;
-  left: 5px;
   top: 50%;
   left: 8px;
   transform: translate(0%, -50%);
@@ -76,8 +73,6 @@
 
 
   position: absolute;
-  top: 5px;
-  left: 5px;
   top: 50%;
   left: 8px;
   transform: translate(0%, -50%);
@@ -99,8 +94,6 @@
 
 
   position: absolute;
-  top: 5px;
-  left: 5px;
   top: 50%;
   left: 8px;
   transform: translate(0%, -50%);

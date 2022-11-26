@@ -18,7 +18,6 @@ class Notification extends DbConnection
    /*  display all the notifications intended for the customer */
     public function display_notification($user_id)
     {
-        $result = $query = $this->connect()->prepare("SELECT * FROM notification WHERE user_id =:user_id ORDER BY notification_id DESC");
         $result = $query = $this->connect()->prepare("SELECT * FROM notification WHERE user_id =:user_id ORDER BY date DESC");
         $query->execute([":user_id" => $user_id]);
         if ($result) {

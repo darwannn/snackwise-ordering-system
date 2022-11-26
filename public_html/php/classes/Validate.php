@@ -53,7 +53,6 @@ class Validate extends DbConnection
             } else {
               $this->output[$name] = 'Email address is taken';
             }
-          } else if($compare_input == "email-newsletter") {
           } else if ($compare_input == "email-newsletter") {
             if ($this->is_newsletter_registered($input)) {
               unset($this->output[$name]);
@@ -154,7 +153,6 @@ class Validate extends DbConnection
   /* determines if the entered value in the contact field is a valid phone number */
   public function is_contact($input)
   {
-    if (strlen($input) == 11 && is_numeric($input) && substr($input, 0, 2 ) === "09") {
     if (strlen($input) == 11 && is_numeric($input) && substr($input, 0, 2) === "09") {
       return true;
     } else {
@@ -309,8 +307,6 @@ class Validate extends DbConnection
     }
   }
 
-  /* determines if a user is logged in and if it is a customer or an employee */
-  public function is_logged_in($type)
  /* determines if a user is logged in and if it is a customer or an employee */ 
  public function is_logged_in($type) 
  { 
@@ -338,25 +334,10 @@ class Validate extends DbConnection
   /* determines if the uploaded file is an image */
   public function verify_file_type($file_type)
   {
-    if ($type == "customer") {
-      if (isset($_SESSION['user_id']) == false && isset($_SESSION['password']) == false) {
-        return true;
-      } else {
-        return false;
-      }
     $allowed = array('image/jpeg', 'image/pjpeg', 'image/gif', 'image/png');
     if (!in_array($file_type['type'], $allowed)) {
       return true;
     } else {
-      if (isset($_SESSION['user_id']) == true && isset($_SESSION['password']) == true) {
-        if (isset($_SESSION["user_type"]) && $_SESSION['user_type'] == "user") {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        header('Location: account/login.php');
-      }
       return false;
     }
   }

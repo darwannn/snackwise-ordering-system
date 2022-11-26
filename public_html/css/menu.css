@@ -197,10 +197,8 @@ a[name="log-in-btn"] {
     padding: .5em 2em;
 }
 
-/* USER DROPDOWN */
 /* NOTIFICATION DROPDOWN */
 
-.dropdown button {
 .user-notifications-container, .user-dropdown-container{
     margin: 0 .5em;
     position: relative;
@@ -313,7 +311,6 @@ a[name="log-in-btn"] {
     display: block;
 }
 
-.user-dropdown-container {
 .notification-header-container .header-info .order-number, .notification-time {
     font-size: 1.3em;
     color: var(--labelCol);
@@ -719,7 +716,4 @@ a[name="log-in-btn"] {
         font-size: 4.0em;
     }
 }
-
-
-
 
