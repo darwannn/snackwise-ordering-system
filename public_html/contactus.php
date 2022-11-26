@@ -43,6 +43,7 @@ $validate = new Validate();
     <div class="parent-container">
 
         <nav class="navbar navbar-light bg-light navbar-expand-md">
+    <nav class="navbar navbar-light bg-light navbar-expand-md">
             <div class="container">
                 <a href="index.php" class="navbar-brand">
                     <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
@@ -74,12 +75,140 @@ $validate = new Validate();
                     } else {
                         /* dito lalagay yung logout*/
                     ?>
+                        
+                        <div class="user-notifications-container">
+                            <button class="notification-button">
+                                <i class="fa-solid fa-bell"></i>
+                            </button>
+
+                            <div class="notifications-panel">
+                                <div class="panel-header-container">
+                                    <span class="panel-header">Notifications</span>
+                                </div>
+                                <div class="notifications-container">
+                                    <!-- NOTIFICATIONS TO BE APPENDED HERE -->
+                                   
+                                   <!--FOR EMPTY NOTIFICATION
+                                        Naka 'display:none' pa to sa css.
+                                    -->
+                                    <div class="empty-notification">
+                                        <span class="empty-message"> 
+                                            Looks like you doesn't have notifications yet. 
+                                        </span>
+                                    </div>
+                                    
+                                    <!-- START OF DUMMY NOTIFICATIONS -->
+                                    <div class="notification" id="notif-success">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header unread-notification">Thank You for Ordering 💖</span>
+                                            </div>
+                                            <span class="notification-time">1m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Thanks for your order. It’s always a pleasure to serve you. Enjoy your snack!
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+
+                                    <div class="notification" id="notif-success">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Ready for Pickup! 😋</span>
+                                            </div>
+                                            <span class="notification-time">10m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order #3145185238 is now ready for pick-up. Grab it now while it's hot!
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>                                    
+                                   
+                                    <div class="notification" id="">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order on Process 🍳</span>
+                                            </div>
+                                            <span class="notification-time">25m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                They’re getting your food ready. You will recieve another notification if its ready.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+                                   
+                                    <div class="notification" id="">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Confirmed ✨ </span>
+                                            </div>
+                                            <span class="notification-time">28m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order is now confirmed and will be processed in a few minutes.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+                                    
+                                    <div class="notification">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Placed ✔</span>
+                                            </div>
+                                            <span class="notification-time">30m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order #3145185238 is now confirmed and now processing.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+
+                                    <div class="notification" id="notif-cancelled">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Cancelled ❌</span>
+                                            </div>
+                                            <span class="notification-time">30m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order has been rejected and cancelled.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message">
+                                            Reason: Item unavailable.
+                                        </span>
+                                    </div>
+                                    <!-- END OF DUMMY NOTIFICATION -->
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="user-dropdown-container">
                             <button class="user-button">
                                 <i class="fa-solid fa-circle-user"></i>
                             </button>
                             <ul class="drop-menu">
                             <div id="notification_list" class="position-absolute r-0" style="max-height:300px; min-width:400px; overflow:auto; "></div>
+                                <li><a href="order.php" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
+                                <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                             </ul>
                         </div>
                     <?php
@@ -148,6 +277,7 @@ $validate = new Validate();
                 </div>
                 <div class="contact-form-container">
                     <form action="/submit" class="contact-form" id="contact_form">
+                    <form action="#" class="contact-form" id="contact_form">
                         <span class="form-title">
                             Send us a message:
                         </span>
@@ -164,6 +294,7 @@ $validate = new Validate();
                         <span class="" id="message_error"></span>
 
                         <button type="button" class="btn" id="submit">SUBMIT</button>
+                        <button type="button" class="btn" id="submit" onclick=" new Notification().send_email_message();">SUBMIT</button>
                     </form>
                 </div>
             </div>

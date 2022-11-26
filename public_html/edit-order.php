@@ -8,6 +8,7 @@ require_once dirname(__FILE__) . '/php/classes/Validate.php';
 $validate = new Validate();
 if ($validate->is_logged_in("staff")) {
     header('Location: account/login.php');
+    header('Location: error.php');
 }
 $db = new DbConnection();
 $conn = $db->connect();
@@ -51,10 +52,15 @@ $order = new Order();
     <style>
         td:nth-child(9) {
 min-width: 140px!important;
+min-width: 145px!important;
         }
         td:nth-child(3) {
 min-width: 140px!important;
         }
+        td:nth-child(2) {
+   white-space:normal!important;
+   width: 100px!important;
+  }
     </style>
     <link rel="stylesheet" href="css/notification.css">
 </head>
@@ -70,6 +76,8 @@ min-width: 140px!important;
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title fw-bold h6">Claim</div>
+                        <div  name="qr_close" id="qr_close" style="color:#A3A3A3;"
+                        onclick="new Order().qr_close_modal();"><i class="fa-solid fa-xmark"></i></div>
                 </div>
                 <div class="modal-body">
                     <!-- order to claim will be appended here -->
@@ -94,6 +102,7 @@ min-width: 140px!important;
                         class="btn btn-success w-25" onclick=" new Order().claim_order();">Confirm</button>
                     <button type="button" name="qr_close" id="qr_close" class="btn btn-danger w-25"
                         onclick="new Order().qr_close_modal();">Cancel</button>
+                
                 </div>
             </div>
         </div>
@@ -155,6 +164,7 @@ min-width: 140px!important;
                             <select name="status" id="status" class="form-select">
                                 <option value="select" disabled>select</option>
                                 <option value="Placed">Placed</option>
+                                <option value="Confirmed">Confirmed</option>
                                 <option value="Preparing">Preparing</option>
                                 <option value="Ready">Ready</option>
                             </select> 
@@ -174,6 +184,9 @@ min-width: 140px!important;
             <div class="modal-content">
                 <div class="modal-header ">
                     <div class="modal-title" id="modal_title">Delete</div>
+  
+                    <div style="color:#A3A3A3;" id="close_del_notif"
+                        onclick="new Order().close_del_notif();"><i class="fa-solid fa-xmark"></i></div>
                 </div>
                 <div class="modal-body">
                     <form method="post" id="del_notif_form">
@@ -206,6 +219,7 @@ min-width: 140px!important;
                     <button type="button" id="del_notif_button" class="btn btn-success w-25" onclick="new Order().staff_delete_order();">Delete</button>
                     <button type="button" id="close_del_notif" class="btn btn-danger w-25"
                         onclick="new Order().close_del_notif();">Close</button>
+    
                 </div>
             </div>
         </div>

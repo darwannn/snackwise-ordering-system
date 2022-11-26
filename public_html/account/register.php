@@ -5,6 +5,13 @@ if (isset($_GET["staff"]) == 1) {
 } else {
     $_SESSION['user_type'] = "customer";
 }
+ if (isset($_GET["staff"]) == 1) { 
+     $_SESSION['user_type'] = 'staff'; 
+ } else if (isset($_GET["admin"]) == 1) { 
+     $_SESSION['user_type'] = 'admin'; 
+ }else { 
+     $_SESSION['user_type'] = "customer"; 
+ }
 
 ?>
 <!DOCTYPE html>

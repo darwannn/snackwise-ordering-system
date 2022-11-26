@@ -10,6 +10,8 @@ class Order {
     customer_order() {
         new Order().close_order_details();
         //gets the value of selected radio button which is used to filter the items in the menu table
+        /*  new Order().close_order_details(); */
+        //gets the value of selected radio button which is used to filter the items in the order table
         document.querySelectorAll('input[name="category"]')[0].checked = "checked";
 
         document.querySelectorAll('input[name="category"]')[0].parentElement.parentElement.id =
@@ -54,6 +56,7 @@ class Order {
             }
         }).catch(function (e) {
             console.error(e);
+            new Notification().create_notification("Cannot access camera. Please refresh the page", "error");
         });
     }
 
@@ -74,11 +77,24 @@ class Order {
         }).then(function (response_data) {
             let order_list = "";
             let total_discounted_price = 0;
+/* console.log(response_data.data[0].total_order_price); */
+            console.log(response_data);
+         
+            let no_order = `
+            <div class="no-orders-container">
+                <span class="no-order-message">Looks like you haven't made an order yet.</span>
+                <a href="menu.php">Order Now</a>
+            </div>
+            `;
             if (response_data.error) {
                 console.log(response_data.error);
                 document.getElementById("order_list").innerHTML = response_data.error;
+                document.getElementById("order_list").innerHTML = no_order;
             } else {
                 let current_order_id = 0;
+   
+                let status_class = "";
+                let order_status = "";
                 response_data.data.map(function (order) {
                     /* checks if the customer has multiple order */
                     if (order.order_id != current_order_id) {
@@ -105,16 +121,55 @@ class Order {
                     order_list += `
                     <div>Total Amt: PHP ${total_discounted_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                     `;
+                        order_status = new Order().get_status_text(order.status);
+                        status_class = new Order().get_status_style(order.status);
+            
+                        order_list += `
+                    <div class="order-item">
+                    <div class="order-details-row">
+                        <div class="order-no-container">
+                            <span>Order No.</span>
+                            <span class="order-number">${(order.order_id).toString().padStart(10, '0')}</span>
+                        </div>
+                        <div class="order-date-container">
+                            <span>${order.date}</span>
+                        </div>
+                    </div>
+                    <div class="order-details-row">
+                        <div class="quantity-container">
+                            <span>Quantity: ${order.total_quantity}</span>
+                    </div>
+                        <div class="amount-container">
+                            <span>Amount:</span>
+                            <span class="total-amt">PHP ${parseFloat(order.total_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                        </div>
+                    </div>
+                    <div class="order-details-row">
+                        <div class="details-btn-container">
+                            <button class="details-btn" onclick="new Order().display_details(${order.order_id},'${category}','${order.total_price}');" >Details</button>
+                        </div>
+                        <div class="status-container"> 
+                            <span class="order-status ${status_class}">${(order_status)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;    
+                  console.log(order.total_price);  
                 });
                 document.getElementById("order_list").innerHTML = order_list;
             }
+             
         });
     }
 
     display_details(order_id) {
+    display_details(order_id,category,price) {
+        console.log(price);
         let form_data = new FormData();
         form_data.append('display_details', 'display_details');
         form_data.append('order_id', order_id);
+        form_data.append('category', category);
+
         fetch('php/controller/c_order.php', {
             method: "POST",
             body: form_data
@@ -122,6 +177,7 @@ class Order {
             return response.json();
         }).then(function (response_data) {
             console.log(response_data);
+            let single_order = response_data.data[0];
             new Order().open_order_details();
             let order_details_list = "";
             let current_order_id = 0;
@@ -137,7 +193,44 @@ class Order {
                         order_details_list += `<button type="button" class="" name='delete_order'  onclick="new Order().delete_order(${order.order_id});" disabled>Delete</button>`;
                     }
                 }
+       
+            let status_class = "";
+            let order_status = "";
 
+            order_status = new Order().get_status_text(single_order.status);
+            status_class = new Order().get_status_style(single_order.status);
+            let qr_image = "";
+
+        if(single_order.qr_image == null) {
+        qr_image = `img/no-qr.jpg`;
+        } else {
+            qr_image = `https://res.cloudinary.com/dhzn9musm/image/upload/${single_order.qr_image}`;
+        }
+            order_details_list += `
+                <div class="content-container">
+                <div class="closing-bar">
+                    <button class="close-btn" onclick="new Order().close_order_details();">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="mod-top">
+                    <div class="header-col with-details">
+                        <span class="order-number-label">Order No.:</span>
+                        <span class="order-number">${(single_order.order_id).toString().padStart(10, '0')}</span><br>
+                        <span class="label">Order Date:</span>
+                        <span class="order-date value">${single_order.date}</span><br>
+                        <span class="label">Status:</span>
+                        <span class="status ${status_class} status-value"> ${order_status}</span>
+                    </div>
+                    <div class="header-col">
+                        <a  href='${qr_image}' target="_blank" >
+                            <img src='${qr_image}' width='100px' height='100px' ></img>
+                        </a>
+                    </div>
+                </div>
+                <div class="items-list">
+                `;
+            response_data.data.map(function (order) {
                 order_details_list += `
                     <div >Order Id.: ${(order.order_id).toString().padStart(10, '0')}</div>
                     <div >Qty: ${order.quantity_list}</div>
@@ -152,7 +245,47 @@ class Order {
                 <div class="d-none ">${order.menu_name_list}</div>
                 <div class="d-none ">:${order.category_list}</div>
                 <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${order.image_list}' width='40px' height='40px' ></img>`
+                    <!-- ORDER ITEMS APPEND HERE -->
+                    <div class="item">
+                    <div class="item-img-container">
+                    <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${order.image_list}' alt="${order.menu_name_list}" ></img>
+                    </div>
+                    <div class="item-details">
+                        <div class="quantity-con">
+                        <span><span class="modal-quantity">${order.quantity_list}</span>x</span>
+                        </div>
+                        <div class="item-name-con">
+                        <span class="item-name">${order.menu_name_list}</span>
+                        </div>
+                        <div class="item-price-con">
+                        <span class="item-price">PHP ${parseFloat(order.discounted_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(".00", "")}</span>
+                        </div>
+                    </div>
+                </div>
+               `;
+
             });
+            order_details_list += `
+                 </div>
+                <div class="mod-footer">
+                    <div class="footer-col">
+                        <span>Subtotal: </span>
+                    </div>
+                    <div class="footer-col">
+                        <span class="sub-total">PHP ${parseFloat(price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                    </div>
+                </div>
+                <div class="cancel-bar">`;
+            if (single_order.status == "Placed") {
+                order_details_list += `<button type="button" class="btn btn-danger cancel-btn" name='delete_order'  onclick="new Order().delete_order(${single_order.order_id});">Cancel Order</button>`;
+            } else  if (single_order.status == null) {
+                order_details_list += `<button type="button" class="btn btn-danger cancel-btn" name='delete_order' style="visibility:hidden;"></button>`;
+            } else {
+                order_details_list += `<button type="button" class="btn btn-danger cancel-btn" name='delete_order'  onclick="new Order().delete_order(${single_order.order_id});" disabled>Cancel Order</button>`;
+            }
+            order_details_list += `</div>
+            </div>
+                `;
             document.getElementById("order_details_list").innerHTML = order_details_list;
 
         });
@@ -179,6 +312,27 @@ class Order {
             }
             new Order().display_order();
         });
+            let delete_order_data = new FormData();
+            delete_order_data.append('delete_order', 'delete_order');
+            delete_order_data.append('order_id', order_id);
+            fetch('php/controller/c_order.php', {
+                method: "POST",
+                body: delete_order_data
+            }).then(function (response) {
+                return response.json();
+            }).then(function (response_data) {
+                console.log(response_data);
+                if (response_data.success) {
+
+                    new Order().close_order_details();
+                    new Notification().create_notification(response_data.success, "success");
+                    table.update();
+                    dataRemoved();
+                } else if (response_data.error) {
+                    new Notification().create_notification(response_data.error, "error");
+                }
+                new Order().display_order();
+            });
         }
     }
 
@@ -250,6 +404,7 @@ class Order {
                 let quantity = (order.quantity_list).split(',');
                 let discount = (order.discount_list).split(',');
                 let total_price = 0;
+              
                 console.log(images);
                 qr_to_claim_info += `
       
@@ -276,11 +431,30 @@ class Order {
         </div>  
         `;
                     console.log(`${images[i]}`);
+                    <div>${order.firstname} ${order.lastname}</div>
+                    <div>${order.date}</div>
+                    `;
+                    document.getElementById("to_claim_order_id").value = order.order_id;
+                    document.getElementById("to_claim_type").value = type;
+
+                    for (let i = 0; i < prices.length; i++) {
+                       
+
+                        qr_to_claim_order += `
+                            <div class="pb-2" style="margin:7px;box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+                            border-radius: 20px; width:30%;">
+                            <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${images[i]}'  class="w-100"></img>
+                                <div class="h6 text-center"><span class=" fw-bold">${orders[i]}</span> (x${quantity[i]})</div>
+                            </div>  
+                        `;
                 };
                 qr_to_claim_price += `
           <div class="text-end fw-bold h6">PHP ${total_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
       `;
 
+                        qr_to_claim_price += `
+                            <div class="text-end fw-bold h6">PHP ${parseFloat(order.total_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                        `;
                 if (type == "delete") {
                     console.log(identifier);
                     document.getElementById('to_delete_info').innerHTML = qr_to_claim_info;
@@ -406,6 +580,7 @@ class Order {
                 dataRemoved();
                 table.update();
                 new Order().close_del_notif();
+                new Order().c();
             } else if (response_data.error) {
                 new Notification().create_notification(response_data.error, "error");
             }
@@ -417,12 +592,37 @@ class Order {
     open_order_details() {
         document.getElementById('modal_backdrop').style.display = 'block';
         document.getElementById("order_details_modal").style.display = "block";
+        document.getElementById("order_details_list").style.display = "flex";
         document.querySelector('body').style.overflow = 'hidden';
     }
     close_order_details() {
         document.getElementById('modal_backdrop').style.display = 'none';
         document.getElementById("order_details_modal").style.display = "none";
+        document.getElementById("order_details_list").style.display = "none";
         document.querySelector('body').style.overflow = 'visible';
+    }
+
+    /* determines the color of status(text) */
+    get_status_style(status) {
+        if (status == "Placed" || status == "Confirmed") {
+            return "pending-stat";
+        } else if (status == "Preparing") {
+            return "preparing-stat";
+        } else if (status == "Ready") {
+            return "pickup-stat";
+        } else if (status == "Cancelled") {
+            return "cancelled-stat";
+        } else {
+            return "complete-stat";
+        }
+    }
+
+    get_status_text(status) {
+        if (status == null) {
+            return "Completed";
+        } else {
+            return status;
+        }
     }
 
     /* displays or removes error messages */

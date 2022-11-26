@@ -4,6 +4,22 @@ class Notification {
     new Notification().notification_count();
     new Notification().display_notification();
   
+    
+    const notificationBtn = document.querySelector('.notification-button');
+    const notificationPanel = document.querySelector('.notifications-panel')
+    let notifOpen = false;
+
+    if (notificationBtn) {
+        notificationBtn.addEventListener("click", () => {
+            if(!notifOpen) {
+                notificationPanel.style.display = "flex";
+                notifOpen = true;
+            } else {
+                notificationPanel.style.display = "none";
+                notifOpen = false;
+            }
+        })
+    } 
   }
 
   /* hides or shows notifications */

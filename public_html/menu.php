@@ -64,14 +64,17 @@ $conn = $db->connect();
 
     <!-- SIDEBAR -->
     <div class="sidecart  flex-column h-100 top-0  " id="sidecart">
+    <div class="sidecart  flex-column h-100 top-0 " id="sidecart">
 
         <div class="mx-3 mt-3">
             <p class="cart-label bold mb-0"> SHOPPING CART <i class=" sidecart-close fa-solid fa-xmark float-end" onclick="new Cart().close_cart();"></i></p>
             <hr class="w-100 my-2">
         </div>
 
+       <div class="text-end mt-2" id="empty_cart"><button class="text-end mx-3 btn p-0" style="font-size:12px;" onclick="new Cart().delete_cart('','empty');" >Empty Cart</button></div>
         <!-- customers added to cart items will be appended here -->
         <div class="cart_list cart_list flex-grow-1 mx-3" id="cart_list">
+        <div class="cart_list cart_list flex-grow-1 mx-3" id="cart_list" style="margin-top: -5px;">
 
         </div>
 
@@ -89,6 +92,7 @@ $conn = $db->connect();
 
     <div class="parent-container">
         <nav class="navbar navbar-light bg-light navbar-expand-md">
+    <nav class="navbar navbar-light bg-light navbar-expand-md">
             <div class="container">
                 <a href="index.php" class="navbar-brand">
                     <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
@@ -121,6 +125,132 @@ $conn = $db->connect();
                     } else {
                         /* dito lalagay yung logout*/
                     ?>
+
+                        <div class="user-notifications-container">
+                            <button class="notification-button">
+                                <i class="fa-solid fa-bell"></i>
+                            </button>
+
+                            <div class="notifications-panel">
+                                <div class="panel-header-container">
+                                    <span class="panel-header">Notifications</span>
+                                </div>
+                                <div class="notifications-container">
+                                    <!-- NOTIFICATIONS TO BE APPENDED HERE -->
+
+                                    <!--FOR EMPTY NOTIFICATION
+                                        Naka 'display:none' pa to sa css.
+                                    -->
+                                    <div class="empty-notification">
+                                        <span class="empty-message"> 
+                                            Looks like you doesn't have notifications yet. 
+                                        </span>
+                                    </div>                                    
+
+                                    <!-- START OF DUMMY NOTIFICATIONS -->
+                                    <div class="notification" id="notif-success">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header unread-notification">Thank You for Ordering 💖</span>
+                                            </div>
+                                            <span class="notification-time">1m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Thanks for your order. It’s always a pleasure to serve you. Enjoy your snack!
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+
+                                    <div class="notification" id="notif-success">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Ready for Pickup! 😋</span>
+                                            </div>
+                                            <span class="notification-time">10m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order #3145185238 is now ready for pick-up. Grab it now while it's hot!
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+
+                                    <div class="notification" id="">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order on Process 🍳</span>
+                                            </div>
+                                            <span class="notification-time">25m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                They’re getting your food ready. You will recieve another notification if its ready.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+
+                                    <div class="notification" id="">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Confirmed ✨ </span>
+                                            </div>
+                                            <span class="notification-time">28m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order is now confirmed and will be processed in a few minutes.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+
+                                    <div class="notification">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Placed ✔</span>
+                                            </div>
+                                            <span class="notification-time">30m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order #3145185238 is now confirmed and now processing.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+
+                                    <div class="notification" id="notif-cancelled">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Cancelled ❌</span>
+                                            </div>
+                                            <span class="notification-time">30m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order has been rejected and cancelled.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message">
+                                            Reason: Item unavailable.
+                                        </span>
+                                    </div>
+                                    <!-- END OF DUMMY NOTIFICATION -->
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="user-dropdown-container">
                             <button class="user-button">
                                 <i class="fa-solid fa-circle-user"></i>
@@ -400,6 +530,7 @@ $conn = $db->connect();
             })
         }
 
+     /*    new Notification().notification(); */
         /* END OF DROPDOWN */
             new Menu().menu();
             /* --------------------cart */

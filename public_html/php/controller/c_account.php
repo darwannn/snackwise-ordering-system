@@ -75,3 +75,78 @@ if (isset($_POST["new_password"])) {
         $account->new_password($user_id, $password);
     }
 }
+
+/* -------------------- profile.php */
+if (isset($_POST["fetch_information"])) {
+    $user_id = $_SESSION['user_id'];
+    $account->fetch_information($user_id); 
+}
+
+if (isset($_POST["update"])) {
+    $user_id = $_SESSION['user_id'];
+    $type = $_POST['type'];
+if($type == 'email') {
+    $email = $_POST['email'];
+ /* checks if the email has been changed */
+    if( $_SESSION['current_email'] != $email){
+        $validate->validate_length($email,'', 'email_error', 'Required field' );
+    } 
+} else {
+
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $username = $_POST['username'];
+    $contact = $_POST['contact'];
+    $image = $_POST['crop_image'];
+
+    /* checks if the username or contact number has been changed */
+if( $_SESSION['current_username'] != $username){
+    $validate->validate_length($username, '', 'username_error', 'Required field' );
+} 
+
+if( $_SESSION['current_contact'] != $contact){
+    $validate->validate_length($contact,'', 'contact_error', 'Required field' );
+} 
+    $validate->validate_length($firstname,'','firstname_error', 'Required field' );
+    $validate->validate_length($lastname,'', 'lastname_error', 'Required field' );
+}
+    
+    if (count($validate->output) > 0) {
+        echo json_encode($validate->output);
+    } else {
+        if($type == 'email') {
+            /* code to update email will not be invoked if its value has not been changed */
+            if( $_SESSION['current_email'] != $email){
+                $account->update($user_id, "", "", "", $email, "", "", $type);
+            } else {
+                $output['error'] = 'No changes have been made';
+                echo json_encode($output);
+            }
+        } else {
+            /*  code to update user information will not be invoked unless a change has been made */
+            if( $_SESSION['current_firstname'] != $firstname || $_SESSION['current_lastname'] != $lastname || $_SESSION['current_username'] != $username || $_SESSION['current_contact'] != $contact || $_SESSION['current_image'] != $image){
+            $account->update($user_id, $firstname, $lastname, $username, "", $contact, $image, $type);
+            } else {
+                $output['error'] = 'No changes have been made';
+                echo json_encode($output);
+            }
+        }
+      
+    }
+    
+}
+
+/* determines image file type and size */
+if (isset($_POST["verify_file_type"])) {
+    $file = $_FILES['image'];
+    if($validate->verify_file_type($file)) {
+        $output['error'] = 'Invalid file type';
+    } else {
+        if($validate->verify_file_size($file)) {
+            $output['success'] = ' ';
+        } else {
+            $output['error'] = 'Image must be less than 50mb';
+        }
+    }
+    echo json_encode($output);
+}

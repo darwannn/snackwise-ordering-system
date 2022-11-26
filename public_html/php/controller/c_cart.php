@@ -34,8 +34,12 @@ if (isset($_POST["update_quantity"])) {
 if (isset($_POST["delete_cart"])) {
     $cart_id = $_POST['cart_id'];
     $cart->delete_cart($cart_id);
+    $type = $_POST['type'];
+    $cart->delete_cart($cart_id,$type);
 }
 if (isset($_POST["get_price"])) {
     $cart_id = $_POST['cart_id'];
     $cart->get_price($cart_id);
+    $cartlist = $_POST['cartlist'];
+    $cart->get_price($cartlist, "");
 }

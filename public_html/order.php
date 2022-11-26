@@ -79,6 +79,8 @@ if ($validate->is_logged_in("customer")) {
 
                     <span class="label">Order Date:</span>
                     <span class="order-date value">10-18-22</span><br>
+    <!-- toast_notif notification will be appended here -->
+    <div class="toast_notif" id="toast_notif"></div>
 
                     <span class="label">Status:</span>
                     <span class="status pending-stat value">Pending</span>
@@ -120,6 +122,8 @@ if ($validate->is_logged_in("customer")) {
                 <button class="btn btn-danger cancel-btn">Cancel Order</button>
             </div>
         </div>
+    <div class="details-modal" id="order_details_list">
+        
     </div>
 
     <div class="parent-container">
@@ -156,6 +160,132 @@ if ($validate->is_logged_in("customer")) {
                     } else {
 
                     ?>
+                        
+                        <div class="user-notifications-container">
+                            <button class="notification-button">
+                                <i class="fa-solid fa-bell"></i>
+                            </button>
+
+                            <div class="notifications-panel">
+                                <div class="panel-header-container">
+                                    <span class="panel-header">Notifications</span>
+                                </div>
+                                <div class="notifications-container">
+                                    <!-- NOTIFICATIONS TO BE APPENDED HERE -->
+                                   
+                                    <!--FOR EMPTY NOTIFICATION
+                                        Naka 'display:none' pa to sa css.
+                                    -->
+                                    <div class="empty-notification">
+                                        <span class="empty-message"> 
+                                            Looks like you doesn't have notifications yet. 
+                                        </span>
+                                    </div> 
+                                    
+                                    <!-- START OF DUMMY NOTIFICATIONS -->
+                                    <div class="notification" id="notif-success">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header unread-notification">Thank You for Ordering 💖</span>
+                                            </div>
+                                            <span class="notification-time">1m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Thanks for your order. It’s always a pleasure to serve you. Enjoy your snack!
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+
+                                    <div class="notification" id="notif-success">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Ready for Pickup! 😋</span>
+                                            </div>
+                                            <span class="notification-time">10m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order #3145185238 is now ready for pick-up. Grab it now while it's hot!
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>                                    
+                                   
+                                    <div class="notification" id="">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order on Process 🍳</span>
+                                            </div>
+                                            <span class="notification-time">25m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                They’re getting your food ready. You will recieve another notification if its ready.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+                                   
+                                    <div class="notification" id="">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Confirmed ✨ </span>
+                                            </div>
+                                            <span class="notification-time">28m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order is now confirmed and will be processed in a few minutes.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+                                    
+                                    <div class="notification">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Placed ✔</span>
+                                            </div>
+                                            <span class="notification-time">30m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order #3145185238 is now confirmed and now processing.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+
+                                    <div class="notification" id="notif-cancelled">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Cancelled ❌</span>
+                                            </div>
+                                            <span class="notification-time">30m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order has been rejected and cancelled.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message">
+                                            Reason: Item unavailable.
+                                        </span>
+                                    </div>
+                                    <!-- END OF DUMMY NOTIFICATION -->
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="user-dropdown-container">
                             <button class="user-button">
                                 <i class="fa-solid fa-circle-user"></i>
@@ -187,6 +317,7 @@ if ($validate->is_logged_in("customer")) {
                     </li>
                     <li class="sort-item" id="">
                         <input type="radio" name="category" value="Placed" id="category2"> 
+                        <input type="radio" name="category" value="Pending" id="category2"> 
                         <label for="category2">Pending</label>
                     </li>
                     <li class="sort-item">
@@ -204,6 +335,10 @@ if ($validate->is_logged_in("customer")) {
                     <li class="sort-item">
                         <input type="radio" name="category" value="Cancelled" id="category6">
                         <label for="category6">Cancelled</label>
+                    </li>
+                    <li class="sort-item">
+                        <input type="radio" name="category" value="Completed" id="category5">
+                        <label for="category5">Completed</label>
                     </li>
                 </ul>
             </div>
@@ -416,6 +551,10 @@ if ($validate->is_logged_in("customer")) {
 
 
             </div>
+     
+            <!-- ORDERS TO BE APPENDED HERE -->
+            <div class="order-list" id="order_list"> </div>
+           
         </div>
 
     </div>
@@ -423,6 +562,12 @@ if ($validate->is_logged_in("customer")) {
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+    <script src="js/Order.js"></script>
+<script src="js/Notification.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.3/lightgallery.umd.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.3/plugins/thumbnail/lg-thumbnail.umd.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.3/plugins/zoom/lg-zoom.umd.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.3/plugins/video/lg-video.umd.js'></script>
     <script>
         /* DROPDOWN */
 
@@ -461,6 +606,19 @@ if ($validate->is_logged_in("customer")) {
             modal.style.display = "none";
             modalOpen = false;
         })
+        new Notification().notification();
+        new Order().customer_order();
+
+<?php 
+    /* adds selected bestseller item to cart */
+        if(isset($_GET['order'])) {
+     ?>
+    new Notification().create_notification("Order Successfully Placed", "success");
+    let url = document.location.href;
+    window.history.pushState({}, "", url.split("?")[0]);
+<?php
+        } 
+        ?>
     </script>
 </body>
 

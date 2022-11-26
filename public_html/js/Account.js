@@ -132,6 +132,111 @@ class Account {
         });
     }
 
+    /* -------------------- profile.php */
+    /* displays user information */
+    fetch_information() {
+        
+        let form_data = new FormData();
+        form_data.append('fetch_information', 'fetch_information');
+        return fetch('php/controller/c_account.php', {
+            method: "POST",
+            body: form_data
+        }).then(function (response) {
+            return response.json();
+        }).then(function (response_data) {
+            let user = response_data;
+
+            
+            document.getElementById('cropped_image').value="";
+            document.getElementById("firstname").value = `${user.firstname}`;
+            document.getElementById("lastname").value = `${user.lastname}`;
+            document.getElementById("email").value = `${user.email}`;
+            document.getElementById("username").value = `${user.username}`;
+            document.getElementById("contact").value = `${user.contact}`;
+            document.getElementById("cropped_image").value = `${user.image}`;
+            new Account().crop_close_modal(user.image);
+            if(user.image != "") {
+               document.getElementById("display_image_modal").href = `https://res.cloudinary.com/dhzn9musm/image/upload/${user.image}`;
+               document.getElementById("display_image").src = `https://res.cloudinary.com/dhzn9musm/image/upload/${user.image}`;
+            } else {
+                 document.getElementById("display_image").src = `img/no-image.jpg`; 
+                 document.getElementById("display_image_modal").href =  `img/no-image.jpg`; 
+            }
+            let counter = 0;
+            if(counter<=0) {
+            lightGallery(document.getElementById('image_modal'), {
+                counter:false,
+                download:true,
+                backdropDuration: 100,
+                selector: 'a',
+                
+            }); 
+            counter++;
+        }
+        });
+
+        
+    }
+
+    /* updates user information  */
+    update(type) {
+        if(type == "email") {
+            new Account().button_loading("update_email", "loading", "");
+
+        } else {
+            new Account().button_loading("update", "loading", "");
+        }
+
+        let form_data = new FormData(document.getElementById('account_form'));
+        form_data.append('type', type);
+        form_data.append('update', 'update');
+        fetch('php/controller/c_account.php', {
+            method: "POST",
+            body: form_data
+        }).then(function (response) {
+            return response.json();
+        }).then(function (response_data) {
+            if(type == "email") {
+                new Account().button_loading("update_email", "", "Change Email Address");
+            } else {
+                new Account().button_loading("update", "", "Edit Profile");
+            }
+           
+            console.log(response_data);
+            if (response_data.success) {
+                if(type != "email") {
+                    new Account().fetch_information();
+                }
+                new Notification().create_notification(response_data.success, "success");
+                /* new Account().scroll_to("top"); */
+                window.location.reload();
+            } 
+            else if (response_data.error) {
+                new Notification().create_notification(response_data.error, "error");
+                new Account().scroll_to("top");
+            } else {
+                new Account().scroll_to(Object.keys(response_data)[0]);
+            }
+            
+            if(type == "email") {
+                new Account().show_error(response_data.email_error, 'email_error');
+            } else {
+                new Account().show_error(response_data.firstname_error, 'firstname_error');
+                new Account().show_error(response_data.lastname_error, 'lastname_error');
+                new Account().show_error(response_data.username_error, 'username_error');
+                new Account().show_error(response_data.contact_error, 'contact_error');
+            }
+        });
+    }
+
+    crop_close_modal(image) {
+        document.getElementById('image').style.display = "none";
+        document.getElementById('cropped_image').style.display = "none";
+        document.getElementById('crop_modal').style.display = "none";
+        document.getElementById('cropped_image').value = image;
+        document.getElementById('modal_backdrop').style.display = 'none';
+        document.querySelector('body').style.overflow = 'visible';
+    }
 
     /* -------------------- */
     show_error(error, element) {
@@ -142,6 +247,8 @@ class Account {
     }
      /* toggles input field type attribute value to text or password */
      toggle_password(passwordToggler, passwordField) {
+    /* toggles input field type attribute value to text or password */
+    toggle_password(passwordToggler, passwordField) {
         document.getElementById(passwordField).setAttribute('type', (document.getElementById(passwordField).getAttribute('type') === 'password') ? 'text' : 'password');
         document.getElementById(passwordToggler).classList.toggle('fa-eye');
         document.getElementById(passwordToggler).classList.toggle('fa-eye-slash');

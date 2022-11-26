@@ -1,5 +1,7 @@
 <?php
 require dirname(__FILE__) . '/../classes/Order.php';
+require_once dirname(__FILE__) . '/../classes/DbConnection.php';
+require_once dirname(__FILE__) . '/../classes/Order.php';
 require_once dirname(__FILE__) . '/../classes/Validate.php';
 
 $order = new Order();
@@ -15,8 +17,15 @@ if (isset($_POST["display_order"])) {
 }
 if (isset($_POST["display_details"])) {
     $display_details = $_POST['display_details'];
+    $category = $_POST['category'];
     $order_id = $_POST['order_id'];
     $order->display_order($order_id, "details");
+    if($category == "Completed") {
+        $order->display_order($order_id, "details-completed");
+    } else {
+        $order->display_order($order_id, "details");
+    }
+
 }
 if (isset($_POST["display_completed_order"])) {
     $user_id = $_SESSION['user_id'];
@@ -69,6 +78,8 @@ $type = $_POST['type'];
 
 /* -------------------- ADMIN -------------------- */
 /* --------------------admin */
+/* -------------------- Staff -------------------- */
+/* -------------------- staff */
 if (isset($_POST["action_order"])) {
 
     if ($_POST['action_order'] == 'Update') {

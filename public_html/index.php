@@ -86,6 +86,137 @@ $account->delete_code();
                     } else {
 
                     ?>
+                        <div class="user-notifications-container">
+                            <button class="notification-button">
+                                <i class="fa-solid fa-bell"></i>
+                            </button>
+
+                            <div class="notifications-panel">
+                                <div class="panel-header-container">
+                                    <span class="panel-header">Notifications</span>
+                                </div>
+                                <div class="notifications-container">
+                                    <!-- NOTIFICATIONS TO BE APPENDED HERE -->
+                                    
+                                    <!-- START OF DUMMY NOTIFICATIONS -->
+
+                                    <!--FOR EMPTY NOTIFICATION
+                                        Naka 'display:none' pa to sa css (Line 271).
+                                    -->
+                                    <div class="empty-notification">
+                                        <span class="empty-message"> 
+                                            Looks like you doesn't have notifications yet. 
+                                        </span>
+                                    </div>
+                                    <!-- Notes: 
+                                        If yung status is either completed or ready for pick up
+                                        lagyan ng id="notif-success" to highlight the notification.
+                                        If cancelled / rejected naman: id="notif-cancelled".
+                                        You can also refer to our Figma Design for reference.
+                                    -->
+                                    <div class="notification" id="notif-success">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header unread-notification">Thank You for Ordering 💖</span>
+                                            </div>
+                                            <span class="notification-time">1m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Thanks for your order. It’s always a pleasure to serve you. Enjoy your snack!
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+
+                                    <div class="notification" id="notif-success">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Ready for Pickup! 😋</span>
+                                            </div>
+                                            <span class="notification-time">10m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order #3145185238 is now ready for pick-up. Grab it now while it's hot!
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>                                    
+                                   
+                                    <div class="notification" id="">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order on Process 🍳</span>
+                                            </div>
+                                            <span class="notification-time">25m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                They’re getting your food ready. You will recieve another notification if its ready.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+                                   
+                                    <div class="notification" id="">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Confirmed ✨ </span>
+                                            </div>
+                                            <span class="notification-time">28m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order is now confirmed and will be processed in a few minutes.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+                                    
+                                    <div class="notification">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Placed ✔</span>
+                                            </div>
+                                            <span class="notification-time">30m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order #3145185238 is now confirmed and now processing.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message"></span>
+                                    </div>
+
+                                    <div class="notification" id="notif-cancelled">
+                                        <div class="notification-header-container">
+                                            <div class="header-info">
+                                                <span class="order-number">#3145185238</span>
+                                                <span class="notification-header">Order Cancelled ❌</span>
+                                            </div>
+                                            <span class="notification-time">30m Ago</span>
+                                        </div>
+                                        <div class="notification-body-container">
+                                            <span class="notification-body">
+                                                Your order has been rejected and cancelled.
+                                            </span>
+                                        </div>
+                                        <span class="additional-message">
+                                            Reason: Item unavailable.
+                                        </span>
+                                    </div>
+                                    <!-- END OF DUMMY NOTIFICATION -->
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="user-dropdown-container">
                             <button class="user-button">
                                 <i class="fa-solid fa-circle-user"></i>
@@ -311,6 +442,7 @@ new Menu().display_bestseller();
             })
         }
 
+        new Notification().notification();
 
         /* END OF DROPDOWN */
 

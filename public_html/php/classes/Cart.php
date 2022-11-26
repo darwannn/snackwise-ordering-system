@@ -93,9 +93,19 @@ public function display_cart($user_id)
 
     //deletes an item in the cart table
     public function delete_cart($cart_id)
+    public function delete_cart($cart_id,$type)
     {
         $query = $this->connect()->prepare("DELETE FROM cart WHERE cart_id = :cart_id");
         $result = $query->execute([":cart_id" => $cart_id]);
+        $sql = "DELETE FROM cart ";
+        if($type == "empty") {
+            $query = $this->connect()->prepare($sql);
+            $result = $query->execute([]);
+        } else {
+            $sql .= "WHERE cart_id = :cart_id";
+            $query = $this->connect()->prepare($sql);
+            $result = $query->execute([":cart_id" => $cart_id]);
+        }
         if ($result) {
             $output['success'] = 'Item Deleted Successfully';
         } else {
@@ -106,24 +116,34 @@ public function display_cart($user_id)
 
     //gets the discounted price of the checked items in the cart
     public function get_price($cart_id_list)
+    public function get_price($cartlist, $type)
     {
       /*   $_SESSION['cart_id_list'] =$cart_id_list; */
         //split comma separated values into array
         $cart_id = explode(',', $cart_id_list);
+        $cart_id = explode(',', $cartlist);
         $data = array();
         //get the price of selected item
         for ($i = 0; $i < count($cart_id); $i++) {
 
             $result = $query = $this->connect()->prepare("SELECT m.*, c.* FROM cart c INNER JOIN menu m ON(c.menu_id = m.menu_id) WHERE c.cart_id  = :cart_id");
             $query->execute([":cart_id" => $cart_id[$i]]);
+            $total_price=0;
             foreach ($result as $row) {
                 $sub_array = array();
                 $sub_array['total_discounted_price'] = ($row['price'] - ($row['price'] * (floatval($row['discount']) / 100))) * $row['quantity'];
+                $total_price=($row['price'] - ($row['price'] * (floatval($row['discount']) / 100))) * $row['quantity'];
+                $sub_array['total_discounted_price'] =  $total_price;
                 $data[] = $sub_array;
             }
         }
         $output = array("data" => $data);
 
         echo json_encode($output);
+        if($type =="return") {
+            return $total_price; 
+    } else {
+            echo json_encode($output); 
+    }
     }
 }
