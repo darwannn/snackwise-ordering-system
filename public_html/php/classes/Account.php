@@ -184,7 +184,7 @@ class Account extends DbConnection
         $query  = $this->connect()->prepare("UPDATE user SET code = :code, status = :status WHERE code = :url_code");
         $result = $query->execute([':code' => $code, ':status' => $status, ':url_code' => $url_code]);
         if ($result) {
-            $_SESSION['activate_success'] = '<div class="alert alert-success text-center">Your account has been activated</div>';
+            $_SESSION['activate_success'] = '<div class="alert alert-success text-center">Account has been activated</div>';
             header('Location: login.php');
         } else {
             header('Location: ../error');
@@ -200,7 +200,7 @@ class Account extends DbConnection
         $query  = $this->connect()->prepare("UPDATE user SET code = :code, attempt = :attempt WHERE code = :url_code");
         $result = $query->execute([':code' => $code,  ':attempt' => $attempt, ':url_code' => $url_code]);
         if ($result) {
-            $_SESSION['activate_success'] = '<div class="alert alert-success text-center">Your account has been verified. You can now login</div>';
+            $_SESSION['activate_success'] = '<div class="alert alert-success text-center">Account has been verified. You can now login</div>';
             header('Location: login');
         } else {
             header('Location: error');
@@ -372,7 +372,7 @@ class Account extends DbConnection
     /* gets admin registered email address */
     public function get_admin_email()
     {
-        $query = $this->connect()->prepare("SELECT email FROM user WHERE user_type = :user_type");
+        $query = $this->connect()->prepare("SELECT email FROM user WHERE user_type = :user_type ORDER BY user_id ASC LIMIT 1");
         $result = $query->execute([":user_type" => "admin"]);
 
         if ($result) {
