@@ -13,7 +13,7 @@ class Order extends DbConnection
 {
 
     /* -------------------- order.php*/
-    /* invoked when the items on the cart have been ordered */
+    /* invoked when the items on the cart have been ordered by the customer */
     public function add_order($user_id, $cartlist, $date, $time)
     {
         $status = "Placed";
@@ -196,11 +196,7 @@ class Order extends DbConnection
                 $message = "Your order is now ready for pick-up. Grab it now while it's hot!";
             }
 
-            $query = $this->connect()->prepare("SELECT user_id FROM orders WHERE order_id = :order_id");
-            $result = $query->execute([':order_id' => $order_id]);
-            $fetch = $query->fetch(PDO::FETCH_ASSOC);
-            $fetch_user_id = $fetch['user_id'];
-
+            $fetch_user_id = $this->get_customer_id($order_id);
             $notification = new Notification();
             $notification->insert_notif($fetch_user_id, $order_id, $status, $message);
 
@@ -238,9 +234,17 @@ class Order extends DbConnection
         /* reason */
         $message = $del_notif;
         $notification = new Notification();
-        $notification->insert_notif($user_id, $order_id, $status, $message);
+        $fetch_user_id = $this->get_customer_id($order_id);
+        $notification->insert_notif($user_id, $fetch_user_id, $status, $message);
 
         echo json_encode($output);
+    }
+
+    public function get_customer_id ($order_id) {
+        $query = $this->connect()->prepare("SELECT user_id FROM orders WHERE order_id = :order_id");
+        $result = $query->execute([':order_id' => $order_id]);
+        $fetch = $query->fetch(PDO::FETCH_ASSOC);
+        return $fetch['user_id'];
     }
 
     /*  transfer claimed order from the orders table to the transaction table */
@@ -260,26 +264,25 @@ class Order extends DbConnection
 
             if ($query->rowCount() > 0) {
                 $fetch = $query->fetch(PDO::FETCH_ASSOC);
-                $user_id =   $_SESSION['user_id'];
+                $fetch_user_id =   $fetch['user_id'];
                 $fetch_order_id = $fetch['order_id'];
                 $fetch_total__price = $fetch['total_price'];
 
                 date_default_timezone_set('Asia/Manila');
                 $date = date('Y-m-d H:i:s');
                 $query = $this->connect()->prepare("INSERT INTO transaction (order_id, user_id, date, total_price) VALUES( :order_id, :user_id, :date, :total_price)");
-                $query->execute([":order_id" => $fetch_order_id, ":user_id" => $user_id, ":date" => $date, ":total_price" => $fetch_total__price]);
+                $query->execute([":order_id" => $fetch_order_id, ":user_id" => $fetch_user_id, ":date" => $date, ":total_price" => $fetch_total__price]);
                 $output['success'] = 'Order has been claimed';
 
                 $query = $this->connect()->prepare("DELETE FROM orders where order_id = :order_id");
                 $query->execute([":order_id" => $fetch_order_id]);
-
 
                 $notification = new Notification();
 
               /*   $notif_type = "Thank You for Ordering "; */
                 $status = "Completed";
                 $message = "Thanks for your order. It’s always a pleasure to serve you. Enjoy your snack!";
-                $notification->insert_notif($user_id, $fetch_order_id, $status, $message);
+                $notification->insert_notif($fetch_user_id, $fetch_order_id, $status, $message);
             } else {
                 $output['error'] = 'Something went wrong! Please try again later.';
             }

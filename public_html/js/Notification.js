@@ -124,7 +124,7 @@ class Notification {
           <div class="notification-header-container">
               <div class="header-info">
                   <span class="order-number" style="font-size: 1.3em;">#${(notif.order_id).toString().padStart(10, '0')}</span>
-                  <span class="notification-header"><br>Order Cancelled ❌</span>
+                  <span class="notification-header">Order Cancelled ❌</span>
               </div>
               <span class="notification-time" style="white-space: nowrap; text-align:right;">${show_date}<br>${fetch_time}</span>
           </div>

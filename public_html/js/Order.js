@@ -77,14 +77,13 @@ class Order {
 /* console.log(response_data.data[0].total_order_price); */
             console.log(response_data);
          
-            let no_order = `
-            <div class="no-orders-container">
-                <span class="no-order-message">Looks like you haven't made an order yet.</span>
-                <a href="menu.php">Order Now</a>
-            </div>
-            `;
             if (response_data.error) {
-                console.log("fdsf");
+                let no_order = `
+                <div class="no-orders-container">
+                    <span class="no-order-message">Looks like you haven't made an order yet.</span>
+                    <a href="menu.php">Order Now</a>
+                </div>
+                `;
                 document.getElementById("order_list").innerHTML = no_order;
             } else {
                
@@ -124,7 +123,6 @@ class Order {
                     </div>
                 </div>
             `;    
-                  console.log(order.total_price);  
                 });
                 document.getElementById("order_list").innerHTML = order_list;
             }
@@ -133,7 +131,6 @@ class Order {
     }
 
     display_details(order_id,category,price) {
-        console.log(price);
         let form_data = new FormData();
         form_data.append('display_details', 'display_details');
         form_data.append('order_id', order_id);
@@ -320,8 +317,7 @@ class Order {
                 let prices = (order.price_list).split(',');
                 let quantity = (order.quantity_list).split(',');
                 let discount = (order.discount_list).split(',');
-              
-                console.log(images);
+
                 to_claim_info += `
       
                     <div>${order.firstname} ${order.lastname}</div>
@@ -345,7 +341,6 @@ class Order {
                             <div class="text-end fw-bold h6">PHP ${parseFloat(order.total_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                         `;
                 if (type == "delete") {
-                    console.log(identifier);
                     document.getElementById('to_delete_info').innerHTML = to_claim_info;
                     document.getElementById('to_delete_order').innerHTML = to_claim_order;
                 } else {
@@ -411,7 +406,6 @@ class Order {
     action_order_button() {
         let form_data = new FormData(document.getElementById('order_form'));
         form_data.append('action_order', 'Update')
-        console.log(form_data);
         fetch('php/controller/c_order.php', {
             method: "POST",
             body: form_data
@@ -429,7 +423,6 @@ class Order {
     }
 
     fetch_selected_order(order_id, type) {
-        console.log(order_id);
         let form_data = new FormData();
         form_data.append('order_id', order_id);
         form_data.append('fetch_selected_order', 'fetch_selected_order');
@@ -511,7 +504,6 @@ class Order {
 
     /* displays or removes error messages */
     show_error(error, element) {
-        console.log(element.replace('_error', ''));
         error ? document.getElementById(element).innerHTML = error : document.getElementById(element).innerHTML = '';
         if (error) {
             document.getElementById(element.replace('_error', '')).style.border = "red solid 1px";
@@ -522,7 +514,6 @@ class Order {
 
     /* scroll to the position of the input field with an error */
     scroll_to(element) {
-        console.log(element);
         if (element == "top") {
             document.getElementById("order_modal").scrollTo({
                 top: 0,
