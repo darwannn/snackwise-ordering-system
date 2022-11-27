@@ -30,12 +30,13 @@ class Order extends DbConnection
         $image_link = "v" . $data['version'] . "/" . $data['public_id'];
 
         unlink($PNG_TEMP_DIR . $qr_code . '.png');
-        
+
         $cart = new Cart();
-        $total_price=$cart->get_price($cartlist,"return");
+        $total_price = $cart->get_price($cartlist, "return");
         /* transfers selected item/s to the order table */
         $query = $this->connect()->prepare("INSERT INTO orders ( user_id, date, time, total_price, qr_code, qr_image, status) VALUES( :user_id, :date, :time, :total_price, :qr_code, :qr_image, :status)");
-        $result = $query->execute([":user_id" => $user_id, ":date" => $date, ":time" => $time, ":total_price" => $total_price,  ":qr_code" => $qr_code, ":qr_image" => $image_link, ":status" => $status]);  if ($result) {
+        $result = $query->execute([":user_id" => $user_id, ":date" => $date, ":time" => $time, ":total_price" => $total_price,  ":qr_code" => $qr_code, ":qr_image" => $image_link, ":status" => $status]);
+        if ($result) {
             $cart_id = explode(',', $cartlist);
             for ($i = 0; $i < count($cart_id); $i++) {
                 $query = $this->connect()->prepare("SELECT menu_id, quantity FROM cart where cart_id = :cart_id");
@@ -56,6 +57,13 @@ class Order extends DbConnection
 
                 $query = $this->connect()->prepare("DELETE FROM cart where cart_id = :cart_id");
                 $result = $query->execute([":cart_id" => $cart_id[$i]]);
+
+                $notification = new Notification();
+
+                $status = "Placed";
+
+                $message = "Your order is now confirmed and now processing";
+                $notification->insert_notif($user_id, $fetch_order_id, $status, $message);
             }
             $output['success'] = 'Order Successfully Placed';
         } else {
@@ -71,25 +79,25 @@ class Order extends DbConnection
         /* determines whether the item to be displayed will come from the order table  or transaction table (where the picked-up order is saved) */
         if ($category != "Completed") {
             $sql = "SELECT o.user_id, u.firstname, u.lastname, o.order_id, o.date, o.time, o.qr_image,o.status,m.menu_id AS menu_id_list, m.name AS menu_name_list , GROUP_CONCAT(m.price -(m.price * (m.discount/100)) SEPARATOR '') AS price_list, o.total_price AS total_price, SUM((m.price -(m.price * (m.discount/100)))) AS discounted_price,GROUP_CONCAT(l.quantity SEPARATOR '') AS quantity_list, SUM(l.quantity) AS total_quantity, m.category AS category_list,  m.description, m.discount AS discount_list, m.image AS image_list, l.orderlist_id FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id INNER JOIN menu m ON l.menu_id = m.menu_id ";
-        
+
             if ($category == "details") {
-                
-                $query = $this->connect()->prepare("SELECT o.user_id, u.firstname, u.lastname, o.order_id, o.date, o.time, o.qr_image,o.status,m.menu_id AS menu_id_list, m.name AS menu_name_list , l.quantity AS quantity_list, o.total_price AS total_price, SUM((m.price -(m.price * (m.discount/100)))) AS discounted_price, m.category AS category_list,  m.description, m.price AS price_list, m.discount AS discount_list, m.image AS image_list, l.orderlist_id FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.order_id = :column_identifier");
+
+                $query = $this->connect()->prepare("SELECT o.user_id, u.firstname, u.lastname, o.order_id, o.date, o.time, o.qr_image,o.status,m.menu_id AS menu_id_list, m.name AS menu_name_list , l.quantity AS quantity_list, o.total_price AS total_price, (m.price -(m.price * (m.discount/100))) AS discounted_price, m.category AS category_list,  m.description, m.price AS price_list, m.discount AS discount_list, m.image AS image_list, l.orderlist_id FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.order_id = :column_identifier");
 
                 $query->execute([":column_identifier" => $column_identifier]);
-            } else if($category == "All") {
-        
-                $sql .= " GROUP BY l.order_id";
+            } else if ($category == "All") {
+
+                $sql .= " GROUP BY l.order_id ORDER BY o.order_id DESC";
                 $query = $this->connect()->prepare($sql);
                 $query->execute([]);
-            } else if($category == "Pending") {
-           
-                $sql .= "WHERE u.user_id = :column_identifier AND o.status = :c_status OR o.status = :p_status GROUP BY l.order_id";
+            } else if ($category == "Pending") {
+
+                $sql .= "WHERE u.user_id = :column_identifier AND o.status = :c_status OR o.status = :p_status GROUP BY l.order_id ORDER BY o.order_id DESC";
                 $query = $this->connect()->prepare($sql);
                 $query->execute([":column_identifier" => $column_identifier, ":c_status" => 'Confirmed', ":p_status" => 'Placed']);
-            } else  {
-          
-                $sql .= "WHERE u.user_id = :column_identifier AND o.status = :status GROUP BY l.order_id";
+            } else {
+
+                $sql .= "WHERE u.user_id = :column_identifier AND o.status = :status GROUP BY l.order_id ORDER BY o.order_id DESC";
                 $query = $this->connect()->prepare($sql);
                 $query->execute([":column_identifier" => $column_identifier, ":status" => $category]);
             }
@@ -97,10 +105,10 @@ class Order extends DbConnection
             $query = $this->connect()->prepare("SELECT o.total_price AS total_price, SUM((m.price -(m.price * (m.discount/100)))) AS discounted_price, o.user_id AS total_quantity, o.user_id, u.firstname, u.lastname, o.order_id, o.date,m.menu_id AS menu_id_list, m.name AS menu_name_list , l.quantity AS quantity_list, m.category AS category_list, m.price AS price_list, m.discount AS discount_list, m.image AS image_list FROM user u INNER JOIN transaction o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id INNER JOIN menu m ON l.menu_id = m.menu_id WHERE u.user_id = :user_id  GROUP BY l.order_id ORDER BY o.order_id DESC");
             $query->execute(["user_id" => $column_identifier]);
         }
-        
-        
+
+
         if ($category == "details-completed") {
-            $query = $this->connect()->prepare("SELECT o.user_id AS discounted_price, o.user_id AS total_price, o.user_id AS total_quantity, o.user_id AS total_price, o.user_id, u.firstname, u.lastname, o.order_id, o.date,m.menu_id AS menu_id_list, m.name AS menu_name_list , l.quantity AS quantity_list, m.category AS category_list, m.price AS price_list, m.discount AS discount_list, m.image AS image_list FROM user u INNER JOIN transaction o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.order_id = :order_id ");
+            $query = $this->connect()->prepare("SELECT ((m.price -(m.price * (m.discount/100)))) AS discounted_price, o.user_id AS total_price, o.user_id AS total_quantity, o.user_id AS total_price, o.user_id, u.firstname, u.lastname, o.order_id, o.date,m.menu_id AS menu_id_list, m.name AS menu_name_list , l.quantity AS quantity_list, m.category AS category_list, m.price AS price_list, m.discount AS discount_list, m.image AS image_list FROM user u INNER JOIN transaction o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.order_id = :order_id ");
             $query->execute([":order_id" => $column_identifier]);
         }
         $result = $query->fetchAll();
@@ -123,10 +131,10 @@ class Order extends DbConnection
                 $sub_array['discounted_price'] = $row['discounted_price'];
 
                 if ($category == "Completed" || $category != "details") {
-                $sub_array['total_price'] = $row['total_price'];
-                $sub_array['total_quantity'] = $row['total_quantity'];
+                    $sub_array['total_price'] = $row['total_price'];
+                    $sub_array['total_quantity'] = $row['total_quantity'];
                 }
-      
+
                 if ($category != "Completed" && $category != "details-completed") {
                     $sub_array['orderlist_id'] = $row['orderlist_id'];
                     $sub_array['time'] = $row['time'];
@@ -171,22 +179,30 @@ class Order extends DbConnection
 
             /* sends custom notification to the customer depending on its order status */
             $message = "";
-            if ($status == "Preparing") {
-                $message = "Order: " . str_pad($order_id, 10, "0", STR_PAD_LEFT) . " is being prepared";
+
+
+            if ($status == "Placed") {
+                /* $notif_type = "Placed"; */
+                $message = "Your order is now confirmed and now processing";
+                /*      $message = "Your order " . str_pad($order_id, 10, "0", STR_PAD_LEFT) . " is now confirmed and now processing"; */
+            } else if ($status == "Preparing") {
+                /* $notif_type = "Order on Process"; */
+                $message = "They’re getting your food ready. You will recieve another notification if its ready.";
             } else if ($status == "Confirmed") {
-                $message = "Order: " . str_pad($order_id, 10, "0", STR_PAD_LEFT) . " has been confirmed";
+                /* $notif_type = "Order Confirmed "; */
+                $message = "Your order is now confirmed and will be processed in a few minutes.";
             } else if ($status == "Ready") {
-                $message = "Order: " . str_pad($order_id, 10, "0", STR_PAD_LEFT) . " ready for pick up";
-            } else {
-                $message = "Order: " . str_pad($order_id, 10, "0", STR_PAD_LEFT) . " is being processed";
+                /* $notif_type = "Order Ready for Pickup!"; */
+                $message = "Your order is now ready for pick-up. Grab it now while it's hot!";
             }
 
             $query = $this->connect()->prepare("SELECT user_id FROM orders WHERE order_id = :order_id");
             $result = $query->execute([':order_id' => $order_id]);
             $fetch = $query->fetch(PDO::FETCH_ASSOC);
             $fetch_user_id = $fetch['user_id'];
+
             $notification = new Notification();
-            $notification->insert_notif($fetch_user_id,  $message);
+            $notification->insert_notif($fetch_user_id, $order_id, $status, $message);
 
             echo json_encode($output);
         }
@@ -215,9 +231,16 @@ class Order extends DbConnection
         } else {
             $output['error'] = 'Something went wrong! Please try again later.';
         }
-        echo json_encode($output);
+
+        $status = "Cancelled";
+        /* $notif_type = "Order Cancelled"; */
+
+        /* reason */
+        $message = $del_notif;
         $notification = new Notification();
-        $notification->insert_notif($user_id, $del_notif);
+        $notification->insert_notif($user_id, $order_id, $status, $message);
+
+        echo json_encode($output);
     }
 
     /*  transfer claimed order from the orders table to the transaction table */
@@ -231,7 +254,7 @@ class Order extends DbConnection
                 $column_identifier = "o.qr_code";
             }
 
-            $query = $this->connect()->prepare("SELECT m.price AS price, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price -(m.price * (m.discount/100))*l.quantity SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE " . $column_identifier . " = :identifier  GROUP BY l.order_id ORDER BY order_id DESC 
+            $query = $this->connect()->prepare("SELECT m.price AS price, o.total_price AS total_price, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price -(m.price * (m.discount/100))*l.quantity SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE " . $column_identifier . " = :identifier  GROUP BY l.order_id ORDER BY order_id DESC 
              ");
             $query->execute(["identifier" => $identifier]);
 
@@ -239,21 +262,24 @@ class Order extends DbConnection
                 $fetch = $query->fetch(PDO::FETCH_ASSOC);
                 $user_id =   $_SESSION['user_id'];
                 $fetch_order_id = $fetch['order_id'];
-                $price = 0;
-                $price = ($fetch['price'] - ($fetch['price'] * (floatval($fetch['discount']) / 100))) * $fetch['quantity'];
+                $fetch_total__price = $fetch['total_price'];
 
                 date_default_timezone_set('Asia/Manila');
                 $date = date('Y-m-d H:i:s');
                 $query = $this->connect()->prepare("INSERT INTO transaction (order_id, user_id, date, total_price) VALUES( :order_id, :user_id, :date, :total_price)");
-                $query->execute([":order_id" => $fetch_order_id, ":user_id" => $user_id, ":date" => $date, ":total_price" => $price]);
+                $query->execute([":order_id" => $fetch_order_id, ":user_id" => $user_id, ":date" => $date, ":total_price" => $fetch_total__price]);
                 $output['success'] = 'Order has been claimed';
 
                 $query = $this->connect()->prepare("DELETE FROM orders where order_id = :order_id");
                 $query->execute([":order_id" => $fetch_order_id]);
 
-                $message = "Your order has been claimed";
+
                 $notification = new Notification();
-                $notification->insert_notif($user_id, $message);
+
+              /*   $notif_type = "Thank You for Ordering "; */
+                $status = "Completed";
+                $message = "Thanks for your order. It’s always a pleasure to serve you. Enjoy your snack!";
+                $notification->insert_notif($user_id, $fetch_order_id, $status, $message);
             } else {
                 $output['error'] = 'Something went wrong! Please try again later.';
             }
@@ -390,8 +416,8 @@ class Order extends DbConnection
         $column = array("o.order_id", "u.firstname", "", "", "", "", "o.date", "o.time", "", "");
         $sql = "SELECT m.price AS price, u.contact, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price -(m.price * (m.discount/100))*l.quantity SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id";
         $status = 'Cancelled';
-        
-        $search =  substr($search , 1);
+
+        $search =  substr($search, 1);
         $sql .= '
         WHERE o.status != :status AND (o.order_id LIKE "%' . $search . '%" 
         OR u.firstname LIKE "%' . $search . '%" 
@@ -432,7 +458,7 @@ class Order extends DbConnection
                 $ready = "selected";
             } else if ($row["status"] == "Confirmed") {
                 $confirmed = "selected";
-            } 
+            }
             date_default_timezone_set('Asia/Manila');
             $sub_array = array();
             $sub_array[] = $row['order_id'];

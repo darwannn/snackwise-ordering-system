@@ -165,6 +165,8 @@ class Cart {
         }).then(function (response) {
             return response.json();
         }).then(function (response_data) {
+            console.log("response_data");
+            console.log(response_data);
             let total_discounted_price = 0;
             response_data.data.map(function (price) {
                 total_discounted_price = total_discounted_price + parseFloat(price.total_discounted_price);

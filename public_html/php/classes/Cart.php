@@ -119,15 +119,15 @@ public function display_cart($user_id)
         $cart_id = explode(',', $cartlist);
         $data = array();
         //get the price of selected item
+        $total_price=0;
         for ($i = 0; $i < count($cart_id); $i++) {
 
             $result = $query = $this->connect()->prepare("SELECT m.*, c.* FROM cart c INNER JOIN menu m ON(c.menu_id = m.menu_id) WHERE c.cart_id  = :cart_id");
             $query->execute([":cart_id" => $cart_id[$i]]);
-            $total_price=0;
             foreach ($result as $row) {
                 $sub_array = array();
-                $total_price=($row['price'] - ($row['price'] * (floatval($row['discount']) / 100))) * $row['quantity'];
-                $sub_array['total_discounted_price'] =  $total_price;
+                $total_price=$total_price+(($row['price'] - ($row['price'] * (floatval($row['discount']) / 100))) * $row['quantity']);
+                $sub_array['total_discounted_price'] =  ($row['price'] - ($row['price'] * (floatval($row['discount']) / 100))) * $row['quantity'];
                 $data[] = $sub_array;
             }
         }

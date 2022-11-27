@@ -4,7 +4,8 @@ class Order {
     constructor(table) {
         this.qr_code_id = "";
         this.table = table;
-
+        this.month_name = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
     }
 
     customer_order() {
@@ -83,15 +84,16 @@ class Order {
             </div>
             `;
             if (response_data.error) {
+                console.log("fdsf");
                 document.getElementById("order_list").innerHTML = no_order;
             } else {
-   
+               
                 let status_class = "";
                 let order_status = "";
                 response_data.data.map(function (order) {
                         order_status = new Order().get_status_text(order.status);
                         status_class = new Order().get_status_style(order.status);
-            
+
                         order_list += `
                     <div class="order-item">
                     <div class="order-details-row">
@@ -100,7 +102,7 @@ class Order {
                             <span class="order-number">${(order.order_id).toString().padStart(10, '0')}</span>
                         </div>
                         <div class="order-date-container">
-                            <span>${order.date}</span>
+                            <span>${`${new Order().month_name[((order.date).substr(5,2))-1]} ${(order.date).substr(8,2)}, ${(order.date).substr(0,4)}`}</span>
                         </div>
                     </div>
                     <div class="order-details-row">
@@ -156,9 +158,13 @@ class Order {
             let qr_image = "";
 
         if(single_order.qr_image == null) {
-        qr_image = `img/no-qr.jpg`;
+        qr_image = ` 
+        <img src='img/no-qr.jpg' width='100px' height='100px' ></img>
+    `;
         } else {
-            qr_image = `https://res.cloudinary.com/dhzn9musm/image/upload/${single_order.qr_image}`;
+            qr_image = ` <a  href='https://res.cloudinary.com/dhzn9musm/image/upload/${single_order.qr_image}' target="_blank" >
+            <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${single_order.qr_image}' width='100px' height='100px' ></img>
+        </a>`;
         }
             order_details_list += `
                 <div class="content-container">
@@ -172,14 +178,12 @@ class Order {
                         <span class="order-number-label">Order No.:</span>
                         <span class="order-number">${(single_order.order_id).toString().padStart(10, '0')}</span><br>
                         <span class="label">Order Date:</span>
-                        <span class="order-date value">${single_order.date}</span><br>
+                        <span class="order-date value">${`${new Order().month_name[((single_order.date).substr(5,2))-1]} ${(single_order.date).substr(8,2)}, ${(single_order.date).substr(0,4)}`}</span><br>
                         <span class="label">Status:</span>
                         <span class="status ${status_class} status-value"> ${order_status}</span>
                     </div>
                     <div class="header-col">
-                        <a  href='${qr_image}' target="_blank" >
-                            <img src='${qr_image}' width='100px' height='100px' ></img>
-                        </a>
+                        ${qr_image}
                     </div>
                 </div>
                 <div class="items-list">
@@ -287,9 +291,6 @@ class Order {
         });
     }
 
-
-
-
     /* gets and displays the order information of to claim orders*/
     order_fetch_info(identifier, type) {
         //plays beep audio wehn a qr is scanned
@@ -310,9 +311,9 @@ class Order {
             if (response_data.error) {
                 new Notification().create_notification(response_data.error, "error");
             } else {
-                let qr_to_claim_info = "";
-                let qr_to_claim_price = "";
-                let qr_to_claim_order = "";
+                let to_claim_info = "";
+                let to_claim_price = "";
+                let to_claim_order = "";
                 let order = response_data.data[0];
                 let images = (order.image_list).split(', ');
                 let orders = (order.menu_name_list).split(',');
@@ -321,7 +322,7 @@ class Order {
                 let discount = (order.discount_list).split(',');
               
                 console.log(images);
-                qr_to_claim_info += `
+                to_claim_info += `
       
                     <div>${order.firstname} ${order.lastname}</div>
                     <div>${order.date}</div>
@@ -332,7 +333,7 @@ class Order {
                     for (let i = 0; i < prices.length; i++) {
                        
 
-                        qr_to_claim_order += `
+                        to_claim_order += `
                             <div class="pb-2" style="margin:7px;box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
                             border-radius: 20px; width:30%;">
                             <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${images[i]}'  class="w-100"></img>
@@ -340,19 +341,19 @@ class Order {
                             </div>  
                         `;
                 };
-                        qr_to_claim_price += `
+                        to_claim_price += `
                             <div class="text-end fw-bold h6">PHP ${parseFloat(order.total_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                         `;
                 if (type == "delete") {
                     console.log(identifier);
-                    document.getElementById('to_delete_info').innerHTML = qr_to_claim_info;
-                    document.getElementById('to_delete_order').innerHTML = qr_to_claim_order;
+                    document.getElementById('to_delete_info').innerHTML = to_claim_info;
+                    document.getElementById('to_delete_order').innerHTML = to_claim_order;
                 } else {
-                    document.getElementById("qr_to_claim_order").style.display = "block";
-                    document.getElementById("qr_to_claim_order").style.display = "block";
-                    document.getElementById('qr_to_claim_info').innerHTML = qr_to_claim_info;
-                    document.getElementById('qr_to_claim_price').innerHTML = qr_to_claim_price;
-                    document.getElementById('qr_to_claim_order').innerHTML = qr_to_claim_order;
+                    document.getElementById("to_claim_order").style.display = "block";
+                    document.getElementById("to_claim_order").style.display = "block";
+                    document.getElementById('to_claim_info').innerHTML = to_claim_info;
+                    document.getElementById('to_claim_price').innerHTML = to_claim_price;
+                    document.getElementById('to_claim_order').innerHTML = to_claim_order;
                     document.getElementById("qr_modal").style.display = "block";
                     document.getElementById('modal_backdrop').style.display = 'block';
                     document.querySelector('body').style.overflow = 'hidden';
@@ -375,8 +376,8 @@ class Order {
         this.qr_code_id = "";
         document.getElementById('modal_backdrop').style.display = 'none';
         document.getElementById("qr_modal").style.display = "none";
-        document.getElementById("qr_to_claim_order").style.display = "none";
-        document.getElementById("qr_to_claim_order").style.display = "none";
+        document.getElementById("to_claim_order").style.display = "none";
+        document.getElementById("to_claim_order").style.display = "none";
         document.querySelector('body').style.overflow = 'visible';
     }
 
@@ -466,7 +467,8 @@ class Order {
                 new Notification().create_notification(response_data.success, "success");
                 dataRemoved();
                 table.update();
-                new Order().c();
+                new Order().close_del_notif();
+        
             } else if (response_data.error) {
                 new Notification().create_notification(response_data.error, "error");
             }

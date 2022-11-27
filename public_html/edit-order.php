@@ -83,16 +83,16 @@ min-width: 140px!important;
                         <div class="h6 fw-bold">Information</div>
                         <input type="hidden" value="" id="to_claim_order_id">
                         <input type="hidden" value="" id="to_claim_type">
-                        <div class="qr_to_claim_info" id="qr_to_claim_info"></div>
+                        <div class="to_claim_info" id="to_claim_info"></div>
                     </div>
                     <div>
                         <div class="h6 fw-bold mt-4">Order</div>
-                        <div class="qr_to_claim_order d-flex row mb-5 mx-1 justify-content-start"
-                            id="qr_to_claim_order"></div>
+                        <div class="to_claim_order d-flex row mb-5 mx-1 justify-content-start"
+                            id="to_claim_order"></div>
                     </div>
                     <div>
                         <div class="h6 fw-bold mt-4">SUBTOTAL</div>
-                        <div class="qr_to_claim_price" id="qr_to_claim_price"></div>
+                        <div class="to_claim_price" id="to_claim_price"></div>
                     </div>
                 </div>
                 <div class="modal-footer">

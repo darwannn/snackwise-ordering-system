@@ -273,10 +273,6 @@ a[name="log-in-btn"] {
         background: rgb(139, 139, 139);
     }
 
-.empty-notification {
-    display: none;
-}
-
 .empty-notification .empty-message{
     font-family: var(--fontOutfit);
     font-size: 2em;
@@ -312,7 +308,7 @@ a[name="log-in-btn"] {
 }
 
 .notification-header-container .header-info .order-number, .notification-time {
-    font-size: 1.3em;
+    font-size: 1.1em;
     color: var(--labelCol);
 }
 
@@ -717,3 +713,6 @@ a[name="log-in-btn"] {
     }
 }
 
+input[type=number]::-webkit-inner-spin-button {
+    opacity: 1
+}

@@ -7,12 +7,12 @@ require_once dirname(__FILE__) . "/Email.php";
 class Notification extends DbConnection
 {
      /* -------------------- notification */
-    public function insert_notif( $user_id,$message) {
+    public function insert_notif( $user_id, $order_id, $type, $message) {
         $status = "unread";
         date_default_timezone_set('Asia/Manila');
         $date_time =  date("Y-m-d H:i:s");
-        $query = $this->connect()->prepare("INSERT INTO notification ( user_id, message, date, status) VALUES( :user_id, :message, :date, :status)");
-        $result = $query->execute([":user_id" => $user_id, ":message" => $message, ":date" => $date_time, ":status" => $status]);
+        $query = $this->connect()->prepare("INSERT INTO notification ( user_id, order_id, type, message, date, status) VALUES( :user_id, :order_id, :type,:message, :date, :status)");
+        $result = $query->execute([":user_id" => $user_id, ":order_id" => $order_id,":type" => $type,":message" => $message, ":date" => $date_time, ":status" => $status]);
     }
 
    /*  display all the notifications intended for the customer */
@@ -29,6 +29,8 @@ class Notification extends DbConnection
                 $sub_array['message'] = $row['message'];
                 $sub_array['date'] = $row['date'];
                 $sub_array['status'] = $row['status'];
+                $sub_array['type'] = $row['type'];
+                $sub_array['order_id'] = $row['order_id'];
                 $data[] = $sub_array;
             }
             $output = array("data"=>$data);

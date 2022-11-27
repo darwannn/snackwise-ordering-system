@@ -80,7 +80,7 @@ $menu = new Menu();
                             <th>Name</th>
                             <th>Desciption</th>
                             <th>Categoty</th>
-                            <th>Discount</th>
+                            <th>Discount (%)</th>
                             <th>Price</th>
                             <th>Date</th>
                             <th>Availability</th>
