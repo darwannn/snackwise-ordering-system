@@ -295,7 +295,6 @@ if ($validate->is_logged_in("customer")) {
                         document.querySelector('body').style.overflow = 'hidden';
                         document.getElementById('crop_modal').style.display = "block";
                         reader.readAsDataURL(e.target.files[0]);
-
                     }
 
                 } else if (response_data.error) {

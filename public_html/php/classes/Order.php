@@ -235,7 +235,7 @@ class Order extends DbConnection
         $message = $del_notif;
         $notification = new Notification();
         $fetch_user_id = $this->get_customer_id($order_id);
-        $notification->insert_notif($user_id, $fetch_user_id, $status, $message);
+        $notification->insert_notif($fetch_user_id, $order_id, $status, $message);
 
         echo json_encode($output);
     }
