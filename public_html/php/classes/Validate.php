@@ -244,7 +244,7 @@ class Validate extends DbConnection
   /* checks if the verification code in the URL parameter is in the database */
   public function validate_code()
   {
-    if (isset($_GET["code"])) {
+    if (($_GET["code"]) != "0") {
       $url_code = $_GET["code"];
       $query = $this->connect()->prepare("SELECT * FROM user WHERE code = :code");
       $query->execute([':code' => $url_code]);
