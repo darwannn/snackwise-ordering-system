@@ -213,7 +213,7 @@ class Account {
             } 
             else if (response_data.error) {
                 new Notification().create_notification(response_data.error, "error");
-                new Account().scroll_to("top");
+                /* new Account().scroll_to("top"); */
             } else {
                 new Account().scroll_to(Object.keys(response_data)[0]);
             }
@@ -254,6 +254,7 @@ class Account {
 
     /* display a checkmark if the specific password requirement has been met, otherwise it will display an x */
     verify_password(password) {
+        document.querySelector(".password_requirements").style.display="block";
         document.querySelector(".length").style.opacity = 1;
         document.querySelector(".case").style.opacity = 1;
         document.querySelector(".special").style.opacity = 1;
@@ -262,10 +263,38 @@ class Account {
         let specialRequirments = /(?=.*[!@#$%^&,*.])/;
         let numberRequirments = /(?=.*\d)/;
 
-        (password.length >= 8 && password.length <= 16) ? document.getElementById("length").innerHTML = "&#x2714": document.getElementById("length").innerHTML = "&#x2716";
-        (password.match(caseRequirments)) ? document.getElementById("case").innerHTML = "&#x2714": document.getElementById("case").innerHTML = "&#x2716";
-        (password.match(specialRequirments)) ? document.getElementById("special").innerHTML = "&#x2714": document.getElementById("special").innerHTML = "&#x2716";
-        (password.match(numberRequirments)) ? document.getElementById("number").innerHTML = "&#x2714": document.getElementById("number").innerHTML = "&#x2716";
+        if(password.length >= 8 && password.length <= 16) {
+            document.getElementById("length").innerHTML = "&#x2714";
+            document.getElementById("length_con").style.color = "green";
+        } else {
+            document.getElementById("length").innerHTML = "&#x2716";
+            document.getElementById("length_con").style.color = "red";
+        } 
+
+        if(password.match(caseRequirments)) {
+            document.getElementById("case").innerHTML = "&#x2714";
+            document.getElementById("case_con").style.color = "green";
+        } else {
+            document.getElementById("case").innerHTML = "&#x2716";
+            document.getElementById("case_con").style.color = "red";
+        } 
+
+        if(password.match(specialRequirments)) {
+            document.getElementById("special").innerHTML = "&#x2714";
+            document.getElementById("special_con").style.color = "green";
+        } else {
+            document.getElementById("special").innerHTML = "&#x2716";
+            document.getElementById("special_con").style.color = "red";
+        } 
+
+        if(password.match(numberRequirments)) {
+            document.getElementById("number").innerHTML = "&#x2714";
+            document.getElementById("number_con").style.color = "green";
+        } else {
+            document.getElementById("number").innerHTML = "&#x2716";
+            document.getElementById("number_con").style.color = "red";
+        } 
+
     }
 
     /* disables the button and changes its content to a loading animation so the user can not click while the server is processing */

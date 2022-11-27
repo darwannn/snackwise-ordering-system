@@ -112,10 +112,10 @@ class Menu {
                     menu_list += `
                 <div class="col-12 col-md-6">
                     <div class="menu-item">
-                    <div class="product-img">
-                        <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${menu.image}' alt="food-img" food-img="">
+                        <div class="product-img">
+                            <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${menu.image}' alt="food-img" food-img="">
                         </div>
-                        <div class="product-details-wrapper">
+                        <div class="product-details-wrapper flex-grow-1" >
                             <div class="product-details">
                                 <span class="product-title">${menu.name}</span>
                                 <span class="product-description">${menu.description}</span>

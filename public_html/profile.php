@@ -131,14 +131,14 @@ if ($validate->is_logged_in("customer")) {
                             </div>
 
                             <div class="form-group mt-3">
-                                <label class="col control-label">First name:</label>
+                                <label class="col control-label">First Name:</label>
                                 <div class="col">
                                     <input class="form-control" type="text" name="firstname" id="firstname" value="" placeholder="First Name" autocomplete="off">
                                     <span class="input_error" id="firstname_error"></span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col control-label">Last name:</label>
+                                <label class="col control-label">Last Name:</label>
                                 <div class="col">
                                     <input class="form-control" type="text" name="lastname" id="lastname" value="" placeholder="Last Name" autocomplete="off">
                                     <span class="input_error" id="lastname_error"></span>
@@ -202,20 +202,10 @@ if ($validate->is_logged_in("customer")) {
         <div class="modal" id="crop_modal">
             <div class="modal-dialog" style="">
                 <div class="modal-content">
-                    <div class="modal-header ">
-                        <div class="modal-title h5 fw-bold">CROP IMAGE</div>
-                        <div id="cancel" style="color:#A3A3A3;   font-size: 2em" ; onclick="new Account().crop_close_modal('<?php echo $_SESSION['current_image'] ?>');"><i class="fa-solid fa-xmark" style="color:#A3A3A3; font-size:20px;"></i></div>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="result w-100" id="result" style="height:400px;"></div>
-
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn w-25" id="crop" style="background-color: rgb(221,28,26); color: white;">Crop</button>
-
+                        <div id="cancel" style=" right:20px; top:15px; position:absolute; z-index:99;" ; onclick="new Account().crop_close_modal('<?php echo $_SESSION['current_image'] ?>');"><i class="fa-solid fa-xmark" style="color:#A3A3A3; font-size:20px;"></i></div>
+                    <div class="modal-body text-end">
+                        <div class="result w-100" id="result" style="height:400px; margin-top: 35px;"></div>
+                        <button type="button" class="btn" id="crop" style="background-color: rgb(221,28,26); color: white; width:9em; margin-top: 1.5em;">Crop</button>
                     </div>
                 </div>
             </div>
@@ -251,7 +241,6 @@ if ($validate->is_logged_in("customer")) {
     function crop_image() {
 
         /* opens file input on button click  */
-
         document.getElementById("choose_image").addEventListener("click", function() {
             document.getElementById("image").click();
         });
@@ -285,6 +274,7 @@ if ($validate->is_logged_in("customer")) {
                                     restore: false,
                                     center: true,
                                     cropBoxResizable: true,
+                                    aspectRatio: 1/1,
                                 });
                             }
                         };
