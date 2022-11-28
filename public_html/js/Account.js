@@ -47,6 +47,7 @@ class Account {
         }).then(function (response) {
             return response.json();
         }).then(function (response_data) {
+            console.log(response_data);
             new Account().button_loading("register", "", button_value);
             if (response_data.success) {
                 document.getElementById('firstname').value = "";
@@ -57,7 +58,6 @@ class Account {
                 document.getElementById('password').value = "";
                 document.getElementById('retype_password').value = "";
                 document.getElementById('success_message').innerHTML = response_data.success;
-                console.log(response_data);
                 new Account().scroll_to("top");
             } else if (response_data.error) {
                 document.getElementById('error_message').innerHTML = response_data.error;
@@ -70,7 +70,16 @@ class Account {
             new Account().show_error(response_data.username_error, 'username_error');
             new Account().show_error(response_data.email_error, 'email_error');
             new Account().show_error(response_data.contact_error, 'contact_error');
-            new Account().show_error(response_data.password_error, 'password_error');
+
+            if (response_data.password_error) {
+                if ((response_data.password_error).includes("Required")) {
+                    new Account().show_error(response_data.password_error, 'password_error');
+                } else {
+                    document.querySelector(".password_requirements").classList.add("password_requirment_active");
+                    document.getElementById('password_error').style.display = "none";
+                }
+            }
+   
             new Account().show_error(response_data.retype_password_error, 'retype_password_error');
         });
     }
@@ -127,7 +136,14 @@ class Account {
             } else {
                 new Account().scroll_to(Object.keys(response_data)[0]);
             }
-            new Account().show_error(response_data.password_error, 'password_error');
+            if (response_data.password_error) {
+                if ((response_data.password_error).includes("Required")) {
+                    new Account().show_error(response_data.password_error, 'password_error');
+                } else {
+                    document.querySelector(".password_requirements").classList.add("password_requirment_active");
+                    document.getElementById('password_error').style.display = "none";
+                }
+            }
             new Account().show_error(response_data.retype_password_error, 'retype_password_error');
         });
     }
@@ -254,46 +270,56 @@ class Account {
 
     /* display a checkmark if the specific password requirement has been met, otherwise it will display an x */
     verify_password(password) {
-        document.querySelector(".password_requirements").style.display="block";
+
+        document.getElementById('password_error').style.display = "none";
+
         document.querySelector(".length").style.opacity = 1;
         document.querySelector(".case").style.opacity = 1;
         document.querySelector(".special").style.opacity = 1;
         document.querySelector(".number").style.opacity = 1;
-        let caseRequirments = /^(?=.*[a-z])(?=.*[A-Z])/;
-        let specialRequirments = /(?=.*[!@#$%^&,*.])/;
-        let numberRequirments = /(?=.*\d)/;
+        let case_requirments = /^(?=.*[a-z])(?=.*[A-Z])/;
+        let special_requirments = /(?=.*[@#$%^&,*.])/;
+        let number_requirments = /(?=.*\d)/;
 
-        if(password.length >= 8 && password.length <= 16) {
+        if (password.length >= 8 && password.length <= 16) {
             document.getElementById("length").innerHTML = "&#x2714";
             document.getElementById("length_con").style.color = "green";
         } else {
             document.getElementById("length").innerHTML = "&#x2716";
             document.getElementById("length_con").style.color = "red";
-        } 
+        }
 
-        if(password.match(caseRequirments)) {
+        if (password.match(case_requirments)) {
             document.getElementById("case").innerHTML = "&#x2714";
             document.getElementById("case_con").style.color = "green";
         } else {
             document.getElementById("case").innerHTML = "&#x2716";
             document.getElementById("case_con").style.color = "red";
-        } 
+        }
 
-        if(password.match(specialRequirments)) {
+        if (password.match(special_requirments)) {
             document.getElementById("special").innerHTML = "&#x2714";
             document.getElementById("special_con").style.color = "green";
         } else {
             document.getElementById("special").innerHTML = "&#x2716";
             document.getElementById("special_con").style.color = "red";
-        } 
+        }
 
-        if(password.match(numberRequirments)) {
+        if (password.match(number_requirments)) {
             document.getElementById("number").innerHTML = "&#x2714";
             document.getElementById("number_con").style.color = "green";
         } else {
             document.getElementById("number").innerHTML = "&#x2716";
             document.getElementById("number_con").style.color = "red";
-        } 
+        }
+
+        if ((password.length >= 8 && password.length <= 16) && password.match(case_requirments) && password.match(special_requirments) && password.match(number_requirments)) {
+            document.querySelector(".password_requirements").classList.remove("password_requirment_active");
+            document.getElementById("password").style.border = "none";
+        } else {
+            document.querySelector(".password_requirements").classList.add("password_requirment_active");
+            document.getElementById("password").style.border = "red solid 1px";
+        }
 
     }
 

@@ -41,7 +41,7 @@ if (isset($_POST["register"])) {
     $validate->validate_length($username, '', 'username_error', 'Required field' );
     $validate->validate_length($email,'', 'email_error', 'Required field' );
     $validate->validate_length($password, $retype_password, 'password_error', 'Required field' );
-    $validate->validate_length($password,$retype_password, 'retype_password_error', 'Required field' );
+    $validate->validate_length($retype_password,$password, 'retype_password_error', 'Required field' );
     if (count($validate->output) > 0) {
         echo json_encode($validate->output);
     } else {
@@ -67,7 +67,7 @@ if (isset($_POST["new_password"])) {
     $password = $_POST['password'];
     $retype_password = $_POST['retype_password'];
     $validate->validate_length($password, $retype_password, 'password_error', 'Required field' );
-    $validate->validate_length($password,$retype_password, 'retype_password_error', 'Required field' );
+    $validate->validate_length($retype_password,$password, 'retype_password_error', 'Required field' );
     $user_id = $validate->get_user_id($url_code);
     if (count($validate->output) > 0) {
         echo json_encode($validate->output);

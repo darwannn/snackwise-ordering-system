@@ -156,3 +156,21 @@ input[type="password"]::-ms-clear {
     font-size: 14px;
     color: red;
 }
+
+.password_requirements {
+    max-height: 0;
+    transition: max-height .6s ease-out;
+    overflow: hidden;
+    margin-left: 30px;
+}
+.password_requirements h6{
+   font-size: 14px;
+   margin-top: -6px;
+}
+.password_requirements #length_con{
+    margin-top: 0px!important;
+}
+.password_requirment_active {
+    max-height: 300px;
+    transition: max-height .6s ease-in;
+}

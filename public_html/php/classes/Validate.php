@@ -82,16 +82,21 @@ class Validate extends DbConnection
           $this->output[$name] = 'Username is taken';
         }
       }
-      if (strpos($name, "password") !== false && $compare_input != "login") {
+    
+      if (preg_match("/\b".$name."\b/i", "password_error") && $compare_input != "login") {
         if ($this->has_meet_password($input)) {
           unset($this->output[$name]);
         } else {
           $this->output['password_error'] = 'Password does not meet the requirements';
         }
       }
-      if (strpos($name, "retype_password") !== false) {
+      if (preg_match("/\b".$name."\b/i", "retype_password_error")) {
         if ($this->is_match($input, $compare_input)) {
-          unset($this->output[$name]);
+          if ($this->has_meet_password($input)) {
+            unset($this->output[$name]);
+          } else {
+            $this->output['retype_password_error'] = 'Password does not meet the requirements';
+          }
         } else {
           $this->output['retype_password_error'] = 'Passwords do not match';
         }
