@@ -87,40 +87,49 @@ class Notification {
       let notif_date = "";
       let show_date = "";
       const month_name = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+      ];
       console.log(response_data);
-      if ((response_data.data).length == 0) {
-        notification_list += ` <div class="empty-notification">
+      if (response_data.error) {
+
+      } else {
+        if ((response_data.data).length == 0) {
+          notification_list += ` <div class="empty-notification">
           <span class="empty-message"> 
               Looks like you doesn't have notifications yet. 
           </span>
           </div>`;
-      } else {
-        response_data.data.map(function (notif) {
-          
+        } else {
+          response_data.data.map(function (notif) {
 
 
 
 
-  let fetch_month = (notif.date).substr(5,2);
-          let today = new Date();
-          let fetch_date = new Date(notif.date.substr(0,10));
-  
-          let fetch_time = new Date(notif.date).toLocaleTimeString('en-US', {hour12:true,hour:'numeric',minute:'numeric'});
-          
-          const yesterday = new Date(); yesterday.setDate(today.getDate() - 1);
 
-          if(fetch_date.toLocaleDateString() == today.toLocaleDateString()){
-            show_date =  'Today'
-          }else if (fetch_date.toLocaleDateString() == yesterday.toLocaleDateString()) {
-            show_date =  'Yesterday'
-          }else {
-            show_date = `${month_name[fetch_month-1]} ${(notif.date).substr(8,2)}, ${(notif.date).substr(0,4)}`;
-          }
+            let fetch_month = (notif.date).substr(5, 2);
+            let today = new Date();
+            let fetch_date = new Date(notif.date.substr(0, 10));
 
-          if (notif.type == "Cancelled") {
+            let fetch_time = new Date(notif.date).toLocaleTimeString('en-US', {
+              hour12: true,
+              hour: 'numeric',
+              minute: 'numeric'
+            });
 
-            notification_list += `<div class="notification" id="notif-cancelled">
+            const yesterday = new Date();
+            yesterday.setDate(today.getDate() - 1);
+
+            if (fetch_date.toLocaleDateString() == today.toLocaleDateString()) {
+              show_date = 'Today'
+            } else if (fetch_date.toLocaleDateString() == yesterday.toLocaleDateString()) {
+              show_date = 'Yesterday'
+            } else {
+              show_date = `${month_name[fetch_month-1]} ${(notif.date).substr(8,2)}, ${(notif.date).substr(0,4)}`;
+            }
+
+            if (notif.type == "Cancelled") {
+
+              notification_list += `<div class="notification" id="notif-cancelled">
           <div class="notification-header-container">
               <div class="header-info">
                   <span class="order-number" style="font-size: 1.3em;">#${(notif.order_id).toString().padStart(10, '0')}</span>
@@ -138,33 +147,33 @@ class Notification {
           </span>
           </div>`;
 
-          } else {
-            if (notif.type == "Completed" || notif.type == "Ready") {
-              notification_list += ` <div class="notification" id="notif-success">`;
-            } else if (notif.type == "Placed" || notif.type == "Confirmed" || notif.type == "Preparing") {
-              notification_list += ` <div class="notification" id="">`;
-            }
+            } else {
+              if (notif.type == "Completed" || notif.type == "Ready") {
+                notification_list += ` <div class="notification" id="notif-success">`;
+              } else if (notif.type == "Placed" || notif.type == "Confirmed" || notif.type == "Preparing") {
+                notification_list += ` <div class="notification" id="">`;
+              }
 
-            notification_list += `  <div class="notification-header-container">
+              notification_list += `  <div class="notification-header-container">
               <div class="header-info">
                   <span class="order-number" style="font-size: 1.3em;">#${(notif.order_id).toString().padStart(10, '0')}</span>`;
-            if (notif.type == "Completed") {
-              notification_list += ` <span class="notification-header ${notif.status}-notification">Thank You for Ordering 💖</span>`;
+              if (notif.type == "Completed") {
+                notification_list += ` <span class="notification-header ${notif.status}-notification">Thank You for Ordering 💖</span>`;
 
-            } else if (notif.type == "Ready") {
-              notification_list += ` <span class="notification-header ${notif.status}-notification">Order Ready for Pickup! 😋</span>`;
+              } else if (notif.type == "Ready") {
+                notification_list += ` <span class="notification-header ${notif.status}-notification">Order Ready for Pickup! 😋</span>`;
 
-            } else if (notif.type == "Placed") {
-              notification_list += ` <span class="notification-header ${notif.status}-notification">Order Placed ✔</span>`;
+              } else if (notif.type == "Placed") {
+                notification_list += ` <span class="notification-header ${notif.status}-notification">Order Placed ✔</span>`;
 
-            } else if (notif.type == "Confirmed") {
-              notification_list += ` <span class="notification-header ${notif.status}-notification">Order Confirmed ✨</span>`;
+              } else if (notif.type == "Confirmed") {
+                notification_list += ` <span class="notification-header ${notif.status}-notification">Order Confirmed ✨</span>`;
 
-            } else if (notif.type == "Preparing") {
-              notification_list += ` <span class="notification-header ${notif.status}-notification">Order on Process 🍳</span>`;
-            }
+              } else if (notif.type == "Preparing") {
+                notification_list += ` <span class="notification-header ${notif.status}-notification">Order on Process 🍳</span>`;
+              }
 
-            notification_list += `      </div>
+              notification_list += `      </div>
               <span class="notification-time" style="white-space: nowrap; text-align:right;">${show_date}<br>${fetch_time}</span>
             </div>
             <div class="notification-body-container">
@@ -174,12 +183,14 @@ class Notification {
             </div>
             <span class="additional-message"></span>
           </div>`;
-          }
+            }
 
-        });
+          });
+        }
+
+
+        document.getElementById("notification_list").innerHTML = notification_list;
       }
-
-      document.getElementById("notification_list").innerHTML = notification_list;
 
     });
   }
