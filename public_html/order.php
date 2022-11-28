@@ -95,14 +95,14 @@ if ($validate->is_logged_in("customer")) {
                         <div class="user-notifications-container">
                             <button class="notification-button">
                                 <i class="fa-solid fa-bell"></i>
+                                <!-- dito lalabas yung  unread notifcount -->
+                                <div class="notification_count" id="notification_count"></div>
                             </button>
 
                             <div class="notifications-panel">
                                 <div class="panel-header-container">
                                     <span class="panel-header">Notifications</span>
                                 </div>
-                                <!-- dito lalabas yung  unread notifcount -->
-                                <div class="notification_count" id="notification_count"></div>
                                 
                                 <div class="notifications-container" id="notification_list"></div>
                             </div>
