@@ -251,15 +251,8 @@ class Order extends DbConnection
     public function claim_order($identifier, $type)
     {
         try {
-            $column_identifier = "";
-            if ($type == "manual") {
-                $column_identifier = "o.order_id";
-            } else {
-                $column_identifier = "o.qr_code";
-            }
-
-            $query = $this->connect()->prepare("SELECT m.price AS price, o.total_price AS total_price, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price -(m.price * (m.discount/100))*l.quantity SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE " . $column_identifier . " = :identifier  GROUP BY l.order_id ORDER BY order_id DESC 
-             ");
+          
+            $query = $this->connect()->prepare("SELECT m.price AS price, o.total_price AS total_price, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price -(m.price * (m.discount/100))*l.quantity SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.order_id = :identifier  GROUP BY l.order_id ORDER BY order_id DESC");
             $query->execute(["identifier" => $identifier]);
 
             if ($query->rowCount() > 0) {
