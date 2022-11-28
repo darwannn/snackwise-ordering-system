@@ -93,8 +93,7 @@ $account->delete_code();
                         <?php
                      }
                         ?>
-                        <!-- dito lalabas yung  unread notifcount -->
-                        <div class="notification_count" id="notification_count"></div>
+                        
                     </ul>
                     <?php
                     /* pang lahatan */
@@ -109,8 +108,10 @@ $account->delete_code();
 
                     ?>
                         <div class="user-notifications-container">
+                            <!-- dito lalabas yung  unread notifcount -->
                             <button class="notification-button">
                                 <i class="fa-solid fa-bell"></i>
+                                <div class="notification_count" id="notification_count"></div>
                             </button>
 
                             <div class="notifications-panel">

@@ -138,12 +138,25 @@
 }
 
 .user-notifications-container .notification-button {
+    position: relative;
     background-color: transparent;
     color: #878787;
     border: none;
-    font-size: 2em;
+    font-size: 2.5em;
     transition: ease-in-out .5s;
 }  
+
+.user-notifications-container .notification-button #notification_count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--snackred);
+  font-size: .4em;
+  color: white;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
 
 .notifications-panel {
     position: absolute;
