@@ -50,15 +50,53 @@ $order = new Order();
     </script>
     <style>
         td:nth-child(9) {
-min-width: 145px!important;
+            min-width: 145px !important;
         }
+
         td:nth-child(3) {
-min-width: 140px!important;
+            min-width: 140px !important;
         }
+
         td:nth-child(2) {
-   white-space:normal!important;
-   width: 100px!important;
-  }
+            white-space: normal !important;
+            width: 80px !important;
+        }
+
+        td:nth-child(5) {
+            white-space: normal !important;
+            width: 100px !important;
+        }
+
+        .dt-table th.dt-sorter::before,
+        .dt-table th.dt-sorter::after {
+            content: "";
+            height: 0;
+            width: 0;
+            position: absolute;
+            right: 5px;
+            margin-top: 5px;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            opacity: 0.3;
+        }
+
+        .dt-table th:nth-child(4).dt-sorter::before,
+        .dt-table th:nth-child(4).dt-sorter::after,
+        .dt-table th:nth-child(5).dt-sorter::before,
+        .dt-table th:nth-child(5).dt-sorter::after,
+        .dt-table th:nth-child(6).dt-sorter::before,
+        .dt-table th:nth-child(6).dt-sorter::after,
+        .dt-table th:nth-child(10).dt-sorter::before,
+        .dt-table th:nth-child(10).dt-sorter::after {
+            display: none;
+        }
+
+        th:nth-child(4),
+        th:nth-child(5),
+        th:nth-child(6),
+        th:nth-child(10) {
+            pointer-events: none;
+        }
     </style>
     <link rel="stylesheet" href="css/notification.css">
 </head>
@@ -74,8 +112,8 @@ min-width: 140px!important;
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title fw-bold h6">Claim</div>
-                        <div  name="qr_close" id="qr_close" style="color:#A3A3A3;"
-                        onclick="new Order().qr_close_modal();"><i class="fa-solid fa-xmark"></i></div>
+                    <div name="qr_close" id="qr_close" style="color:#A3A3A3;" onclick="new Order().qr_close_modal();"><i
+                            class="fa-solid fa-xmark"></i></div>
                 </div>
                 <div class="modal-body">
                     <!-- order to claim will be appended here -->
@@ -87,8 +125,8 @@ min-width: 140px!important;
                     </div>
                     <div>
                         <div class="h6 fw-bold mt-4">Order</div>
-                        <div class="to_claim_order d-flex row mb-5 mx-1 justify-content-start"
-                            id="to_claim_order"></div>
+                        <div class="to_claim_order d-flex row mb-5 mx-1 justify-content-start" id="to_claim_order">
+                        </div>
                     </div>
                     <div>
                         <div class="h6 fw-bold mt-4">SUBTOTAL</div>
@@ -96,27 +134,19 @@ min-width: 140px!important;
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" name="qr_confirm" id="qr_confirm"
-                        class="btn btn-success w-25" onclick=" new Order().claim_order();">Confirm</button>
-                
+                    <button type="button" name="qr_confirm" id="qr_confirm" class="btn btn-success w-25"
+                        onclick=" new Order().claim_order();">Confirm</button>
+
                 </div>
             </div>
         </div>
     </div>
 
-
-
     <div class="container my-5">
-
-
-
         <div class="card">
-
             <div class="card-header ">
                 <h3 class="text-center">Order</h3>
-
             </div>
-
             <div class="card-body">
 
                 <!-- QR scanner -->
@@ -130,14 +160,13 @@ min-width: 140px!important;
                             <th>#</th>
                             <th>Customer Name</th>
                             <th>order</th>
-                            <th>Quantity</th>
+                            <th>Contact</th>
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Status</th>
                             <th>Actions</th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -147,47 +176,37 @@ min-width: 140px!important;
             </div>
         </div>
     </div>
-
-
-
     <!-- modal to edit an order -->
     <div id="order_modal">
         <form method="post" id="order_form">
-                        <input type="hidden" name="order_id" id="order_id" />
-                            <input type="date" class="form-control" name="date" id="date" />
-                            <input type="time" class="form-control" name="time" id="time" />
+            <input type="hidden" name="order_id" id="order_id" />
+            <input type="date" class="form-control" name="date" id="date" />
+            <input type="time" class="form-control" name="time" id="time" />
 
-                            <select name="status" id="status" class="form-select">
-                                <option value="Placed">Placed</option>
-                                <option value="Confirmed">Confirmed</option>
-                                <option value="Preparing">Preparing</option>
-                                <option value="Ready">Ready</option>
-                            </select> 
+            <select name="status" id="status" class="form-select">
+                <option value="Placed">Placed</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Preparing">Preparing</option>
+                <option value="Ready">Ready</option>
+            </select>
         </form>
     </div>
 
-
-
-
-
-
-
     <!-- modal to delete an order -->
-
     <div id="del_notif_modal" class="modal ">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header ">
                     <div class="modal-title" id="modal_title">Delete</div>
-  
-                    <div style="color:#A3A3A3;" id="close_del_notif"
-                        onclick="new Order().close_del_notif();"><i class="fa-solid fa-xmark"></i></div>
+
+                    <div style="color:#A3A3A3;" id="close_del_notif" onclick="new Order().close_del_notif();"><i
+                            class="fa-solid fa-xmark"></i></div>
                 </div>
                 <div class="modal-body">
                     <form method="post" id="del_notif_form">
                         <input type="text" name="order_id" id="del_notif_order_id" />
                         <input type="text" name="user_id" id="del_notif_user_id" />
-                    
+
                         <div>
                             <div class="h6 fw-bold">Information</div>
                             <div class="to_delete_info" id="to_delete_info"></div>
@@ -197,7 +216,7 @@ min-width: 140px!important;
                             <div class="to_delete_order d-flex row mb-5 mx-1 justify-content-start"
                                 id="to_delete_order"></div>
                         </div>
-                       
+
 
                         <label for="del_notif">Reason</label>
                         <input list="del_list" name="del_notif" id="del_notif" class="form-control" />
@@ -206,13 +225,11 @@ min-width: 140px!important;
                         </datalist>
                         <span id="del_notif_error"></span>
                     </form>
-
-
-
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="del_notif_button" class="btn btn-success w-25" onclick="new Order().staff_delete_order();">Delete</button>
-    
+                    <button type="button" id="del_notif_button" class="btn btn-success w-25"
+                        onclick="new Order().staff_delete_order();">Delete</button>
+
                 </div>
             </div>
         </div>
@@ -228,14 +245,14 @@ min-width: 140px!important;
 <script type="text/javascript" src="js/Order.js"></script>
 <script src="js/Notification.js"></script>
 <script>
-     /* instantiate JSTable class */
-     let table = new JSTable("#order_table", {
+    /* instantiate JSTable class */
+    let table = new JSTable("#order_table", {
         serverSide: true,
         deferLoading: <?php echo $order->count_all_data();?> ,
         ajax : "php/controller/f_order.php"
     });
 
-order = new Order(table);
+    order = new Order(table);
     order.staff_order();
 </script>
 

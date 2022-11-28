@@ -154,7 +154,7 @@ class Menu extends DbConnection
 			<td>' . $row["menu_name"] . '</td>
 			<td>' . $row["description"] . '</td>
 			<td>' . $row["cat_name"] . '</td>
-			<td>' . $row["discount"] . '</td>
+			<td>' . $row["discount"] . '%</td>
 			<td>' . $row["price"] . '</td>
 			<td>' . $row["date"] . '</td>
 			<td>' . $row["availability"] . '</td>
@@ -226,8 +226,8 @@ class Menu extends DbConnection
 			$sub_array[] = $row['menu_name'];
 			$sub_array[] = $row['description'];
 			$sub_array[] = $row['cat_name'];
-			$sub_array[] = $row['discount'];
-			$sub_array[] = $row['price'];
+			$sub_array[] = $row['discount']."%";
+			$sub_array[] = "PHP ".$row['price'];
 			$sub_array[] = $row['date'];
 			$sub_array[] = $row['availability'];
 			$sub_array[] = '<td> <img src= "https://res.cloudinary.com/dhzn9musm/image/upload/' . $row["image"] . '" width="70px" height="70px"></td>';

@@ -31,7 +31,7 @@
     background: linear-gradient(to right, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%)
 }
 
-.dt-top{
+.dt-top {
     padding: 10px 0px;
     display: flex;
 
@@ -58,8 +58,9 @@
 .dt-search {
     width: 100%;
     margin-left: 10px;
-   
+
 }
+
 .dt-input {
     padding: 5px 12px;
     width: 100%;
@@ -154,19 +155,6 @@
     padding-right: 20px
 }
 
-.dt-table th.dt-sorter::before,
-.dt-table th.dt-sorter::after {
-    content: "";
-    height: 0;
-    width: 0;
-    position: absolute;
-    right: 7px;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    opacity: 0.2;
-    display: none;
-}
-
 .dt-table th.dt-sorter::before {
     border-top: 4px solid #000;
     top: 18px
@@ -192,20 +180,25 @@
     border: #000 solid 1px;
 }
  */
- .dt-info {
-    margin-top: -10px!important;
- }
+.dt-info {
+    margin-top: -10px !important;
+}
 
-  td {
+td {
 
-   vertical-align: middle!important;
+    vertical-align: middle !important;
 
-  }
+}
 
-  td:nth-child(3) {
-   white-space:normal!important;
-  }
+td:nth-child(3) {
+    white-space: normal !important;
+}
 
-  td,th {
-    text-align: center!important;
-  }
+td,
+th {
+    text-align: center !important;
+}
+
+/* th {
+    padding-left: 15px!important;
+} */

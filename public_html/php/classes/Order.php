@@ -365,7 +365,7 @@ class Order extends DbConnection
             <td>' . $row["customer_name"] . '</td>
             <td>' . $row["menu_name"] . '</td>
             <td>' . $row["contact"]  . '</td>
-            <td>' . $row["price_list"] . '</td>
+            <td>PHP ' . $row["price_list"] . '</td>
             <td>' . $row["quantity_list"] . '</td>
             <td> <input min="' . date('Y-m-d') . '" type="date" class="form-control" name="date" id="' . $row["order_id"] . 'new-date" value="' . $row["date"] . '" onchange="new Order().fetch_selected_order(' . $row["order_id"] . ',`new`)"/></td>
             <td> <input type="time" class="form-control" name="time" id="' . $row["order_id"] . 'new-time" value="' . $row["time"] . '" onchange="new Order().fetch_selected_order(' . $row["order_id"] . ',`new`)"/></td>
@@ -409,7 +409,7 @@ class Order extends DbConnection
         $sortColumnIndex = filter_input(INPUT_GET, "sortColumn", FILTER_SANITIZE_NUMBER_INT);
         $sortDirection = filter_input(INPUT_GET, "sortDirection", FILTER_SANITIZE_STRING);
 
-        $column = array("o.order_id", "u.firstname", "", "", "", "", "o.date", "o.time", "", "");
+        $column = array("o.order_id", "customer_name", "menu_name", "quantity_list", "price_list", "u.contact", "o.date", "o.time", "o.status", "");
         $sql = "SELECT m.price AS price, u.contact, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price -(m.price * (m.discount/100))*l.quantity SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id";
         $status = 'Cancelled';
 
