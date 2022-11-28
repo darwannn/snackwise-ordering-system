@@ -64,6 +64,7 @@ class Notification {
     }).then(function (response_data) {
       console.log(response_data);
       if ((response_data.notification_count) >= 1) {
+        document.getElementById('notification_count').style.display = "block";
         document.getElementById("notification_count").innerHTML = response_data.notification_count;
       } else if ((response_data.notification_count) <= 0) {
         document.getElementById("notification_count").innerHTML = "0";

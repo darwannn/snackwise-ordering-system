@@ -311,5 +311,8 @@
     font-style: italic;
 }
 
+#notification_count {
+  display: none;
+}
 /* END OF NOTIFICATION DROPDOWN */
 
