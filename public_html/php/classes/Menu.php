@@ -62,7 +62,7 @@ class Menu extends DbConnection
 		echo json_encode($output);
 	}
 
-	/* -------------------- STAFF -------------------- */
+	/* -------------------- ADMIN -------------------- */
 	/* -------------------- edit-menu.php */
 	public function add_menu($menu_id, $name, $description, $category, $discount, $price, $date, $availability, $image)
 	{
@@ -156,7 +156,7 @@ class Menu extends DbConnection
 			<td>' . $row["cat_name"] . '</td>
 			<td>' . $row["discount"] . '%</td>
 			<td>PHP ' . $row["price"] . '</td>
-			<td>' . $row["date"] . '</td>
+			<td>' . date("F d, Y", strtotime($row["date"])) . '</td>
 			<td>' . $row["availability"] . '</td>
 			<td> <img src= "https://res.cloudinary.com/dhzn9musm/image/upload/' . $row["image"] . '" width="70px" height="70px"></td>
 			<td>
@@ -166,6 +166,7 @@ class Menu extends DbConnection
 		</tr>
 		';
 		}
+	
 		return $output;
 	}
 
@@ -228,7 +229,7 @@ class Menu extends DbConnection
 			$sub_array[] = $row['cat_name'];
 			$sub_array[] = $row['discount']."%";
 			$sub_array[] = "PHP ".$row['price'];
-			$sub_array[] = $row['date'];
+			$sub_array[] = date("F d, Y", strtotime($row["date"]));
 			$sub_array[] = $row['availability'];
 			$sub_array[] = '<td> <img src= "https://res.cloudinary.com/dhzn9musm/image/upload/' . $row["image"] . '" width="70px" height="70px"></td>';
 			$sub_array[] = '<button type="button" onclick="new Menu().fetch_selected_menu(' . $row["menu_id"] . ')" class="btn btn-edit"><i class="fa-solid fa-pen"></i></button>&nbsp;

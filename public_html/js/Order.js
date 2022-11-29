@@ -5,7 +5,8 @@ class Order {
         this.qr_code_id = "";
         this.table = table;
         this.month_name = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"];
+            "July", "August", "September", "October", "November", "December"
+        ];
     }
 
     customer_order() {
@@ -54,6 +55,7 @@ class Order {
                 console.error('No cameras found.');
             }
         }).catch(function (e) {
+            console.log(e);
             new Notification().create_notification("Cannot access camera. Please refresh the page", "error");
         });
     }
@@ -74,9 +76,9 @@ class Order {
             return response.json();
         }).then(function (response_data) {
             let order_list = "";
-/* console.log(response_data.data[0].total_order_price); */
+            /* console.log(response_data.data[0].total_order_price); */
             console.log(response_data);
-         
+
             if (response_data.error) {
                 let no_order = `
                 <div class="no-orders-container">
@@ -86,23 +88,30 @@ class Order {
                 `;
                 document.getElementById("order_list").innerHTML = no_order;
             } else {
-               
+
                 let status_class = "";
                 let order_status = "";
                 response_data.data.map(function (order) {
-                        order_status = new Order().get_status_text(order.status);
-                        status_class = new Order().get_status_style(order.status);
+                    order_status = new Order().get_status_text(order.status);
+                    status_class = new Order().get_status_style(order.status);
 
-                        order_list += `
+                 let show_date=  new Order().get_date_format(order.date);
+                 let fetch_time=  new Order().get_time_format(order.time);
+                    order_list += `
                     <div class="order-item">
                     <div class="order-details-row">
                         <div class="order-no-container">
                             <span>Order No.</span>
                             <span class="order-number">${(order.order_id).toString().padStart(10, '0')}</span>
                         </div>
-                        <div class="order-date-container">
-                            <span>${`${new Order().month_name[((order.date).substr(5,2))-1]} ${(order.date).substr(8,2)}, ${(order.date).substr(0,4)}`}</span>
-                        </div>
+                        <div class="order-date-container">`;
+                        if (category == "Completed" || category == "details-completed" ) {
+                            order_list += `      <span>${`${show_date}`}</span>`;
+                        } else {
+                            order_list += `      <span>${`${show_date} | ${fetch_time}`}</span>`;
+                        }
+                  
+                        order_list += `  </div>
                     </div>
                     <div class="order-details-row">
                         <div class="quantity-container">
@@ -122,15 +131,15 @@ class Order {
                         </div>
                     </div>
                 </div>
-            `;    
+            `;
                 });
                 document.getElementById("order_list").innerHTML = order_list;
             }
-             
+
         });
     }
 
-    display_details(order_id,category,price) {
+    display_details(order_id, category, price) {
         let form_data = new FormData();
         form_data.append('display_details', 'display_details');
         form_data.append('order_id', order_id);
@@ -146,23 +155,27 @@ class Order {
             let single_order = response_data.data[0];
             new Order().open_order_details();
             let order_details_list = "";
-       
+
             let status_class = "";
             let order_status = "";
 
             order_status = new Order().get_status_text(single_order.status);
             status_class = new Order().get_status_style(single_order.status);
+            
+            let show_date=  new Order().get_date_format(single_order.date);
+            let fetch_time=  new Order().get_time_format(single_order.time);
+
             let qr_image = "";
 
-        if(single_order.qr_image == null) {
-        qr_image = ` 
+            if (single_order.qr_image == null) {
+                qr_image = ` 
         <img src='img/no-qr.jpg' width='100px' height='100px' ></img>
     `;
-        } else {
-            qr_image = ` <a  href='https://res.cloudinary.com/dhzn9musm/image/upload/${single_order.qr_image}' target="_blank" >
+            } else {
+                qr_image = ` <a  href='https://res.cloudinary.com/dhzn9musm/image/upload/${single_order.qr_image}' target="_blank" >
             <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${single_order.qr_image}' width='100px' height='100px' ></img>
         </a>`;
-        }
+            }
             order_details_list += `
                 <div class="content-container">
                 <div class="closing-bar">
@@ -174,9 +187,13 @@ class Order {
                     <div class="header-col with-details">
                         <span class="order-number-label">Order No.:</span>
                         <span class="order-number">${(single_order.order_id).toString().padStart(10, '0')}</span><br>
-                        <span class="label">Order Date:</span>
-                        <span class="order-date value">${`${new Order().month_name[((single_order.date).substr(5,2))-1]} ${(single_order.date).substr(8,2)}, ${(single_order.date).substr(0,4)}`}</span><br>
-                        <span class="label">Status:</span>
+                        `;
+                        if (category == "Completed" || category == "details-completed" ) {
+                            order_details_list += `<span class="label">Date Claimed:</span><span class="order-date value">${` ${`${show_date}`}`}</span><br>`;
+                        } else {
+                            order_details_list += `<span class="label">Order Date:</span><span class="order-date value">${` ${`${show_date} | ${fetch_time}`}`}</span><br>`;
+                        }
+                        order_details_list += ` <span class="label">Status:</span>
                         <span class="status ${status_class} status-value"> ${order_status}</span>
                     </div>
                     <div class="header-col">
@@ -214,13 +231,13 @@ class Order {
                         <span>Subtotal: </span>
                     </div>
                     <div class="footer-col">
-                        <span class="sub-total">PHP ${parseFloat(price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                        <span class="sub-total">PHP ${parseFloat(single_order.total_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                     </div>
                 </div>
                 <div class="cancel-bar">`;
             if (single_order.status == "Placed") {
                 order_details_list += `<button type="button" class="btn btn-danger cancel-btn" name='delete_order'  onclick="new Order().delete_order(${single_order.order_id});">Cancel Order</button>`;
-            } else  if (single_order.status == null) {
+            } else if (single_order.status == null || single_order.status == "Completed" || single_order.status == "Cancelled") {
                 order_details_list += `<button type="button" class="btn btn-danger cancel-btn" name='delete_order' style="visibility:hidden;"></button>`;
             } else {
                 order_details_list += `<button type="button" class="btn btn-danger cancel-btn" name='delete_order'  onclick="new Order().delete_order(${single_order.order_id});" disabled>Cancel Order</button>`;
@@ -258,7 +275,34 @@ class Order {
             });
         }
     }
+    
+    get_date_format(date) {
+        let show_date = "";
+        let fetch_month = (date).substr(5, 2);
+        let today = new Date();
+        let fetch_date = new Date(date.substr(0, 10));
 
+        const yesterday = new Date();
+        yesterday.setDate(today.getDate() - 1);
+
+        if (fetch_date.toLocaleDateString() == today.toLocaleDateString()) {
+            show_date = 'Today'
+        } else if (fetch_date.toLocaleDateString() == yesterday.toLocaleDateString()) {
+            show_date = 'Yesterday'
+        } else {
+            show_date = `${new Order().month_name[fetch_month-1]} ${(date).substr(8,2)}, ${(date).substr(0,4)}`;
+        }
+        return show_date;
+    }
+
+    get_time_format(time) {
+        let fetch_time = new Date("2020-10-10 " + time).toLocaleTimeString('en-US', {
+            hour12: true,
+            hour: 'numeric',
+            minute: 'numeric'
+        });
+        return fetch_time;
+    }
 
 
     /* -------------------- STAFF -------------------- */
@@ -323,13 +367,13 @@ class Order {
                     <div>${order.firstname} ${order.lastname}</div>
                     <div>${order.date}</div>
                     `;
-                    document.getElementById("to_claim_order_id").value = order.order_id;
-                    document.getElementById("to_claim_type").value = type;
+                document.getElementById("to_claim_order_id").value = order.order_id;
+                document.getElementById("to_claim_type").value = type;
 
-                    for (let i = 0; i < prices.length; i++) {
-                       
+                for (let i = 0; i < prices.length; i++) {
 
-                        to_claim_order += `
+
+                    to_claim_order += `
                             <div class="pb-2" style="margin:7px;box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
                             border-radius: 20px; width:30%;">
                             <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${images[i]}'  class="w-100"></img>
@@ -337,7 +381,7 @@ class Order {
                             </div>  
                         `;
                 };
-                        to_claim_price += `
+                to_claim_price += `
                             <div class="text-end fw-bold h6">PHP ${parseFloat(order.total_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                         `;
                 if (type == "delete") {
@@ -358,6 +402,7 @@ class Order {
 
 
     }
+
 
     toggle_camera() {
         if (document.getElementById("preview").style.display == "none") {
@@ -461,7 +506,7 @@ class Order {
                 dataRemoved();
                 table.update();
                 new Order().close_del_notif();
-        
+
             } else if (response_data.error) {
                 new Notification().create_notification(response_data.error, "error");
             }

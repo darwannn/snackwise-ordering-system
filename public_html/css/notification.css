@@ -314,5 +314,8 @@
 #notification_count {
   display: none;
 }
-/* END OF NOTIFICATION DROPDOWN */
 
+.notification {
+  cursor:pointer;
+}
+/* END OF NOTIFICATION DROPDOWN */

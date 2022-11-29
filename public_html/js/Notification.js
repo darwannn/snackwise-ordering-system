@@ -13,28 +13,18 @@ class Notification {
         if (!notifOpen) {
           notificationPanel.style.display = "flex";
           notifOpen = true;
+          new Notification().update_notification();
         } else {
           notificationPanel.style.display = "none";
           notifOpen = false;
-          new Notification().update_notification();
           document.getElementById('notification_count').style.display = "none";
+          new Notification().notification_count();
+          new Notification().display_notification();
         }
       })
     }
   }
 
-  /* hides or shows notifications */
-  toggle_notification() {
-    if (document.getElementById("notification_list").style.display == "none") {
-      new Notification().display_notification();
-      document.getElementById("notification_list").style.display = "block";
-      console.log("block");
-    } else {
-      new Notification().update_notification();
-      document.getElementById("notification_list").style.display = "none";
-      console.log("none");
-    }
-  }
 
   /* changes the status of notification from unread to read  */
   update_notification() {
@@ -46,8 +36,7 @@ class Notification {
     }).then(function (response) {
       return response.json();
     }).then(function (response_data) {
-      new Notification().notification_count();
-      new Notification().display_notification();
+    
     });
   }
 
@@ -103,14 +92,10 @@ class Notification {
         } else {
           response_data.data.map(function (notif) {
 
-
-
-
-
             let fetch_month = (notif.date).substr(5, 2);
             let today = new Date();
             let fetch_date = new Date(notif.date.substr(0, 10));
-
+            let notif_type = "";
             let fetch_time = new Date(notif.date).toLocaleTimeString('en-US', {
               hour12: true,
               hour: 'numeric',
@@ -119,6 +104,13 @@ class Notification {
 
             const yesterday = new Date();
             yesterday.setDate(today.getDate() - 1);
+
+
+            if (notif.type != "Completed") {
+              notif_type = 'details';
+            } else  {
+              notif_type = 'Completed';
+            }
 
             if (fetch_date.toLocaleDateString() == today.toLocaleDateString()) {
               show_date = 'Today'
@@ -130,7 +122,7 @@ class Notification {
 
             if (notif.type == "Cancelled") {
 
-              notification_list += `<div class="notification" id="notif-cancelled">
+              notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type};'">
           <div class="notification-header-container">
               <div class="header-info">
                   <span class="order-number" style="font-size: 1.3em;">#${(notif.order_id).toString().padStart(10, '0')}</span>
@@ -155,7 +147,7 @@ class Notification {
                 notification_list += ` <div class="notification" id="">`;
               }
 
-              notification_list += `  <div class="notification-header-container">
+              notification_list += `  <div class="notification-header-container"  onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">
               <div class="header-info">
                   <span class="order-number" style="font-size: 1.3em;">#${(notif.order_id).toString().padStart(10, '0')}</span>`;
               if (notif.type == "Completed") {
@@ -195,6 +187,7 @@ class Notification {
 
     });
   }
+
 
   /* creates  and display a notification */
   create_notification(message, type) {

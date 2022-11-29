@@ -48,6 +48,11 @@ $menu = new Menu();
             white-space: normal !important;
             width: 100px !important;
         }
+ 
+        td:nth-child(7) {
+            white-space: normal !important;
+            width: 145px !important;
+        }
 
         td:nth-child(3) {
             white-space: normal !important;
@@ -113,6 +118,10 @@ $menu = new Menu();
             right: 23px;
         }
 
+        .dt-table th:nth-child(5).dt-sorter::before,
+        .dt-table th:nth-child(5).dt-sorter::after,
+        .dt-table th:nth-child(6).dt-sorter::before,
+        .dt-table th:nth-child(6).dt-sorter::after,
         .dt-table th:nth-child(9).dt-sorter::before,
         .dt-table th:nth-child(9).dt-sorter::after,
         .dt-table th:nth-child(10).dt-sorter::before,
@@ -120,6 +129,8 @@ $menu = new Menu();
             display: none;
         }
 
+        th:nth-child(5),
+        th:nth-child(6),
         th:nth-child(9),
         th:nth-child(10) {
             pointer-events: none;
@@ -194,7 +205,7 @@ $menu = new Menu();
                     <div class="modal-header ">
 
                         <div class="modal-title h6 fw-bold" id="modal_title">Add</div>
-                        <div style="color:#A3A3A3; " id="close_menu"><i class="fa-solid fa-xmark"></i></div>
+                        <div style="color:#A3A3A3; " id="close_menu"><i class="fa-solid fa-xmark" onclick="new Menu().close_menu();"></i></div>
                     </div>
 
 
@@ -271,20 +282,14 @@ $menu = new Menu();
                             <div style="width: 100%; height:100%; border:1px solid black; position:relative" id="image_container">
                                 <button type="button" class="upload_image " id="upload_image" style="position:absolute; width:100%; height:100%; opacity:0; z-index:100;"></button>
                                 <img class="show_menu_image" id="show_menu_image" src="" style="position:absolute; width:100%; height:100%; object-fit:contain;">
-                                <!--  <div class="d-flex align-items-center justify-content-center">upload Image here</div> -->
                             </div>
                             <span class="input_error" id="image_error"></span>
                         </div>
-                        <!--  <input type="hidden" name="action_menu" id="action_menu" value="Add" />
-                   
-                        
-                        <button type="button" class="btn btn-success btn-add w-100" id="action_menu_button" value="Add">Add</button> -->
 
                     </div>
 
                     <div class="modal-footer">
                         <input type="hidden" name="action_menu" id="action_menu" value="Add" />
-                        <!--     <button type="button" class="btn btn-danger w-25" id="close_menu">Close</i></button> -->
 
                         <button type="button" class="btn btn-success btn-add w-25" id="action_menu_button" value="Add">Add</button>
 
@@ -304,8 +309,6 @@ $menu = new Menu();
 <script src="js/Notification.js"></script>
 
 <script>
-    let edit_menu = new Menu();
-
     /* instantiate JSTable class */
     var table = new JSTable("#menu_table", {
         serverSide: true,
@@ -313,30 +316,8 @@ $menu = new Menu();
         ajax: "php/controller/f_menu.php"
     });
 
-    edit_menu.upload_image();
-    edit_menu.close_menu();
+    new Menu().edit_menu();
 
-    /* invoked when the user clicks the add menu button,
-    it clears all the value of the input before opening the modal where staff can input menu information */
-    document.getElementById('add_data').onclick = function() {
-
-        /* gets and displays the current date to the date field */
-        document.getElementById('date').flatpickr({
-            minDate: "today",
-            defaultDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-        });
-        edit_menu.reset_input();
-        edit_menu.open_menu();
-    }
-
-    document.getElementById('close_menu').onclick = function() {
-        edit_menu.close_menu();
-    }
-
-    document.getElementById('action_menu_button').onclick = function() {
-        edit_menu.add_button = true;
-        edit_menu.action_menu_button();
-    }
 </script>
 
 </html>

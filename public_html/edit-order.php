@@ -285,6 +285,7 @@ $order = new Order();
 
     order = new Order(table);
     order.staff_order();
+    
 </script>
 
 </html>
