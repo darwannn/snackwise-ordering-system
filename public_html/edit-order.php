@@ -80,6 +80,31 @@ $order = new Order();
             opacity: 0.3;
         }
 
+        .dt-table th:nth-child(1).dt-sorter::before,
+        .dt-table th:nth-child(1).dt-sorter::after {
+            right: 10px;
+        }
+        .dt-table th:nth-child(2).dt-sorter::before,
+        .dt-table th:nth-child(2).dt-sorter::after {
+            right: 9px;
+        }
+        .dt-table th:nth-child(3).dt-sorter::before,
+        .dt-table th:nth-child(3).dt-sorter::after {
+            right: 20px;
+        }
+        .dt-table th:nth-child(7).dt-sorter::before,
+        .dt-table th:nth-child(7).dt-sorter::after {
+            right: 40px;
+        }
+        .dt-table th:nth-child(8).dt-sorter::before,
+        .dt-table th:nth-child(8).dt-sorter::after {
+            right: 22px;
+        }
+        .dt-table th:nth-child(9).dt-sorter::before,
+        .dt-table th:nth-child(9).dt-sorter::after {
+            right: 19px;
+        }
+
         .dt-table th:nth-child(4).dt-sorter::before,
         .dt-table th:nth-child(4).dt-sorter::after,
         .dt-table th:nth-child(5).dt-sorter::before,
@@ -96,6 +121,12 @@ $order = new Order();
         th:nth-child(6),
         th:nth-child(10) {
             pointer-events: none;
+        }
+        .input_error {
+            position: relative;
+/*             top: -3px; */
+            font-size: 14px;
+            color: red;
         }
     </style>
     <link rel="stylesheet" href="css/notification.css">
@@ -159,13 +190,13 @@ $order = new Order();
                         <tr>
                             <th>#</th>
                             <th>Customer Name</th>
-                            <th>order</th>
-                            <th>Contact</th>
+                            <th>Order Name</th>
+                            <th>Contact No.</th>
                             <th>Price</th>
                             <th>Quantity</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Status</th>
+                            <th>Pickup Date</th>
+                            <th>Pickup Time</th>
+                            <th>Order Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -221,9 +252,9 @@ $order = new Order();
                         <label for="del_notif">Reason</label>
                         <input list="del_list" name="del_notif" id="del_notif" class="form-control" />
                         <datalist id="del_list">
-                            <option>Item Unvailable</option>
+                            <option>Item Unavailable</option>
                         </datalist>
-                        <span id="del_notif_error"></span>
+                        <span class="input_error" id="del_notif_error"></span>
                     </form>
                 </div>
                 <div class="modal-footer">

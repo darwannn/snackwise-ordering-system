@@ -6,8 +6,6 @@ require_once dirname(__FILE__) . '/../classes/Validate.php';
 $order = new Order();
 $validate = new Validate();
 
-
-
 /* order.php */
 if (isset($_POST["display_order"])) {
     $category = $_POST['category'];
@@ -58,28 +56,11 @@ $type = $_POST['type'];
     $order->order_fetch_info($identifier,$type);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* -------------------- Staff -------------------- */
-/* -------------------- staff */
+/* -------------------- edit-order.php */
 if (isset($_POST["action_order"])) {
 
     if ($_POST['action_order'] == 'Update') {
-
-
         $order_id = $_POST["order_id"];
         $date = $_POST["date"];
         $time = $_POST["time"];
@@ -93,23 +74,14 @@ if (isset($_POST["action_order"])) {
             
         }
     }
-   
-
-
-
 
     if ($_POST['action_order'] == 'delete') {
 
         $del_notif = $_POST['del_notif'];
-        
-        
         $order_id = $_POST['order_id'];
         $user_id = $_POST['user_id'];
-        $validate->validate_length($del_notif,'','del_notif_error', 'Required' );
-       
+        $validate->validate_length($del_notif,'','del_notif_error', 'Required field' );
 
-
-        
         if (count($validate->output) > 0) {
             echo json_encode($validate->output);
         } else {
@@ -122,10 +94,3 @@ if (isset($_POST['fetch_selected_order'])) {
     $order_id = $_POST['order_id'];
     $order->fetch_selected_order( $order_id);
 }
-
-
-/* 
-if (isset($_POST["display_menu"])) {
-    $order->display_menu();
-}
- */

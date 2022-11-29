@@ -155,7 +155,7 @@ class Menu extends DbConnection
 			<td>' . $row["description"] . '</td>
 			<td>' . $row["cat_name"] . '</td>
 			<td>' . $row["discount"] . '%</td>
-			<td>' . $row["price"] . '</td>
+			<td>PHP ' . $row["price"] . '</td>
 			<td>' . $row["date"] . '</td>
 			<td>' . $row["availability"] . '</td>
 			<td> <img src= "https://res.cloudinary.com/dhzn9musm/image/upload/' . $row["image"] . '" width="70px" height="70px"></td>

@@ -67,6 +67,52 @@ $menu = new Menu();
             opacity: 0.3;
         }
 
+        
+        .dt-table th:nth-child(1).dt-sorter::before,
+        .dt-table th:nth-child(1).dt-sorter::after {
+            right: 15px;
+        }
+
+        
+        .dt-table th:nth-child(2).dt-sorter::before,
+        .dt-table th:nth-child(2).dt-sorter::after {
+            right: 22px;
+        }
+
+        
+        .dt-table th:nth-child(3).dt-sorter::before,
+        .dt-table th:nth-child(3).dt-sorter::after {
+            right: 54px;
+        }
+
+        
+        .dt-table th:nth-child(4).dt-sorter::before,
+        .dt-table th:nth-child(4).dt-sorter::after {
+            right: 21px;
+        }
+
+        
+        .dt-table th:nth-child(5).dt-sorter::before,
+        .dt-table th:nth-child(5).dt-sorter::after {
+            right: 25px;
+        }
+
+        
+        .dt-table th:nth-child(6).dt-sorter::before,
+        .dt-table th:nth-child(6).dt-sorter::after {
+            right: 25px;
+        }
+
+        
+        .dt-table th:nth-child(7).dt-sorter::before,
+        .dt-table th:nth-child(7).dt-sorter::after {
+            right: 23px;
+        }
+        .dt-table th:nth-child(8).dt-sorter::before,
+        .dt-table th:nth-child(8).dt-sorter::after {
+            right: 23px;
+        }
+
         .dt-table th:nth-child(9).dt-sorter::before,
         .dt-table th:nth-child(9).dt-sorter::after,
         .dt-table th:nth-child(10).dt-sorter::before,
@@ -77,6 +123,14 @@ $menu = new Menu();
         th:nth-child(9),
         th:nth-child(10) {
             pointer-events: none;
+        }
+
+        
+        .input_error {
+            position: relative;
+           /*  top: -3px; */
+            font-size: 14px;
+            color: red;
         }
     </style>
     <title></title>
@@ -112,9 +166,9 @@ $menu = new Menu();
                             <th>Name</th>
                             <th>Desciption</th>
                             <th>Categoty</th>
-                            <th>Discount (%)</th>
+                            <th>Discount(%)</th>
                             <th>Price</th>
-                            <th>Date</th>
+                            <th>Date Added</th>
                             <th>Availability</th>
                             <th>Image</th>
                             <th>Actions</th>
@@ -148,19 +202,19 @@ $menu = new Menu();
                         <input type="hidden" name="menu_id" id="menu_id" class="" />
 
                         <div class="form-group mt-2">
-                            <label class="form-label" for="name">name</label>
+                            <label class="form-label" for="name">Name</label>
                             <input type="text" class="form-control" name="name" id="name" />
-                            <span class="" id="name_error"></span>
+                            <span class="input_error" id="name_error"></span>
                         </div>
 
                         <div class="form-group mt-2">
-                            <label class="form-label" for="description">description</label>
+                            <label class="form-label" for="description">Description</label>
                             <input type="text" class="form-control" name="description" id="description" />
-                            <span class="" id="description_error"></span>
+                            <span class="input_error" id="description_error"></span>
                         </div>
 
                         <div class="form-group mt-2">
-                            <label class="form-label" for="category">category</label>
+                            <label class="form-label" for="category">Category</label>
                             <select class="form-control" name="category" id="category">
                                 <option value="none" style="display: none; opacity:0;">Category</option>
 
@@ -181,21 +235,21 @@ $menu = new Menu();
                         </div>
 
                         <div class="form-group mt-2">
-                            <label class="form-label" for="discount">discount</label>
+                            <label class="form-label" for="discount">Discount(%)</label>
                             <input type="text" class="form-control" name="discount" id="discount" />
-                            <span class="" id="discount_error"></span>
+                            <span class="input_error" id="discount_error"></span>
                         </div>
 
                         <div class="form-group mt-2">
-                            <label class="form-label" for="price">price</label>
+                            <label class="form-label" for="price">Price</label>
                             <input type="text" class="form-control" name="price" id="price" />
-                            <span class="" id="price_error"></span>
+                            <span class="input_error" id="price_error"></span>
                         </div>
 
                         <div class="form-group mt-2">
-                            <label class="form-label" for="date">date</label>
+                            <label class="form-label" for="date">Date</label>
                             <input type="date" class="form-control" name="date" id="date" />
-                            <span class="" id="date_error"></span>
+                            <span class="input_error" id="date_error"></span>
                         </div>
 
                         <div class="form-group mt-2">
@@ -205,7 +259,7 @@ $menu = new Menu();
                                 <option value="Available" selected>Available</option>
                                 <option value="Unavailable">Unavailable</option>
                             </select>
-                            <span class="" id="availability_error"></span>
+                            <span class="input_error" id="availability_error"></span>
                         </div>
 
                         <input type="text" name="edit_menu_image" id="edit_menu_image" style="display:none;" />
@@ -219,7 +273,7 @@ $menu = new Menu();
                                 <img class="show_menu_image" id="show_menu_image" src="" style="position:absolute; width:100%; height:100%; object-fit:contain;">
                                 <!--  <div class="d-flex align-items-center justify-content-center">upload Image here</div> -->
                             </div>
-                            <span class="" id="image_error"></span>
+                            <span class="input_error" id="image_error"></span>
                         </div>
                         <!--  <input type="hidden" name="action_menu" id="action_menu" value="Add" />
                    
