@@ -67,20 +67,16 @@ if (isset($_GET["staff"]) == 1) {
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-12 form-group">
-                        <!-- <label for="firstname">First Name</label> -->
                         <input type="text" class="m-2" name="firstname" id="firstname" placeholder="First Name" value="" autocomplete="off">
                         <span class="input_error" id="firstname_error"></span>
                     </div>
                     <div class="col-md-6 col-12 form-group">
-                        <!-- <label for="lastname">Last Name </label> -->
                         <input type="text" class="m-2" name="lastname" id="lastname" placeholder="Last Name" value="" autocomplete="off">
                         <span class="input_error" id="lastname_error"></span>
-
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <!-- <label for="contact">Contact Number</label> -->
                         <input type="text" class="m-2" name="contact" id="contact" placeholder="Contact Number (09XXXXXXXXX)" value="" autocomplete="off">
                         <span class="input_error" id="contact_error"></span>
                     </div>
@@ -94,7 +90,6 @@ if (isset($_GET["staff"]) == 1) {
 
                 <div class="row">
                     <div class="col form-group">
-                        <!-- <label for="username">Username</label> -->
                         <input type="text" class="m-2" name="username" id="username" placeholder="Username " value="" autocomplete="off">
                         <span class="input_error" id="username_error"></span>
                     </div>
@@ -102,14 +97,12 @@ if (isset($_GET["staff"]) == 1) {
 
                 <div class="row">
                     <div class="col form-group">
-                        <!-- <label for="email">Email Address</label> -->
                         <input type="text" class="m-2" name="email" id="email" placeholder="Email Address" value="" autocomplete="off">
                         <span class="input_error" id="email_error"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 form-group password-container">
-                        <!-- <label for="password">Password</label> -->
                         <input type="password" class="m-2" name="password" id="password" placeholder="Password" value="" onkeyup="new Account().verify_password(this.value);" autocomplete="off">
                         <i class="fa-solid fa-eye-slash toggler" id="password_toggler" for="password" onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
                         <span class="input_error" id="password_error"></span>
@@ -122,7 +115,6 @@ if (isset($_GET["staff"]) == 1) {
                         </div>
                     </div>
                     <div class="col-12 form-group password-container">
-                        <!-- <label for="retype_password">Retype Password</label> -->
                         <input type="password" class="m-2" name="retype_password" id="retype_password" placeholder="Retype Password" value="" autocomplete="off">
                         <i class="fa-solid fa-eye-slash toggler" id="retype_password_toggler" for="retype_password" onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
                         <span class="input_error" id="retype_password_error"></span>
