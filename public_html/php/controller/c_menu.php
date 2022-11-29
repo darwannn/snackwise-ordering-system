@@ -16,7 +16,7 @@ if (isset($_POST["display_menu"])) {
     $menu->display_menu($category);
 }
 
-/* -------------------- STAFF --------------------  */
+/* -------------------- ADMIN --------------------  */
 /* -------------------- edit-menu.php */
 if (isset($_POST["action_menu"])) {
     if ($_POST['action_menu'] == 'Add' || $_POST['action_menu'] == 'Update') {
@@ -27,6 +27,7 @@ if (isset($_POST["action_menu"])) {
         $discount = $_POST["discount"];
         $price = $_POST["price"];
         $date = $_POST["date"];
+        $day_in_numbers  = date("Y-m-d", strtotime($date));
         $availability = $_POST["availability"];
         $edit_menu_image = $_POST["edit_menu_image"];
 
@@ -42,7 +43,7 @@ if (isset($_POST["action_menu"])) {
         $validate->validate_selector_length($category,'category_error', 'Required field' );
         $validate->validate_length($discount,'','discount_error', 'Required field' );
         $validate->validate_length($price,'','price_error', 'Required field' );
-        $validate->validate_length($date,'','date_error', 'Required field' ); 
+        $validate->validate_length($day_in_numbers,'','date_error', 'Required field' ); 
         $validate->validate_selector_length($availability,'availability_error', 'Required field' );
         $validate->validate_length($image, '', 'image_error', 'Required field');
 
@@ -50,10 +51,10 @@ if (isset($_POST["action_menu"])) {
             echo json_encode($validate->output);
         } else {
             if ($_POST['action_menu'] == 'Add') {
-                $menu->add_menu($menu_id, $name, $description, $category, $discount, $price, $date, $availability, $image);
+                $menu->add_menu($menu_id, $name, $description, $category, $discount, $price, $day_in_numbers, $availability, $image);
             }
             if ($_POST['action_menu'] == 'Update') {
-                $menu->edit_menu($menu_id, $name, $description, $category, $discount, $price, $date, $availability, $image, $edit_menu_image);
+                $menu->edit_menu($menu_id, $name, $description, $category, $discount, $price, $day_in_numbers, $availability, $image, $edit_menu_image);
             }
         }
     }
@@ -66,4 +67,3 @@ if (isset($_POST["action_menu"])) {
         $menu_id = $_POST["menu_id"];
         $menu->delete_menu($menu_id);
     }
-

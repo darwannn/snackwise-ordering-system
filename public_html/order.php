@@ -1,7 +1,8 @@
 <?php
 require_once dirname(__FILE__) . '/php/classes/DbConnection.php';
 require_once dirname(__FILE__) . '/php/classes/Validate.php';
-
+$db = new DbConnection();
+$conn = $db->connect();
 $validate = new Validate();
 if ($validate->is_logged_in("customer")) {
     header('Location: account/login.php');
@@ -12,7 +13,7 @@ if ($validate->is_logged_in("customer")) {
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,7 +57,6 @@ if ($validate->is_logged_in("customer")) {
     <div class="details-modal" id="order_details_list">
         
     </div>
-
     <div class="parent-container">
         <!-- START OF NAVBAR -->
         <nav class="navbar navbar-light bg-light navbar-expand-md">
@@ -196,6 +196,7 @@ if ($validate->is_logged_in("customer")) {
         }
         new Notification().notification();
         new Order().customer_order();
+        let category= "";
 
 <?php 
     /* adds selected bestseller item to cart */
@@ -206,6 +207,26 @@ if ($validate->is_logged_in("customer")) {
     window.history.pushState({}, "", url.split("?")[0]);
 <?php
         } 
+/* open the details of selected notification */
+        if(isset($_GET['o'])) {
+            $query  = $conn->prepare("SELECT * FROM notification WHERE type = :type AND order_id = :order_id");
+            $result  =  $query->execute([":type" => 'Completed',":order_id" => $_GET['o'] ]);
+            if ($query->rowCount() > 0) {
+            ?>
+                category = "Completed";
+            <?php 
+            } else {
+                ?>
+                category = "<?php echo $_GET['o'] ?>";
+                       <?php
+            }
+            ?>
+            console.log(category);
+            new Order().display_details(<?php echo $_GET['o'] ?>,category,'');
+            let url = document.location.href;
+                       window.history.pushState({}, "", url.split("?")[0]);
+                   <?php
+               } 
         ?>
     </script>
 </body>

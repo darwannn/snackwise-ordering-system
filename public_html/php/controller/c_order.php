@@ -40,7 +40,10 @@ if (isset($_POST["add_order"]) == 'add_order') {
     $user_id = $_SESSION['user_id'];
     $time = $_POST['time'];
     $date = $_POST['date'];
-    $order->add_order($user_id, $cartlist, $date, $time);
+    $time_24_hour  = date("H:i", strtotime($time));
+    $day_in_numbers  = date("Y-m-d", strtotime($date));
+    $order->add_order($user_id, $cartlist, $day_in_numbers, $time_24_hour);
+
 }
 
 if (isset($_POST["claim_order"]) == 'claim_order') {

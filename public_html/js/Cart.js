@@ -2,7 +2,7 @@ class Cart {
 
     /* -------------------- cart */
     constructor() {
-           document.getElementById('cartlist').style.display = "none";
+        document.getElementById('cartlist').style.display = "none";
     }
 
     cart() {
@@ -202,10 +202,10 @@ class Cart {
             if (response_data.success) {
                 /* removes the deleted item to the cartlist*/
                 if ((document.getElementById("cartlist").value).includes(`,${cart_id}`)) {
-                    document.getElementById("cartlist").value= (document.getElementById("cartlist").value).replace(`,${cart_id}`, "");
+                    document.getElementById("cartlist").value = (document.getElementById("cartlist").value).replace(`,${cart_id}`, "");
 
                 } else if ((document.getElementById("cartlist").value).includes(`${cart_id}`)) {
-                    document.getElementById("cartlist").value= (document.getElementById("cartlist").value).replace(`${cart_id}`, "");
+                    document.getElementById("cartlist").value = (document.getElementById("cartlist").value).replace(`${cart_id}`, "");
                 }
                 new Cart().display_cart();
                 new Cart().cart_count();
@@ -214,12 +214,12 @@ class Cart {
                     document.getElementById('empty_cart').style.display = "none";
                     document.getElementById("cartlist").value = "";
                 }
-                
+
                 if (document.querySelectorAll('input[type="checkbox"]:checked').length == 1) {
                     document.getElementById('cart_summary').style.display = "none";
                 }
-            
-                
+
+
             } else {
                 new Notification().create_notification(response_data.error, "error");
             }
@@ -300,15 +300,14 @@ class Cart {
             return response.json();
         }).then(function (response_data) {
             console.log(response_data);
-
             document.getElementById('add_to_order').innerHTML = "Checkout";
             document.getElementById('add_to_order').disabled = false;
             document.getElementById("cartlist").value = "";
 
             new Cart().display_cart();
             if (response_data.success) {
-                /* new Notification().create_notification(response_data.success, "success");
-                new Cart().close_add_order(); */
+                new Notification().create_notification(response_data.success, "success");
+                new Cart().close_add_order();
                 window.location.href = "order.php?order=1"
             } else {
                 new Notification().create_notification(response_data.error, "error");
@@ -337,7 +336,13 @@ class Cart {
                 year = date.getFullYear(),
                 hour = date.getHours(),
                 min = date.getMinutes();
+            let check_day = 0;
 
+            if (hour > 20) {
+                check_day = day + 1;
+            } else {
+                check_day = day;
+            }
             month = (month < 10 ? "0" : "") + month;
             day = (day < 10 ? "0" : "") + day;
             hour = (hour < 10 ? "0" : "") + hour;
@@ -350,12 +355,27 @@ class Cart {
             document.getElementById('date').flatpickr({
                 "disable": holiday_list,
                 minDate: "today",
-                defaultDate: `${year}-${month}-${day}`
+                altInput: true,
+                altFormat: "F j, Y",
+                dateFormat: "Y-m-d",
+                defaultDate: `${year}-${month}-${check_day}`
             });
+            /* determines if the current time is not within the business open hours */
+            let default_date = "";
+            let today = new Date().getHours();
+            if (today < 10) {
+                default_date = `08:00`;
+            } else if (today > 20) {
+                default_date = `20:00`;
+            } else {
+                default_date = `${hour}:${min}`;
+            }
+
             document.getElementById('time').flatpickr({
                 enableTime: true,
                 noCalendar: true,
-                defaultDate: `${hour}:${min}`,
+                dateFormat: "h:i K",
+                defaultDate: default_date,
                 maxTime: "20:00",
                 minTime: "8:00",
                 minuteIncrement: 15,
@@ -371,6 +391,7 @@ class Cart {
     }
 
     close_add_order() {
+        new Cart().fetch_holiday();
         document.getElementById("order_modal").style.display = "none";
         document.getElementById('modal_backdrop').style.display = 'none';
         document.querySelector('body').style.overflow = 'visible';

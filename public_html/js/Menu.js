@@ -28,6 +28,25 @@ class Menu {
         });
     }
 
+    edit_menu() {
+
+        new Menu().upload_image();
+        new Menu().close_menu();
+
+        /* invoked when the user clicks the add menu button,
+        it clears all the value of the input before opening the modal where staff can input menu information */
+        document.getElementById('add_data').onclick = function () {
+
+            new Menu().reset_input();
+            new Menu().open_menu();
+        }
+
+        document.getElementById('action_menu_button').onclick = function () {
+            new Menu().add_button = true;
+            new Menu().action_menu_button();
+        }
+    }
+
     /* -------------------- index.php  */
     /* gets and displays available bestseller items */
     display_bestseller() {
@@ -169,9 +188,10 @@ class Menu {
         });
     }
 
-    /* -------------------- STAFF -------------------- */
+    /* -------------------- ADMIN -------------------- */
     /* -------------------- edit-menu.php  */
     action_menu_button() {
+        
         document.getElementById('action_menu_button').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
         document.getElementById('action_menu_button').disabled = true;
         let form_data = new FormData(document.getElementById('menu_form'));
@@ -239,9 +259,16 @@ class Menu {
             document.getElementById('description').value = response_data.description;
             document.getElementById('category').value = response_data.category;
             document.getElementById('discount').value = response_data.discount;
+            
             document.getElementById('availability').value = response_data.availability;
             document.getElementById('price').value = response_data.price;
-            document.getElementById('date').value = response_data.date;
+
+            document.getElementById('date').flatpickr({
+                altInput: true,
+                altFormat: "F j, Y",
+                dateFormat: "Y-m-d",
+                defaultDate: `${response_data.date}`
+            });
 
             document.getElementById('edit_menu_image').value = `${response_data.image}`;
             document.getElementById('show_menu_image').src = `https://res.cloudinary.com/dhzn9musm/image/upload/${response_data.image}`;
@@ -274,7 +301,7 @@ class Menu {
                 } else if (response_data.error) {
                     new Notification().create_notification(response_data.error, "error");
                 }
-                
+
             });
         }
     }
@@ -283,6 +310,12 @@ class Menu {
     /* clears all the values of the input fields */
     reset_input() {
         document.getElementById('menu_form').reset();
+        document.getElementById('date').flatpickr({
+            altInput: true,
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d",
+            defaultDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+        });
         document.getElementById('action_menu').value = 'Add';
         document.getElementById('modal_title').innerHTML = 'Add Data';
         document.getElementById('action_menu_button').innerHTML = 'Add';
