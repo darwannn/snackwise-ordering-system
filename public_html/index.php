@@ -117,7 +117,8 @@ $account->delete_code();
                             <div class="notifications-panel">
                                 <div class="panel-header-container">
                                     <span class="panel-header">Notifications</span>
-                                </div>                              
+                                </div>
+                                
                              
 
                                 <div class="notifications-container" id="notification_list"></div>
@@ -352,24 +353,6 @@ new Menu().display_bestseller();
         new Notification().notification();
 
         /* END OF DROPDOWN */
-
-        /* NOTIFICATION PANEL */
-        
-        const notificationBtn = document.querySelector('.notification-button');
-        const notificationPanel = document.querySelector('.notifications-panel')
-        let notifOpen = false;
-
-        if (notificationBtn) {
-            notificationBtn.addEventListener("click", () => {
-                if(!notifOpen) {
-                    notificationPanel.style.display = "flex";
-                    notifOpen = true;
-                } else {
-                    notificationPanel.style.display = "none";
-                    notifOpen = false;
-                }
-            })
-        }
 
         // dropBtn.addEventListener("focusout", ()=>{
         //     dropMenu.style.display = "none";

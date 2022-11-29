@@ -80,7 +80,6 @@ $validate = new Validate();
                                 <i class="fa-solid fa-bell"></i>
                                 <!-- dito lalabas yung  unread notifcount -->
                                 <div class="notification_count" id="notification_count"></div>
-
                             </button>
 
                             <div class="notifications-panel">
