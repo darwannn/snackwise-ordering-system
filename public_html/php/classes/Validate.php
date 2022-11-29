@@ -53,7 +53,7 @@ class Validate extends DbConnection
             } else {
               $this->output[$name] = 'Email address is taken';
             }
-          } else if($compare_input == "email-newsletter") {
+          } else if ($compare_input == "email-newsletter") {
             if ($this->is_newsletter_registered($input)) {
               unset($this->output[$name]);
             } else {
@@ -82,16 +82,21 @@ class Validate extends DbConnection
           $this->output[$name] = 'Username is taken';
         }
       }
-      if (strpos($name, "password") !== false && $compare_input != "login") {
+    
+      if (preg_match("/\b".$name."\b/i", "password_error") && $compare_input != "login") {
         if ($this->has_meet_password($input)) {
           unset($this->output[$name]);
         } else {
           $this->output['password_error'] = 'Password does not meet the requirements';
         }
       }
-      if (strpos($name, "retype_password") !== false) {
+      if (preg_match("/\b".$name."\b/i", "retype_password_error")) {
         if ($this->is_match($input, $compare_input)) {
-          unset($this->output[$name]);
+          if ($this->has_meet_password($input)) {
+            unset($this->output[$name]);
+          } else {
+            $this->output['retype_password_error'] = 'Password does not meet the requirements';
+          }
         } else {
           $this->output['retype_password_error'] = 'Passwords do not match';
         }
@@ -153,7 +158,7 @@ class Validate extends DbConnection
   /* determines if the entered value in the contact field is a valid phone number */
   public function is_contact($input)
   {
-    if (strlen($input) == 11 && is_numeric($input) && substr($input, 0, 2 ) === "09") {
+    if (strlen($input) == 11 && is_numeric($input) && substr($input, 0, 2) === "09") {
       return true;
     } else {
       return false;
@@ -244,7 +249,7 @@ class Validate extends DbConnection
   /* checks if the verification code in the URL parameter is in the database */
   public function validate_code()
   {
-    if (isset($_GET["code"])) {
+    if (($_GET["code"]) != "0") {
       $url_code = $_GET["code"];
       $query = $this->connect()->prepare("SELECT * FROM user WHERE code = :code");
       $query->execute([':code' => $url_code]);
@@ -307,25 +312,48 @@ class Validate extends DbConnection
     }
   }
 
-  /* determines if a user is logged in and if it is a customer or an employee */
-  public function is_logged_in($type)
+ /* determines if a user is logged in and if it is a customer or an employee */ 
+ public function is_logged_in($type) 
+ { 
+  if (isset($_SESSION['user_id']) == false && isset($_SESSION['password']) == false) { 
+    return true; 
+  } else {
+    if ($type == "customer") { 
+       return false; 
+   } else if ($type =="staff") { 
+       if (isset($_SESSION["user_type"]) && $_SESSION['user_type'] == "customer") { 
+         return true; 
+       } else { 
+         return false; 
+       } 
+   } else if ($type =="admin") { 
+       if (isset($_SESSION["user_type"]) && $_SESSION['user_type'] != "admin") { 
+         return true; 
+       } else { 
+         return false; 
+       } 
+   }
+  }
+ }
+
+  /* determines if the uploaded file is an image */
+  public function verify_file_type($file_type)
   {
-    if ($type == "customer") {
-      if (isset($_SESSION['user_id']) == false && isset($_SESSION['password']) == false) {
-        return true;
-      } else {
-        return false;
-      }
+    $allowed = array('image/jpeg', 'image/pjpeg', 'image/gif', 'image/png');
+    if (!in_array($file_type['type'], $allowed)) {
+      return true;
     } else {
-      if (isset($_SESSION['user_id']) == true && isset($_SESSION['password']) == true) {
-        if (isset($_SESSION["user_type"]) && $_SESSION['user_type'] == "user") {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        header('Location: account/login.php');
-      }
+      return false;
+    }
+  }
+
+  /* image must be less than 50 mb */
+  public function verify_file_size($file_size)
+  {
+    if ($file_size["size"] < 52428800) {
+      return true;
+    } else {
+      return false;
     }
   }
 

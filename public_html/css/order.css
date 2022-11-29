@@ -597,10 +597,8 @@ a[name="log-in-btn"] {
 /* END OF ORDER DETAILS MODAL */
 
 .no-orders-container {
-    /* 
-        This should be 'display: flex;' if naka appear.
-    */
-    display: none; 
+
+    display: flex; 
     flex-flow: column;
     justify-content: center;
     align-items: center;
@@ -685,10 +683,8 @@ a[name="log-in-btn"] {
 }
 
 
-
-
-
-
-
-
-
+.status-value {
+    font-size: 1.7em;
+    font-weight: bold;
+    margin-left: .3em;
+}

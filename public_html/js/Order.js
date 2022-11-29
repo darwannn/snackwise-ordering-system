@@ -4,12 +4,13 @@ class Order {
     constructor(table) {
         this.qr_code_id = "";
         this.table = table;
-
+        this.month_name = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
     }
 
     customer_order() {
-        new Order().close_order_details();
-        //gets the value of selected radio button which is used to filter the items in the menu table
+        /*  new Order().close_order_details(); */
+        //gets the value of selected radio button which is used to filter the items in the order table
         document.querySelectorAll('input[name="category"]')[0].checked = "checked";
 
         document.querySelectorAll('input[name="category"]')[0].parentElement.parentElement.id =
@@ -53,7 +54,7 @@ class Order {
                 console.error('No cameras found.');
             }
         }).catch(function (e) {
-            console.error(e);
+            new Notification().create_notification("Cannot access camera. Please refresh the page", "error");
         });
     }
 
@@ -73,48 +74,68 @@ class Order {
             return response.json();
         }).then(function (response_data) {
             let order_list = "";
-            let total_discounted_price = 0;
+/* console.log(response_data.data[0].total_order_price); */
+            console.log(response_data);
+         
             if (response_data.error) {
-                console.log(response_data.error);
-                document.getElementById("order_list").innerHTML = response_data.error;
+                let no_order = `
+                <div class="no-orders-container">
+                    <span class="no-order-message">Looks like you haven't made an order yet.</span>
+                    <a href="menu.php">Order Now</a>
+                </div>
+                `;
+                document.getElementById("order_list").innerHTML = no_order;
             } else {
-                let current_order_id = 0;
+               
+                let status_class = "";
+                let order_status = "";
                 response_data.data.map(function (order) {
-                    /* checks if the customer has multiple order */
-                    if (order.order_id != current_order_id) {
-                        /* display delete and download QR button only once */
-                        order_list += `<hr>`;
-                        order_list += `<hr>`;
-                        if (order.status == "Placed") {
-                            order_list += `<button type="button" class="" name='delete_order'  onclick="new Order().delete_order(${order.order_id});">Delete</button>`;
-                        } else {
-                            order_list += `<button type="button" class="" name='delete_order'  onclick="new Order().delete_order(${order.order_id});" disabled>Delete</button>`;
-                        }
-                    }
-                    order_list += `
-            <div class="text">
-                <div >Order Id.: ${(order.order_id).toString().padStart(10, '0')}</div>
-                <div >Qty: ${order.quantity_list}</div>
-                <div >${order.status}</div>
-                </div> 
-            `;
-                    total_discounted_price = total_discounted_price + parseFloat(order.total_discounted_price);
-                    order_list += `
-                    <button onclick="new Order().display_details(${order.order_id});">Details</button>
-                    `;
-                    order_list += `
-                    <div>Total Amt: PHP ${total_discounted_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
-                    `;
+                        order_status = new Order().get_status_text(order.status);
+                        status_class = new Order().get_status_style(order.status);
+
+                        order_list += `
+                    <div class="order-item">
+                    <div class="order-details-row">
+                        <div class="order-no-container">
+                            <span>Order No.</span>
+                            <span class="order-number">${(order.order_id).toString().padStart(10, '0')}</span>
+                        </div>
+                        <div class="order-date-container">
+                            <span>${`${new Order().month_name[((order.date).substr(5,2))-1]} ${(order.date).substr(8,2)}, ${(order.date).substr(0,4)}`}</span>
+                        </div>
+                    </div>
+                    <div class="order-details-row">
+                        <div class="quantity-container">
+                            <span>Quantity: ${order.total_quantity}</span>
+                    </div>
+                        <div class="amount-container">
+                            <span>Amount:</span>
+                            <span class="total-amt">PHP ${parseFloat(order.total_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                        </div>
+                    </div>
+                    <div class="order-details-row">
+                        <div class="details-btn-container">
+                            <button class="details-btn" onclick="new Order().display_details(${order.order_id},'${category}','${order.total_price}');" >Details</button>
+                        </div>
+                        <div class="status-container"> 
+                            <span class="order-status ${status_class}">${(order_status)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;    
                 });
                 document.getElementById("order_list").innerHTML = order_list;
             }
+             
         });
     }
 
-    display_details(order_id) {
+    display_details(order_id,category,price) {
         let form_data = new FormData();
         form_data.append('display_details', 'display_details');
         form_data.append('order_id', order_id);
+        form_data.append('category', category);
+
         fetch('php/controller/c_order.php', {
             method: "POST",
             body: form_data
@@ -122,37 +143,91 @@ class Order {
             return response.json();
         }).then(function (response_data) {
             console.log(response_data);
+            let single_order = response_data.data[0];
             new Order().open_order_details();
             let order_details_list = "";
-            let current_order_id = 0;
-            response_data.data.map(function (order) {
-                if (order.order_id != current_order_id) {
-                    /* display delete and download QR button only once */
-                    order_details_list += `<hr>`;
-                    order_details_list += `<hr>`;
-                    order_details_list += `<hr>`;
-                    if (order.status == "Placed") {
-                        order_details_list += `<button type="button" class="" name='delete_order'  onclick="new Order().delete_order(${order.order_id});">Delete</button>`;
-                    } else {
-                        order_details_list += `<button type="button" class="" name='delete_order'  onclick="new Order().delete_order(${order.order_id});" disabled>Delete</button>`;
-                    }
-                }
+       
+            let status_class = "";
+            let order_status = "";
 
+            order_status = new Order().get_status_text(single_order.status);
+            status_class = new Order().get_status_style(single_order.status);
+            let qr_image = "";
+
+        if(single_order.qr_image == null) {
+        qr_image = ` 
+        <img src='img/no-qr.jpg' width='100px' height='100px' ></img>
+    `;
+        } else {
+            qr_image = ` <a  href='https://res.cloudinary.com/dhzn9musm/image/upload/${single_order.qr_image}' target="_blank" >
+            <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${single_order.qr_image}' width='100px' height='100px' ></img>
+        </a>`;
+        }
+            order_details_list += `
+                <div class="content-container">
+                <div class="closing-bar">
+                    <button class="close-btn" onclick="new Order().close_order_details();">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="mod-top">
+                    <div class="header-col with-details">
+                        <span class="order-number-label">Order No.:</span>
+                        <span class="order-number">${(single_order.order_id).toString().padStart(10, '0')}</span><br>
+                        <span class="label">Order Date:</span>
+                        <span class="order-date value">${`${new Order().month_name[((single_order.date).substr(5,2))-1]} ${(single_order.date).substr(8,2)}, ${(single_order.date).substr(0,4)}`}</span><br>
+                        <span class="label">Status:</span>
+                        <span class="status ${status_class} status-value"> ${order_status}</span>
+                    </div>
+                    <div class="header-col">
+                        ${qr_image}
+                    </div>
+                </div>
+                <div class="items-list">
+                `;
+            response_data.data.map(function (order) {
                 order_details_list += `
-                    <div >Order Id.: ${(order.order_id).toString().padStart(10, '0')}</div>
-                    <div >Qty: ${order.quantity_list}</div>
-                    <div >Status:${order.status}</div>
-                    <div >Order Date: ${order.date}</div>
-                    <a  href='https://res.cloudinary.com/dhzn9musm/image/upload/${order.qr_image}' target="_blank" >
-                    <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${order.qr_image}' width='40px' height='40px' ></img>
-                    </a>
-                    <div >Qty: ${order.quantity_list}</div>
-                <div  ">${order.price_list}</div>
-                <div  ">${order.description}</div>
-                <div class="d-none ">${order.menu_name_list}</div>
-                <div class="d-none ">:${order.category_list}</div>
-                <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${order.image_list}' width='40px' height='40px' ></img>`
+                    <!-- ORDER ITEMS APPEND HERE -->
+                    <div class="item">
+                    <div class="item-img-container">
+                    <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${order.image_list}' alt="${order.menu_name_list}" ></img>
+                    </div>
+                    <div class="item-details">
+                        <div class="quantity-con">
+                        <span><span class="modal-quantity">${order.quantity_list}</span>x</span>
+                        </div>
+                        <div class="item-name-con">
+                        <span class="item-name">${order.menu_name_list}</span>
+                        </div>
+                        <div class="item-price-con">
+                        <span class="item-price">PHP ${parseFloat(order.discounted_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(".00", "")}</span>
+                        </div>
+                    </div>
+                </div>
+               `;
+
             });
+            order_details_list += `
+                 </div>
+                <div class="mod-footer">
+                    <div class="footer-col">
+                        <span>Subtotal: </span>
+                    </div>
+                    <div class="footer-col">
+                        <span class="sub-total">PHP ${parseFloat(price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                    </div>
+                </div>
+                <div class="cancel-bar">`;
+            if (single_order.status == "Placed") {
+                order_details_list += `<button type="button" class="btn btn-danger cancel-btn" name='delete_order'  onclick="new Order().delete_order(${single_order.order_id});">Cancel Order</button>`;
+            } else  if (single_order.status == null) {
+                order_details_list += `<button type="button" class="btn btn-danger cancel-btn" name='delete_order' style="visibility:hidden;"></button>`;
+            } else {
+                order_details_list += `<button type="button" class="btn btn-danger cancel-btn" name='delete_order'  onclick="new Order().delete_order(${single_order.order_id});" disabled>Cancel Order</button>`;
+            }
+            order_details_list += `</div>
+            </div>
+                `;
             document.getElementById("order_details_list").innerHTML = order_details_list;
 
         });
@@ -160,25 +235,27 @@ class Order {
 
     delete_order(order_id) {
         if (confirm("Are you sure you want to cancel your order?")) {
-        let delete_order_data = new FormData();
-        delete_order_data.append('delete_order', 'delete_order');
-        delete_order_data.append('order_id', order_id);
-        fetch('php/controller/c_order.php', {
-            method: "POST",
-            body: delete_order_data
-        }).then(function (response) {
-            return response.json();
-        }).then(function (response_data) {
-            console.log(response_data);
-            if (response_data.success) {
-                new Notification().create_notification(response_data.success, "success");
-                table.update();
-                dataRemoved();
-            } else if (response_data.error) {
-                new Notification().create_notification(response_data.error, "error");
-            }
-            new Order().display_order();
-        });
+            let delete_order_data = new FormData();
+            delete_order_data.append('delete_order', 'delete_order');
+            delete_order_data.append('order_id', order_id);
+            fetch('php/controller/c_order.php', {
+                method: "POST",
+                body: delete_order_data
+            }).then(function (response) {
+                return response.json();
+            }).then(function (response_data) {
+                console.log(response_data);
+                if (response_data.success) {
+
+                    new Order().close_order_details();
+                    new Notification().create_notification(response_data.success, "success");
+                    table.update();
+                    dataRemoved();
+                } else if (response_data.error) {
+                    new Notification().create_notification(response_data.error, "error");
+                }
+                new Order().display_order();
+            });
         }
     }
 
@@ -211,23 +288,14 @@ class Order {
         });
     }
 
-
-
-
     /* gets and displays the order information of to claim orders*/
     order_fetch_info(identifier, type) {
-
         //plays beep audio wehn a qr is scanned
         if (type == "qr") {
             new Audio('sound/beep.mp3').play();;
         }
-
         let form_data = new FormData();
-
-
         form_data.append('identifier', identifier);
-
-
         form_data.append('type', type);
         form_data.append('order_fetch_info', 'order_fetch_info');
         fetch('php/controller/c_order.php', {
@@ -240,58 +308,47 @@ class Order {
             if (response_data.error) {
                 new Notification().create_notification(response_data.error, "error");
             } else {
-                let qr_to_claim_info = "";
-                let qr_to_claim_price = "";
-                let qr_to_claim_order = "";
+                let to_claim_info = "";
+                let to_claim_price = "";
+                let to_claim_order = "";
                 let order = response_data.data[0];
                 let images = (order.image_list).split(', ');
                 let orders = (order.menu_name_list).split(',');
                 let prices = (order.price_list).split(',');
                 let quantity = (order.quantity_list).split(',');
                 let discount = (order.discount_list).split(',');
-                let total_price = 0;
-                console.log(images);
-                qr_to_claim_info += `
+
+                to_claim_info += `
       
-        <div>${order.firstname} ${order.lastname}</div>
-        <div>${order.date}</div>
-        `;
+                    <div>${order.firstname} ${order.lastname}</div>
+                    <div>${order.date}</div>
+                    `;
+                    document.getElementById("to_claim_order_id").value = order.order_id;
+                    document.getElementById("to_claim_type").value = type;
 
-                document.getElementById("to_claim_order_id").value = order.order_id;
-                document.getElementById("to_claim_type").value = type;
+                    for (let i = 0; i < prices.length; i++) {
+                       
 
-                for (let i = 0; i < prices.length; i++) {
-                    total_price += (parseFloat(prices[i]) - (parseFloat(prices[i]) * (parseFloat(discount[i]) / 100))) * parseFloat(quantity[i]);
-
-
-
-                    qr_to_claim_order += `
-        <div class="pb-2" style="margin:7px;box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-        border-radius: 20px; width:30%;">
-
-        <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${images[i]}'  class="w-100"></img>
-            <div class="h6 text-center"><span class=" fw-bold">${orders[i]}</span> (x${quantity[i]})</div>
-
-            
-        </div>  
-        `;
-                    console.log(`${images[i]}`);
+                        to_claim_order += `
+                            <div class="pb-2" style="margin:7px;box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+                            border-radius: 20px; width:30%;">
+                            <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${images[i]}'  class="w-100"></img>
+                                <div class="h6 text-center"><span class=" fw-bold">${orders[i]}</span> (x${quantity[i]})</div>
+                            </div>  
+                        `;
                 };
-                qr_to_claim_price += `
-          <div class="text-end fw-bold h6">PHP ${total_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
-      `;
-
+                        to_claim_price += `
+                            <div class="text-end fw-bold h6">PHP ${parseFloat(order.total_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                        `;
                 if (type == "delete") {
-                    console.log(identifier);
-                    document.getElementById('to_delete_info').innerHTML = qr_to_claim_info;
-                    document.getElementById('to_delete_order').innerHTML = qr_to_claim_order;
+                    document.getElementById('to_delete_info').innerHTML = to_claim_info;
+                    document.getElementById('to_delete_order').innerHTML = to_claim_order;
                 } else {
-
-                    document.getElementById("qr_to_claim_order").style.display = "block";
-                    document.getElementById("qr_to_claim_order").style.display = "block";
-                    document.getElementById('qr_to_claim_info').innerHTML = qr_to_claim_info;
-                    document.getElementById('qr_to_claim_price').innerHTML = qr_to_claim_price;
-                    document.getElementById('qr_to_claim_order').innerHTML = qr_to_claim_order;
+                    document.getElementById("to_claim_order").style.display = "block";
+                    document.getElementById("to_claim_order").style.display = "block";
+                    document.getElementById('to_claim_info').innerHTML = to_claim_info;
+                    document.getElementById('to_claim_price').innerHTML = to_claim_price;
+                    document.getElementById('to_claim_order').innerHTML = to_claim_order;
                     document.getElementById("qr_modal").style.display = "block";
                     document.getElementById('modal_backdrop').style.display = 'block';
                     document.querySelector('body').style.overflow = 'hidden';
@@ -314,8 +371,8 @@ class Order {
         this.qr_code_id = "";
         document.getElementById('modal_backdrop').style.display = 'none';
         document.getElementById("qr_modal").style.display = "none";
-        document.getElementById("qr_to_claim_order").style.display = "none";
-        document.getElementById("qr_to_claim_order").style.display = "none";
+        document.getElementById("to_claim_order").style.display = "none";
+        document.getElementById("to_claim_order").style.display = "none";
         document.querySelector('body').style.overflow = 'visible';
     }
 
@@ -349,7 +406,6 @@ class Order {
     action_order_button() {
         let form_data = new FormData(document.getElementById('order_form'));
         form_data.append('action_order', 'Update')
-        console.log(form_data);
         fetch('php/controller/c_order.php', {
             method: "POST",
             body: form_data
@@ -367,7 +423,6 @@ class Order {
     }
 
     fetch_selected_order(order_id, type) {
-        console.log(order_id);
         let form_data = new FormData();
         form_data.append('order_id', order_id);
         form_data.append('fetch_selected_order', 'fetch_selected_order');
@@ -406,6 +461,7 @@ class Order {
                 dataRemoved();
                 table.update();
                 new Order().close_del_notif();
+        
             } else if (response_data.error) {
                 new Notification().create_notification(response_data.error, "error");
             }
@@ -415,19 +471,39 @@ class Order {
 
     /* -------------------- */
     open_order_details() {
-        document.getElementById('modal_backdrop').style.display = 'block';
-        document.getElementById("order_details_modal").style.display = "block";
+        document.getElementById("order_details_list").style.display = "flex";
         document.querySelector('body').style.overflow = 'hidden';
     }
     close_order_details() {
-        document.getElementById('modal_backdrop').style.display = 'none';
-        document.getElementById("order_details_modal").style.display = "none";
+        document.getElementById("order_details_list").style.display = "none";
         document.querySelector('body').style.overflow = 'visible';
+    }
+
+    /* determines the color of status(text) */
+    get_status_style(status) {
+        if (status == "Placed" || status == "Confirmed") {
+            return "pending-stat";
+        } else if (status == "Preparing") {
+            return "preparing-stat";
+        } else if (status == "Ready") {
+            return "pickup-stat";
+        } else if (status == "Cancelled") {
+            return "cancelled-stat";
+        } else {
+            return "complete-stat";
+        }
+    }
+
+    get_status_text(status) {
+        if (status == null) {
+            return "Completed";
+        } else {
+            return status;
+        }
     }
 
     /* displays or removes error messages */
     show_error(error, element) {
-        console.log(element.replace('_error', ''));
         error ? document.getElementById(element).innerHTML = error : document.getElementById(element).innerHTML = '';
         if (error) {
             document.getElementById(element.replace('_error', '')).style.border = "red solid 1px";
@@ -438,7 +514,6 @@ class Order {
 
     /* scroll to the position of the input field with an error */
     scroll_to(element) {
-        console.log(element);
         if (element == "top") {
             document.getElementById("order_modal").scrollTo({
                 top: 0,
