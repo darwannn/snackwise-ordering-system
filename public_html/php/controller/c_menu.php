@@ -1,17 +1,25 @@
 <?php
-
-
 require_once dirname(__FILE__) . '/../classes/Menu.php';
 require_once dirname(__FILE__) . '/../classes/Validate.php';
 
 $menu = new Menu();
 $validate = new Validate();
 
+/* -------------------- index.php */
+if (isset($_POST["display_bestseller"])) {
+    $menu->display_bestseller();
+}
+
+/* -------------------- menu.php */
+if (isset($_POST["display_menu"])) {
+    $category = $_POST["category"];
+    $menu->display_menu($category);
+}
+
+/* -------------------- ADMIN --------------------  */
+/* -------------------- edit-menu.php */
 if (isset($_POST["action_menu"])) {
-
     if ($_POST['action_menu'] == 'Add' || $_POST['action_menu'] == 'Update') {
-        
-
         $menu_id = $_POST["menu_id"];
         $name = $_POST["name"];
         $description = $_POST["description"];
@@ -19,78 +27,43 @@ if (isset($_POST["action_menu"])) {
         $discount = $_POST["discount"];
         $price = $_POST["price"];
         $date = $_POST["date"];
+        $day_in_numbers  = date("Y-m-d", strtotime($date));
         $availability = $_POST["availability"];
+        $edit_menu_image = $_POST["edit_menu_image"];
 
-
-        if ($_POST["edit_menu_image"] =="") {
+         /* determines if the image of a menu has been changed */
+        if ($_POST["edit_menu_image"] == "") {
             $image = $_FILES["image"]["tmp_name"];
         } else {
             $image = $_POST["edit_menu_image"];
         }
-      
-      
 
-      
-      
-      $output = array();
-      
-   
-     $validate->validateLength($name,'','name_error', 'Required' );
-     $validate->validateLength($description,'','description_error', 'Required' );
-     $validate->validateLength($category,'','category_error', 'Required' );
-     $validate->validateLength($discount,'','discount_error', 'Required' );
-     $validate->validateLength($price,'','price_error', 'Required' );
-     $validate->validateLength($date,'','date_error', 'Required' );
-     /* $validate->validateLength($availability,'','availability_error', 'Required' ); */
-     $validate->validateLength($image,'','image_error', 'Required' );
-
-
-    
-
+        $validate->validate_length($name,'','name_error', 'Required field' );
+        $validate->validate_length($description,'','description_error', 'Required field' );
+        $validate->validate_selector_length($category,'category_error', 'Required field' );
+        $validate->validate_length($discount,'','discount_error', 'Required field' );
+        $validate->validate_length($price,'','price_error', 'Required field' );
+        $validate->validate_length($day_in_numbers,'','date_error', 'Required field' ); 
+        $validate->validate_selector_length($availability,'availability_error', 'Required field' );
+        $validate->validate_length($image, '', 'image_error', 'Required field');
 
         if (count($validate->output) > 0) {
             echo json_encode($validate->output);
         } else {
             if ($_POST['action_menu'] == 'Add') {
-
-             
-                $menu->add($menu_id, $name, $description, $category, $discount, $price, $date, $availability, $image);
-
+                $menu->add_menu($menu_id, $name, $description, $category, $discount, $price, $day_in_numbers, $availability, $image);
             }
-
-
             if ($_POST['action_menu'] == 'Update') {
-
-
-
-                $menu->edit($menu_id, $name, $description, $category, $discount, $price, $date, $availability, $image);
-              
+                $menu->edit_menu($menu_id, $name, $description, $category, $discount, $price, $day_in_numbers, $availability, $image, $edit_menu_image);
             }
         }
     }
-    if ($_POST['action_menu'] == 'fetch') {
-
-        $menu->fetch();
-   
-    }
-
-
-
-
-
-    if ($_POST['action_menu'] == 'delete') {
-
-        $menu->delete($_POST["id"]);
-
-    }
-    
-} else {
-    if (isset($_GET['fetch'])) {
-        $menu->filter();
-    }
 }
+    if (isset($_POST['fetch_selected_menu'])) {
+        $menu->fetch_selected_menu();
+    }
 
-
-if (isset($_POST["display_menu"])) {
-$menu->display_menu();
-} 
+    if (isset($_POST['delete_menu'])) {
+        $menu_id = $_POST["menu_id"];
+        $menu->delete_menu($menu_id);
+    }

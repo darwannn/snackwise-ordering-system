@@ -98,8 +98,9 @@ var JSTableDefaultConfig = {
             message: "dt-message"
         },
         labels: {
-            placeholder: "Search...",
-            perPage: "{select} entries per page",
+            placeholder: "Search",
+            perPage: "{select} ",
+            /* perPage: "{select} entries per page", */
             noRows: "No entries found",
             info: "Showing {start} to {end} of {rows} entries",
             loading: "Loading...",
@@ -176,12 +177,10 @@ var JSTableDefaultConfig = {
         }, {
             key: "_updateInfo",
             value: function () {
-
-/* console.log(this.getDataCount()); */
                 var e = this.wrapper.querySelector(" ." + this.config.classes.info),
                     t = this.isSearching ? this.config.labels.infoFiltered : this.config.labels.info;
                 if (e && t.length) {
-                    var a = t.replace("{start}", this.getDataCount() > 0 ? this._getPageStartIndex() + 1 : 0).replace("{end}", this._getPageEndIndex() + 1).replace("{page}", this.currentPage).replace("{pages}", this.pager.getPages()).replace("{rows}", this.updateDataCountTotal()).replace("{rowsTotal}", this.updateDataCountTotal());
+                    var a = t.replace("{start}", currentRowCount > 0 ? this._getPageStartIndex() + 1 : 0).replace("{end}", this.updateDataCountTotal()).replace("{page}", this.currentPage).replace("{pages}", this.pager.getPages()).replace("{rows}", this.updateDataCountTotal()).replace("{rowsTotal}", this.updateDataCountTotal());
                     e.innerHTML = a
                 }
             }
@@ -201,7 +200,6 @@ var JSTableDefaultConfig = {
             key: "_getData",
      
             value: function () {
-            /*     console.log(this.table.dataRows); */
                 return this._emit("getData", this.table.dataRows), this.table.dataRows.filter((function (e) {
                     
                     return e.visible
@@ -256,7 +254,6 @@ var JSTableDefaultConfig = {
         }, {
             key: "getDataCountFiltered",
             value: function () {
-                /* console.log(this._getData().length); */
                 return this.config.serverSide ? this.filteredDataCount : this._getData().length
             }
         }, {
@@ -275,23 +272,18 @@ var JSTableDefaultConfig = {
                 if(rowCounter) {
 
                     if (verifyUpdate) {
-                        console.log("dito");
                     if(clicked == "added") {
                         currentRowCount = currentRowCount+1;
-                        console.log("added");
                     } else if(clicked == "removed"){
                         currentRowCount = currentRowCount-1;
-                        console.log("removed");
                     }
                     verifyUpdate=false;
                 }
                   
-                    console.log("before: "+ currentRowCount);
                     return this.config.serverSide ? currentRowCount : this.table.dataRows.length;
                 } else {
                   
                     currentRowCount = this.config.deferLoading;
-                /*     console.log("after: " + currentRowCount); */
                     return this.config.serverSide ? currentRowCount : this.table.dataRows.length;
                 }
             }
@@ -301,10 +293,9 @@ var JSTableDefaultConfig = {
         {
             key: "getPageData",
             value: function () {
-              /*   console.log("d"); */
                 if (this.config.serverSide) return this._fetchData();
                 var e = this._getPageStartIndex(),
-                    t = this._getPageEndIndex();
+                    t = this.updateDataCountTotal();
                 return Promise.resolve(this._getData()).then((function (a) {
                     return a.filter((function (a, s) {
                         return s >= e && s <= t
