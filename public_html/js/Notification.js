@@ -142,12 +142,12 @@ class Notification {
 
             } else {
               if (notif.type == "Completed" || notif.type == "Ready") {
-                notification_list += ` <div class="notification" id="notif-success">`;
+                notification_list += ` <div class="notification" id="notif-success" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">`;
               } else if (notif.type == "Placed" || notif.type == "Confirmed" || notif.type == "Preparing") {
-                notification_list += ` <div class="notification" id="">`;
+                notification_list += ` <div class="notification" id="" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">`;
               }
 
-              notification_list += `  <div class="notification-header-container"  onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">
+              notification_list += `  <div class="notification-header-container"  >
               <div class="header-info">
                   <span class="order-number" style="font-size: 1.3em;">#${(notif.order_id).toString().padStart(10, '0')}</span>`;
               if (notif.type == "Completed") {

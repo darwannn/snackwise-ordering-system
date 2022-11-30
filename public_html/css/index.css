@@ -443,9 +443,29 @@ a[name="log-in-btn"] {
     font-size: 1.6em;
 }
 
+
+
 .footer-header {
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
+
+.footer-header .line {
+    width: 100%;
+}
+
+.footer-header .line hr {
+    border-top: solid 1px var(--labelCol);
+}
+
+.footer-header .snack-logo-container img {
+    display: inline-block;
+    margin: auto 2em;
+}
+
 
 .footer-header img {
     position: relative;
@@ -478,30 +498,35 @@ a[name="log-in-btn"] {
     font-size: 1.6em;
 }
 
-.input-container {
+.newsletter-form {
     margin: 1.5em auto;
     background-color: #EEEEEE;
     padding: .5em;
-    border-radius: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
 }
 
-.input-container form #newsletter_email {
+.newsletter-form #newsletter_email {
     border: none;
     background-color: #EEEEEE;
     font-size: 1.4em;
-
+    float: left;
+    width: 100%;
 }
 
-.input-container form button {
+.newsletter-form button {
     font-size: 1.4em;
+    font-weight: bold;
+    color: white;
     background-color: #F0C808;
     border-style: none;
     padding: .5em 1em;
-    border-radius: 10px;
-    
+    border-radius: 5px;
+    float: right;
 }
 
-.input-container form button:hover {
+.newsletter-form button:hover {
     color: white;
 }
 
