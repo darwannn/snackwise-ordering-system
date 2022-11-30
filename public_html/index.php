@@ -241,9 +241,6 @@ $account->delete_code();
 
         <footer>
             <div class=footer-header>
-                <!-- <div class="col-12 footer-header">
-                    <img src="img/penguin.png" alt="penguin.png" width="116px" height="104px">
-                </div> -->
                 <div class="left-line line">
                     <hr>
                 </div>

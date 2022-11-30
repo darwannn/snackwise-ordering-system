@@ -443,7 +443,7 @@ a[name="log-in-btn"] {
     font-size: 1.6em;
 }
 
-
+/* START OF FOOTER */
 
 .footer-header {
     width: 100%;
@@ -564,6 +564,8 @@ a[name="log-in-btn"] {
     font-size: 1.8em;
     color: white;
 }
+
+/* END OF FOOTER */
 
 @media (min-width: 768px) {
 
