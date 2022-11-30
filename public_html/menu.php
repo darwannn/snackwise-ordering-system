@@ -265,12 +265,19 @@ $conn = $db->connect();
         </section>
 
         <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 footer-header">
-                        <img src="img/penguin.png" alt="penguin.png" width="116px" height="104px">
-                    </div>
+            <div class=footer-header>
+                <div class="left-line line">
+                    <hr>
                 </div>
+                <div class="snack-logo-container">
+                    <img src="img/penguin.png" alt="penguin.png" width="116px" height="104px">
+                </div>
+                <div class="right-line line">
+                    <hr>
+                </div>
+            </div>
+            <div class="container">
+
                 <div class="row footer-details">
                     <div class="col-12 col-md-3 address-col">
                         <span class="detail-title">
@@ -286,7 +293,7 @@ $conn = $db->connect();
                             CALL US
                         </span>
                         <span class="details">
-                            0977 283 6086
+                            0970 860 1556
                         </span>
                     </div>
 
@@ -307,13 +314,11 @@ $conn = $db->connect();
                         <span class="details">
                             Subscribe to our daily newsletter for all latest updates.
                         </span>
-
-                        <div class="input-container">
-                            <form action="#" class="newsletter-form">
-                                <input type="text" name="email" id="newsletter-input" placeholder="Email Address">
-                                <button type="submit">SUBSCRIBE</button>
+                            <form action="#" class="newsletter-form" id="newsletter_form">
+                                <input type="text" name="email" id="newsletter_email" placeholder="Email Address">
+                                <button type="button" id="newsletter" onclick="new Notification().newsletter()">SUBSCRIBE</button>
                             </form>
-                        </div>
+                        <span id="newsletter_email_error"></span>
 
                     </div>
 
@@ -333,9 +338,7 @@ $conn = $db->connect();
                             </span>
                         </div>
                         <div class="col-6">
-                            <span class="right">Copyright © <script>
-                                    document.write(new Date().getFullYear())
-                                </script> Snackwise. All Rights Reserved.</span>
+                            <span class="right">Copyright © 2022 Snackwise. All Rights Reserved.</span>
                         </div>
                     </div>
                 </div>
