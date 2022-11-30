@@ -49,6 +49,24 @@ $order = new Order();
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <style>
+        body {
+            background-image: url(img/Background-Pattern-BW.jpg);
+        }
+
+        .card-header .back-btn {
+            float: left;
+            height: 100%;
+            margin-top: 10px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #595959;
+            transition: all .1s ease;
+        }
+
+        .card-header .back-btn:hover {
+            color: #2f2f2f;
+        }
+
         td:nth-child(9) {
             min-width: 145px !important;
         }
@@ -124,7 +142,7 @@ $order = new Order();
         }
         .input_error {
             position: relative;
-/*             top: -3px; */
+        /*             top: -3px; */
             font-size: 14px;
             color: red;
         }
@@ -176,6 +194,7 @@ $order = new Order();
     <div class="container my-5">
         <div class="card">
             <div class="card-header ">
+                <a href="index.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
                 <h3 class="text-center">Order</h3>
             </div>
             <div class="card-body">
