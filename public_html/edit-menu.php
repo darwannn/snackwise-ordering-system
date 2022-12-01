@@ -44,6 +44,25 @@ $menu = new Menu();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <style>
+        body {
+            background-image: url(img/Background-Pattern-BW.jpg);
+        }
+
+        .card-header .back-btn {
+            float: left;
+            height: 100%;
+            margin-top: 10px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #595959;
+            transition: all .1s ease;
+        }
+
+        .card-header .back-btn:hover {
+            color: #2f2f2f;
+        }
+
+
         td:nth-child(2) {
             white-space: normal !important;
             width: 100px !important;
@@ -161,8 +180,8 @@ $menu = new Menu();
 
 
             <div class="card-header ">
-                <h3 class="text-center">Menu</h3>
-
+                <a href="index.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+                <h3 class="text-center">Order</h3>
             </div>
 
 
