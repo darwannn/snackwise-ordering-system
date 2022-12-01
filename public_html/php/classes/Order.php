@@ -65,7 +65,7 @@ class Order extends DbConnection
             $notification->insert_notif($user_id, $fetch_order_id, $status, $message);
             $user_type = $_SESSION['user_type'];
             if ($user_type != "admin" && $user_type != "staff") {
-                $staff_message = "An order has been Placed.";
+                $staff_message = "An order has been placed.";
                 $notification->insert_notif(0, $fetch_order_id, $status, $staff_message);
             }
             $output['success'] = 'Order Successfully Placed';
@@ -553,6 +553,10 @@ class Order extends DbConnection
     public function cancel_order($order_id)
     {
         $status = "Cancelled";
+        $notification = new Notification();
+        $message = "An order has been cancelled";
+        $notification->insert_notif(0, $order_id, $status, $message);
+       
         $query = $this->connect()->prepare("UPDATE orders SET status = :status WHERE order_id = :order_id");
         $result = $query->execute([":status" => $status, ":order_id" => $order_id]);
         if ($result) {

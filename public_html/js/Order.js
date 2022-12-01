@@ -291,9 +291,9 @@ class Order {
                 if (response_data.success) {
 
                     new Order().close_order_details();
+                    new Notification().notification(); 
                     new Notification().create_notification(response_data.success, "success");
-                    table.update();
-                    new Order().total_order_count();
+                    
                     dataRemoved();
                 } else if (response_data.error) {
                     new Notification().create_notification(response_data.error, "error");
