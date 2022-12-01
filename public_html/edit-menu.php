@@ -195,7 +195,7 @@ $menu = new Menu();
                             <th>#</th>
                             <th>Name</th>
                             <th>Desciption</th>
-                            <th>Categoty</th>
+                            <th>Category</th>
                             <th>Discount(%)</th>
                             <th>Price</th>
                             <th>Date Added</th>
