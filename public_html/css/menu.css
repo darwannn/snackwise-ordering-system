@@ -418,29 +418,11 @@ a[name="log-in-btn"] {
     font-size: 1.6em;
 }
 
-/* START OF FOOTER */
+/* FOOTER CSS */
 
 .footer-header {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
 }
-
-.footer-header .line {
-    width: 100%;
-}
-
-.footer-header .line hr {
-    border-top: solid 1px var(--labelCol);
-}
-
-.footer-header .snack-logo-container img {
-    display: inline-block;
-    margin: auto 2em;
-}
-
 
 .footer-header img {
     position: relative;
@@ -473,35 +455,30 @@ a[name="log-in-btn"] {
     font-size: 1.6em;
 }
 
-.newsletter-form {
+.input-container {
     margin: 1.5em auto;
     background-color: #EEEEEE;
     padding: .5em;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row;
+    border-radius: 10px;
 }
 
-.newsletter-form #newsletter_email {
+.input-container form #newsletter-input {
     border: none;
     background-color: #EEEEEE;
     font-size: 1.4em;
-    float: left;
-    width: 100%;
+
 }
 
-.newsletter-form button {
+.input-container form button {
     font-size: 1.4em;
-    font-weight: bold;
-    color: white;
     background-color: #F0C808;
     border-style: none;
     padding: .5em 1em;
-    border-radius: 5px;
-    float: right;
+    border-radius: 10px;
+    
 }
 
-.newsletter-form button:hover {
+.input-container form button:hover {
     color: white;
 }
 
@@ -540,7 +517,7 @@ a[name="log-in-btn"] {
     color: white;
 }
 
-/* END OF FOOTER */
+/* FOOTER CSS END */
 
 @media (min-width: 490px) and (max-width: 767px) {
     /* MID TO WIDE */

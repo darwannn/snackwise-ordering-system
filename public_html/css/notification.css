@@ -297,6 +297,22 @@
     z-index: 11;
 }
 
+.unread-staff-notification {
+  position: relative;
+}
+.unread-staff-notification::before {
+    position: absolute;
+    content: '';
+    width: 6px;
+    height: 20px;
+    margin-top: -20px;
+    left: -1em;
+    border-radius: 5px;
+    background-color: var(--snackred);
+    color: var(--snackred);
+    z-index: 11;
+}
+
 .notification .notification-body-container {
     margin-top: .7em 0;
 }
@@ -317,5 +333,6 @@
 
 .notification {
   cursor:pointer;
+  
 }
 /* END OF NOTIFICATION DROPDOWN */

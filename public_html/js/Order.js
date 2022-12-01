@@ -9,6 +9,32 @@ class Order {
         ];
     }
 
+    total_order_count() {
+        let fotm_data = new FormData();
+        fotm_data.append('total_order_count', 'total_order_count');
+        fetch('php/controller/c_order.php', {
+            method: "POST",
+            body: fotm_data
+        }).then(function (response) {
+            return response.json();
+        }).then(function (response_data) {
+            console.log(response_data.data);
+
+            if (response_data.error) {
+
+                new Notification().create_notification(response_data.error, "error");
+            } else {
+
+                document.getElementById('total_cancelled_count').innerHTML = response_data.data[0].total_cancelled_count;
+                document.getElementById('total_completed_count').innerHTML = response_data.data[0].total_completed_count;
+                document.getElementById('total_unclaimed_count').innerHTML = response_data.data[0].total_unclaimed_count;
+                document.getElementById('total_preparing_count').innerHTML = response_data.data[0].total_preparing_count;
+                document.getElementById('total_placed_count').innerHTML = response_data.data[0].total_placed_count;
+                document.getElementById('total_order_count').innerHTML = response_data.data[0].total_order_count;
+            }
+        });
+    }
+
     customer_order() {
         /*  new Order().close_order_details(); */
         //gets the value of selected radio button which is used to filter the items in the order table
@@ -95,8 +121,8 @@ class Order {
                     order_status = new Order().get_status_text(order.status);
                     status_class = new Order().get_status_style(order.status);
 
-                 let show_date=  new Order().get_date_format(order.date);
-                 let fetch_time=  new Order().get_time_format(order.time);
+                    let show_date = new Order().get_date_format(order.date);
+                    let fetch_time = new Order().get_time_format(order.time);
                     order_list += `
                     <div class="order-item">
                     <div class="order-details-row">
@@ -105,13 +131,13 @@ class Order {
                             <span class="order-number">${(order.order_id).toString().padStart(10, '0')}</span>
                         </div>
                         <div class="order-date-container">`;
-                        if (category == "Completed" || category == "details-completed" ) {
-                            order_list += `      <span>${`${show_date}`}</span>`;
-                        } else {
-                            order_list += `      <span>${`${show_date} | ${fetch_time}`}</span>`;
-                        }
-                  
-                        order_list += `  </div>
+                    if (category == "Completed" || category == "details-completed") {
+                        order_list += `      <span>${`${show_date}`}</span>`;
+                    } else {
+                        order_list += `      <span>${`${show_date} | ${fetch_time}`}</span>`;
+                    }
+
+                    order_list += `  </div>
                     </div>
                     <div class="order-details-row">
                         <div class="quantity-container">
@@ -161,9 +187,9 @@ class Order {
 
             order_status = new Order().get_status_text(single_order.status);
             status_class = new Order().get_status_style(single_order.status);
-            
-            let show_date=  new Order().get_date_format(single_order.date);
-            let fetch_time=  new Order().get_time_format(single_order.time);
+
+            let show_date = new Order().get_date_format(single_order.date);
+            let fetch_time = new Order().get_time_format(single_order.time);
 
             let qr_image = "";
 
@@ -188,12 +214,12 @@ class Order {
                         <span class="order-number-label">Order No.:</span>
                         <span class="order-number">${(single_order.order_id).toString().padStart(10, '0')}</span><br>
                         `;
-                        if (category == "Completed" || category == "details-completed" ) {
-                            order_details_list += `<span class="label">Date Claimed:</span><span class="order-date value">${` ${`${show_date}`}`}</span><br>`;
-                        } else {
-                            order_details_list += `<span class="label">Order Date:</span><span class="order-date value">${` ${`${show_date} | ${fetch_time}`}`}</span><br>`;
-                        }
-                        order_details_list += ` <span class="label">Status:</span>
+            if (category == "Completed" || category == "details-completed") {
+                order_details_list += `<span class="label">Date Claimed:</span><span class="order-date value">${` ${`${show_date}`}`}</span><br>`;
+            } else {
+                order_details_list += `<span class="label">Order Date:</span><span class="order-date value">${` ${`${show_date} | ${fetch_time}`}`}</span><br>`;
+            }
+            order_details_list += ` <span class="label">Status:</span>
                         <span class="status ${status_class} status-value"> ${order_status}</span>
                     </div>
                     <div class="header-col">
@@ -252,12 +278,12 @@ class Order {
 
     delete_order(order_id) {
         if (confirm("Are you sure you want to cancel your order?")) {
-            let delete_order_data = new FormData();
-            delete_order_data.append('delete_order', 'delete_order');
-            delete_order_data.append('order_id', order_id);
+            let fotm_data = new FormData();
+            fotm_data.append('delete_order', 'delete_order');
+            fotm_data.append('order_id', order_id);
             fetch('php/controller/c_order.php', {
                 method: "POST",
-                body: delete_order_data
+                body: fotm_data
             }).then(function (response) {
                 return response.json();
             }).then(function (response_data) {
@@ -267,6 +293,7 @@ class Order {
                     new Order().close_order_details();
                     new Notification().create_notification(response_data.success, "success");
                     table.update();
+                    new Order().total_order_count();
                     dataRemoved();
                 } else if (response_data.error) {
                     new Notification().create_notification(response_data.error, "error");
@@ -275,7 +302,7 @@ class Order {
             });
         }
     }
-    
+
     get_date_format(date) {
         let show_date = "";
         let fetch_month = (date).substr(5, 2);
@@ -323,6 +350,7 @@ class Order {
             new Order().qr_close_modal();
             if (response_data.success) {
                 table.update();
+                new Order().total_order_count();
                 dataRemoved();
                 new Notification().create_notification(response_data.success, "success");
 
@@ -461,6 +489,7 @@ class Order {
             if (response_data.success) {
                 new Notification().create_notification(response_data.success, "success");
                 table.update();
+                new Order().total_order_count();
             } else if (response_data.error) {
                 new Notification().create_notification(response_data.error, "error");
             }
@@ -505,6 +534,7 @@ class Order {
                 new Notification().create_notification(response_data.success, "success");
                 dataRemoved();
                 table.update();
+                new Order().total_order_count();
                 new Order().close_del_notif();
 
             } else if (response_data.error) {
