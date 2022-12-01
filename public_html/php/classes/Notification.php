@@ -16,10 +16,16 @@ class Notification extends DbConnection
     }
 
    /*  display all the notifications intended for the customer */
-    public function display_notification($user_id)
+    public function display_notification($user_id, $type)
     {
+
+        if($type == "customer") {
         $result = $query = $this->connect()->prepare("SELECT * FROM notification WHERE user_id =:user_id ORDER BY date DESC");
         $query->execute([":user_id" => $user_id]);
+    } else {
+        $result = $query = $this->connect()->prepare("SELECT * FROM notification WHERE user_id =:user_id  ORDER BY date DESC");
+        $query->execute([":user_id" => 0]);
+    }
         if ($result) {
             $data = array();
             foreach ($result as $row) {
@@ -41,18 +47,33 @@ class Notification extends DbConnection
     }
 
     /*  count all the unread notification of a customer */
-    public function notification_count($user_id){
-        $query = $this->connect()->prepare("SELECT * FROM notification WHERE user_id = :user_id AND status = :status");
-        $query->execute([":user_id" => $user_id, ":status" => 'unread']);
+    public function notification_count($user_id, $type){
+       
+        if($type == "customer") {
+            $query = $this->connect()->prepare("SELECT * FROM notification WHERE user_id = :user_id AND status = :status");
+            $query->execute([":user_id" => $user_id, ":status" => 'unread']);
+        } else {
+
+            $query = $this->connect()->prepare("SELECT * FROM notification WHERE user_id = :user_id AND status = :status");
+            $query->execute([":user_id" => 0, ":status" => 'unread']);
+        }
+       
+    
         $output['notification_count'] = $query->rowCount();
         echo json_encode($output);
     }
 
     /* changes the status of notification from unread to read  */
-    public function update_notification($user_id){
+    public function update_notification($user_id, $type){
         $status = 'read';
-        $query  = $this->connect()->prepare("UPDATE notification SET status = :status WHERE user_id = :user_id");
-        $query->execute([':status' => $status, ':user_id' => $user_id]);
+        if($type == "customer") {
+            $query  = $this->connect()->prepare("UPDATE notification SET status = :status WHERE user_id = :user_id");
+            $query->execute([':status' => $status, ':user_id' => $user_id]);
+        } else {
+
+            $query  = $this->connect()->prepare("UPDATE notification SET status = :status WHERE user_id = :user_id");
+            $query->execute([':status' => $status, ":user_id" => 0 ]);
+        }
         echo json_encode("");
     }
 
