@@ -345,7 +345,7 @@ class Order extends DbConnection
     public function fetch_five()
     {
         $status = 'Cancelled';
-        $result = $query = $this->connect()->prepare("SELECT m.price AS price, u.contact,  m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price -(m.price * (m.discount/100))*l.quantity SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.status != :status GROUP BY l.order_id ORDER BY date ASC 
+        $result = $query = $this->connect()->prepare("SELECT m.price AS price, u.contact,  m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name,  GROUP_CONCAT(CONCAT(m.name, ' (x',l.quantity,')') SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price -(m.price * (m.discount/100))*l.quantity SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id WHERE o.status != :status GROUP BY l.order_id ORDER BY date ASC 
         LIMIT 5");
         $query->execute([":status" => $status]);
         $output = '';
@@ -369,10 +369,9 @@ class Order extends DbConnection
 		<tr>
             <td>' . $row["order_id"] . '</td>
             <td>' . $row["customer_name"] . '</td>
-            <td>' . $row["menu_name"] . '</td>
             <td>' . $row["contact"]  . '</td>
-            <td>PHP ' . $row["price_list"] . '</td>
-            <td>' . $row["quantity_list"] . '</td>
+            <td>' . $row["menu_name"] . '</td>
+        
             <td> <input min="' . date('Y-m-d') . '" type="date" class="form-control table-date" name="date" id="' . $row["order_id"] . 'new-date" value="' . $row["date"] . '" onchange="new Order().fetch_selected_order(' . $row["order_id"] . ',`new`)"/></td>
             <td> <input type="time" class="form-control table-time" name="time" id="' . $row["order_id"] . 'new-time" value="' . $row["time"] . '" onchange="new Order().fetch_selected_order(' . $row["order_id"] . ',`new`)"/></td>
             <td>
@@ -415,8 +414,8 @@ class Order extends DbConnection
         $sortColumnIndex = filter_input(INPUT_GET, "sortColumn", FILTER_SANITIZE_NUMBER_INT);
         $sortDirection = filter_input(INPUT_GET, "sortDirection", FILTER_SANITIZE_STRING);
 
-        $column = array("o.order_id", "customer_name", "menu_name", "quantity_list", "price_list", "u.contact", "o.date", "o.time", "o.status", "");
-        $sql = "SELECT m.price AS price, u.contact, m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name, GROUP_CONCAT(m.name SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price -(m.price * (m.discount/100))*l.quantity SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id";
+        $column = array("o.order_id", "customer_name", "u.contact", "menu_name", "o.date", "o.time", "o.status", "");
+        $sql = "SELECT m.price AS price, u.contact,  m.discount AS discount, l.quantity AS quantity, u.user_id, o.order_id, CONCAT(u.firstname,' ', u.lastname) AS customer_name,  GROUP_CONCAT(CONCAT(m.name, ' (x',l.quantity,')') SEPARATOR ', ') AS menu_name, GROUP_CONCAT(m.price -(m.price * (m.discount/100))*l.quantity SEPARATOR ', ') AS price_list, GROUP_CONCAT(l.quantity SEPARATOR ', ') AS quantity_list, o.date, o.time, o.status FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id";
         $status = 'Cancelled';
 
         $search =  substr($search, 1);
@@ -465,10 +464,8 @@ class Order extends DbConnection
             $sub_array = array();
             $sub_array[] = $row['order_id'];
             $sub_array[] = $row['customer_name'];
-            $sub_array[] = $row['menu_name'];
             $sub_array[] = $row['contact'];
-            $sub_array[] = $row['price_list'];
-            $sub_array[] = $row['quantity_list'];
+            $sub_array[] = $row['menu_name'];
             $sub_array[] = ' <td>  <input min="' . date('Y-m-d') . '" type="date" class="form-control table-date" name="date" id="' . $row['order_id'] . 'filter-new-date" value="' . $row["date"] . '" onchange="new Order().fetch_selected_order(' . $row["order_id"] . ',`fetch-new`)"/></td>';
             $sub_array[] = ' <td> <input type="time" class="form-control table-time" name="time" id="' . $row['order_id'] . 'filter-new-time" value="' . $row["time"] . '" onchange="new Order().fetch_selected_order(' . $row["order_id"] . ',`fetch-new`)"/></td>';
             $sub_array[] = '  
@@ -499,31 +496,30 @@ class Order extends DbConnection
         date_default_timezone_set('Asia/Manila');
         $date = date('Y-m-d');
 
-        $query = "SELECT COUNT(o.order_id) FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id";
-
-        $total_cancelled_count = $this->connect()->prepare($query . ' WHERE o.status= :status AND o.date = :date GROUP BY l.order_id');
-        $total_cancelled_count->execute([":status" => 'Cancelled', "date" => $date]);
-        $sub_array['total_cancelled_count'] =    $total_cancelled_count->rowCount();
-
-        $total_completed_count = $this->connect()->prepare($query . ' WHERE o.status= :status AND o.date = :date GROUP BY l.order_id');
-        $total_completed_count->execute([":status" => 'Cancelled', "date" => $date]);
+        $total_completed_count = $this->connect()->prepare('SELECT order_id FROM transaction WHERE date = :date');
+        $total_completed_count->execute([":date" => $date]);
         $sub_array['total_completed_count'] =    $total_completed_count->rowCount();
 
+        $query = "SELECT o.order_id FROM user u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN orderlist l ON o.order_id = l.order_id  INNER JOIN menu m ON l.menu_id = m.menu_id";
+
+        $total_cancelled_count = $this->connect()->prepare($query . ' WHERE o.status= :status AND o.date = :date GROUP BY l.order_id');
+        $total_cancelled_count->execute([":status" => 'Cancelled', ":date" => $date]);
+        $sub_array['total_cancelled_count'] =    $total_cancelled_count->rowCount();
 
         $total_unclaimed_count = $this->connect()->prepare($query . ' WHERE o.status = :status AND o.date = :date GROUP BY l.order_id');
-        $total_unclaimed_count->execute([ ":status" => 'Ready', "date" => $date]);
+        $total_unclaimed_count->execute([ ":status" => 'Ready', ":date" => $date]);
         $sub_array['total_unclaimed_count'] =    $total_unclaimed_count->rowCount();
 
         $total_preparing_count = $this->connect()->prepare($query . ' WHERE o.status = :status  AND o.date = :date GROUP BY l.order_id');
-        $total_preparing_count->execute([":status" => 'Preparing', "date" => $date]);
+        $total_preparing_count->execute([":status" => 'Preparing', ":date" => $date]);
         $sub_array['total_preparing_count'] =    $total_preparing_count->rowCount();
 
         $total_placed_count = $this->connect()->prepare($query . ' WHERE o.status= :status AND o.date = :date GROUP BY l.order_id');
-        $total_placed_count->execute([":status" => 'Placed', "date" => $date]);
+        $total_placed_count->execute([":status" => 'Placed', ":date" => $date]);
         $sub_array['total_placed_count'] =   $total_placed_count->rowCount();
 
         $total_order_count = $this->connect()->prepare($query . ' WHERE o.status != :status AND o.date = :date GROUP BY l.order_id');
-        $total_order_count->execute([":status" => 'Cancelled', "date" => $date]);
+        $total_order_count->execute([":status" => 'Cancelled', ":date" => $date]);
         $sub_array['total_order_count'] =    $total_order_count->rowCount();
 
 

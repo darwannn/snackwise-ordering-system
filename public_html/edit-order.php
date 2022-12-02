@@ -67,22 +67,27 @@ $order = new Order();
             color: #2f2f2f;
         }
 
-        td:nth-child(9) {
-            min-width: 145px !important;
-        }
-
-        td:nth-child(3) {
-            min-width: 140px !important;
+        td:nth-child(4) {
+            max-width: 200px !important;
+            white-space: normal !important;
         }
 
         td:nth-child(2) {
             white-space: normal !important;
-            width: 80px !important;
+            width: 150px !important;
         }
 
+        td:nth-child(7) {
+            white-space: normal !important;
+            width: 150px !important;
+        }
         td:nth-child(5) {
             white-space: normal !important;
-            width: 100px !important;
+            width: 120px !important;
+        }
+        td:nth-child(6) {
+            white-space: normal !important;
+            width: 150px !important;
         }
 
         .dt-table th.dt-sorter::before,
@@ -106,38 +111,37 @@ $order = new Order();
         .dt-table th:nth-child(2).dt-sorter::after {
             right: 9px;
         }
-        .dt-table th:nth-child(3).dt-sorter::before,
+       /*  .dt-table th:nth-child(3).dt-sorter::before,
         .dt-table th:nth-child(3).dt-sorter::after {
             right: 20px;
+        } */
+        .dt-table th:nth-child(5).dt-sorter::before,
+        .dt-table th:nth-child(5).dt-sorter::after {
+            right: 40px;
+        }
+        .dt-table th:nth-child(6).dt-sorter::before,
+        .dt-table th:nth-child(6).dt-sorter::after {
+            right: 22px;
         }
         .dt-table th:nth-child(7).dt-sorter::before,
         .dt-table th:nth-child(7).dt-sorter::after {
-            right: 40px;
-        }
-        .dt-table th:nth-child(8).dt-sorter::before,
-        .dt-table th:nth-child(8).dt-sorter::after {
-            right: 22px;
-        }
-        .dt-table th:nth-child(9).dt-sorter::before,
-        .dt-table th:nth-child(9).dt-sorter::after {
-            right: 19px;
+            right: 21px;
         }
 
+        .dt-table th:nth-child(3).dt-sorter::before,
+        .dt-table th:nth-child(3).dt-sorter::after,
         .dt-table th:nth-child(4).dt-sorter::before,
         .dt-table th:nth-child(4).dt-sorter::after,
-        .dt-table th:nth-child(5).dt-sorter::before,
-        .dt-table th:nth-child(5).dt-sorter::after,
-        .dt-table th:nth-child(6).dt-sorter::before,
-        .dt-table th:nth-child(6).dt-sorter::after,
-        .dt-table th:nth-child(10).dt-sorter::before,
-        .dt-table th:nth-child(10).dt-sorter::after {
+  
+        .dt-table th:nth-child(8).dt-sorter::before,
+        .dt-table th:nth-child(8).dt-sorter::after {
             display: none;
         }
 
         th:nth-child(4),
-        th:nth-child(5),
-        th:nth-child(6),
-        th:nth-child(10) {
+        th:nth-child(3),
+
+        th:nth-child(8) {
             pointer-events: none;
         }
         .input_error {
@@ -217,10 +221,10 @@ placed (di kasama confirmed)  <div id="total_placed_count">#</div>
                         <tr>
                             <th>#</th>
                             <th>Customer Name</th>
-                            <th>Order Name</th>
                             <th>Contact No.</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
+                            <th>Order</th>
+                           <!--  <th>Price</th>
+                            <th>Quantity</th> -->
                             <th>Pickup Date</th>
                             <th>Pickup Time</th>
                             <th>Order Status</th>
