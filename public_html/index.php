@@ -240,12 +240,18 @@ $account->delete_code();
         </section>
 
         <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 footer-header">
-                        <img src="img/penguin.png" alt="penguin.png" width="116px" height="104px">
-                    </div>
+            <div class=footer-header>
+                <div class="left-line line">
+                    <hr>
                 </div>
+                <div class="snack-logo-container">
+                    <img src="img/penguin.png" alt="penguin.png" width="116px" height="104px">
+                </div>
+                <div class="right-line line">
+                    <hr>
+                </div>
+            </div>
+            <div class="container">
                 <div class="row footer-details">
                     <div class="col-12 col-md-3 address-col">
                         <span class="detail-title">
@@ -283,12 +289,10 @@ $account->delete_code();
                             Subscribe to our daily newsletter for all latest updates.
                         </span>
 
-                        <div class="input-container">
                             <form action="#" class="newsletter-form" id="newsletter_form">
                                 <input type="text" name="email" id="newsletter_email" placeholder="Email Address">
                                 <button type="button" id="newsletter" onclick="new Notification().newsletter()">SUBSCRIBE</button>
                             </form>
-                        </div>
                         <span id="newsletter_email_error"></span>
 
                     </div>
