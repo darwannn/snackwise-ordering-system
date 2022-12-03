@@ -42,7 +42,7 @@ $validate = new Validate();
 
     <div class="parent-container">
 
-    <nav class="navbar navbar-light bg-light navbar-expand-md">
+        <nav class="navbar navbar-light bg-light navbar-expand-md">
             <div class="container">
                 <a href="index.php" class="navbar-brand">
                     <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
@@ -74,7 +74,7 @@ $validate = new Validate();
                     } else {
                         /* dito lalagay yung logout*/
                     ?>
-                        
+
                         <div class="user-notifications-container">
                             <button class="notification-button">
                                 <i class="fa-solid fa-bell"></i>
@@ -86,7 +86,7 @@ $validate = new Validate();
                                 <div class="panel-header-container">
                                     <span class="panel-header">Notifications</span>
                                 </div>
-                                
+
                                 <div class="notifications-container" id="notification_list"></div>
                             </div>
                         </div>

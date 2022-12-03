@@ -69,7 +69,7 @@ $conn = $db->connect();
             <p class="cart-label bold mb-0"> SHOPPING CART <i class=" sidecart-close fa-solid fa-xmark float-end" onclick="new Cart().close_cart();"></i></p>
             <hr class="w-100 my-2">
         </div>
-       <div class="text-end mt-2" id="empty_cart"><button class="text-end mx-3 btn p-0" style="font-size:12px;" onclick="new Cart().delete_cart('','empty');" >Empty Cart</button></div>
+        <div class="text-end mt-2" id="empty_cart"><button class="text-end mx-3 btn p-0" style="font-size:12px;" onclick="new Cart().delete_cart('','empty');">Empty Cart</button></div>
         <!-- customers added to cart items will be appended here -->
         <div class="cart_list cart_list flex-grow-1 mx-3" id="cart_list" style="margin-top: -5px;">
 
@@ -88,7 +88,7 @@ $conn = $db->connect();
     <!-- SIDEBAR -->
 
     <div class="parent-container">
-    <nav class="navbar navbar-light bg-light navbar-expand-md">
+        <nav class="navbar navbar-light bg-light navbar-expand-md">
             <div class="container">
                 <a href="index.php" class="navbar-brand">
                     <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
@@ -133,8 +133,8 @@ $conn = $db->connect();
                                 <div class="panel-header-container">
                                     <span class="panel-header">Notifications</span>
                                 </div>
-                                
-                                
+
+
                                 <div class="notifications-container" id="notification_list"></div>
                             </div>
                         </div>
@@ -357,34 +357,33 @@ $conn = $db->connect();
                     <div class="modal-title h5 fw-bold">CHECKOUT</div>
                 </div>
                 <div class="modal-body">
-                <div class="mt-2">
-                    <form id="order_form" method="POST">
-                        <input type="text" id="cartlist" name="cartlist" placeholder="cartlist">
-                       <label class="h6">When do you want to pick up your order?</label>
-                       <div class="input-group mt-2">
-                            
-                                  <input type="date" class="form-control me-1" id="date" name="date">
-                            <input type="text" class="form-control ms-1" id="time" name="time" >
-                        </div>
-                
-                    </form>
+                    <div class="mt-2">
+                        <form id="order_form" method="POST">
+                            <input type="text" id="cartlist" name="cartlist" placeholder="cartlist">
+                            <label class="h6">When do you want to pick up your order?</label>
+                            <div class="input-group mt-2">
+
+                                <input type="date" class="form-control me-1" id="date" name="date">
+                                <input type="text" class="form-control ms-1" id="time" name="time">
+                            </div>
+
+                        </form>
                     </div>
                     <!-- customers to checkout items will be appended here -->
-                    <div >
-                    <!-- <div class="h6 fw-bold ">SUMMARY</div> -->
+                    <div>
+                        <!-- <div class="h6 fw-bold ">SUMMARY</div> -->
                         <div class="verify_list row mt-4 mb-5 mx-1 justify-content-start" id="verify_list"></div>
                     </div>
-                   
-<div class="">
-                    <div class="h6 fw-bold ">TOTAL:</div>
-                    <div class="h6 fw-bold  text-end" id="verify_price"></div>
+
+                    <div class="">
+                        <div class="h6 fw-bold ">TOTAL:</div>
+                        <div class="h6 fw-bold  text-end" id="verify_price"></div>
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-success" type="button" name="add_to_order" id="add_to_order">Checkout</button>
-                    <button class="btn btn-danger" type="button" id="cancel_add_to_order"
-                        onclick="new Cart().close_add_order();">Cancel</button>
+                    <button class="btn btn-danger" type="button" id="cancel_add_to_order" onclick="new Cart().close_add_order();">Cancel</button>
                 </div>
             </div>
         </div>
@@ -422,30 +421,30 @@ $conn = $db->connect();
 
             })
         }
-     /*    new Notification().notification(); */
+        /*    new Notification().notification(); */
         /* END OF DROPDOWN */
-            new Menu().menu();
-            /* --------------------cart */
-            <?php if (!($validate->is_logged_in("customer"))) {
-            ?>
-               new Cart().cart();
-            <?php
-            } ?>
-
-    <?php 
-    /* adds selected bestseller item to cart */
-        if(isset($_GET['b'])) {
-     ?>
-        new Cart().add_to_cart(<?php echo $_GET['b']?>);
-        /* removes the URL parameter after the item was added to the cart */
-        let url= document.location.href;
-        window.history.pushState({}, "", url.split("?")[0]);
-    
-    <?php
-        } 
-        
+        new Menu().menu();
+        /* --------------------cart */
+        <?php if (!($validate->is_logged_in("customer"))) {
         ?>
-        </script>
+            new Cart().cart();
+        <?php
+        } ?>
+
+        <?php
+        /* adds selected bestseller item to cart */
+        if (isset($_GET['b'])) {
+        ?>
+            new Cart().add_to_cart(<?php echo $_GET['b'] ?>);
+            /* removes the URL parameter after the item was added to the cart */
+            let url = document.location.href;
+            window.history.pushState({}, "", url.split("?")[0]);
+
+        <?php
+        }
+
+        ?>
+    </script>
 </body>
 
 </html>
