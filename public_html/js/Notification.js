@@ -238,12 +238,16 @@ class Notification {
   newsletter() {
     let form_data = new FormData(document.getElementById('newsletter_form'));
     form_data.append('newsletter', 'newsletter');
+    document.getElementById('newsletter').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    document.getElementById('newsletter').disabled = true;
     return fetch('php/controller/c_notification.php', {
       method: "POST",
       body: form_data
     }).then(function (response) {
       return response.json();
     }).then(function (response_data) {
+      document.getElementById('newsletter').innerHTML = 'SUBSCRIBE';
+      document.getElementById('newsletter').disabled = false;
       console.log(response_data);
       if (response_data.success) {
         new Notification().create_notification(response_data.success, "success");
