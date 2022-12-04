@@ -185,11 +185,14 @@ class Account extends DbConnection
         $result = $query->execute([':code' => $code, ':status' => $status, ':url_code' => $url_code]);
         if ($result) {
             $_SESSION['activate_success'] = '<div class="alert alert-success text-center">Account has been activated</div>';
+            unset($_SESSION['user_id']);
+            unset($_SESSION['password']);
             header('Location: login.php');
         } else {
             header('Location: ../error');
         }
     }
+
     /* -------------------- reset.php */
     /* changes the login incorrect attempt counter to 0 */
     public function reset_attempt()
@@ -267,6 +270,7 @@ class Account extends DbConnection
                 $_SESSION['current_lastname'] =   $lastname;
                 $_SESSION['current_image'] =   $image_link;
                 $output['success'] = 'Your profile has been updated';
+                $_SESSION['activate_success_profile'] = 'Your profile has been updated';
             } else {
                 $output['error'] = 'Something went wrong! Please try again later.';
             }

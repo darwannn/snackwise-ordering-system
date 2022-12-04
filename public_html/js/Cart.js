@@ -7,7 +7,7 @@ class Cart {
 
     cart() {
         new Cart().cart_count();
-        new Cart().fetch_holiday();
+        new Cart().fetch_closed_date();
         new Cart().display_cart();
         new Cart().close_add_order();
 
@@ -316,19 +316,19 @@ class Cart {
     }
 
     /* fetches dates where the business is closed and removes it from the date picker */
-    fetch_holiday() {
+    fetch_closed_date() {
 
         let form_data = new FormData();
-        form_data.append('display_holiday', 'display_holiday');
+        form_data.append('display_closed_date', 'display_closed_date');
 
-        fetch('php/controller/c_holiday.php', {
+        fetch('php/controller/c_closed_date.php', {
             method: "POST",
             body: form_data
         }).then(function (response) {
             return response.json();
 
         }).then(function (response_data) {
-            let holiday_list = [];
+            let closed_date_list = [];
             /* gets the current date and time and displays it to the date and time picker with a format of YYYY-MM-DD for date and HH: MM for time*/
             let date = new Date();
             let day = date.getDate(),
@@ -348,12 +348,12 @@ class Cart {
             hour = (hour < 10 ? "0" : "") + hour;
             min = (min < 10 ? "0" : "") + min;
 
-            response_data.data.map(function (holiday) {
-                holiday_list.push(holiday.date);
+            response_data.data.map(function (closed_date) {
+                closed_date_list.push(closed_date.filter_date);
             });
 
             document.getElementById('date').flatpickr({
-                "disable": holiday_list,
+                "disable": closed_date_list,
                 minDate: "today",
                 altInput: true,
                 altFormat: "F j, Y",
@@ -391,7 +391,7 @@ class Cart {
     }
 
     close_add_order() {
-        new Cart().fetch_holiday();
+        new Cart().fetch_closed_date();
         document.getElementById("order_modal").style.display = "none";
         document.getElementById('modal_backdrop').style.display = 'none';
         document.querySelector('body').style.overflow = 'visible';

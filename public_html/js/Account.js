@@ -223,7 +223,7 @@ class Account {
                 if(type != "email") {
                     new Account().fetch_information();
                 }
-                new Notification().create_notification(response_data.success, "success");
+           /*      new Notification().create_notification(response_data.success, "success"); */
                 /* new Account().scroll_to("top"); */
                 window.location.reload();
             } 

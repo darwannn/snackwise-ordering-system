@@ -1,13 +1,14 @@
 <?php
 require_once dirname(__FILE__) . '/php/classes/DbConnection.php';
 require_once dirname(__FILE__) . '/php/classes/Validate.php';
+require_once dirname(__FILE__) . '/php/classes/Closed_Date.php';
 
 $validate = new Validate();
+$closed_date = new Closed_Date();
 
+$closed_date->delete_past_closed_date();
 $db = new DbConnection();
 $conn = $db->connect();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -356,8 +357,8 @@ $conn = $db->connect();
                         </span>
 
                         <form action="#" class="newsletter-form" id="newsletter_form">
-                            <input type="text" name="email" id="newsletter_email" placeholder="Email Address">
-                            <button type="button" id="newsletter" onclick="new Notification().newsletter()">SUBSCRIBE</button>
+                        <input type="text" name="email" id="newsletter_email" placeholder="Email Address">
+                        <button type="button" id="newsletter" onclick="new Notification().newsletter()">SUBSCRIBE</button>
                         </form>
                         <span id="newsletter_email_error"></span>
 
@@ -462,7 +463,7 @@ $conn = $db->connect();
 
             })
         }
-        /*    new Notification().notification(); */
+     
         /* END OF DROPDOWN */
         new Menu().menu();
         /* --------------------cart */
@@ -483,8 +484,16 @@ $conn = $db->connect();
 
         <?php
         }
-
         ?>
+
+        /* displays newsletter subscription success message */
+        <?php
+        if (isset($_SESSION['activate_success'])) {
+        ?>
+            new Notification().create_notification('<?php echo $_SESSION['activate_success']; ?>', "success");
+        <?php
+            unset($_SESSION["activate_success"]);
+        } ?>
     </script>
 </body>
 

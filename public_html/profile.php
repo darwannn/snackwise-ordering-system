@@ -155,7 +155,7 @@ if ($validate->is_logged_in("customer")) {
                             <div class="form-group">
                                 <label class="col control-label">Contact Number:</label>
                                 <div class="col">
-                                    <input class="form-control" type="text" name="contact" id="contact" value="" placeholder="09 - -" autocomplete="off">
+                                    <input class="form-control" type="text" name="contact" id="contact" value="" placeholder="09XXXXXXXXX" maxlength="11" autocomplete="off">
                                     <span class="input_error" id="contact_error"></span>
                                 </div>
                             </div>
@@ -305,15 +305,21 @@ if ($validate->is_logged_in("customer")) {
         });
     }
 
+    /* displays a message after an information has been successfully updated */
     <?php
-    /* adds selected bestseller item to cart */
-    if (isset($_SESSION['activate_success'])) {
+    if (isset($_SESSION['activate_success_profile'])) {
     ?>
-        new Notification().create_notification("Your email address has been updated", "success");
+        new Notification().create_notification("<?php echo $_SESSION['activate_success_profile'] ?>", "success");
     <?php
-        unset($_SESSION["activate_success"]);
+        unset($_SESSION["activate_success_profile"]);
     }
 
+    if (isset($_SESSION['activate_success'])) {
+        ?>
+            new Notification().create_notification("Your email address has been updated", "success");
+        <?php
+            unset($_SESSION["activate_success"]);
+        }
     ?>
 </script>
 

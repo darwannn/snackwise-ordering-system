@@ -92,7 +92,7 @@ if (!$validate->is_logged_in("customer")) {
                     <div class="col">
                         <!-- <label for="contact">Contact Number</label> -->
                         <input type="text" class="m-2" name="contact" id="contact"
-                            placeholder="Contact Number (09XXXXXXXXX)" value="" autocomplete="off">
+                            placeholder="Contact Number (09XXXXXXXXX)" value="" maxlength="11" autocomplete="off">
                         <span class="input_error" id="contact_error"></span>
                     </div>
                 </div>

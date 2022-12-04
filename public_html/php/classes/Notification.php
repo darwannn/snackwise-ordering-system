@@ -3,6 +3,7 @@
 require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 require_once dirname(__FILE__) . "/DbConnection.php";
 require_once dirname(__FILE__) . "/Email.php";
+require_once dirname(__FILE__) . "/Account.php";
 
 class Notification extends DbConnection
 {
@@ -79,10 +80,32 @@ class Notification extends DbConnection
 
      /* -------------------- newsletter*/
     public function newsletter($email) {
-        $query = $this->connect()->prepare("INSERT INTO newsletter (email) VALUES( :email)");
-        $result = $query->execute([":email" => $email]);
+        $status =  "unverified";
+        $account = new Account();
+        $validate = new Validate();
+        $code = $account->generate_code();
+        $query = $this->connect()->prepare("SELECT * FROM newsletter WHERE email = :email");
+        $query->execute([':email' => $email]);
+        if  ($query->rowCount() > 0) {
+            $query = $this->connect()->prepare("UPDATE newsletter SET code=:code, status =:status WHERE email =:email");
+             $result = $query->execute([":code" => $code,":status"=>'unverified',":email"=>$email]); 
+            } else {
+        $query = $this->connect()->prepare("INSERT INTO newsletter (email, code, status) VALUES( :email, :code, :status  )");
+        $result = $query->execute([":email" => $email,":code" => $code,":status" => $status]);
+    }
         if ($result) {
-            $output['success'] = 'You have successfully subscribed to our newsletter.';
+            $newsletter_verification = new Email();
+            $subject = 'SnackWise Newsletter Subscription';
+            $notice = "Click the button below <br> to subscribe in our newsletter.";
+            $link = "/subscribe.php?code=" . $code;
+            $button_value = "Subscribe";
+            $body = $account->email_template($link, $notice, $button_value);
+            if ($newsletter_verification->sendEmail("SnackWise", $email, $subject, $body, "account")) {
+                $output['success'] = 'To verify your subscription, we have sent an email to '.$email.'';
+            } else {
+                $output['error'] = 'Something went wrong! Please try again later.';
+            }
+            
         } else {
             $output['error'] = 'Something went wrong! Please try again later.';
             
@@ -90,8 +113,27 @@ class Notification extends DbConnection
         echo json_encode($output);
     }
 
+    /* subscribe.php */
+     /* changes the status of the newsletter subscription to subscribed */
+     public function subscribe()
+     {
+         $url_code = $_GET["code"];
+         $status = "subscribed";
+         $code = 0;
+         /* checks if the verification code in the URL parameter exists */
+         $query  = $this->connect()->prepare("UPDATE newsletter SET code = :code, status = :status WHERE code = :url_code");
+         $result = $query->execute([':code' => $code, ':status' => $status, ':url_code' => $url_code]);
+         if ($result) {
+             $_SESSION['activate_success'] = 'You have successfully subscribed to our newsletter.';
+             header('Location: menu.php');
+         } else {
+             header('Location: error');
+         }
+     }
+
     /* -------------------- contact-us.php */
     /* invoked when a customer submits a message from contact us  */
+
     public function send_email_message($name, $email,$subject,$message){
         $email_verification = new Email();
        if ($email_verification->sendEmail("Customer: ". $name,$email, $subject, $message, "contact")) {
