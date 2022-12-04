@@ -291,6 +291,19 @@ class Account extends DbConnection
         echo json_encode($output);
     }
 
+    /* change-password.php */
+    public function change_password($user_id, $password) {
+        $encrypt_password = $this->encrypt_password($password);
+        $query = $this->connect()->prepare("UPDATE user SET password = :password WHERE user_id = :user_id");
+        $result = $query->execute([':password' => $encrypt_password, ':user_id' => $user_id]);
+        if ($result) {
+            $output['success'] = 'Your password has been changed';
+        } else {
+            $output['error'] = 'Something went wrong! Please try again later.';
+        }
+        echo json_encode($output);
+    }
+    
     /* -------------------- */
     /* updates verification code */
     public function update_code($user_id, $email, $subject, $body, $code)

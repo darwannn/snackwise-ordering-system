@@ -60,7 +60,7 @@ if ($validate->is_logged_in("customer")) {
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto nav-list">
                         <li class="nav-item">
-                            <a href="index.php" class="nav-link" id="">Home</a>
+                            <a href="index.php" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item">
                             <a href="menu.php" class="nav-link">Menu</a>
@@ -70,6 +70,7 @@ if ($validate->is_logged_in("customer")) {
                         </li>
                     </ul>
                     <?php
+                    /* pang lahatan */
                     if ($validate->is_logged_in("customer")) {
                     ?>
                         <form action="#" class="form-inline sign-btns">
@@ -80,18 +81,73 @@ if ($validate->is_logged_in("customer")) {
                     } else {
 
                     ?>
-                        <div class="fw-bold h6" style="margin-top: 5px;"><?php echo $_SESSION['current_firstname'] . " " . $_SESSION['current_lastname']; ?></div>
-                        <div class="user-dropdown-container">
-                            <button class="user-button"></button>
-                            <img src="https://res.cloudinary.com/dhzn9musm/image/upload/<?php echo $_SESSION['current_image'] ?>" alt="" style="border-radius:100px; width:50px; height:50px">
-
-
-
-                            <!-- <i class="fa-solid fa-circle-user"></i> -->
+                        <div class="user-notifications-container">
+                            <!-- dito lalabas yung  unread notifcount -->
+                            <button class="notification-button">
+                                <i class="fa-solid fa-bell"></i>
+                                <div class="notification_count" id="notification_count"></div>
                             </button>
-                            <ul class="drop-menu">
-                                <div id="notification_list" class="position-absolute r-0" style="max-height:300px; min-width:400px; overflow:auto; "></div>
-                            </ul>
+
+                            <div class="notifications-panel">
+                                <div class="panel-header-container">
+                                    <span class="panel-header">Notifications</span>
+                                </div>
+
+
+
+                                <div class="notifications-container" id="notification_list"></div>
+                            </div>
+                        </div>
+
+                        <div class="user-dropdown-container">
+                            <button class="user-button">
+                                <i class="fa-solid fa-circle-user"></i>
+                            </button>
+                            <div class="drop-menu">
+
+                                <div class="user-header" onclick="window.location.href = 'profile.php'">
+                                    <div>
+                                        <img src="https://res.cloudinary.com/dhzn9musm/image/upload/<?php echo $_SESSION['current_image'] ?>" alt="">
+                                    </div>
+                                    <div class="name-container">
+                                        <span class="full-name"><?php echo $_SESSION['current_firstname'] . " " . $_SESSION['current_lastname']; ?></span>
+                                    </div>
+                                </div>
+                                <div class="user-menu-container">
+                                    <ul class="user-menu-list">
+                                        <li class="user-menu-item">
+                                            <a href="order.php"><i class="fa-solid fa-receipt"></i> My Orders</a>
+                                        </li>
+                                        <li class="user-menu-item">
+                                            <a href="change-password.php"><i class="fa-solid fa-key"></i> Change Password</a>
+                                        </li>
+
+                                        <?php
+                                        /* lalabas sa staff at admin */
+                                        if (!$validate->is_logged_in("staff")) {
+                                        ?>
+                                            <li class="user-menu-item">
+                                                <a href="edit-order.php" class=""><i class="fa-solid fa-pen-to-square"></i> Edit Order</a>
+                                            </li>
+                                        <?php
+                                        }
+                                        /* pang admin lang */
+                                        if (!$validate->is_logged_in("admin")) {
+                                        ?>
+                                            <li class="user-menu-item">
+                                                <a href="dashboard.php" class=""><i class="fa-solid fa-gear"></i> SW Dashboard</a>
+                                            </li>
+                                        <?php
+                                        }
+                                        ?>
+
+                                    </ul>
+                                </div>
+                                <div class="logout-container">
+                                    <a href="account/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                                </div>
+
+                            </div>
                         </div>
 
                     <?php
@@ -200,9 +256,9 @@ if ($validate->is_logged_in("customer")) {
 
 
         <div class="modal" id="crop_modal">
-            <div class="modal-dialog" style="">
+            <div class="modal-dialog">
                 <div class="modal-content">
-                        <div id="cancel" style=" right:20px; top:15px; position:absolute; z-index:99;" ; onclick="new Account().crop_close_modal('<?php echo $_SESSION['current_image'] ?>');"><i class="fa-solid fa-xmark" style="color:#A3A3A3; font-size:20px;"></i></div>
+                    <div id="cancel" style=" right:20px; top:15px; position:absolute; z-index:99;" ; onclick="new Account().crop_close_modal('<?php echo $_SESSION['current_image'] ?>');"><i class="fa-solid fa-xmark" style="color:#A3A3A3; font-size:20px;"></i></div>
                     <div class="modal-body text-end">
                         <div class="result w-100" id="result" style="height:400px; margin-top: 35px;"></div>
                         <button type="button" class="btn" id="crop" style="background-color: rgb(221,28,26); color: white; width:9em; margin-top: 1.5em;">Crop</button>
@@ -274,7 +330,7 @@ if ($validate->is_logged_in("customer")) {
                                     restore: false,
                                     center: true,
                                     cropBoxResizable: true,
-                                    aspectRatio: 1/1,
+                                    aspectRatio: 1 / 1,
                                 });
                             }
                         };
@@ -315,12 +371,31 @@ if ($validate->is_logged_in("customer")) {
     }
 
     if (isset($_SESSION['activate_success'])) {
-        ?>
-            new Notification().create_notification("Your email address has been updated", "success");
-        <?php
-            unset($_SESSION["activate_success"]);
-        }
     ?>
+        new Notification().create_notification("Your email address has been updated", "success");
+    <?php
+        unset($_SESSION["activate_success"]);
+    }
+    ?>
+    new Notification().notification();
+    /* DROPDOWN */
+
+    const dropMenu = document.querySelector('.drop-menu');
+    const dropBtn = document.querySelector('.user-button');
+    let dropOpen = false;
+
+    if (dropBtn) {
+        dropBtn.addEventListener("click", () => {
+            if (!dropOpen) {
+                dropMenu.style.display = "block";
+                dropOpen = true;
+            } else {
+                dropOpen = false;
+                dropMenu.style.display = "none";
+            }
+
+        })
+    }
 </script>
 
 </html>

@@ -111,7 +111,7 @@ $validate = new Validate();
                                             <a href="order.php"><i class="fa-solid fa-receipt"></i> My Orders</a>
                                         </li>
                                         <li class="user-menu-item">
-                                            <a href="#"><i class="fa-solid fa-key"></i> Change Password</a>
+                                            <a href="change-password.php"><i class="fa-solid fa-key"></i> Change Password</a>
                                         </li>
 
                                         <?php
