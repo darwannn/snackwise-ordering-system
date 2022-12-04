@@ -122,7 +122,7 @@ $account->delete_code();
                                 <div class="user-menu-container">
                                     <ul class="user-menu-list">
                                         <li class="user-menu-item">
-                                            <a href="orders.php"><i class="fa-solid fa-key"></i> My Orders</a>
+                                            <a href="order.php"><i class="fa-solid fa-key"></i> My Orders</a>
                                         </li>
                                         <li class="user-menu-item">
                                             <a href="#"><i class="fa-solid fa-receipt"></i> Change Password</a>
