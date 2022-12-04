@@ -74,26 +74,6 @@ $account->delete_code();
                         <li class="nav-item">
                             <a href="contactus.php" class="nav-link">Contact Us</a>
                         </li>
-
-                        <?php
-                        /* lalabas sa staff at admin */
-                        if (!$validate->is_logged_in("staff")) {
-                        ?>
-                            <li class="nav-item">
-                                <a href="edit-order.php" class="nav-link">Edit Order</a>
-                            </li>
-                        <?php
-                        }
-                        /* pang admin lang */
-                        if (!$validate->is_logged_in("admin")) {
-                        ?>
-                            <li class="nav-item">
-                                <a href="edit-menu.php" class="nav-link">Edit Menu</a>
-                            </li>
-                        <?php
-                        }
-                        ?>
-
                     </ul>
                     <?php
                     /* pang lahatan */
@@ -129,10 +109,51 @@ $account->delete_code();
                             <button class="user-button">
                                 <i class="fa-solid fa-circle-user"></i>
                             </button>
-                            <ul class="drop-menu">
-                                <li><a href="order.php" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
-                                <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
-                            </ul>
+                            <div class="drop-menu">
+
+                                <div class="user-header" onclick="window.location.href = 'profile.php'">
+                                    <div>
+                                        <img src="https://res.cloudinary.com/dhzn9musm/image/upload/<?php echo $_SESSION['current_image'] ?>" alt="">
+                                    </div>
+                                    <div class="name-container">
+                                        <span class="full-name"><?php echo $_SESSION['current_firstname'] . " " . $_SESSION['current_lastname']; ?></span>
+                                    </div>
+                                </div>
+                                <div class="user-menu-container">
+                                    <ul class="user-menu-list">
+                                        <li class="user-menu-item">
+                                            <a href="order.php"><i class="fa-solid fa-receipt"></i> My Orders</a>
+                                        </li>
+                                        <li class="user-menu-item">
+                                            <a href="#"><i class="fa-solid fa-key"></i> Change Password</a>
+                                        </li>
+
+                                        <?php
+                                        /* lalabas sa staff at admin */
+                                        if (!$validate->is_logged_in("staff")) {
+                                        ?>
+                                            <li class="user-menu-item">
+                                                <a href="edit-order.php" class=""><i class="fa-solid fa-pen-to-square"></i> Edit Order</a>
+                                            </li>
+                                        <?php
+                                        }
+                                        /* pang admin lang */
+                                        if (!$validate->is_logged_in("admin")) {
+                                        ?>
+                                            <li class="user-menu-item">
+                                                <a href="dashboard.php" class=""><i class="fa-solid fa-gear"></i> SW Dashboard</a>
+                                            </li>
+                                        <?php
+                                        }
+                                        ?>
+
+                                    </ul>
+                                </div>
+                                <div class="logout-container">
+                                    <a href="account/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                                </div>
+
+                            </div>
                         </div>
 
                     <?php
