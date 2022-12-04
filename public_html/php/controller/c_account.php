@@ -61,7 +61,7 @@ if (isset($_POST["forgot_password"])) {
     }
 }
 
-/* -------------------- new-password.php */
+/* -------------------- new-password.php (forgot-password) */
 if (isset($_POST["new_password"])) {
     $url_code = $_GET['code'];
     $password = $_POST['password'];
@@ -134,6 +134,25 @@ if( $_SESSION['current_contact'] != $contact){
       
     }
     
+}
+
+/* change-password.php */
+if (isset($_POST["change_password"]) == 'change_password') {
+    $user_id = $_SESSION['user_id'];
+    
+    $current_password = $_POST['current_password'];
+    $password = $_POST['password'];
+    $retype_password = $_POST['retype_password'];
+   
+    $validate->validate_current_password($current_password, $user_id, 'current_password_error', 'Required Field' );
+    $validate->validate_length($password, $retype_password, 'password_error', 'Required field' );
+    $validate->validate_length($retype_password,$password, 'retype_password_error', 'Required field' );
+  
+    if (count($validate->output) > 0) {
+        echo json_encode($validate->output);
+    } else {
+        $account->change_password($user_id, $password);
+    }
 }
 
 /* determines image file type and size */

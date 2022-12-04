@@ -101,6 +101,7 @@ class Validate extends DbConnection
           $this->output['retype_password_error'] = 'Passwords do not match';
         }
       }
+   
       if (strpos($name, "discount") !== false || strpos($name, "price") !== false) {
         if (ctype_digit(str_replace(", ", "", $input))) {
           unset($this->output[$name]);
@@ -111,6 +112,18 @@ class Validate extends DbConnection
     }
   }
 
+  public function validate_current_password($input, $compare_input, $name, $message)
+  {
+    if (isset($input) && $input == '') {
+      $this->output[$name] = $message;
+    } else {
+      if (strpos($name, "current_password") !== false) {
+        if ($this->match_current_password($input, $compare_input)) {
+          unset($this->output[$name]);
+        } 
+      }
+  }
+}
   /* -------------------- functions */
 
   /* determines if the password entered and the password in the database matches */
@@ -125,8 +138,7 @@ class Validate extends DbConnection
       if (password_verify($current_password, $fetch_pass)) {
         return true;
       } else {
-        $output['current_password_error'] = 'Incorrect Password';
-        echo json_encode($output);
+        $this->output['current_password_error'] = 'Incorrect Password';
       }
     }
   }
