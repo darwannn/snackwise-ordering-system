@@ -1,3 +1,18 @@
+<?php
+
+require_once dirname(__FILE__) . '/php/classes/Account.php';
+require_once dirname(__FILE__) . '/php/classes/DbConnection.php';
+require_once dirname(__FILE__) . '/php/classes/Validate.php';
+
+$validate = new Validate();
+
+$account = new Account();
+/* deletes expired verification code */
+$account->delete_code();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +47,20 @@
 
     <div class="wrapper">
         <div class="side-bar">
-            
+            <div class="brand-title-container">
+                <a href="index.html" class="brand-title">
+                    <span class="red">SNACK</span><span class="yellow">WISE</span>
+                </a>
+            </div>
+            <div class="user-profile-container">
+                <div class="user-image">
+                    <img src="https://res.cloudinary.com/dhzn9musm/image/upload/<?php echo $_SESSION['current_image'] ?>" alt="">
+                </div>
+                <div class="user-info">
+                    <a href="profile.php"><span class="welcome-txt">Welcome,<br><span class="first-name"><?php echo $_SESSION['current_firstname']?></span></span></a>
+                </div>
+            </div>
+
         </div>
         <div class="content">
 
