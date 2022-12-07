@@ -160,8 +160,8 @@ class Menu extends DbConnection
 			<td>' . $row["availability"] . '</td>
 			<td> <img src= "https://res.cloudinary.com/dhzn9musm/image/upload/' . $row["image"] . '" width="70px" height="70px"></td>
 			<td>
-				<button type="button" onclick="new Menu().fetch_selected_menu(' . $row["menu_id"] . ')" class="btn btn-edit"><i class="fa-solid fa-pen"></i></button>&nbsp;
-				<button type="button" class="btn btn-delete" onclick="new Menu().delete_menu(' . $row["menu_id"] . ')"><i class="fa-solid fa-trash"></i></button>
+				<button type="button" onclick="new Menu().fetch_selected_menu(' . $row["menu_id"] . ')" class="btn btn-edit btn-success text-light"><i class="fa-solid fa-pen"></i></button>&nbsp;
+				<button type="button" class="btn btn-delete btn-danger text-light" onclick="new Menu().delete_menu(' . $row["menu_id"] . ')"><i class="fa-solid fa-trash"></i></button>
 			</td>
 		</tr>
 		';
@@ -232,8 +232,8 @@ class Menu extends DbConnection
 			$sub_array[] = date("F d, Y", strtotime($row["date"]));
 			$sub_array[] = $row['availability'];
 			$sub_array[] = '<td> <img src= "https://res.cloudinary.com/dhzn9musm/image/upload/' . $row["image"] . '" width="70px" height="70px"></td>';
-			$sub_array[] = '<button type="button" onclick="new Menu().fetch_selected_menu(' . $row["menu_id"] . ')" class="btn btn-edit"><i class="fa-solid fa-pen"></i></button>&nbsp;
-			<button type="button" class="btn btn-delete" onclick="new Menu().delete_menu(' . $row["menu_id"] . ')"><i class="fa-solid fa-trash"></i></button>';
+			$sub_array[] = '<button type="button" onclick="new Menu().fetch_selected_menu(' . $row["menu_id"] . ')" class="btn btn-edit btn-success text-light"><i class="fa-solid fa-pen"></i></button>&nbsp;
+			<button type="button" class="btn btn-delete btn-danger text-light" onclick="new Menu().delete_menu(' . $row["menu_id"] . ')"><i class="fa-solid fa-trash"></i></button>';
 			$data[] = $sub_array;
 		}
 

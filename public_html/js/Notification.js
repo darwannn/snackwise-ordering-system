@@ -122,8 +122,12 @@ class Notification {
 
             if (notif.type == "Cancelled") {
         if(notif.user_id == 0) {
-         notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type};'">
-          <div class="notification-header-container">
+          if(notif.user_id == 0) {
+         notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'edit-order.php?o=${notif.order_id}&s=${notif_type};'">`;
+          } else {
+            notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type};'">`;
+          }
+         notification_list += `  <div class="notification-header-container">
               <div class="header-info">
                   <span class="order-number" style="font-size: 1.3em;">#${(notif.order_id).toString().padStart(10, '0')}</span>
                   <span class="notification-header">Order Cancelled ❌</span>
@@ -137,8 +141,12 @@ class Notification {
           </div>
           </div>`;
         } else {
-          notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type};'">
-          <div class="notification-header-container">
+          if(notif.user_id == 0) {
+          notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'edit-order.php?o=${notif.order_id}&s=${notif_type};'">`;
+          } else {
+            notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type};'">`;
+          }
+          notification_list += `<div class="notification-header-container">
               <div class="header-info">
                   <span class="order-number" style="font-size: 1.3em;">#${(notif.order_id).toString().padStart(10, '0')}</span>
                   <span class="notification-header">Order Cancelled ❌</span>
@@ -157,9 +165,18 @@ class Notification {
         }
             } else {
               if (notif.type == "Completed" || notif.type == "Ready") {
-                notification_list += ` <div class="notification" id="notif-success" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">`;
+                if(notif.user_id == 0) {
+                  notification_list += ` <div class="notification" id="notif-success" onclick="window.location.href = 'edit-order.php?o=${notif.order_id}&s=${notif_type}';">`;
+                  } else {
+                    notification_list += ` <div class="notification" id="notif-success" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">`;
+                  }
+               
               } else if (notif.type == "Placed" || notif.type == "Confirmed" || notif.type == "Preparing") {
-                notification_list += ` <div class="notification" id=""  onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">`;
+                if(notif.user_id == 0) {
+                  notification_list += ` <div class="notification" id=""  onclick="window.location.href = 'edit-order.php?o=${notif.order_id}&s=${notif_type}';">`;
+                  } else {
+                    notification_list += ` <div class="notification" id=""  onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">`;
+                  }
               }
 
               notification_list += `  <div class="notification-header-container">

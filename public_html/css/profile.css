@@ -248,6 +248,11 @@ label{
     margin-bottom:20px;
     padding: 1em;
 }
+.col input:focus {
+   box-shadow: none;
+   background-color:#F2F1F9;
+   border: black solid 2px;
+}
 
 .personal-info .btn {
     border-radius: 10px;
@@ -345,11 +350,3 @@ label{
     font-size: 14px;
     color: red;
 }
-
-
-
-
-
-
-
-

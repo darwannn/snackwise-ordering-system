@@ -22,32 +22,44 @@ $order = new Order();
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | Snackwise</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- PAGE ICON -->
+    <link rel="icon" href="img/penguin.png" type="image/icon type">
+
+    <!-- FONT LINKS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:ital,wght@0,300;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+
+
+    <!-- EXTERNAL CSS -->
+    <link rel="stylesheet" href="css/order.css">
+    <link rel="stylesheet" href="css/notification.css">
+
+
+
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.3/css/lightgallery-bundle.css'>
 
     <link rel="stylesheet" type="text/css" href="css/table.css" />
-
-
     <script src="js/Table.js" type="text/javascript"></script>
-
-    <!-- FONT AWESOME CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <!-- FONT AWESOME JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
 
     <!-- DATE PICKER -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <!-- BOOTSTRAP CSS -->
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <!-- BOOTSTRAP JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
     <style>
         body {
             background-image: url(img/Background-Pattern-BW.jpg);
@@ -81,10 +93,12 @@ $order = new Order();
             white-space: normal !important;
             width: 150px !important;
         }
+
         td:nth-child(5) {
             white-space: normal !important;
             width: 120px !important;
         }
+
         td:nth-child(6) {
             white-space: normal !important;
             width: 150px !important;
@@ -107,11 +121,13 @@ $order = new Order();
         .dt-table th:nth-child(1).dt-sorter::after {
             right: 10px;
         }
+
         .dt-table th:nth-child(2).dt-sorter::before,
         .dt-table th:nth-child(2).dt-sorter::after {
             right: 9px;
         }
-       /*  .dt-table th:nth-child(3).dt-sorter::before,
+
+        /*  .dt-table th:nth-child(3).dt-sorter::before,
         .dt-table th:nth-child(3).dt-sorter::after {
             right: 20px;
         } */
@@ -119,10 +135,12 @@ $order = new Order();
         .dt-table th:nth-child(5).dt-sorter::after {
             right: 40px;
         }
+
         .dt-table th:nth-child(6).dt-sorter::before,
         .dt-table th:nth-child(6).dt-sorter::after {
-            right: 22px;
+            right: 20px;
         }
+
         .dt-table th:nth-child(7).dt-sorter::before,
         .dt-table th:nth-child(7).dt-sorter::after {
             right: 21px;
@@ -132,7 +150,7 @@ $order = new Order();
         .dt-table th:nth-child(3).dt-sorter::after,
         .dt-table th:nth-child(4).dt-sorter::before,
         .dt-table th:nth-child(4).dt-sorter::after,
-  
+
         .dt-table th:nth-child(8).dt-sorter::before,
         .dt-table th:nth-child(8).dt-sorter::after {
             display: none;
@@ -144,11 +162,47 @@ $order = new Order();
         th:nth-child(8) {
             pointer-events: none;
         }
+
         .input_error {
             position: relative;
-        /*             top: -3px; */
+            /*             top: -3px; */
             font-size: 14px;
             color: red;
+        }
+
+        table {
+            font-size: 1.6em;
+        }
+
+        .input-reason {
+            margin-top: 2px;
+            background-color: rgb(242, 241, 249);
+            outline: 0px;
+            border: 0px;
+
+        }
+
+        .input-reason:focus {
+            box-shadow: none;
+            border: 1px solid black;
+            background-color: rgb(242, 241, 249);
+        }
+
+        .dt-info,
+        .dt-pagination a,
+        .dt-selector,
+        .dt-input {
+            font-size: 1.4em;
+        }
+
+        .btn-claim {
+            background-color: #198754 !important;
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #dc3545 !important;
+            color: white;
         }
     </style>
     <link rel="stylesheet" href="css/notification.css">
@@ -156,52 +210,25 @@ $order = new Order();
 
 <body>
 
-<div>
-total order (di kasama cancelled)<div id="total_order_count">#</div>
-cancelled   <div id="total_cancelled_count">#</div>
-completed  <div id="total_completed_count">#</div>
-unclaimed (to pickup)    <div id="total_unclaimed_count">#</div>
-preparing   <div id="total_preparing_count">#</div>
-placed (di kasama confirmed)  <div id="total_placed_count">#</div>
-</div>
+    <div>
+        total order (di kasama cancelled)<div id="total_order_count">#</div>
+        cancelled <div id="total_cancelled_count">#</div>
+        completed <div id="total_completed_count">#</div>
+        unclaimed (to pickup) <div id="total_unclaimed_count">#</div>
+        preparing <div id="total_preparing_count">#</div>
+        placed (di kasama confirmed) <div id="total_placed_count">#</div>
+    </div>
     <!-- toast_notif notification will be appended here -->
     <div class="toast_notif" id="toast_notif"></div>
 
     <!-- modal to claim order -->
-    <div id="qr_modal" class="modal" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title fw-bold h6">Claim</div>
-                    <div name="qr_close" id="qr_close" style="color:#A3A3A3;" onclick="new Order().qr_close_modal();"><i
-                            class="fa-solid fa-xmark"></i></div>
-                </div>
-                <div class="modal-body">
-                    <!-- order to claim will be appended here -->
-                    <div>
-                        <div class="h6 fw-bold">Information</div>
-                        <input type="hidden" value="" id="to_claim_order_id">
-                        <input type="hidden" value="" id="to_claim_type">
-                        <div class="to_claim_info" id="to_claim_info"></div>
-                    </div>
-                    <div>
-                        <div class="h6 fw-bold mt-4">Order</div>
-                        <div class="to_claim_order d-flex row mb-5 mx-1 justify-content-start" id="to_claim_order">
-                        </div>
-                    </div>
-                    <div>
-                        <div class="h6 fw-bold mt-4">SUBTOTAL</div>
-                        <div class="to_claim_price" id="to_claim_price"></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" name="qr_confirm" id="qr_confirm" class="btn btn-success w-25"
-                        onclick=" new Order().claim_order();">Confirm</button>
-
-                </div>
-            </div>
-        </div>
+    <div class="details-modal" id="claim-details-modal">
     </div>
+
+    <input type="hidden" value="" id="to_claim_order_id">
+    <input type="hidden" value="" id="to_claim_type">
+
+
 
     <div class="container my-5">
         <div class="card">
@@ -212,8 +239,7 @@ placed (di kasama confirmed)  <div id="total_placed_count">#</div>
             <div class="card-body">
 
                 <!-- QR scanner -->
-                <button id="toggle_camera" onclick="new Order().toggle_camera();"
-                    class="btn btn-toggle btn-success w-100"><i class="fa-solid fa-camera"></i></button>
+                <button id="toggle_camera" onclick="new Order().toggle_camera();" class="btn btn-toggle btn-success w-100"><i class="fa-solid fa-camera"></i></button>
                 <video class="w-100" src="" id="preview"></video>
 
                 <table id="order_table" class="table table-sm ">
@@ -223,7 +249,7 @@ placed (di kasama confirmed)  <div id="total_placed_count">#</div>
                             <th>Customer Name</th>
                             <th>Contact No.</th>
                             <th>Order</th>
-                           <!--  <th>Price</th>
+                            <!--  <th>Price</th>
                             <th>Quantity</th> -->
                             <th>Pickup Date</th>
                             <th>Pickup Time</th>
@@ -255,70 +281,50 @@ placed (di kasama confirmed)  <div id="total_placed_count">#</div>
     </div>
 
     <!-- modal to delete an order -->
-    <div id="del_notif_modal" class="modal ">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header ">
-                    <div class="modal-title" id="modal_title">Delete</div>
 
-                    <div style="color:#A3A3A3;" id="close_del_notif" onclick="new Order().close_del_notif();"><i
-                            class="fa-solid fa-xmark"></i></div>
-                </div>
-                <div class="modal-body">
-                    <form method="post" id="del_notif_form">
-                        <input type="text" name="order_id" id="del_notif_order_id" />
-                        <input type="text" name="user_id" id="del_notif_user_id" />
-
-                        <div>
-                            <div class="h6 fw-bold">Information</div>
-                            <div class="to_delete_info" id="to_delete_info"></div>
-                        </div>
-                        <div>
-                            <div class="h6 fw-bold mt-4">Order</div>
-                            <div class="to_delete_order d-flex row mb-5 mx-1 justify-content-start"
-                                id="to_delete_order"></div>
-                        </div>
+    <div class="details-modal" id="delete-details-modal">
 
 
-                        <label for="del_notif">Reason</label>
-                        <input list="del_list" name="del_notif" id="del_notif" class="form-control" />
-                        <datalist id="del_list">
-                            <option>Item Unavailable</option>
-                        </datalist>
-                        <span class="input_error" id="del_notif_error"></span>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="del_notif_button" class="btn btn-success w-25"
-                        onclick="new Order().staff_delete_order();">Delete</button>
-
-                </div>
-            </div>
-        </div>
     </div>
+    <input type="text" name="order_id" id="del_notif_order_id" />
+    <input type="text" name="user_id" id="del_notif_user_id" />
+    <!--     <div class="modal-backdrop fade show" id="modal_backdrop"></div> -->
 
-    <div class="modal-backdrop fade show" id="modal_backdrop"></div>
 
 
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script type="text/javascript" src="js/instascan.min.js"></script>
+    <script type="text/javascript" src="js/Order.js"></script>
+    <script src="js/Notification.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+
+
+    <script>
+        /* instantiate JSTable class */
+        let table = new JSTable("#order_table", {
+            serverSide: true,
+            deferLoading: <?php echo $order->count_all_data(); ?>,
+            ajax: "php/controller/f_order.php"
+        });
+
+        order = new Order(table);
+        order.staff_order();
+        order.total_order_count();
+
+        <?php
+
+        /* open the details of selected notification */
+        if (isset($_GET['o'])) {
+        ?>
+            new Order().order_fetch_info(`<?php echo $_GET['o'] ?>, 'manual'`);
+            let url = document.location.href;
+            window.history.pushState({}, "", url.split("?")[0]);
+        <?php
+        }
+        ?>
+    </script>
 </body>
-
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-<script type="text/javascript" src="js/instascan.min.js"></script>
-<script type="text/javascript" src="js/Order.js"></script>
-<script src="js/Notification.js"></script>
-<script>
-    /* instantiate JSTable class */
-    let table = new JSTable("#order_table", {
-        serverSide: true,
-        deferLoading: <?php echo $order->count_all_data();?> ,
-        ajax : "php/controller/f_order.php"
-    });
-
-    order = new Order(table);
-    order.staff_order();
-    order.total_order_count();
-    
-</script>
 
 </html>
