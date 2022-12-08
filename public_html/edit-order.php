@@ -204,18 +204,11 @@ $order = new Order();
         }
     </style>
     <link rel="stylesheet" href="css/notification.css">
+    <link rel="stylesheet" href="css/edit-order.css">
 </head>
 
 <body>
 
-    <div>
-        total order (di kasama cancelled)<div id="total_order_count">#</div>
-        cancelled <div id="total_cancelled_count">#</div>
-        completed <div id="total_completed_count">#</div>
-        unclaimed (to pickup) <div id="total_unclaimed_count">#</div>
-        preparing <div id="total_preparing_count">#</div>
-        placed (di kasama confirmed) <div id="total_placed_count">#</div>
-    </div>
     <!-- toast_notif notification will be appended here -->
     <div class="toast_notif" id="toast_notif"></div>
 
@@ -229,6 +222,48 @@ $order = new Order();
 
 
     <div class="container my-5">
+        <div class="counter-cards">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="counter-con">
+                        <span class="counter-label">Total Order:</span>
+                        <div class="counter" id="total_order_count">#</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="counter-con">
+                        <span class="counter-label">Completed :</span>
+                        <div class="counter" id="total_completed_count">#</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="counter-con">
+                        <span class="counter-label">Cancelled:</span>
+                        <div class="counter" id="total_cancelled_count">#</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="counter-con">
+                        <span class="counter-label">Unclaimed (to pickup):</span>
+                        <div class="counter" id="total_unclaimed_count">#</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="counter-con">
+                        <span class="counter-label">Preparing:</span>
+                        <div class="counter" id="total_preparing_count">#</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="counter-con">
+                        <span class="counter-label">Placed:</span>
+                        <div class="counter" id="total_placed_count">#</div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card">
             <div class="card-header ">
                 <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
