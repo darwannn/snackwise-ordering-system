@@ -154,10 +154,21 @@ body {
     flex-direction: column;
 }
 
+.content-header {
+    margin-bottom: 3em;
+}
+
 .content-header h1 {
     font-weight: bold;
     font-family: var(--fontOutfit);
-    color: #363636;
+    color: var(--snackred);
+}
+
+.content .row-header {
+    font-size: 2em;
+    font-style: var(--fontOutfit);
+    font-weight: bold;
+    margin: 1em 0; 
 }
 
 .cards-row {
@@ -172,15 +183,21 @@ body {
     justify-content: space-between;
     align-items: flex-start;
     background-color: white;
-    border-radius: 5px;
-    margin: 0 .5em;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 1em;
     padding: 2em;
     max-width: 300px;
+    width: 100%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     position: relative;
 }
 
 .dashb-card .card-info {
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-betwee;
 }
 
 .dashb-card .card-info span {
@@ -189,11 +206,13 @@ body {
 
 .dashb-card .card-info .card-title {
     font-size: 1.6em;
+    font-weight: bold;
+    color: var(--valueCol);
 }
 
 .dashb-card .card-info .total-number {
     text-align: left;
-    font-size: 5em;
+    font-size: 8em;
     font-family: var(--fontPoppins);
     font-weight: bold;
 }
@@ -207,13 +226,24 @@ body {
 .dashb-card .bottom-line {
     position: absolute;
     width: 100%;
-    height: 5px;
-    background-color: #00822C;
+    height: 8px;
     border-radius: 10px;
     bottom: 0;
     left: 0;
     z-index: 1;
     transition: all .2s ease-in-out;
+}
+
+.line-red {
+    background-color: #dc3545;
+}
+
+.line-green {
+    background-color: #198754;
+}
+
+.line-yellow {
+    background-color: #ffc107;
 }
 
 /* .dashb-card:hover .bottom-line {

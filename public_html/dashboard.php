@@ -90,13 +90,40 @@ $account->delete_code();
             <div class="cards-row">
                 <div class="dashb-card">
                     <div class="card-info">
-                        <span class="card-title">This week's total completed order:</span>
-                        <span class="total-number" id="weekly-total">00</span>
+                        <div class="main"> 
+                            <span class="card-title">Completed Orders:</span>
+                            <span class="total-number text-success" id="total-orders">00</span>
+                        </div>
                         <span class="additional-note">Cancelled order not included</span>
                     </div>
-                    <div class="bottom-line"></div>
+                    <div class="bottom-line line-green"></div>
                 </div>
+
+                <div class="dashb-card">
+                    <div class="card-info">
+                        <div class="main"> 
+                            <span class="card-title">Pending Orders:</span>
+                            <span class="total-number text-warning" id="total-pending">00</span>
+                        </div>
+                        <div class="additional-notes"></div>
+                    </div>
+                    <div class="bottom-line line-yellow"></div>
+                </div>       
+
+                <div class="dashb-card">
+                    <div class="card-info">
+                        <div class="main"> 
+                            <span class="card-title">Cancelled Orders:</span>
+                            <span class="total-number text-danger" id="total-cancelled">00</span>
+                        </div>
+                        <div class="additional-notes"></div>
+                    </div>
+                    <div class="bottom-line line-red"></div>
+                </div>
+                
             </div>
+            
+
         </div>
     </div>
 
