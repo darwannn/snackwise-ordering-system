@@ -72,9 +72,15 @@ $account->delete_code();
                     <li class="nav-item" id="active-nav">
                         <a href="dashboard.php"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
                     </li>
+                    <?php 
+                    if(!$validate->is_logged_in("staff")){
+                    ?>
                     <li class="nav-item">
                         <a href="edit-order.php"><i class="fa-solid fa-receipt"></i> Edit Orders</a>
                     </li>
+                    <?php 
+                    } if(!$validate->is_logged_in("admin")){
+                    ?>
                     <li class="nav-item">
                         <a href="edit-menu.php"><i class="fa-solid fa-burger"></i> Edit Menu</a>
                     </li>
@@ -82,6 +88,7 @@ $account->delete_code();
                     <!-- <li class="nav-item">
                             <a href="edit-users.php"><i class="fa-solid fa-user"></i> Edit Users</a>
                         </li> -->
+                    <?php } ?>
                 </ul>
             </div>
             <div class="bottom-btn">
