@@ -127,18 +127,9 @@ $account->delete_code();
                                         <li class="user-menu-item">
                                             <a href="change-password.php"><i class="fa-solid fa-key"></i> Change Password</a>
                                         </li>
-
                                         <?php
-                                        /* lalabas sa staff at admin */
-                                        if (!$validate->is_logged_in("staff")) {
-                                        ?>
-                                            <li class="user-menu-item">
-                                                <a href="edit-order.php" class=""><i class="fa-solid fa-pen-to-square"></i> Edit Order</a>
-                                            </li>
-                                        <?php
-                                        }
                                         /* pang admin lang */
-                                        if (!$validate->is_logged_in("admin")) {
+                                        if (!$validate->is_logged_in("staff")) {
                                         ?>
                                             <li class="user-menu-item">
                                                 <a href="dashboard.php" class=""><i class="fa-solid fa-gear"></i> SW Dashboard</a>
