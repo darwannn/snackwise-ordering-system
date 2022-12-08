@@ -6,6 +6,11 @@ require_once dirname(__FILE__) . '/php/classes/Validate.php';
 
 $validate = new Validate();
 
+$validate = new Validate();
+if ($validate->is_logged_in("staff")) {
+    header('Location: error.php');
+}
+
 $account = new Account();
 /* deletes expired verification code */
 $account->delete_code();
