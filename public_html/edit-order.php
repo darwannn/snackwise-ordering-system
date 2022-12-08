@@ -14,8 +14,6 @@ $conn = $db->connect();
 $order = new Order();
 
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -233,7 +231,7 @@ $order = new Order();
     <div class="container my-5">
         <div class="card">
             <div class="card-header ">
-                <a href="index.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+                <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
                 <h3 class="text-center">Order</h3>
             </div>
             <div class="card-body">
