@@ -233,19 +233,19 @@ $order = new Order();
         <div class="counter-cards">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="counter">
+                    <div class="counter-con">
                         <span class="counter-label">Total Order:</span>
                         <div class="counter" id="total_order_count">#</div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="counter">
+                    <div class="counter-con">
                         <span class="counter-label">Completed :</span>
                         <div class="counter" id="total_completed_count">#</div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="counter">
+                    <div class="counter-con">
                         <span class="counter-label">Cancelled:</span>
                         <div class="counter" id="total_cancelled_count">#</div>
                     </div>
@@ -253,19 +253,19 @@ $order = new Order();
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="counter">
+                    <div class="counter-con">
                         <span class="counter-label">Unclaimed (to pickup):</span>
                         <div class="counter" id="total_unclaimed_count">#</div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="counter">
+                    <div class="counter-con">
                         <span class="counter-label">Preparing:</span>
                         <div class="counter" id="total_preparing_count">#</div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="counter">
+                    <div class="counter-con">
                         <span class="counter-label">Placed:</span>
                         <div class="counter" id="total_placed_count">#</div>
                     </div>

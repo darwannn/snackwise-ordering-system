@@ -18,4 +18,25 @@ body {
 .counter-cards {
     display: flex;
     flex-direction: column;
+    margin-bottom: 2em;
 }
+
+.counter-con {
+    background-color: white;
+    margin: 1em;
+    padding: 1.5em 5em;
+    border-radius: 5px;
+    border: solid 1px rgb(218, 218, 218);
+}
+
+.counter-con .counter-label {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: var(--labelCol);
+}
+
+.counter-con .counter {
+    font-size: 2em;
+    font-weight: bold;
+}
+
