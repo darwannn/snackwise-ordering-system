@@ -49,7 +49,7 @@ class Dashboard  extends DbConnection{
         $sub_array['total_users'] =    $total_users->rowCount();
 
         $total_items = $this->connect()->prepare("SELECT menu_id FROM menu");
-        $total_items->execute([":status" => 'Placed', ":date" => $date]);
+        $total_items->execute([]);
         $sub_array['total_items'] =   $total_items->rowCount();
 
         $total_available = $this->connect()->prepare("SELECT menu_id FROM menu WHERE availability = :availability");
