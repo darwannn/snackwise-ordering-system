@@ -131,8 +131,8 @@ if (!$validate->is_logged_in("customer")) {
 
                         <div class="password_requirements">
                             <h6 id="length_con"><span class="length me-1" id="length">&#x2716;</span> be at least 8 characters but not more than 20</h6>
-                            <h6 id="case_con"><span class="case me-1" id="case">&#x2716;</span> contain at least one number, </h6>
-                            <h6 id="number_con"><span class="number me-1" id="number">&#x2716;</span> contain at least one uppercase and lowercase letter</h6>
+                            <h6 id="case_con"><span class="case me-1" id="case">&#x2716;</span> contain at least one uppercase and lowercase letter</h6>
+                            <h6 id="number_con"><span class="number me-1" id="number">&#x2716;</span> contain at least one number</h6>
                             <h6 id="special_con"><span class="special me-1" id="special">&#x2716;</span> contain one of the following characters: @ . # $ % ^ & , *</h6>
                         </div>
                     </div>

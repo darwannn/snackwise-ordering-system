@@ -4,7 +4,7 @@ require_once dirname(__FILE__) . '/php/classes/DbConnection.php';
 require_once dirname(__FILE__) . '/php/classes/Validate.php';
 
 $validate = new Validate();
-if ($validate->is_logged_in("admin")) {
+if ($validate->is_logged_in("staff")) {
     header('Location: error.php');
 }
 $db = new DbConnection();
@@ -17,32 +17,40 @@ $menu = new Menu();
 <html lang="en">
 
 <head>
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | Snackwise</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- PAGE ICON -->
+    <link rel="icon" href="img/penguin.png" type="image/icon type">
+
+    <!-- FONT LINKS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:ital,wght@0,300;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+
+    <!-- EXTERNAL CSS -->
+    <link rel="stylesheet" href="css/order.css">
+    <link rel="stylesheet" href="css/notification.css">
+
 
     <link rel="stylesheet" type="text/css" href="css/table.css" />
-    <link rel="stylesheet" type="text/css" href="css/notification.css" />
-
-
     <script src="js/Table.js" type="text/javascript"></script>
-
-    <!-- FONT AWESOME CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <!-- FONT AWESOME JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
 
     <!-- DATE PICKER -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <!-- BOOTSTRAP CSS -->
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <!-- BOOTSTRAP JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
     <style>
         body {
             background-image: url(img/Background-Pattern-BW.jpg);
@@ -94,25 +102,25 @@ $menu = new Menu();
         
         .dt-table th:nth-child(1).dt-sorter::before,
         .dt-table th:nth-child(1).dt-sorter::after {
-            right: 15px;
+            right: 13px;
         }
 
         
         .dt-table th:nth-child(2).dt-sorter::before,
         .dt-table th:nth-child(2).dt-sorter::after {
-            right: 22px;
+            right: 20px;
         }
 
         
         .dt-table th:nth-child(3).dt-sorter::before,
         .dt-table th:nth-child(3).dt-sorter::after {
-            right: 54px;
+            right: 50px;
         }
 
         
         .dt-table th:nth-child(4).dt-sorter::before,
         .dt-table th:nth-child(4).dt-sorter::after {
-            right: 21px;
+            right: 20px;
         }
 
         
@@ -130,11 +138,11 @@ $menu = new Menu();
         
         .dt-table th:nth-child(7).dt-sorter::before,
         .dt-table th:nth-child(7).dt-sorter::after {
-            right: 23px;
+            right: 18px;
         }
         .dt-table th:nth-child(8).dt-sorter::before,
         .dt-table th:nth-child(8).dt-sorter::after {
-            right: 23px;
+            right: 22px;
         }
 
         .dt-table th:nth-child(5).dt-sorter::before,
@@ -161,6 +169,26 @@ $menu = new Menu();
            /*  top: -3px; */
             font-size: 14px;
             color: red;
+        }
+        table {
+            font-size: 1.6em;
+        }
+
+        .dt-info,
+        .dt-pagination a,
+        .dt-selector,
+        .dt-input {
+            font-size: 1.4em;
+        }
+
+        .btn-claim {
+            background-color: #198754 !important;
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #dc3545 !important;
+            color: white;
         }
     </style>
     <title></title>
@@ -323,7 +351,8 @@ $menu = new Menu();
     <!-- toast_notif notification will be appended here -->
     <div class="toast_notif" id="toast_notif"></div>
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+  </script>
 <script src="js/Menu.js"></script>
 <script src="js/Notification.js"></script>
 
