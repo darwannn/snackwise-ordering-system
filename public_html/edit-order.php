@@ -209,14 +209,6 @@ $order = new Order();
 
 <body>
 
-    <!-- <div>
-        total order (di kasama cancelled)<div id="total_order_count">#</div>
-        cancelled <div id="total_cancelled_count">#</div>
-        completed <div id="total_completed_count">#</div>
-        unclaimed (to pickup) <div id="total_unclaimed_count">#</div>
-        preparing <div id="total_preparing_count">#</div>
-        placed (di kasama confirmed) <div id="total_placed_count">#</div>
-    </div> -->
     <!-- toast_notif notification will be appended here -->
     <div class="toast_notif" id="toast_notif"></div>
 
