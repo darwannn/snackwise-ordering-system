@@ -185,7 +185,7 @@ body {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
-    margin: 0 1em;
+    margin: 1em 1em;
     padding: 2em;
     max-width: 300px;
     width: 100%;
@@ -210,11 +210,21 @@ body {
     color: var(--valueCol);
 }
 
+.dashb-card .card-info .sub-number {
+    text-align: left;
+    font-size: 4em;
+    font-family: var(--fontPoppins);
+    color: var(--valueCol);
+    font-weight: bold;
+
+}
+
 .dashb-card .card-info .total-number {
     text-align: left;
     font-size: 8em;
     font-family: var(--fontPoppins);
     font-weight: bold;
+
 }
 
 .dashb-card .card-info .additional-note {

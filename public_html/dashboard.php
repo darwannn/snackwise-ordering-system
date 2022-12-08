@@ -122,7 +122,52 @@ $account->delete_code();
                 </div>
                 
             </div>
-            
+           
+            <span class="row-header">Users:</span>
+            <div class="cards-row">
+                <div class="dashb-card">
+                    <div class="card-info">
+                        <div class="main"> 
+                            <span class="card-title">Registered Users</span>
+                            <span class="sub-number" id="total-users">00</span>
+                        </div>
+                        <span class="additional-note"></span>
+                    </div>
+                </div>
+
+                <div class="dashb-card">
+                    <div class="card-info">
+                        <div class="main"> 
+                            <span class="card-title">Staffs:</span>
+                            <span class="sub-number" id="total-staffs">00</span>
+                        </div>
+                        <div class="additional-notes"></div>
+                    </div>
+                </div>       
+            </div>
+
+            <span class="row-header">Menu:</span>
+            <div class="cards-row">
+                <div class="dashb-card">
+                    <div class="card-info">
+                        <div class="main"> 
+                            <span class="card-title">Menu Items:</span>
+                            <span class="sub-number" id="total-items">00</span>
+                        </div>
+                        <span class="additional-note"></span>
+                    </div>
+                </div>
+
+                <div class="dashb-card">
+                    <div class="card-info">
+                        <div class="main"> 
+                            <span class="card-title">Available Items:</span>
+                            <span class="sub-number" id="total-available">00</span>
+                        </div>
+                        <div class="additional-notes"></div>
+                    </div>
+                </div>       
+            </div>
 
         </div>
     </div>
