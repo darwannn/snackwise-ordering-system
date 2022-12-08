@@ -28,8 +28,8 @@ class Dashboard  extends DbConnection{
         date_default_timezone_set('Asia/Manila');
         $date = date('Y-m-d');
 
-        $total_orders = $this->connect()->prepare("SELECT order_id, date FROM orders WHERE status != :status");
-        $total_orders->execute([":status" => "Cancelled"]);
+        $total_orders = $this->connect()->prepare("SELECT order_id FROM transaction");
+        $total_orders->execute([]);
         $sub_array['total_orders'] =    $total_orders->rowCount();
 
         $total_pending = $this->connect()->prepare("SELECT order_id, date FROM orders WHERE status = :confirmed_status OR status = :placed_status");
