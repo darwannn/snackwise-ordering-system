@@ -48,7 +48,7 @@ $account->delete_code();
     <div class="wrapper">
         <div class="side-bar">
             <div class="brand-title-container">
-                <a href="index.html" class="brand-title">
+                <a href="index.php" class="brand-title">
                     <span class="red">SNACK</span><span class="yellow">WISE</span>
                 </a>
             </div>
@@ -60,10 +60,42 @@ $account->delete_code();
                     <a href="profile.php"><span class="welcome-txt">Welcome,<br><span class="first-name"><?php echo $_SESSION['current_firstname']?></span></span></a>
                 </div>
             </div>
-
+            <div class="navigation-container">
+                    <ul class="navigation">
+                        <li class="nav-item" id="active-nav">
+                            <a href="dashboard.php"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="edit-order.php"><i class="fa-solid fa-receipt"></i> Edit Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="edit-menu.php"><i class="fa-solid fa-burger"></i> Edit Menu</a>
+                        </li>
+                        <!-- DI PA SURE TO --> 
+                        <!-- <li class="nav-item">
+                            <a href="edit-users.php"><i class="fa-solid fa-user"></i> Edit Users</a>
+                        </li> -->
+                    </ul>
+                </div>
+                <div class="bottom-btn">
+                    <a href="account/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                </div>
         </div>
         <div class="content">
+            <div class="content-header">
+               <h1>Dashboard</h1> 
+            </div>
+            <div class="cards-container">
+                <div class="cards">
+                    <div class="card-info">
+                        <span class="card-title">This week's total completed order:</span>
+                        <span class="total-number" id="weekly-total">00</span>
+                        <span class="additional-note">Cancelled order not included</span>
+                    </div>
+                    
+                </div>
 
+            </div>
         </div>
     </div>
 

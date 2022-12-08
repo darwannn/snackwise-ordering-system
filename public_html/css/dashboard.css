@@ -52,6 +52,10 @@ body {
     padding: 3em 1em 1em;
 }
 
+.brand-title-container {
+    flex: 0 1 auto;
+}
+
 .brand-title-container .brand-title {
     font-family: var(--fontOutfit);
     font-weight: 700;
@@ -69,6 +73,7 @@ body {
 
 .user-profile-container {
     margin-top: 4em;
+    flex: 0 1 auto;
 }
 
 .user-profile-container .user-image {
@@ -97,4 +102,58 @@ body {
 
 .user-info .first-name {
     font-weight: bold;
+}
+
+.navigation-container {
+    flex: 1 1 auto;
+    margin-top: 5em;
+}
+
+.navigation-container .navigation {
+    padding: 0;    
+}
+
+.navigation-container .navigation li {
+    margin: 1.5em 0;
+}
+
+.navigation-container .navigation li a {
+    text-decoration: none;
+    color: var(--labelCol);
+    font-size: 2.0em;
+    transition: all .1s ease;
+}
+
+#active-nav a {
+    color: var(--valueCol);
+    font-weight: bold;
+}
+
+.navigation-container .navigation .nav-item:hover a {
+    color: var(--valueCol);
+}
+
+.bottom-btn {
+    flex: 0 1 auto;
+}
+
+.bottom-btn {
+    margin: 2em 0;
+}
+
+.bottom-btn a {
+    text-decoration: none;
+    color: var(--labelCol);
+    font-size: 1.8em;
+}
+
+.content {
+    width: 100%;
+    padding: 2em;
+}
+
+.content-header h1 {
+    font-weight: bold;
+    font-family: var(--fontOutfit);
+    color: #363636;
 }
