@@ -36,7 +36,7 @@ class Account extends DbConnection
                         $_SESSION['current_firstname'] = $fetch_firstname;
                         $_SESSION['current_lastname'] = $fetch_lastname;
                         $_SESSION['current_image'] =   $fetch_image;
-                        $output['success'] = '<div class="alert alert-success text-center">Login Successfully</div>';
+                        $output['success'] =  $fetch_user_type;
                     } else {
                         $code = $this->generate_code();
                         if ($fetch_user_type == "customer") {

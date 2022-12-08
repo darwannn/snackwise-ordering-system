@@ -18,8 +18,13 @@ class Account {
             new Account().button_loading("login", "", button_value);
             /* displays the message returned */
             if (response_data.success) {
+                console.log(response_data.success);
                 document.getElementById('success_message').innerHTML = "";
-                window.location.href = "../index.php";
+                if(response_data.success == "customer") {
+                    window.location.href = "../menu.php";
+                } else {
+                    window.location.href = "../dashboard.php";
+                } 
             } else if (response_data.validate) {
                 document.getElementById('success_message').innerHTML = "";
                 document.getElementById('error_message').innerHTML = response_data.validate;
