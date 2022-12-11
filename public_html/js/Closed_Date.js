@@ -25,11 +25,21 @@ class Closed_Date {
             } else {
                 response_data.data.map(function (closed_date) {
                     closed_date_list += `
+                    <div class="date-row">
+                        <div class="date-container">
+                            <span class="date">${closed_date.date}</span>
+                        </div>
+                        <div class="del-btn">
+                            <button type="button" class="btn btn-danger" onclick="new Closed_Date().delete_closed_date(${closed_date.closed_date_id})"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                    `;/*`
                     <tr>
                     <td >${closed_date.date}</td>
                     <td ><button type="button" class="" onclick="new Closed_Date().delete_closed_date(${closed_date.closed_date_id})"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
-                    `;
+                    `;*/
+
                 });
             }
             document.getElementById("closed_date_list").innerHTML = closed_date_list;

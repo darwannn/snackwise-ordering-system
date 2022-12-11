@@ -91,47 +91,8 @@ if ($validate->is_logged_in("staff")) {
                     <button type="button" name="closed_date" class="btn btn-success" id="closed_date" onclick="new Closed_Date().add_closed_date()">Add Date</button>
             </form>
 
-            <div class="close-date-list">
-                <div class="date-row">
-                    <div class="date-container">
-                        <span class="date">December 11, 2022</span>
-                    </div>
-                    <div class="del-btn">
-                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-                <div class="date-row">
-                    <div class="date-container">
-                        <span class="date">December 11, 2022</span>
-                    </div>
-                    <div class="del-btn">
-                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-                <div class="date-row">
-                    <div class="date-container">
-                        <span class="date">December 11, 2022</span>
-                    </div>
-                    <div class="del-btn">
-                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-                <div class="date-row">
-                    <div class="date-container">
-                        <span class="date">December 11, 2022</span>
-                    </div>
-                    <div class="del-btn">
-                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-                <div class="date-row">
-                    <div class="date-container">
-                        <span class="date">December 11, 2022</span>
-                    </div>
-                    <div class="del-btn">
-                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
+            <div class="close-date-list" id="closed_date_list">
+                
             </div>
 
         </div>
