@@ -82,15 +82,15 @@ class Validate extends DbConnection
           $this->output[$name] = 'Username is taken';
         }
       }
-    
-      if (preg_match("/\b".$name."\b/i", "password_error") && $compare_input != "login") {
+
+      if (preg_match("/\b" . $name . "\b/i", "password_error") && $compare_input != "login") {
         if ($this->has_meet_password($input)) {
           unset($this->output[$name]);
         } else {
           $this->output['password_error'] = 'Password does not meet the requirements';
         }
       }
-      if (preg_match("/\b".$name."\b/i", "retype_password_error")) {
+      if (preg_match("/\b" . $name . "\b/i", "retype_password_error")) {
         if ($this->is_match($input, $compare_input)) {
           if ($this->has_meet_password($input)) {
             unset($this->output[$name]);
@@ -101,6 +101,7 @@ class Validate extends DbConnection
           $this->output['retype_password_error'] = 'Passwords do not match';
         }
       }
+   
       if (strpos($name, "discount") !== false || strpos($name, "price") !== false) {
         if (ctype_digit(str_replace(", ", "", $input))) {
           unset($this->output[$name]);
@@ -111,6 +112,18 @@ class Validate extends DbConnection
     }
   }
 
+  public function validate_current_password($input, $compare_input, $name, $message)
+  {
+    if (isset($input) && $input == '') {
+      $this->output[$name] = $message;
+    } else {
+      if (strpos($name, "current_password") !== false) {
+        if ($this->match_current_password($input, $compare_input)) {
+          unset($this->output[$name]);
+        } 
+      }
+  }
+}
   /* -------------------- functions */
 
   /* determines if the password entered and the password in the database matches */
@@ -125,11 +138,24 @@ class Validate extends DbConnection
       if (password_verify($current_password, $fetch_pass)) {
         return true;
       } else {
-        $output['current_password_error'] = 'Incorrect Password';
-        echo json_encode($output);
+        $this->output['current_password_error'] = 'Incorrect Password';
       }
     }
   }
+
+  /* checks if the selected date already exist in the database */
+  public function validate_date($date)
+  {
+    $query = $this->connect()->prepare("SELECT date FROM closed_date WHERE date = :date");
+    $query->execute([':date' => $date]);
+
+    if ($query->rowCount() > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 
   /* determines if the user met the maximum login incorrect attempt */
   public function login_attempt($user, $table)
@@ -224,8 +250,9 @@ class Validate extends DbConnection
   /* checks if the email entered is already subscribed to newsletter */
   public function is_newsletter_registered($input)
   {
-    $query = $this->connect()->prepare("SELECT email FROM newsletter where email = :email");
-    $query->execute([':email' => $input]);
+    $status = "subscribed";
+    $query = $this->connect()->prepare("SELECT email FROM newsletter where email = :email AND status = :status");
+    $query->execute([':email' => $input, ':status' => $status]);
 
     if (!$query->rowCount() > 0) {
       return true;
@@ -251,15 +278,28 @@ class Validate extends DbConnection
   {
     if (($_GET["code"]) != "0") {
       $url_code = $_GET["code"];
-      $query = $this->connect()->prepare("SELECT * FROM user WHERE code = :code");
+      if (strpos($_SERVER['PHP_SELF'], "subscribe") !== false) {
+        $query = $this->connect()->prepare("SELECT * FROM newsletter WHERE code = :code");
+        echo $_GET["code"];
+      } else {
+        $query = $this->connect()->prepare("SELECT * FROM user WHERE code = :code");
+      }
       $query->execute([':code' => $url_code]);
       if ($query->rowCount() > 0) {
         return  true;
       } else {
-        header('location: ../error.php');
+        if (strpos($_SERVER['PHP_SELF'], "subscribe") !== false) {
+          header('location: error.php');
+        } else {
+          header('location: ../error.php');
+        }
       }
     } else {
-      header('location: ../error.php');
+      if (strpos($_SERVER['PHP_SELF'], "subscribe") !== false) {
+        header('location: error.php');
+      } else {
+        header('location: ../error.php');
+      }
     }
   }
 
@@ -312,29 +352,29 @@ class Validate extends DbConnection
     }
   }
 
- /* determines if a user is logged in and if it is a customer or an employee */ 
- public function is_logged_in($type) 
- { 
-  if (isset($_SESSION['user_id']) == false && isset($_SESSION['password']) == false) { 
-    return true; 
-  } else {
-    if ($type == "customer") { 
-       return false; 
-   } else if ($type =="staff") { 
-       if (isset($_SESSION["user_type"]) && $_SESSION['user_type'] == "customer") { 
-         return true; 
-       } else { 
-         return false; 
-       } 
-   } else if ($type =="admin") { 
-       if (isset($_SESSION["user_type"]) && $_SESSION['user_type'] != "admin") { 
-         return true; 
-       } else { 
-         return false; 
-       } 
-   }
+  /* determines if a user is logged in and if it is a customer or an employee */
+  public function is_logged_in($type)
+  {
+    if (isset($_SESSION['user_id']) == false && isset($_SESSION['password']) == false) {
+      return true;
+    } else {
+      if ($type == "customer") {
+        return false;
+      } else if ($type == "staff") {
+        if (isset($_SESSION["user_type"]) && $_SESSION['user_type'] == "customer") {
+          return true;
+        } else {
+          return false;
+        }
+      } else if ($type == "admin") {
+        if (isset($_SESSION["user_type"]) && $_SESSION['user_type'] != "admin") {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
   }
- }
 
   /* determines if the uploaded file is an image */
   public function verify_file_type($file_type)

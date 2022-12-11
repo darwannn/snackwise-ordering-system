@@ -5,7 +5,7 @@ class Menu {
     }
 
     menu() {
-        document.getElementById('modal_backdrop').style.display = 'none';
+
         document.getElementById("cart_summary").style.display = "none";
         /* default checked radio button */
         document.querySelectorAll('input[name="category"]')[0].checked = "checked";

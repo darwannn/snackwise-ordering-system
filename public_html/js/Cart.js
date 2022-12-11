@@ -7,7 +7,7 @@ class Cart {
 
     cart() {
         new Cart().cart_count();
-        new Cart().fetch_holiday();
+      
         new Cart().display_cart();
         new Cart().close_add_order();
 
@@ -18,25 +18,78 @@ class Cart {
             let verify_list = "";
 
             let cart_id_list = (document.getElementById("cartlist").value).split(",");
-            for (let i = 0; i < cart_id_list.length; i++) {
-                let selected_cart_image = document.getElementById(`cart-image${cart_id_list[i]}`).src;
-                let selected_cart_name = document.getElementById(`cart-name${cart_id_list[i]}`).innerHTML;
-                let selected_cart_quantity = document.getElementById(`cart-quantity${cart_id_list[i]}`).value;
-                console.log(cart_id_list[i]);
+           
                 verify_list += `
-                    <div class="  pb-2" style="margin:7px;box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-                    border-radius: 20px; width:30%;" >
-                        <img src='${selected_cart_image}' class="w-100"></img>
-                        <div class="h6 text-center"><span class=" fw-bold">${selected_cart_name}</span> (x${selected_cart_quantity})</div>
+                
+                <div class="content-container">
+                <div class="closing-bar">
+                    <button class="close-btn"  onclick="new Cart().close_add_order();">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="mod-top">
+                
+                    <div class="header-col with-details w-100">
+                        <span class="order-number-label">Checkout</span>
+                        <form id="order_form" method="POST" class="mb-3">
+                            
+                            <label class="h6">When do you want to pick up your order?</label>
+                            <div class="input-group">
+
+                                <input type="date" class="form-control me-1 checkout-input-date" id="date" name="date">
+                                <input type="text" class="form-control ms-1 checkout-input-time" id="time" name="time">
+                            </div>
+
+                        </form>
                     </div>
+                    
+                </div>
+                <div class="items-list" style="min-height:215px;max-height:215px;">`;
+                for (let i = 0; i < cart_id_list.length; i++) {
+                    let selected_cart_image = document.getElementById(`cart-image${cart_id_list[i]}`).src;
+                    let selected_cart_name = document.getElementById(`cart-name${cart_id_list[i]}`).innerHTML;
+                    let selected_cart_quantity = document.getElementById(`cart-quantity${cart_id_list[i]}`).value;
+                    let selected_cart_price = document.getElementById(`cart-price${cart_id_list[i]}`).innerHTML;
+                    
+                    console.log(cart_id_list[i]);
+                verify_list += `    <div class="item">
+                        <div class="item-img-container">
+                            <img src="${selected_cart_image}" alt="${selected_cart_name}">
+                        </div>
+                        <div class="item-details">
+                            <div class="quantity-con">
+                                <span><span class="modal-quantity">${selected_cart_quantity}</span>x</span>
+                            </div>
+                            <div class="item-name-con">
+                                <span class="item-namee">${selected_cart_name}</span>
+                            </div>
+                            <div class="item-price-con">
+                                <span class="item-pricee">${selected_cart_price}</span>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+                    verify_list += `   </div>
+              
+                <div class="mod-footer">
+                    <div class="footer-col">
+                        <span>Subtotal: </span>
+                    </div>
+                    <div class="footer-col">
+                        <span class="sub-total">${document.getElementById("cart_total_price").innerHTML}</span>
+                    </div>
+                </div>
+                <div class="cancel-bar">
+                  
+                    <button class="btn btn-success cancel-btn" type="button" name="add_to_order" id="add_to_order" onclick="new Cart().add_order();" style="width:130px;">Checkout</button>
+                </div>
+            </div>
                     `;
-            }
-            document.getElementById("verify_list").innerHTML = verify_list;
-            document.getElementById("verify_price").innerHTML = document.getElementById("cart_total_price").innerHTML;
+                    new Cart().fetch_closed_date();
+            document.getElementById("order-details-modal").innerHTML = verify_list;
+            // document.getElementById("verify_price").innerHTML = document.getElementById("cart_total_price").innerHTML;
         }
-        document.getElementById('add_to_order').onclick = function () {
-            new Cart().add_order();
-        }
+      
     }
 
     /* gets and displays customers added to cart items */
@@ -68,9 +121,9 @@ class Cart {
                     <div class="item-name" id="cart-name${cart.cart_id}">${cart.name}</div>`
                     if (cart.availability == "Available") {
                         if (cart.discount != 0) {
-                            cart_list += `  <div class="">x<input id="cart-quantity${cart.cart_id}"  style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}" data-cart-id="${cart.cart_id}"/><span  class=" ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${(cart.discounted_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(".00", "")}</span></div>`;
+                            cart_list += `  <div class="">x<input id="cart-quantity${cart.cart_id}"  style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}" data-cart-id="${cart.cart_id}"/><span  id="cart-price${cart.cart_id}"  class=" ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${(cart.discounted_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(".00", "")}</span></div>`;
                         } else {
-                            cart_list += `  <div class="" >x<input id="cart-quantity${cart.cart_id}"  style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}" data-cart-id="${cart.cart_id}" /><span  class="ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${cart.price}</span></div>`;
+                            cart_list += `  <div class="" >x<input id="cart-quantity${cart.cart_id}"  style="width:40px;" class="item-quantity" type="number" name="quantity_change" value="${cart.quantity}" data-cart-id="${cart.cart_id}" /><span  id="cart-price${cart.cart_id}" class="ms-3 bolder item-price position-absolute" style="right:20px;">PHP ${cart.price}</span></div>`;
                         }
                     } else {
                         cart_list += `  <span class="ms-3 bolder item-price" style="margin-left:8px!important;">UNAVAILABLE</span>`;
@@ -293,6 +346,7 @@ class Cart {
 
         let form_data = new FormData(document.getElementById('order_form'));
         form_data.append('add_order', 'add_order');
+        form_data.append('cartlist', document.getElementById("cartlist").value);
         fetch('php/controller/c_order.php', {
             method: "POST",
             body: form_data
@@ -316,19 +370,19 @@ class Cart {
     }
 
     /* fetches dates where the business is closed and removes it from the date picker */
-    fetch_holiday() {
+    fetch_closed_date() {
 
         let form_data = new FormData();
-        form_data.append('display_holiday', 'display_holiday');
+        form_data.append('display_closed_date', 'display_closed_date');
 
-        fetch('php/controller/c_holiday.php', {
+        fetch('php/controller/c_closed_date.php', {
             method: "POST",
             body: form_data
         }).then(function (response) {
             return response.json();
 
         }).then(function (response_data) {
-            let holiday_list = [];
+            let closed_date_list = [];
             /* gets the current date and time and displays it to the date and time picker with a format of YYYY-MM-DD for date and HH: MM for time*/
             let date = new Date();
             let day = date.getDate(),
@@ -348,12 +402,12 @@ class Cart {
             hour = (hour < 10 ? "0" : "") + hour;
             min = (min < 10 ? "0" : "") + min;
 
-            response_data.data.map(function (holiday) {
-                holiday_list.push(holiday.date);
+            response_data.data.map(function (closed_date) {
+                closed_date_list.push(closed_date.filter_date);
             });
 
             document.getElementById('date').flatpickr({
-                "disable": holiday_list,
+                "disable": closed_date_list,
                 minDate: "today",
                 altInput: true,
                 altFormat: "F j, Y",
@@ -385,15 +439,15 @@ class Cart {
     }
 
     open_add_order() {
-        document.getElementById("order_modal").style.display = "block";
-        document.getElementById('modal_backdrop').style.display = 'block';
+        document.getElementById("order-details-modal").style.display = "block";
         document.querySelector('body').style.overflow = 'hidden';
+
     }
 
     close_add_order() {
-        new Cart().fetch_holiday();
-        document.getElementById("order_modal").style.display = "none";
-        document.getElementById('modal_backdrop').style.display = 'none';
+     
+        document.getElementById("order-details-modal").style.display = "none";
         document.querySelector('body').style.overflow = 'visible';
+
     }
 }

@@ -9,6 +9,32 @@ class Order {
         ];
     }
 
+    total_order_count() {
+        let fotm_data = new FormData();
+        fotm_data.append('total_order_count', 'total_order_count');
+        fetch('php/controller/c_order.php', {
+            method: "POST",
+            body: fotm_data
+        }).then(function (response) {
+            return response.json();
+        }).then(function (response_data) {
+            console.log(response_data.data);
+
+            if (response_data.error) {
+
+                new Notification().create_notification(response_data.error, "error");
+            } else {
+
+                document.getElementById('total_cancelled_count').innerHTML = response_data.data[0].total_cancelled_count;
+                document.getElementById('total_completed_count').innerHTML = response_data.data[0].total_completed_count;
+                document.getElementById('total_unclaimed_count').innerHTML = response_data.data[0].total_unclaimed_count;
+                document.getElementById('total_preparing_count').innerHTML = response_data.data[0].total_preparing_count;
+                document.getElementById('total_placed_count').innerHTML = response_data.data[0].total_placed_count;
+                document.getElementById('total_order_count').innerHTML = response_data.data[0].total_order_count;
+            }
+        });
+    }
+
     customer_order() {
         /*  new Order().close_order_details(); */
         //gets the value of selected radio button which is used to filter the items in the order table
@@ -95,8 +121,8 @@ class Order {
                     order_status = new Order().get_status_text(order.status);
                     status_class = new Order().get_status_style(order.status);
 
-                 let show_date=  new Order().get_date_format(order.date);
-                 let fetch_time=  new Order().get_time_format(order.time);
+                    let show_date = new Order().get_date_format(order.date);
+                    let fetch_time = new Order().get_time_format(order.time);
                     order_list += `
                     <div class="order-item">
                     <div class="order-details-row">
@@ -105,13 +131,13 @@ class Order {
                             <span class="order-number">${(order.order_id).toString().padStart(10, '0')}</span>
                         </div>
                         <div class="order-date-container">`;
-                        if (category == "Completed" || category == "details-completed" ) {
-                            order_list += `      <span>${`${show_date}`}</span>`;
-                        } else {
-                            order_list += `      <span>${`${show_date} | ${fetch_time}`}</span>`;
-                        }
-                  
-                        order_list += `  </div>
+                    if (category == "Completed" || category == "details-completed") {
+                        order_list += `      <span>${`${show_date}`}</span>`;
+                    } else {
+                        order_list += `      <span>${`${show_date} | ${fetch_time}`}</span>`;
+                    }
+
+                    order_list += `  </div>
                     </div>
                     <div class="order-details-row">
                         <div class="quantity-container">
@@ -161,9 +187,9 @@ class Order {
 
             order_status = new Order().get_status_text(single_order.status);
             status_class = new Order().get_status_style(single_order.status);
-            
-            let show_date=  new Order().get_date_format(single_order.date);
-            let fetch_time=  new Order().get_time_format(single_order.time);
+
+            let show_date = new Order().get_date_format(single_order.date);
+            let fetch_time = new Order().get_time_format(single_order.time);
 
             let qr_image = "";
 
@@ -177,7 +203,7 @@ class Order {
         </a>`;
             }
             order_details_list += `
-                <div class="content-container">
+                <div class="content-container" >
                 <div class="closing-bar">
                     <button class="close-btn" onclick="new Order().close_order_details();">
                         <i class="fa-solid fa-xmark"></i>
@@ -188,19 +214,19 @@ class Order {
                         <span class="order-number-label">Order No.:</span>
                         <span class="order-number">${(single_order.order_id).toString().padStart(10, '0')}</span><br>
                         `;
-                        if (category == "Completed" || category == "details-completed" ) {
-                            order_details_list += `<span class="label">Date Claimed:</span><span class="order-date value">${` ${`${show_date}`}`}</span><br>`;
-                        } else {
-                            order_details_list += `<span class="label">Order Date:</span><span class="order-date value">${` ${`${show_date} | ${fetch_time}`}`}</span><br>`;
-                        }
-                        order_details_list += ` <span class="label">Status:</span>
+            if (category == "Completed" || category == "details-completed") {
+                order_details_list += `<span class="label">Date Claimed:</span><span class="order-date value">${` ${`${show_date}`}`}</span><br>`;
+            } else {
+                order_details_list += `<span class="label">Order Date:</span><span class="order-date value">${` ${`${show_date} | ${fetch_time}`}`}</span><br>`;
+            }
+            order_details_list += ` <span class="label">Status:</span>
                         <span class="status ${status_class} status-value"> ${order_status}</span>
                     </div>
                     <div class="header-col">
                         ${qr_image}
                     </div>
                 </div>
-                <div class="items-list">
+                <div class="items-list" style="min-height:215px;max-height:215px;">
                 `;
             response_data.data.map(function (order) {
                 order_details_list += `
@@ -252,30 +278,30 @@ class Order {
 
     delete_order(order_id) {
         if (confirm("Are you sure you want to cancel your order?")) {
-            let delete_order_data = new FormData();
-            delete_order_data.append('delete_order', 'delete_order');
-            delete_order_data.append('order_id', order_id);
+            let fotm_data = new FormData();
+            fotm_data.append('delete_order', 'delete_order');
+            fotm_data.append('order_id', order_id);
             fetch('php/controller/c_order.php', {
                 method: "POST",
-                body: delete_order_data
+                body: fotm_data
             }).then(function (response) {
                 return response.json();
             }).then(function (response_data) {
                 console.log(response_data);
                 if (response_data.success) {
-
+                  
                     new Order().close_order_details();
+                    new Notification().notification(); 
                     new Notification().create_notification(response_data.success, "success");
-                    table.update();
-                    dataRemoved();
+  
                 } else if (response_data.error) {
                     new Notification().create_notification(response_data.error, "error");
                 }
-                new Order().display_order();
+                new Order().display_order(document.querySelector('input[name="category"]:checked').value);
             });
         }
     }
-    
+
     get_date_format(date) {
         let show_date = "";
         let fetch_month = (date).substr(5, 2);
@@ -323,6 +349,7 @@ class Order {
             new Order().qr_close_modal();
             if (response_data.success) {
                 table.update();
+                new Order().total_order_count();
                 dataRemoved();
                 new Notification().create_notification(response_data.success, "success");
 
@@ -362,39 +389,96 @@ class Order {
                 let quantity = (order.quantity_list).split(',');
                 let discount = (order.discount_list).split(',');
 
-                to_claim_info += `
-      
-                    <div>${order.firstname} ${order.lastname}</div>
-                    <div>${order.date}</div>
-                    `;
-                document.getElementById("to_claim_order_id").value = order.order_id;
-                document.getElementById("to_claim_type").value = type;
-
-                for (let i = 0; i < prices.length; i++) {
-
-
-                    to_claim_order += `
-                            <div class="pb-2" style="margin:7px;box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-                            border-radius: 20px; width:30%;">
-                            <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${images[i]}'  class="w-100"></img>
-                                <div class="h6 text-center"><span class=" fw-bold">${orders[i]}</span> (x${quantity[i]})</div>
-                            </div>  
-                        `;
-                };
-                to_claim_price += `
-                            <div class="text-end fw-bold h6">PHP ${parseFloat(order.total_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
-                        `;
-                if (type == "delete") {
-                    document.getElementById('to_delete_info').innerHTML = to_claim_info;
-                    document.getElementById('to_delete_order').innerHTML = to_claim_order;
+                     document.getElementById("to_claim_order_id").value = order.order_id;
+               document.getElementById("to_claim_type").value = type;
+               let show_date = new Order().get_date_format(order.date);
+                to_claim_info += ` 
+                
+                <div class="content-container">
+            <div class="closing-bar">`;
+            if (type == "delete") {
+                to_claim_info += `<button class="close-btn" onclick="new Order().close_del_notif();">`;
                 } else {
-                    document.getElementById("to_claim_order").style.display = "block";
-                    document.getElementById("to_claim_order").style.display = "block";
-                    document.getElementById('to_claim_info').innerHTML = to_claim_info;
-                    document.getElementById('to_claim_price').innerHTML = to_claim_price;
-                    document.getElementById('to_claim_order').innerHTML = to_claim_order;
-                    document.getElementById("qr_modal").style.display = "block";
-                    document.getElementById('modal_backdrop').style.display = 'block';
+                    to_claim_info += `<button class="close-btn" onclick="new Order().qr_close_modal();">`;
+                }
+           
+            to_claim_info += `<i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="mod-top">
+                <div class="header-col with-details">
+                    <span class="order-number-label">Order No.:</span>
+                    <span class="order-number">${(order.order_id).toString().padStart(10, '0')}</span><br>
+
+                    <span class="label">Name:</span>
+                    <span class="order-date value">${order.firstname} ${order.lastname}</span><br>
+
+                    <span class="label">Order Date:</span>
+                    <span class="status pickup-stat value">${show_date}</span>
+                </div>
+                <div class="header-col">
+                   
+                </div>
+            </div>
+            <div class="items-list" style="min-height:215px;max-height:215px;">
+               `;
+        
+               for (let i = 0; i < prices.length; i++) {
+               to_claim_info += `  
+                <div class="item">
+                    <div class="item-img-container">
+                        <img src="https://res.cloudinary.com/dhzn9musm/image/upload/${images[i]}" alt="${orders[i]}">
+                    </div>
+                    <div class="item-details">
+                        <div class="quantity-con">
+                            <span><span class="modal-quantity">${quantity[i]}</span>x</span>
+                        </div>
+                        <div class="item-name-con">
+                            <span class="item-name">${orders[i]}</span>
+                        </div>
+                        <div class="item-price-con">
+                            <span class="item-price">PHP ${parseFloat(prices[i]).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(".00", "")}</span>
+                        </div>
+                    </div>
+                </div>`
+                ;
+               }
+                to_claim_info += `  </div>
+            <div class="mod-footer">
+                <div class="footer-col">
+                    <span>Subtotal: </span>
+                </div>
+                <div class="footer-col">
+                    <span class="sub-total">PHP ${parseFloat(order.total_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                </div>
+            </div>
+            <div class="cancel-bar">`;
+            if (type == "delete") {
+
+            to_claim_info += ` 
+            <form method="post" id="del_notif_form" class="mb-3" style="margin-top:-10px">
+                              <label for="del_notif" style="font-size:1.6em">Reason</label>
+                              <input list="del_list" name="del_notif" id="del_notif" class="form-control input-reason" />
+                              <datalist id="del_list">
+                                  <option>Item Unavailable</option>
+                              </datalist>
+                              <span class="input_error" id="del_notif_error"></span>
+                          </form>
+            <button class="btn btn-danger cancel-btn" onclick="new Order().staff_delete_order();">Cancel Order</button>`;
+            } else {
+                to_claim_info += `  <button class="btn btn-success cancel-btn" onclick=" new Order().claim_order();">Claim Order</button>`;
+            }
+            to_claim_info += `  </div>
+        </div>
+                `;
+                if (type == "delete") {
+                    document.getElementById("delete-details-modal").style.display = "block";
+                    document.getElementById('delete-details-modal').innerHTML = to_claim_info;
+                    document.querySelector('body').style.overflow = 'hidden';
+              
+                } else {
+                    document.getElementById('claim-details-modal').innerHTML = to_claim_info;
+                    document.getElementById("claim-details-modal").style.display = "block";
                     document.querySelector('body').style.overflow = 'hidden';
                 }
             }
@@ -414,34 +498,28 @@ class Order {
 
     qr_close_modal() {
         this.qr_code_id = "";
-        document.getElementById('modal_backdrop').style.display = 'none';
-        document.getElementById("qr_modal").style.display = "none";
-        document.getElementById("to_claim_order").style.display = "none";
-        document.getElementById("to_claim_order").style.display = "none";
+        document.getElementById("claim-details-modal").style.display = "none";
         document.querySelector('body').style.overflow = 'visible';
     }
 
 
     del_notif(order_id, user_id) {
-        document.getElementById("del_notif_modal").style.display = "block";
-        document.getElementById('modal_backdrop').style.display = 'block';
         document.getElementById("del_notif_order_id").value = order_id;
         document.getElementById("del_notif_user_id").value = user_id;
         document.querySelector('body').style.overflow = 'hidden';
         new Order().order_fetch_info(order_id, "delete");
     }
     close_del_notif() {
-        document.getElementById('modal_backdrop').style.display = 'none';
-        document.getElementById("del_notif_modal").style.display = "none";
+        document.getElementById('delete-details-modal').style.display = 'none';
         document.getElementById("del_notif_order_id").style.display = "none";
         document.getElementById("to_claim_order_id").style.display = "none";
         document.getElementById("to_claim_type").style.display = "none";
         document.getElementById("del_notif_order_id").value = "";
-        document.getElementById("del_notif").value = "";
+        // document.getElementById("del_notif").value = "";
 
         document.getElementById("del_notif_user_id").style.display = "none";
         document.getElementById("del_notif_user_id").value = "";
-        document.getElementById("del_notif").selectedIndex = 0;
+        // document.getElementById("del_notif").selectedIndex = 0;
         document.querySelector('body').style.overflow = 'visible';
     }
 
@@ -461,6 +539,7 @@ class Order {
             if (response_data.success) {
                 new Notification().create_notification(response_data.success, "success");
                 table.update();
+                new Order().total_order_count();
             } else if (response_data.error) {
                 new Notification().create_notification(response_data.error, "error");
             }
@@ -495,6 +574,8 @@ class Order {
     staff_delete_order() {
         let form_data = new FormData(document.getElementById('del_notif_form'));
         form_data.append('action_order', 'delete');
+        form_data.append('order_id', document.getElementById('del_notif_order_id').value);
+        form_data.append('user_id', document.getElementById('del_notif_user_id').value);
         fetch('php/controller/c_order.php', {
             method: "POST",
             body: form_data
@@ -505,6 +586,7 @@ class Order {
                 new Notification().create_notification(response_data.success, "success");
                 dataRemoved();
                 table.update();
+                new Order().total_order_count();
                 new Order().close_del_notif();
 
             } else if (response_data.error) {
@@ -516,7 +598,7 @@ class Order {
 
     /* -------------------- */
     open_order_details() {
-        document.getElementById("order_details_list").style.display = "flex";
+        document.getElementById("order_details_list").style.display = "block";
         document.querySelector('body').style.overflow = 'hidden';
     }
     close_order_details() {

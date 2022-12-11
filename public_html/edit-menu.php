@@ -4,7 +4,7 @@ require_once dirname(__FILE__) . '/php/classes/DbConnection.php';
 require_once dirname(__FILE__) . '/php/classes/Validate.php';
 
 $validate = new Validate();
-if ($validate->is_logged_in("admin")) {
+if ($validate->is_logged_in("staff")) {
     header('Location: error.php');
 }
 $db = new DbConnection();
@@ -17,33 +17,61 @@ $menu = new Menu();
 <html lang="en">
 
 <head>
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | Snackwise</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- PAGE ICON -->
+    <link rel="icon" href="img/penguin.png" type="image/icon type">
+
+    <!-- FONT LINKS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:ital,wght@0,300;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+
+    <!-- EXTERNAL CSS -->
+    <link rel="stylesheet" href="css/order.css">
+    <link rel="stylesheet" href="css/notification.css">
+    
+
 
     <link rel="stylesheet" type="text/css" href="css/table.css" />
-    <link rel="stylesheet" type="text/css" href="css/notification.css" />
-
-
     <script src="js/Table.js" type="text/javascript"></script>
-
-    <!-- FONT AWESOME CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <!-- FONT AWESOME JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
 
     <!-- DATE PICKER -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <!-- BOOTSTRAP CSS -->
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <!-- BOOTSTRAP JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
     <style>
+        body {
+            background-image: url(img/Background-Pattern-BW.jpg);
+        }
+
+        .card-header .back-btn {
+            float: left;
+            height: 100%;
+            margin-top: 10px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #595959;
+            transition: all .1s ease;
+        }
+
+        .card-header .back-btn:hover {
+            color: #2f2f2f;
+        }
+
+
         td:nth-child(2) {
             white-space: normal !important;
             width: 100px !important;
@@ -75,25 +103,25 @@ $menu = new Menu();
         
         .dt-table th:nth-child(1).dt-sorter::before,
         .dt-table th:nth-child(1).dt-sorter::after {
-            right: 15px;
+            right: 13px;
         }
 
         
         .dt-table th:nth-child(2).dt-sorter::before,
         .dt-table th:nth-child(2).dt-sorter::after {
-            right: 22px;
+            right: 20px;
         }
 
         
         .dt-table th:nth-child(3).dt-sorter::before,
         .dt-table th:nth-child(3).dt-sorter::after {
-            right: 54px;
+            right: 50px;
         }
 
         
         .dt-table th:nth-child(4).dt-sorter::before,
         .dt-table th:nth-child(4).dt-sorter::after {
-            right: 21px;
+            right: 20px;
         }
 
         
@@ -111,11 +139,11 @@ $menu = new Menu();
         
         .dt-table th:nth-child(7).dt-sorter::before,
         .dt-table th:nth-child(7).dt-sorter::after {
-            right: 23px;
+            right: 18px;
         }
         .dt-table th:nth-child(8).dt-sorter::before,
         .dt-table th:nth-child(8).dt-sorter::after {
-            right: 23px;
+            right: 22px;
         }
 
         .dt-table th:nth-child(5).dt-sorter::before,
@@ -143,7 +171,30 @@ $menu = new Menu();
             font-size: 14px;
             color: red;
         }
+        table {
+            font-size: 1.6em;
+        }
+
+        .dt-info,
+        .dt-pagination a,
+        .dt-selector,
+        .dt-input {
+            font-size: 1.4em;
+        }
+
+        .btn-claim {
+            background-color: #198754 !important;
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #dc3545 !important;
+            color: white;
+        }
     </style>
+
+    <link rel="stylesheet" href="css/edit-menu.css">
+
     <title></title>
 </head>
 
@@ -155,14 +206,9 @@ $menu = new Menu();
 
         <div class="card">
 
-
-
-
-
-
             <div class="card-header ">
-                <h3 class="text-center">Menu</h3>
-
+                <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+                <h3 class="text-center">Order</h3>
             </div>
 
 
@@ -176,7 +222,7 @@ $menu = new Menu();
                             <th>#</th>
                             <th>Name</th>
                             <th>Desciption</th>
-                            <th>Categoty</th>
+                            <th>Category</th>
                             <th>Discount(%)</th>
                             <th>Price</th>
                             <th>Date Added</th>
@@ -205,66 +251,68 @@ $menu = new Menu();
                     <div class="modal-header ">
 
                         <div class="modal-title h6 fw-bold" id="modal_title">Add</div>
-                        <div style="color:#A3A3A3; " id="close_menu"><i class="fa-solid fa-xmark" onclick="new Menu().close_menu();"></i></div>
+                        <div style="color:#A3A3A3; font-size: 1.6em " id="close_menu"><i class="fa-solid fa-xmark" onclick="new Menu().close_menu();"></i></div>
                     </div>
 
 
                     <div class="modal-body">
                         <input type="hidden" name="menu_id" id="menu_id" class="" />
-
+                        <span class="form-title">Enter Item Details</span>
                         <div class="form-group mt-2">
-                            <label class="form-label" for="name">Name</label>
-                            <input type="text" class="form-control" name="name" id="name" />
+                            <!-- <label class="form-label" for="name">Name</label> -->
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Name of Item" />
                             <span class="input_error" id="name_error"></span>
                         </div>
 
                         <div class="form-group mt-2">
-                            <label class="form-label" for="description">Description</label>
-                            <input type="text" class="form-control" name="description" id="description" />
+                            <!-- <label class="form-label" for="description">Description</label> -->
+                            <input type="text" class="form-control" name="description" id="description" placeholder="Item Description" />
                             <span class="input_error" id="description_error"></span>
                         </div>
 
                         <div class="form-group mt-2">
-                            <label class="form-label" for="category">Category</label>
+                            <!-- <label class="form-label" for="category">Category</label> -->
                             <select class="form-control" name="category" id="category">
                                 <option value="none" style="display: none; opacity:0;">Category</option>
-
+                                
                                 <!-- display the items from the category table as dropdown -->
                                 <?php
                                 $query  = $conn->prepare("SELECT * FROM category");
                                 $result  =  $query->execute();
                                 if ($query->rowCount() > 0) {
                                     while ($row = $query->fetch(PDO::FETCH_BOTH)) {
-                                ?>
+                                        ?>
                                         <option value="<?php echo $row['category_id'] ?>"><?php echo $row['name'] ?></option>
-                                <?php
+                                        <?php
                                     }
                                 }
                                 ?>
                             </select>
+                            <i class="fa-solid fa-angle-down down-icon"></i>
                             <span class="form-label " id="category_error"></span>
                         </div>
-
+                        <span class="form-title">Item Pricing</span>
+                        
                         <div class="form-group mt-2">
-                            <label class="form-label" for="discount">Discount(%)</label>
-                            <input type="text" class="form-control" name="discount" id="discount" />
-                            <span class="input_error" id="discount_error"></span>
-                        </div>
-
-                        <div class="form-group mt-2">
-                            <label class="form-label" for="price">Price</label>
-                            <input type="text" class="form-control" name="price" id="price" />
+                            <!-- <label class="form-label" for="price">Price</label> -->
+                            <input type="text" class="form-control" name="price" id="price" placeholder="Original Price" />
                             <span class="input_error" id="price_error"></span>
                         </div>
-
+                        
                         <div class="form-group mt-2">
-                            <label class="form-label" for="date">Date</label>
+                            <!-- <label class="form-label" for="discount">Discount(%)</label> -->
+                            <input type="text" class="form-control" name="discount" id="discount" placeholder="Discount (%)" />
+                            <span class="input_error" id="discount_error"></span>
+                        </div>
+                        <span class="form-title">Date</span>
+                        <div class="form-group mt-2">
+                            <!-- <label class="form-label" for="date">Date</label> -->
                             <input type="date" class="form-control" name="date" id="date" />
                             <span class="input_error" id="date_error"></span>
                         </div>
 
+                        <span class="form-title">Availability</span>
                         <div class="form-group mt-2">
-                            <label class="form-label" for="availability">Availability</label>
                             <select class="form-select" name="availability" id="availability">
                                 <option value="none" style="display: none; opacity:0;">Select</option>
                                 <option value="Available" selected>Available</option>
@@ -291,7 +339,7 @@ $menu = new Menu();
                     <div class="modal-footer">
                         <input type="hidden" name="action_menu" id="action_menu" value="Add" />
 
-                        <button type="button" class="btn btn-success btn-add w-25" id="action_menu_button" value="Add">Add</button>
+                        <button type="button" class="btn btn-add w-25" id="action_menu_button" value="Add">Add</button>
 
                     </div>
                 </div>
@@ -304,7 +352,8 @@ $menu = new Menu();
     <!-- toast_notif notification will be appended here -->
     <div class="toast_notif" id="toast_notif"></div>
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+  </script>
 <script src="js/Menu.js"></script>
 <script src="js/Notification.js"></script>
 

@@ -49,8 +49,8 @@ $account->delete_code();
 
 <body>
 
- <!-- toast_notif notification will be appended here -->
- <div class="toast_notif" id="toast_notif"></div>
+    <!-- toast_notif notification will be appended here -->
+    <div class="toast_notif" id="toast_notif"></div>
 
     <div class="parent-container">
         <!-- <div class="top-wrapper"> -->
@@ -74,26 +74,6 @@ $account->delete_code();
                         <li class="nav-item">
                             <a href="contactus.php" class="nav-link">Contact Us</a>
                         </li>
-                        
-                        <?php  
-                      /* lalabas sa staff at admin */
-                        if (!$validate->is_logged_in("staff")) {
-                        ?>
-                        <li class="nav-item">
-                            <a href="edit-order.php" class="nav-link">Edit Order</a>
-                        </li>
-                        <?php
-                     } 
-                     /* pang admin lang */
-                      if (!$validate->is_logged_in("admin")) {
-                        ?>
-                        <li class="nav-item">
-                            <a href="edit-menu.php" class="nav-link">Edit Menu</a>
-                        </li>
-                        <?php
-                     }
-                        ?>
-                        
                     </ul>
                     <?php
                     /* pang lahatan */
@@ -104,7 +84,7 @@ $account->delete_code();
                             <a name="sign-up-btn" id="" class="btn btn-primary" href="account/register.php" role="button">Sign Up</a>
                         </form>
                     <?php
-                    }  else {
+                    } else {
 
                     ?>
                         <div class="user-notifications-container">
@@ -118,8 +98,8 @@ $account->delete_code();
                                 <div class="panel-header-container">
                                     <span class="panel-header">Notifications</span>
                                 </div>
-                                
-                             
+
+
 
                                 <div class="notifications-container" id="notification_list"></div>
                             </div>
@@ -129,10 +109,42 @@ $account->delete_code();
                             <button class="user-button">
                                 <i class="fa-solid fa-circle-user"></i>
                             </button>
-                            <ul class="drop-menu">
-                                <li><a href="order.php" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
-                                <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
-                            </ul>
+                            <div class="drop-menu">
+
+                                <div class="user-header" onclick="window.location.href = 'profile.php'">
+                                    <div>
+                                        <img src="https://res.cloudinary.com/dhzn9musm/image/upload/<?php echo $_SESSION['current_image'] ?>" alt="">
+                                    </div>
+                                    <div class="name-container">
+                                        <span class="full-name"><?php echo $_SESSION['current_firstname'] . " " . $_SESSION['current_lastname']; ?></span>
+                                    </div>
+                                </div>
+                                <div class="user-menu-container">
+                                    <ul class="user-menu-list">
+                                        <li class="user-menu-item">
+                                            <a href="order.php"><i class="fa-solid fa-receipt"></i> My Orders</a>
+                                        </li>
+                                        <li class="user-menu-item">
+                                            <a href="change-password.php"><i class="fa-solid fa-key"></i> Change Password</a>
+                                        </li>
+                                        <?php
+                                        /* pang admin lang */
+                                        if (!$validate->is_logged_in("staff")) {
+                                        ?>
+                                            <li class="user-menu-item">
+                                                <a href="dashboard.php" class=""><i class="fa-solid fa-gear"></i> SW Dashboard</a>
+                                            </li>
+                                        <?php
+                                        }
+                                        ?>
+
+                                    </ul>
+                                </div>
+                                <div class="logout-container">
+                                    <a href="account/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                                </div>
+
+                            </div>
                         </div>
 
                     <?php
@@ -175,8 +187,8 @@ $account->delete_code();
 
                 <!-- bestseller items will be appended here -->
                 <div class="bestseller_list row justify-content-start" id="bestseller_list"></div>
-        
-            </section>
+
+        </section>
 
         <section class="how-to-container">
             <div class="container">
@@ -240,12 +252,18 @@ $account->delete_code();
         </section>
 
         <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 footer-header">
-                        <img src="img/penguin.png" alt="penguin.png" width="116px" height="104px">
-                    </div>
+            <div class=footer-header>
+                <div class="left-line line">
+                    <hr>
                 </div>
+                <div class="snack-logo-container">
+                    <img src="img/penguin.png" alt="penguin.png" width="116px" height="104px">
+                </div>
+                <div class="right-line line">
+                    <hr>
+                </div>
+            </div>
+            <div class="container">
                 <div class="row footer-details">
                     <div class="col-12 col-md-3 address-col">
                         <span class="detail-title">
@@ -283,12 +301,10 @@ $account->delete_code();
                             Subscribe to our daily newsletter for all latest updates.
                         </span>
 
-                        <div class="input-container">
-                            <form action="#" class="newsletter-form" id="newsletter_form">
-                                <input type="text" name="email" id="newsletter_email" placeholder="Email Address">
-                                <button type="button" id="newsletter" onclick="new Notification().newsletter()">SUBSCRIBE</button>
-                            </form>
-                        </div>
+                        <form action="#" class="newsletter-form" id="newsletter_form">
+                            <input type="text" name="email" id="newsletter_email" placeholder="Email Address">
+                            <button type="button" id="newsletter" onclick="new Notification().newsletter()">SUBSCRIBE</button>
+                        </form>
                         <span id="newsletter_email_error"></span>
 
                     </div>
@@ -325,11 +341,10 @@ $account->delete_code();
     <script src="js/Menu.js"></script>
 
     <script src="js/Notification.js"></script>
-    
-    <script>
 
-new Menu().display_bestseller();
-   
+    <script>
+        new Menu().display_bestseller();
+
 
         /* DROPDOWN */
 

@@ -1,4 +1,11 @@
-<?php session_start(); ?>
+<?php
+require_once dirname(__FILE__) . '/../php/classes/Validate.php';
+$validate = new Validate();
+if (!$validate->is_logged_in("customer")) { 
+    header('Location: ../menu.php'); 
+}
+
+?>
 
 
 <!DOCTYPE html>

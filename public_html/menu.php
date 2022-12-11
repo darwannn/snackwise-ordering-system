@@ -1,13 +1,14 @@
 <?php
 require_once dirname(__FILE__) . '/php/classes/DbConnection.php';
 require_once dirname(__FILE__) . '/php/classes/Validate.php';
+require_once dirname(__FILE__) . '/php/classes/Closed_Date.php';
 
 $validate = new Validate();
+$closed_date = new Closed_Date();
 
+$closed_date->delete_past_closed_date();
 $db = new DbConnection();
 $conn = $db->connect();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -55,6 +56,20 @@ $conn = $db->connect();
             border: none;
             outline: none;
         }
+        .checkout-input-date, .checkout-input-time {
+
+            background-color: rgb(242, 241, 249);
+            outline: 0px;
+            border: 0px;
+            border-radius: 5px;
+
+        }
+        .checkout-input-date:focus, .checkout-input-time:focus {
+            box-shadow: none;
+            border: 1px solid black;
+            background-color: rgb(242, 241, 249);
+        }
+
     </style>
 </head>
 
@@ -69,7 +84,7 @@ $conn = $db->connect();
             <p class="cart-label bold mb-0"> SHOPPING CART <i class=" sidecart-close fa-solid fa-xmark float-end" onclick="new Cart().close_cart();"></i></p>
             <hr class="w-100 my-2">
         </div>
-       <div class="text-end mt-2" id="empty_cart"><button class="text-end mx-3 btn p-0" style="font-size:12px;" onclick="new Cart().delete_cart('','empty');" >Empty Cart</button></div>
+        <div class="text-end mt-2" id="empty_cart"><button class="text-end mx-3 btn p-0" style="font-size:12px;" onclick="new Cart().delete_cart('','empty');">Empty Cart</button></div>
         <!-- customers added to cart items will be appended here -->
         <div class="cart_list cart_list flex-grow-1 mx-3" id="cart_list" style="margin-top: -5px;">
 
@@ -88,7 +103,7 @@ $conn = $db->connect();
     <!-- SIDEBAR -->
 
     <div class="parent-container">
-    <nav class="navbar navbar-light bg-light navbar-expand-md">
+        <nav class="navbar navbar-light bg-light navbar-expand-md">
             <div class="container">
                 <a href="index.php" class="navbar-brand">
                     <!-- <img src="./img/penguin.png" alt="Penguin Logo" height="58" width="52"> -->
@@ -133,8 +148,8 @@ $conn = $db->connect();
                                 <div class="panel-header-container">
                                     <span class="panel-header">Notifications</span>
                                 </div>
-                                
-                                
+
+
                                 <div class="notifications-container" id="notification_list"></div>
                             </div>
                         </div>
@@ -143,10 +158,42 @@ $conn = $db->connect();
                             <button class="user-button">
                                 <i class="fa-solid fa-circle-user"></i>
                             </button>
-                            <ul class="drop-menu">
-                                <li><a href="order.php" class="drop-item">My Orders <i class="fa-solid fa-receipt"></i></a></li>
-                                <li><a href="account/logout.php" class="drop-item">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
-                            </ul>
+                            <div class="drop-menu">
+
+                                <div class="user-header" onclick="window.location.href = 'profile.php'">
+                                    <div>
+                                        <img src="https://res.cloudinary.com/dhzn9musm/image/upload/<?php echo $_SESSION['current_image'] ?>" alt="">
+                                    </div>
+                                    <div class="name-container">
+                                        <span class="full-name"><?php echo $_SESSION['current_firstname'] . " " . $_SESSION['current_lastname']; ?></span>
+                                    </div>
+                                </div>
+                                <div class="user-menu-container">
+                                    <ul class="user-menu-list">
+                                        <li class="user-menu-item">
+                                            <a href="order.php"><i class="fa-solid fa-receipt"></i> My Orders</a>
+                                        </li>
+                                        <li class="user-menu-item">
+                                            <a href="change-password.php"><i class="fa-solid fa-key"></i> Change Password</a>
+                                        </li>
+                                        <?php
+                                        /* pang admin lang */
+                                        if (!$validate->is_logged_in("staff")) {
+                                        ?>
+                                            <li class="user-menu-item">
+                                                <a href="dashboard.php" class=""><i class="fa-solid fa-gear"></i> SW Dashboard</a>
+                                            </li>
+                                        <?php
+                                        }
+                                        ?>
+
+                                    </ul>
+                                </div>
+                                <div class="logout-container">
+                                    <a href="account/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                                </div>
+
+                            </div>
                         </div>
                     <?php
                     }
@@ -155,7 +202,7 @@ $conn = $db->connect();
             </div>
         </nav>
 
-        <div class="modal-backdrop fade show" id="modal_backdrop"></div>
+       <!--  <div class="modal-backdrop fade show" id="modal_backdrop"></div> -->
 
 
         <section class="top-header">
@@ -265,12 +312,18 @@ $conn = $db->connect();
         </section>
 
         <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 footer-header">
-                        <img src="img/penguin.png" alt="penguin.png" width="116px" height="104px">
-                    </div>
+            <div class=footer-header>
+                <div class="left-line line">
+                    <hr>
                 </div>
+                <div class="snack-logo-container">
+                    <img src="img/penguin.png" alt="penguin.png" width="116px" height="104px">
+                </div>
+                <div class="right-line line">
+                    <hr>
+                </div>
+            </div>
+            <div class="container">
                 <div class="row footer-details">
                     <div class="col-12 col-md-3 address-col">
                         <span class="detail-title">
@@ -286,7 +339,7 @@ $conn = $db->connect();
                             CALL US
                         </span>
                         <span class="details">
-                            0977 283 6086
+                            0970 860 1556
                         </span>
                     </div>
 
@@ -308,12 +361,11 @@ $conn = $db->connect();
                             Subscribe to our daily newsletter for all latest updates.
                         </span>
 
-                        <div class="input-container">
-                            <form action="#" class="newsletter-form">
-                                <input type="text" name="email" id="newsletter-input" placeholder="Email Address">
-                                <button type="submit">SUBSCRIBE</button>
-                            </form>
-                        </div>
+                        <form action="#" class="newsletter-form" id="newsletter_form">
+                        <input type="text" name="email" id="newsletter_email" placeholder="Email Address">
+                        <button type="button" id="newsletter" onclick="new Notification().newsletter()">SUBSCRIBE</button>
+                        </form>
+                        <span id="newsletter_email_error"></span>
 
                     </div>
 
@@ -333,9 +385,7 @@ $conn = $db->connect();
                             </span>
                         </div>
                         <div class="col-6">
-                            <span class="right">Copyright © <script>
-                                    document.write(new Date().getFullYear())
-                                </script> Snackwise. All Rights Reserved.</span>
+                            <span class="right">Copyright © 2022 Snackwise. All Rights Reserved.</span>
                         </div>
                     </div>
                 </div>
@@ -347,45 +397,11 @@ $conn = $db->connect();
 
 
     <!-- order modal -->
-    <div id="order_modal" class="modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header ">
-                    <div class="modal-title h5 fw-bold">CHECKOUT</div>
-                </div>
-                <div class="modal-body">
-                <div class="mt-2">
-                    <form id="order_form" method="POST">
-                        <input type="text" id="cartlist" name="cartlist" placeholder="cartlist">
-                       <label class="h6">When do you want to pick up your order?</label>
-                       <div class="input-group mt-2">
-                            
-                                  <input type="date" class="form-control me-1" id="date" name="date">
-                            <input type="text" class="form-control ms-1" id="time" name="time" >
-                        </div>
-                
-                    </form>
-                    </div>
-                    <!-- customers to checkout items will be appended here -->
-                    <div >
-                    <!-- <div class="h6 fw-bold ">SUMMARY</div> -->
-                        <div class="verify_list row mt-4 mb-5 mx-1 justify-content-start" id="verify_list"></div>
-                    </div>
-                   
-<div class="">
-                    <div class="h6 fw-bold ">TOTAL:</div>
-                    <div class="h6 fw-bold  text-end" id="verify_price"></div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-success" type="button" name="add_to_order" id="add_to_order">Checkout</button>
-                    <button class="btn btn-danger" type="button" id="cancel_add_to_order"
-                        onclick="new Cart().close_add_order();">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="details-modal" id="order-details-modal">
+     
+     </div>
+     <input type="text" id="cartlist" name="cartlist" placeholder="cartlist">
+    
 
     <!-- toast_notif notification will be appended here -->
     <div class="toast_notif" id="toast_notif"></div>
@@ -419,30 +435,38 @@ $conn = $db->connect();
 
             })
         }
-     /*    new Notification().notification(); */
+     
         /* END OF DROPDOWN */
-            new Menu().menu();
-            /* --------------------cart */
-            <?php if (!($validate->is_logged_in("customer"))) {
-            ?>
-               new Cart().cart();
-            <?php
-            } ?>
-
-    <?php 
-    /* adds selected bestseller item to cart */
-        if(isset($_GET['b'])) {
-     ?>
-        new Cart().add_to_cart(<?php echo $_GET['b']?>);
-        /* removes the URL parameter after the item was added to the cart */
-        let url= document.location.href;
-        window.history.pushState({}, "", url.split("?")[0]);
-    
-    <?php
-        } 
-        
+        new Menu().menu();
+        /* --------------------cart */
+        <?php if (!($validate->is_logged_in("customer"))) {
         ?>
-        </script>
+            new Cart().cart();
+        <?php
+        } ?>
+
+        <?php
+        /* adds selected bestseller item to cart */
+        if (isset($_GET['b'])) {
+        ?>
+            new Cart().add_to_cart(<?php echo $_GET['b'] ?>);
+            /* removes the URL parameter after the item was added to the cart */
+            let url = document.location.href;
+            window.history.pushState({}, "", url.split("?")[0]);
+
+        <?php
+        }
+        ?>
+
+        /* displays newsletter subscription success message */
+        <?php
+        if (isset($_SESSION['activate_success'])) {
+        ?>
+            new Notification().create_notification('<?php echo $_SESSION['activate_success']; ?>', "success");
+        <?php
+            unset($_SESSION["activate_success"]);
+        } ?>
+    </script>
 </body>
 
 </html>

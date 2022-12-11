@@ -18,8 +18,13 @@ class Account {
             new Account().button_loading("login", "", button_value);
             /* displays the message returned */
             if (response_data.success) {
+                console.log(response_data.success);
                 document.getElementById('success_message').innerHTML = "";
-                window.location.href = "../index.php";
+                if(response_data.success == "customer") {
+                    window.location.href = "../menu.php";
+                } else {
+                    window.location.href = "../dashboard.php";
+                } 
             } else if (response_data.validate) {
                 document.getElementById('success_message').innerHTML = "";
                 document.getElementById('error_message').innerHTML = response_data.validate;
@@ -113,7 +118,7 @@ class Account {
         });
     }
 
-    /* -------------------- new-password.php  */
+    /* -------------------- new-password.php (forgot-password) */
     new_password(url_code) {
         let button_value = new Account().get_button_value("new_password");
         new Account().button_loading("new_password", "loading", "");
@@ -223,7 +228,7 @@ class Account {
                 if(type != "email") {
                     new Account().fetch_information();
                 }
-                new Notification().create_notification(response_data.success, "success");
+           /*      new Notification().create_notification(response_data.success, "success"); */
                 /* new Account().scroll_to("top"); */
                 window.location.reload();
             } 
@@ -245,6 +250,36 @@ class Account {
         });
     }
 
+    /* -------------------- change-password.php */
+    change_password() {
+        let button_value = new Account().get_button_value("change_password");
+        new Account().button_loading("change_password", "loading", "");
+
+        let form_data = new FormData(document.getElementById('account_form'));
+        form_data.append('change_password', 'change_password');
+
+        fetch(`php/controller/c_account.php`, {
+            method: "POST",
+            body: form_data
+        }).then(function (response) {
+            return response.json();
+        }).then(function (response_data) {
+            console.log(response_data);
+            new Account().button_loading("change_password", "", button_value);
+
+            if (response_data.success) {
+                document.getElementById('password').value = "";
+                document.getElementById('current_password').value = "";
+                document.getElementById('retype_password').value = "";
+                new Notification().create_notification(response_data.success, "success");
+            } else if (response_data.error) {
+                new Notification().create_notification(response_data.error, "error");
+            }
+                new Account().show_error(response_data.current_password_error, 'current_password_error');
+                new Account().show_error(response_data.password_error, 'password_error');
+                new Account().show_error(response_data.retype_password_error, 'retype_password_error');
+        });
+}
     crop_close_modal(image) {
         document.getElementById('image').style.display = "none";
         document.getElementById('cropped_image').style.display = "none";

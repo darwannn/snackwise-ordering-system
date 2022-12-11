@@ -36,7 +36,7 @@ class Account extends DbConnection
                         $_SESSION['current_firstname'] = $fetch_firstname;
                         $_SESSION['current_lastname'] = $fetch_lastname;
                         $_SESSION['current_image'] =   $fetch_image;
-                        $output['success'] = '<div class="alert alert-success text-center">Login Successfully</div>';
+                        $output['success'] =  $fetch_user_type;
                     } else {
                         $code = $this->generate_code();
                         if ($fetch_user_type == "customer") {
@@ -185,11 +185,14 @@ class Account extends DbConnection
         $result = $query->execute([':code' => $code, ':status' => $status, ':url_code' => $url_code]);
         if ($result) {
             $_SESSION['activate_success'] = '<div class="alert alert-success text-center">Account has been activated</div>';
+            unset($_SESSION['user_id']);
+            unset($_SESSION['password']);
             header('Location: login.php');
         } else {
             header('Location: ../error');
         }
     }
+
     /* -------------------- reset.php */
     /* changes the login incorrect attempt counter to 0 */
     public function reset_attempt()
@@ -267,6 +270,7 @@ class Account extends DbConnection
                 $_SESSION['current_lastname'] =   $lastname;
                 $_SESSION['current_image'] =   $image_link;
                 $output['success'] = 'Your profile has been updated';
+                $_SESSION['activate_success_profile'] = 'Your profile has been updated';
             } else {
                 $output['error'] = 'Something went wrong! Please try again later.';
             }
@@ -287,6 +291,19 @@ class Account extends DbConnection
         echo json_encode($output);
     }
 
+    /* change-password.php */
+    public function change_password($user_id, $password) {
+        $encrypt_password = $this->encrypt_password($password);
+        $query = $this->connect()->prepare("UPDATE user SET password = :password WHERE user_id = :user_id");
+        $result = $query->execute([':password' => $encrypt_password, ':user_id' => $user_id]);
+        if ($result) {
+            $output['success'] = 'Your password has been changed';
+        } else {
+            $output['error'] = 'Something went wrong! Please try again later.';
+        }
+        echo json_encode($output);
+    }
+    
     /* -------------------- */
     /* updates verification code */
     public function update_code($user_id, $email, $subject, $body, $code)

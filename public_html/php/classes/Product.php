@@ -10,8 +10,6 @@ $email = "";
 $code = "";
 $username = "";
 
-
-
 class Product extends DbConnection{
 	public $output = array();
 

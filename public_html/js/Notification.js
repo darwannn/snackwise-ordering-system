@@ -121,9 +121,32 @@ class Notification {
             }
 
             if (notif.type == "Cancelled") {
-
-              notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type};'">
-          <div class="notification-header-container">
+        if(notif.user_id == 0) {
+          if(notif.user_id == 0) {
+         notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'edit-order.php?o=${notif.order_id}&s=${notif_type};'">`;
+          } else {
+            notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type};'">`;
+          }
+         notification_list += `  <div class="notification-header-container">
+              <div class="header-info">
+                  <span class="order-number" style="font-size: 1.3em;">#${(notif.order_id).toString().padStart(10, '0')}</span>
+                  <span class="notification-header">Order Cancelled ❌</span>
+              </div>
+              <span class="notification-time" style="white-space: nowrap; text-align:right;">${show_date}<br>${fetch_time}</span>
+          </div>
+          <div class="notification-body-container">
+              <span class="notification-body ${notif.status}-staff-notification">
+              ${notif.message}
+              </span>
+          </div>
+          </div>`;
+        } else {
+          if(notif.user_id == 0) {
+          notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'edit-order.php?o=${notif.order_id}&s=${notif_type};'">`;
+          } else {
+            notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type};'">`;
+          }
+          notification_list += `<div class="notification-header-container">
               <div class="header-info">
                   <span class="order-number" style="font-size: 1.3em;">#${(notif.order_id).toString().padStart(10, '0')}</span>
                   <span class="notification-header">Order Cancelled ❌</span>
@@ -139,15 +162,24 @@ class Notification {
               Reason: ${notif.message}
           </span>
           </div>`;
-
+        }
             } else {
               if (notif.type == "Completed" || notif.type == "Ready") {
-                notification_list += ` <div class="notification" id="notif-success">`;
+                if(notif.user_id == 0) {
+                  notification_list += ` <div class="notification" id="notif-success" onclick="window.location.href = 'edit-order.php?o=${notif.order_id}&s=${notif_type}';">`;
+                  } else {
+                    notification_list += ` <div class="notification" id="notif-success" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">`;
+                  }
+               
               } else if (notif.type == "Placed" || notif.type == "Confirmed" || notif.type == "Preparing") {
-                notification_list += ` <div class="notification" id="">`;
+                if(notif.user_id == 0) {
+                  notification_list += ` <div class="notification" id=""  onclick="window.location.href = 'edit-order.php?o=${notif.order_id}&s=${notif_type}';">`;
+                  } else {
+                    notification_list += ` <div class="notification" id=""  onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">`;
+                  }
               }
 
-              notification_list += `  <div class="notification-header-container"  onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">
+              notification_list += `  <div class="notification-header-container">
               <div class="header-info">
                   <span class="order-number" style="font-size: 1.3em;">#${(notif.order_id).toString().padStart(10, '0')}</span>`;
               if (notif.type == "Completed") {
@@ -223,12 +255,16 @@ class Notification {
   newsletter() {
     let form_data = new FormData(document.getElementById('newsletter_form'));
     form_data.append('newsletter', 'newsletter');
+    document.getElementById('newsletter').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    document.getElementById('newsletter').disabled = true;
     return fetch('php/controller/c_notification.php', {
       method: "POST",
       body: form_data
     }).then(function (response) {
       return response.json();
     }).then(function (response_data) {
+      document.getElementById('newsletter').innerHTML = 'SUBSCRIBE';
+      document.getElementById('newsletter').disabled = false;
       console.log(response_data);
       if (response_data.success) {
         new Notification().create_notification(response_data.success, "success");

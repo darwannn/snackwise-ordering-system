@@ -70,15 +70,12 @@ a[name="log-in-btn"] {
     transition: ease-in-out .5s;
 }
 
-.user-dropdown-container {
-    position: relative;
-}
 
 .user-dropdown-container .user-button {
     background-color: transparent;
     color: #878787;
     border: none;
-    font-size: 2.3em;
+    font-size: 2.5em;
 }
 
 .user-dropdown-container .drop-menu {
@@ -86,36 +83,84 @@ a[name="log-in-btn"] {
     position: absolute;
     font-size: 2em;
     background-color: white;
-    border: #d3d3d3 solid 1px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 5px;
-    width: 8em;
+    width: 250px;
     list-style: none;
-    padding: 1em .5em;
+    padding: 1em;
     z-index: 10;
 }
 
-.drop-menu li {
+.user-header {
+    border-bottom: 2px solid #E1E1E1;
+    padding: .5em .2em;
+    margin-bottom: .5em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: .1s ease;
+    cursor: pointer;
+}
+
+.user-header:hover {
+    background-color: #E1E1E1;
+    border-radius: 15px;
+}
+
+.user-header .name-container {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-left: .5em;
+}
+
+.user-header img {
+    width: 35px;
+    clip-path: circle();
+}
+
+.user-header .full-name {
+    font-size: .9em;
+    font-weight: bold;
+    font-style: var(--fontOutfit);
+    color: var(--valueCol);
+}
+
+
+.user-menu-list {
+    padding: 0;
+}
+
+.user-menu-list li {
+    list-style: none;
     margin: .3em 0;
 }
 
-.drop-menu li a {
+.user-menu-list li a {
     text-decoration: none;
-    font-family: 'Outfit', sans-serif;
-    color: #878787;
-    transform: .5s;
+    font-style: var(--fontPoppins);
+    color: var(--labelCol);
+    transition: .1s ease;
 }
 
-.drop-menu li a:hover {
-    color: #383838;
+.logout-container {
+    margin-top: 2em;
 }
+
+.logout-container a{
+    text-decoration: none;
+    color: var(--labelCol);
+
+}
+
+
 
 @media (min-width: 768px) {
    
     .user-dropdown-container .drop-menu {
         /* CENTER */
-        top: 2.5em;
-        left: 50%;
-        transform: translateX(-50%);
+        right: 0;
+        /* transform: translateX(-50%); */
     }    
     
 }
@@ -335,10 +380,28 @@ a[name="log-in-btn"] {
     font-size: 1.6em;
 }
 
-/* FOOTER CSS */
+
+/* START OF FOOTER */
 
 .footer-header {
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-header .line {
+    width: 100%;
+}
+
+.footer-header .line hr {
+    border-top: solid 1px var(--labelCol);
+}
+
+.footer-header .snack-logo-container img {
+    display: inline-block;
+    margin: auto 2em;
 }
 
 .footer-header img {
@@ -372,30 +435,38 @@ a[name="log-in-btn"] {
     font-size: 1.6em;
 }
 
-.input-container {
+.newsletter-form {
     margin: 1.5em auto;
     background-color: #EEEEEE;
     padding: .5em;
-    border-radius: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+
 }
 
-.input-container form #newsletter_email {
+.newsletter-form #newsletter_email {
     border: none;
     background-color: #EEEEEE;
     font-size: 1.4em;
+    float: left;
+    width: 100%;
 
 }
 
-.input-container form button {
+.newsletter-form button {
     font-size: 1.4em;
+    font-weight: bold;
+    color: white;
     background-color: #F0C808;
     border-style: none;
     padding: .5em 1em;
-    border-radius: 10px;
+    border-radius: 5px;
+    float: right;
     
 }
 
-.input-container form button:hover {
+.newsletter-form button:hover {
     color: white;
 }
 
@@ -434,7 +505,8 @@ a[name="log-in-btn"] {
     color: white;
 }
 
-/* FOOTER CSS END */
+/* END OF FOOTER */
+
 
 
 @media (min-width: 991px) {  

@@ -1,12 +1,17 @@
 <?php
 require_once dirname(__FILE__) . '/../php/classes/DbConnection.php';
-if (isset($_GET["staff"]) == 1) {
-    $_SESSION['user_type'] = 'staff';
-} else if (isset($_GET["admin"]) == 1) {
-    $_SESSION['user_type'] = 'admin';
-} else {
-    $_SESSION['user_type'] = "customer";
+require_once dirname(__FILE__) . '/../php/classes/Validate.php';
+$validate = new Validate();
+if (!$validate->is_logged_in("customer")) { 
+    header('Location: ../menu.php'); 
 }
+ if (isset($_GET["staff"]) == 1) { 
+     $_SESSION['user_type'] = 'staff'; 
+ } else if (isset($_GET["admin"]) == 1) { 
+     $_SESSION['user_type'] = 'admin'; 
+ }else { 
+     $_SESSION['user_type'] = "customer"; 
+ }
 
 ?>
 <!DOCTYPE html>
@@ -25,10 +30,13 @@ if (isset($_GET["staff"]) == 1) {
     <!-- FONT LINKS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:ital,wght@0,300;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:ital,wght@0,300;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
 
     <!-- BOOTSTRAP CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
@@ -67,17 +75,24 @@ if (isset($_GET["staff"]) == 1) {
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-12 form-group">
-                        <input type="text" class="m-2" name="firstname" id="firstname" placeholder="First Name" value="" autocomplete="off">
+                        <!-- <label for="firstname">First Name</label> -->
+                        <input type="text" class="m-2" name="firstname" id="firstname" placeholder="First Name" value=""
+                            autocomplete="off">
                         <span class="input_error" id="firstname_error"></span>
                     </div>
                     <div class="col-md-6 col-12 form-group">
-                        <input type="text" class="m-2" name="lastname" id="lastname" placeholder="Last Name" value="" autocomplete="off">
+                        <!-- <label for="lastname">Last Name </label> -->
+                        <input type="text" class="m-2" name="lastname" id="lastname" placeholder="Last Name" value=""
+                            autocomplete="off">
                         <span class="input_error" id="lastname_error"></span>
+
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <input type="text" class="m-2" name="contact" id="contact" placeholder="Contact Number (09XXXXXXXXX)" value="" autocomplete="off">
+                        <!-- <label for="contact">Contact Number</label> -->
+                        <input type="text" class="m-2" name="contact" id="contact"
+                            placeholder="Contact Number (09XXXXXXXXX)" value="" maxlength="11" autocomplete="off">
                         <span class="input_error" id="contact_error"></span>
                     </div>
                 </div>
@@ -90,46 +105,61 @@ if (isset($_GET["staff"]) == 1) {
 
                 <div class="row">
                     <div class="col form-group">
-                        <input type="text" class="m-2" name="username" id="username" placeholder="Username " value="" autocomplete="off">
+                        <!-- <label for="username">Username</label> -->
+                        <input type="text" class="m-2" name="username" id="username" placeholder="Username " value=""
+                            autocomplete="off">
                         <span class="input_error" id="username_error"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col form-group">
-                        <input type="text" class="m-2" name="email" id="email" placeholder="Email Address" value="" autocomplete="off">
+                        <!-- <label for="email">Email Address</label> -->
+                        <input type="text" class="m-2" name="email" id="email" placeholder="Email Address" value=""
+                            autocomplete="off">
                         <span class="input_error" id="email_error"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 form-group password-container">
-                        <input type="password" class="m-2" name="password" id="password" placeholder="Password" value="" onkeyup="new Account().verify_password(this.value);" autocomplete="off">
-                        <i class="fa-solid fa-eye-slash toggler" id="password_toggler" for="password" onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
+                        <!-- <label for="password">Password</label> -->
+                        <input type="password" class="m-2" name="password" id="password" placeholder="Password" value=""
+                            onkeyup="new Account().verify_password(this.value);" autocomplete="off">
+                        <i class="fa-solid fa-eye-slash toggler" id="password_toggler" for="password"
+                            onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
                         <span class="input_error" id="password_error"></span>
 
                         <div class="password_requirements">
                             <h6 id="length_con"><span class="length me-1" id="length">&#x2716;</span> be at least 8 characters but not more than 20</h6>
-                            <h6 id="case_con"><span class="case me-1" id="case">&#x2716;</span> contain at least one number, </h6>
-                            <h6 id="number_con"><span class="number me-1" id="number">&#x2716;</span> contain at least one uppercase and lowercase letter</h6>
+                            <h6 id="case_con"><span class="case me-1" id="case">&#x2716;</span> contain at least one uppercase and lowercase letter</h6>
+                            <h6 id="number_con"><span class="number me-1" id="number">&#x2716;</span> contain at least one number</h6>
                             <h6 id="special_con"><span class="special me-1" id="special">&#x2716;</span> contain one of the following characters: @ . # $ % ^ & , *</h6>
                         </div>
                     </div>
                     <div class="col-12 form-group password-container">
-                        <input type="password" class="m-2" name="retype_password" id="retype_password" placeholder="Retype Password" value="" autocomplete="off">
-                        <i class="fa-solid fa-eye-slash toggler" id="retype_password_toggler" for="retype_password" onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
+                        <!-- <label for="retype_password">Retype Password</label> -->
+                        <input type="password" class="m-2" name="retype_password" id="retype_password"
+                            placeholder="Retype Password" value="" autocomplete="off">
+                        <i class="fa-solid fa-eye-slash toggler" id="retype_password_toggler" for="retype_password"
+                            onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
                         <span class="input_error" id="retype_password_error"></span>
                     </div>
             </section>
 
             <div class="row">
                 <div class="col">
-                    <p class="text-end sign-in-prompt-txt">Already have an account? <a href="../account/login.php">Sign In</a></p>
+                    <p class="text-end">Already have an account? <a href="../account/login.php">Sign In</a></p>
                 </div>
             </div>
             <div class="form-end-btn">
-                <a href="../index.php" id="cancel">Cancel</a>
+                <div class="">
+                    <a href="../index.php" id="cancel">Cancel</a>
+                </div>
+                <div class="">
+                    <button type="button" id="register" class="btn btn-primary" onclick="new Account().register();">
+                        Register</button>
+                </div>
 
-                <button type="button" id="register" class="btn btn-primary" onclick="new Account().register();">Register</button>
             </div>
         </form>
 
@@ -139,7 +169,8 @@ if (isset($_GET["staff"]) == 1) {
 
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
 
 <script src="../js/Account.js"></script>

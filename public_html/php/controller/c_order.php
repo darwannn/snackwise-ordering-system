@@ -29,9 +29,14 @@ if (isset($_POST["display_completed_order"])) {
     $order->display_order($user_id,$category);
 }
 
+if(isset($_POST["total_order_count"])) {
+    $order->total_order_count();
+}
+
 if (isset($_POST["delete_order"])) {
+    $user_id = $_SESSION['user_id'];
     $order_id = $_POST['order_id'];
-    $order->delete_order($order_id);
+    $order->delete_order($order_id,$user_id);
 }
 
 /* cart.php */

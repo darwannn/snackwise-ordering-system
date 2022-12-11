@@ -1,0 +1,66 @@
+/* VAR */
+:root {
+    --snackred: #DD1C1A;
+    --wiseyellow: #F0C808;
+    --labelCol: #A3A3A3;
+    --valueCol: #595959;
+
+    --fontOutfit: 'Outfit', sans-serif;
+    --fontPoppins: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+.modal-header, .modal-title {
+    color: var(--wiseyellow);
+}
+
+.modal-body {
+    padding: 1em 3em;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group input  {
+    border: none;
+    background-color: #E9ECEF;
+    border-radius: 5px;
+    height: 65px;
+    margin: 1em 0;
+    padding: 1em;
+    width: 100%;
+}
+
+.form-group select {
+    border: none;
+    background-color: #E9ECEF;
+    height: 65px;
+    margin: 1em 0;
+    padding: 1em;
+}
+
+.form-group .down-icon {
+    position: absolute;
+    top: 23px;
+    right: 20px;
+    font-size: 1.5em;
+}
+
+.form-title, .form-group label {
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+.modal-footer button {
+    background-color: var(--wiseyellow);
+    color: white;
+    font-weight: bold;
+}
+
+
