@@ -88,6 +88,9 @@ $account->delete_code();
                     <!-- <li class="nav-item">
                             <a href="edit-users.php"><i class="fa-solid fa-user"></i> Edit Users</a>
                         </li> -->
+                    <li class="nav-item">
+                        <a href="closed-date.php"><i class="fa-solid fa-calendar-days"></i> Edit Closed Dates</a>
+                    </li>
                     <?php } ?>
                 </ul>
             </div>
