@@ -42,6 +42,7 @@ $menu = new Menu();
     <!-- EXTERNAL CSS -->
     <link rel="stylesheet" href="css/order.css">
     <link rel="stylesheet" href="css/notification.css">
+    
 
 
     <link rel="stylesheet" type="text/css" href="css/table.css" />
@@ -191,6 +192,9 @@ $menu = new Menu();
             color: white;
         }
     </style>
+
+    <link rel="stylesheet" href="css/edit-menu.css">
+
     <title></title>
 </head>
 
@@ -201,11 +205,6 @@ $menu = new Menu();
         <span id="success_message"></span>
 
         <div class="card">
-
-
-
-
-
 
             <div class="card-header ">
                 <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
@@ -252,66 +251,68 @@ $menu = new Menu();
                     <div class="modal-header ">
 
                         <div class="modal-title h6 fw-bold" id="modal_title">Add</div>
-                        <div style="color:#A3A3A3; " id="close_menu"><i class="fa-solid fa-xmark" onclick="new Menu().close_menu();"></i></div>
+                        <div style="color:#A3A3A3; font-size: 1.6em " id="close_menu"><i class="fa-solid fa-xmark" onclick="new Menu().close_menu();"></i></div>
                     </div>
 
 
                     <div class="modal-body">
                         <input type="hidden" name="menu_id" id="menu_id" class="" />
-
+                        <span class="form-title">Enter Item Details</span>
                         <div class="form-group mt-2">
-                            <label class="form-label" for="name">Name</label>
-                            <input type="text" class="form-control" name="name" id="name" />
+                            <!-- <label class="form-label" for="name">Name</label> -->
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Name of Item" />
                             <span class="input_error" id="name_error"></span>
                         </div>
 
                         <div class="form-group mt-2">
-                            <label class="form-label" for="description">Description</label>
-                            <input type="text" class="form-control" name="description" id="description" />
+                            <!-- <label class="form-label" for="description">Description</label> -->
+                            <input type="text" class="form-control" name="description" id="description" placeholder="Item Description" />
                             <span class="input_error" id="description_error"></span>
                         </div>
 
                         <div class="form-group mt-2">
-                            <label class="form-label" for="category">Category</label>
+                            <!-- <label class="form-label" for="category">Category</label> -->
                             <select class="form-control" name="category" id="category">
                                 <option value="none" style="display: none; opacity:0;">Category</option>
-
+                                
                                 <!-- display the items from the category table as dropdown -->
                                 <?php
                                 $query  = $conn->prepare("SELECT * FROM category");
                                 $result  =  $query->execute();
                                 if ($query->rowCount() > 0) {
                                     while ($row = $query->fetch(PDO::FETCH_BOTH)) {
-                                ?>
+                                        ?>
                                         <option value="<?php echo $row['category_id'] ?>"><?php echo $row['name'] ?></option>
-                                <?php
+                                        <?php
                                     }
                                 }
                                 ?>
                             </select>
+                            <i class="fa-solid fa-angle-down down-icon"></i>
                             <span class="form-label " id="category_error"></span>
                         </div>
-
+                        <span class="form-title">Item Pricing</span>
+                        
                         <div class="form-group mt-2">
-                            <label class="form-label" for="discount">Discount(%)</label>
-                            <input type="text" class="form-control" name="discount" id="discount" />
-                            <span class="input_error" id="discount_error"></span>
-                        </div>
-
-                        <div class="form-group mt-2">
-                            <label class="form-label" for="price">Price</label>
-                            <input type="text" class="form-control" name="price" id="price" />
+                            <!-- <label class="form-label" for="price">Price</label> -->
+                            <input type="text" class="form-control" name="price" id="price" placeholder="Original Price" />
                             <span class="input_error" id="price_error"></span>
                         </div>
-
+                        
                         <div class="form-group mt-2">
-                            <label class="form-label" for="date">Date</label>
+                            <!-- <label class="form-label" for="discount">Discount(%)</label> -->
+                            <input type="text" class="form-control" name="discount" id="discount" placeholder="Discount (%)" />
+                            <span class="input_error" id="discount_error"></span>
+                        </div>
+                        <span class="form-title">Date</span>
+                        <div class="form-group mt-2">
+                            <!-- <label class="form-label" for="date">Date</label> -->
                             <input type="date" class="form-control" name="date" id="date" />
                             <span class="input_error" id="date_error"></span>
                         </div>
 
+                        <span class="form-title">Availability</span>
                         <div class="form-group mt-2">
-                            <label class="form-label" for="availability">Availability</label>
                             <select class="form-select" name="availability" id="availability">
                                 <option value="none" style="display: none; opacity:0;">Select</option>
                                 <option value="Available" selected>Available</option>
@@ -338,7 +339,7 @@ $menu = new Menu();
                     <div class="modal-footer">
                         <input type="hidden" name="action_menu" id="action_menu" value="Add" />
 
-                        <button type="button" class="btn btn-success btn-add w-25" id="action_menu_button" value="Add">Add</button>
+                        <button type="button" class="btn btn-add w-25" id="action_menu_button" value="Add">Add</button>
 
                     </div>
                 </div>
