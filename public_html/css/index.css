@@ -138,16 +138,14 @@ hr {
 
 /* END OF SIDEBAR CSS */
 
-.top-wrapper {
-    height: 100vh;
-}
-
 .hero-main {
     width: 100%;
     background-image: url(../img/Background-Pattern.jpg);
+    height: 100vh;
 }
 
 .hero {
+    height: 100%;
     padding: 1em 1em;
     display: flex;
     flex-direction: column;
