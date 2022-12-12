@@ -225,18 +225,17 @@ hr {
     border: none;
 }	
 
-.form-header h3 {
-    font-family: 'Outfit', sans-serif;
+.form-header span {
+    font-family: var(--fontPoppins);
     font-weight: bold;
-    font-size: 30px;
-    color: var(--snackred);
+    font-size: 1.9em;
+    color: var(--valueCol);
 }
 
-label{
-
-    font-size: 20px;
-    font-weight: bold;
-    color: var(--wiseyellow); 
+.form-group .col label{
+    font-family: var(--fontPoppins);
+    font-size: 1.4em;
+    color: var(--labelCol); 
 }
 
 .col input {
@@ -262,14 +261,11 @@ label{
     max-width: 18em;
 }
 
-.edit-btn {
-    background-color: var(--snackred);
+.edit-btn, .update-btn {
+    background-color: var(--wiseyellow);
     color: white;
-}
+    width: 200px;
 
-.update-btn {
-    background-color: var(--snackred);
-    color: white;
 }
 
 /* end edit profile form*/
@@ -294,9 +290,6 @@ label{
 }
 
 .display_image_modal {
-
-
-
     height: 100%;
     width: 100%;
     position: absolute;
@@ -304,8 +297,6 @@ label{
     left: 0;
     border-radius: 500px;
     z-index: 9;
-
-
 }
 
 .display_image {
@@ -315,8 +306,7 @@ label{
     top: 0;
     left: 0;
     border: #F2F1F9 3px solid;
-    border-radius: 500px;
-
+    border-radius: 500px;  
 }
 
 .image_container input[type="file"] {
