@@ -40,6 +40,7 @@ $account->delete_code();
 
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/notification.css">
+    <link rel="stylesheet" href="css/navbar.css">
 
     <!-- DATE PICKER -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">

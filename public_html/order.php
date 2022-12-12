@@ -40,6 +40,7 @@ if ($validate->is_logged_in("customer")) {
     <!-- EXTERNAL CSS -->
     <link rel="stylesheet" href="css/order.css">
     <link rel="stylesheet" href="css/notification.css">
+    <link rel="stylesheet" href="css/navbar.css">
 
 
 
