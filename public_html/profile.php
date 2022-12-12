@@ -39,6 +39,8 @@ if ($validate->is_logged_in("customer")) {
     <title>Document</title>
     <link rel="stylesheet" href="css/notification.css">
     <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/navbar.css">
+
 </head>
 
 

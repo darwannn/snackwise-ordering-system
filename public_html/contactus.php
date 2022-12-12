@@ -32,6 +32,7 @@ $validate = new Validate();
     <!-- MY CSS -->
     <link rel="stylesheet" href="css/contactus.css">
     <link rel="stylesheet" href="css/notification.css">
+    <link rel="stylesheet" href="css/navbar.css">
 
 </head>
 
