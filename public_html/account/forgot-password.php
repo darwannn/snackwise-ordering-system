@@ -3,7 +3,11 @@ require_once dirname(__FILE__) . '/../php/classes/Validate.php';
 
 $validate = new Validate(); 
 if (!$validate->is_logged_in("customer")) { 
-    header('Location: ../menu.php'); 
+    if($_SESSION['user_type'] == "customer") {
+        header('Location: ../menu.php'); 
+    } else {
+        header('Location: ../dashboard.php'); 
+    }
 }
 ?>
 

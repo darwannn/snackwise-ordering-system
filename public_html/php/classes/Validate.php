@@ -69,10 +69,10 @@ class Validate extends DbConnection
           if ($this->is_taken_contact($input)) {
             unset($this->output[$name]);
           } else {
-            $this->output[$name] = 'Phone number is taken';
+            $this->output[$name] = 'Contact number is taken';
           }
         } else {
-          $this->output[$name] = 'Invalid phone number';
+          $this->output[$name] = 'Invalid contact number';
         }
       }
       if (strpos($name, "username") !== false) {
