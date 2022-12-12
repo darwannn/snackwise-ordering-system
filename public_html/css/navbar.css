@@ -1,0 +1,159 @@
+nav {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.navbar-brand {
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.red {
+    color: #DD1C1A;
+}
+
+.yellow {
+    color: #F0C808;
+}
+
+#active {
+    color: #F0C808;
+}
+
+.nav-list li{
+    margin: 0 1em;
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+
+
+a[name="sign-up-btn"] {
+    padding: .5em 2em;
+    background-color: transparent; 
+    border: none;
+    color: #DD1C1A;
+    font-weight: bold;
+    border: solid 2px #DD1C1A;
+    border-radius: 10px;
+    transition: .3s ease-in-out;
+}
+
+a[name="sign-up-btn"]:hover {
+    background-color: #DD1C1A;
+    color: white;
+    border-color: #DD1C1A;
+}
+
+a[name="log-in-btn"] {
+    color: #DD1C1A;
+    font-weight: bold;
+    padding: .5em 2em;
+}
+
+/* USER DROPDOWN */
+
+.dropdown button {
+    background-color: transparent;
+    color: #878787;
+    border: none;
+    font-size: 2em;
+    transition: ease-in-out .5s;
+}
+
+
+.user-dropdown-container .user-button {
+    background-color: transparent;
+    color: #878787;
+    border: none;
+    font-size: 2.5em;
+}
+
+.user-dropdown-container .drop-menu {
+    display: none;
+    position: absolute;
+    font-size: 2em;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 5px;
+    width: 250px;
+    list-style: none;
+    padding: 1em;
+    z-index: 10;
+}
+
+.user-header {
+    border-bottom: 2px solid #E1E1E1;
+    padding: .5em .2em;
+    margin-bottom: .5em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: .1s ease;
+    cursor: pointer;
+}
+
+.user-header:hover {
+    background-color: #E1E1E1;
+    border-radius: 15px;
+}
+
+.user-header .name-container {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-left: .5em;
+}
+
+.user-header img {
+    width: 35px;
+    clip-path: circle();
+}
+
+.user-header .full-name {
+    font-size: .9em;
+    font-weight: bold;
+    font-style: var(--fontOutfit);
+    color: var(--valueCol);
+}
+
+
+.user-menu-list {
+    padding: 0;
+}
+
+.user-menu-list li {
+    list-style: none;
+    margin: .3em 0;
+}
+
+.user-menu-list li a {
+    text-decoration: none;
+    font-style: var(--fontPoppins);
+    color: var(--labelCol);
+    transition: .1s ease;
+}
+
+.logout-container {
+    margin-top: 2em;
+}
+
+.logout-container a{
+    text-decoration: none;
+    color: var(--labelCol);
+
+}
+
+
+
+@media (min-width: 768px) {
+   
+    .user-dropdown-container .drop-menu {
+        /* CENTER */
+        right: 0;
+        /* transform: translateX(-50%); */
+    }    
+    
+}
+
+/* END OF USER DROPDOWN CSS */
