@@ -26,6 +26,8 @@ class Account {
                     window.location.href = "../dashboard.php";
                 } 
             } else if (response_data.validate) {
+                document.getElementById("user_identifier").value = "";
+                document.getElementById("password").value = "";
                 document.getElementById('success_message').innerHTML = "";
                 document.getElementById('error_message').innerHTML = response_data.validate;
             } else if (response_data.error) {
