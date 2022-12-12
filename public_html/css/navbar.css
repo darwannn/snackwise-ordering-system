@@ -109,7 +109,7 @@ a[name="log-in-btn"] {
 
 .user-header:hover {
     background-color: #E1E1E1;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
 .user-header .name-container {
