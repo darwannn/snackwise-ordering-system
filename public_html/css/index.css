@@ -363,12 +363,22 @@ hr {
     margin-top: 5em;
 }
 
-.best-seller-action .item-price {
-    font-size: 2.0em;
-    font-weight: bold;
+.price-cont {
+    position: relative;
 }
 
+.price-cont .orig-price {
+    position: absolute;
+    font-size: 1.8em;
+    color: var(--labelCol);
+    top: -20px;
+    text-decoration: line-through;
+}
 
+.best-seller-action .item-price {
+    font-size: 2.2em;
+    font-weight: bold;
+}
 
 .add-to-cart-btn {
     border-radius: 10px;
