@@ -276,15 +276,13 @@ hr {
     height: 35px;
 } */
 
-
-
 .best-seller-container {
     display: flex;
     flex-flow: column;
     width: 100%;
     border: solid 1px rgb(230, 230, 230);
     padding: 1em 2em;
-    margin: 1em;
+    margin: .5em;
     border-radius: 10px;
 }
 
@@ -340,7 +338,7 @@ hr {
 }
 
 .best-seller-info .best-seller-name {
-    font-size: 2.5em;
+    font-size: 2.0em;
     font-weight: bold;
     color: rgb(62, 62, 62);
 }
@@ -362,7 +360,7 @@ hr {
     flex-flow: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 2.5em;
+    margin-top: 5em;
 }
 
 .best-seller-action .item-price {

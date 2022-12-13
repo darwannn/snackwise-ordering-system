@@ -187,7 +187,7 @@ $account->delete_code();
             <div class="products-container container">
 
                 <!-- bestseller items will be appended here -->
-                <div class="bestseller_list row justify-content-start" id="bestseller-list">
+                <div class="bestseller_list row no-gutters justify-content-start" id="bestseller-list">
 
                     <div class="col-12 col-md-6 col-lg-3">
                         
