@@ -41,6 +41,7 @@ $conn = $db->connect();
     <!-- MY CSS -->
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/notification.css">
+    <link rel="stylesheet" href="css/navbar.css">
 
     <style>
         input[type="radio"] {

@@ -23,7 +23,8 @@ if ($validate->is_logged_in("customer")) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
 
-
+    <!-- PAGE ICON -->
+    <link rel="icon" href="img/penguin.png" type="image/icon type">
 
     <!-- FONT LINKS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +37,7 @@ if ($validate->is_logged_in("customer")) {
     <!-- FONTAWESOME -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
 
-    <title>Document</title>
+    <title>Profile | Snackwise</title>
     <link rel="stylesheet" href="css/notification.css">
     <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="css/navbar.css">
