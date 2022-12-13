@@ -187,7 +187,109 @@ $account->delete_code();
             <div class="products-container container">
 
                 <!-- bestseller items will be appended here -->
-                <div class="bestseller_list row justify-content-start" id="bestseller_list"></div>
+                <div class="bestseller_list row justify-content-start" id="bestseller-list">
+
+                    <div class="col-12 col-md-6 col-lg-3">
+                        
+                        <div class="best-seller-container">
+                            <div class="best-seller-img">
+                                <img src="img/menu-imgs/A.jpg" alt="Combo A Image">
+                                <div class="bg-effect"></div>
+                            </div>
+                            
+                            <div class="details-container">
+                                <div class="best-seller-info">
+                                    <span class="best-seller-name">Combo A</span>
+                                    <span class="best-seller-description">Includes: Regular Burger, Regular Fries, Blue Lemonade</span>
+                                </div>
+                                <div class="best-seller-action">
+                                    <span class="item-price">59.00PHP</span>
+                                    <button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i></button>
+                                </div>
+                            </div>
+                           
+                            
+                            
+                        </div>                    
+
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-3">
+                        
+                        <div class="best-seller-container">
+                            <div class="best-seller-img">
+                                <img src="img/menu-imgs/A.jpg" alt="Combo A Image">
+                                <div class="bg-effect"></div>
+                            </div>
+                            
+                            <div class="details-container">
+                                <div class="best-seller-info">
+                                    <span class="best-seller-name">Combo A</span>
+                                    <span class="best-seller-description">Includes: Regular Burger, Regular Fries, Blue Lemonade</span>
+                                </div>
+                                <div class="best-seller-action">
+                                    <span class="item-price">59.00PHP</span>
+                                    <button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i></button>
+                                </div>
+                            </div>
+                           
+                            
+                            
+                        </div>                    
+
+                    </div>                    
+
+                    <div class="col-12 col-md-6 col-lg-3">
+                        
+                        <div class="best-seller-container">
+                            <div class="best-seller-img">
+                                <img src="img/menu-imgs/A.jpg" alt="Combo A Image">
+                                <div class="bg-effect"></div>
+                            </div>
+                            
+                            <div class="details-container">
+                                <div class="best-seller-info">
+                                    <span class="best-seller-name">Combo A</span>
+                                    <span class="best-seller-description">Includes: Regular Burger, Regular Fries, Blue Lemonade</span>
+                                </div>
+                                <div class="best-seller-action">
+                                    <span class="item-price">59.00PHP</span>
+                                    <button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i></button>
+                                </div>
+                            </div>
+                           
+                            
+                            
+                        </div>                    
+
+                    </div>                    
+
+                    <div class="col-12 col-md-6 col-lg-3">
+                        
+                        <div class="best-seller-container">
+                            <div class="best-seller-img">
+                                <img src="img/menu-imgs/A.jpg" alt="Combo A Image">
+                                <div class="bg-effect"></div>
+                            </div>
+                            
+                            <div class="details-container">
+                                <div class="best-seller-info">
+                                    <span class="best-seller-name">Combo A</span>
+                                    <span class="best-seller-description">Includes: Regular Burger, Regular Fries, Blue Lemonade</span>
+                                </div>
+                                <div class="best-seller-action">
+                                    <span class="item-price">59.00PHP</span>
+                                    <button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i></button>
+                                </div>
+                            </div>
+                           
+                            
+                            
+                        </div>                    
+
+                    </div>                    
+
+                </div>
 
         </section>
 
