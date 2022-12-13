@@ -551,13 +551,15 @@ class Order extends DbConnection
     /* changes order status to Cancelled */
     public function cancel_order($order_id)
     {
+        date_default_timezone_set('Asia/Manila');
+        $date = date('Y-m-d');
         $status = "Cancelled";
         $notification = new Notification();
         $message = "An order has been cancelled";
         $notification->insert_notif(0, $order_id, $status, $message);
        
-        $query = $this->connect()->prepare("UPDATE orders SET status = :status WHERE order_id = :order_id");
-        $result = $query->execute([":status" => $status, ":order_id" => $order_id]);
+        $query = $this->connect()->prepare("UPDATE orders SET status = :status, date = :date WHERE order_id = :order_id");
+        $result = $query->execute([":status" => $status, ":date" => $date, ":order_id" => $order_id]);
         if ($result) {
             return true;
         } else {
