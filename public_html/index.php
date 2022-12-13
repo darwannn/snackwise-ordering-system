@@ -32,8 +32,8 @@ $account->delete_code();
     <!-- BOOTSTRAP CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <!-- BOOTSTRAP JS  -->
-
+    <!-- AOS Library  -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <!-- FONT AWESOME -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
@@ -157,7 +157,7 @@ $account->delete_code();
         </nav>
 
         <section class="hero-main">
-            <div class="hero container">
+            <div class="hero container" data-aos="fade-up">
                 <div class="home-header">
                     <span class="sub-header">Wise meal for a wise budget.</span>
                     <h1 class="">Try our <span class="yellow">better</span> and <span class="red">cheaper</span> snacks experience</h1>
@@ -176,7 +176,7 @@ $account->delete_code();
         <!-- </div> -->
 
         <section class="container featured-products">
-            <div class="fp-header">
+            <div class="fp-header" data-aos="fade-up">
                 <h2>Best Sellers</h2>
                 <a href="menu.php">View all
                     <svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -194,14 +194,14 @@ $account->delete_code();
         </section>
 
         <section class="how-to-container">
-            <div class="container">
-                <div class="row">
+            <div class="container" >
+                <div class="row" data-aos="fade-up">
                     <div class="col how-to-header">
                         <h2 class="text-center">How It Works?</h2>
                     </div>
                 </div>
                 <div class="row instructions-container">
-                    <div class="col col-md-3 instruction">
+                    <div class="col col-md-3 instruction" data-aos="fade-up" data-aos-delay="50">
                         <div class="instruction-illustration-container">
                             <object data="img/instruction-icons/create-account-icon.svg"></object>
                         </div>
@@ -214,8 +214,8 @@ $account->delete_code();
                         </div>
                     </div>
 
-                    <div class="col col-md-3 instruction">
-                        <div class="instruction-illustration-container">
+                    <div class="col col-md-3 instruction" data-aos="fade-up" data-aos-delay="100">
+                        <div class="instruction-illustration-container" >
                             <object data="img/instruction-icons/order-icon.svg"></object>
                         </div>
                         <div class="instruction-caption">
@@ -226,7 +226,7 @@ $account->delete_code();
                         </div>
                     </div>
 
-                    <div class="col col-md-3 instruction">
+                    <div class="col col-md-3 instruction" data-aos="fade-up" data-aos-delay="150">
                         <div class="instruction-illustration-container">
                             <object data="img/instruction-icons/meal-preparation-icon.svg"></object>
                         </div>
@@ -238,7 +238,7 @@ $account->delete_code();
                         </div>
                     </div>
 
-                    <div class="col col-md-3 instruction">
+                    <div class="col col-md-3 instruction" data-aos="fade-up" data-aos-delay="200">
                         <div class="instruction-illustration-container">
                             <object data="img/instruction-icons/pick-up-icon.svg"></object>
                         </div>
@@ -255,7 +255,7 @@ $account->delete_code();
         </section>
 
         <footer>
-            <div class=footer-header>
+            <div class="footer-header" data-aos="fade-up">
                 <div class="left-line line">
                     <hr>
                 </div>
@@ -268,7 +268,7 @@ $account->delete_code();
             </div>
             <div class="container">
                 <div class="row footer-details">
-                    <div class="col-12 col-md-3 address-col">
+                    <div class="col-12 col-md-3 address-col" data-aos="fade-up" data-aos-delay="50">
                         <span class="detail-title">
                             ADDRESS
                         </span>
@@ -277,7 +277,7 @@ $account->delete_code();
                         </span>
                     </div>
 
-                    <div class="col-12 col-md-3 contact-col">
+                    <div class="col-12 col-md-3 contact-col" data-aos="fade-up" data-aos-delay="100">
                         <span class="detail-title">
                             CALL US
                         </span>
@@ -286,7 +286,7 @@ $account->delete_code();
                         </span>
                     </div>
 
-                    <div class="col-12 col-md-3 hours-col">
+                    <div class="col-12 col-md-3 hours-col" data-aos="fade-up" data-aos-delay="150">
                         <span class="detail-title">
                             OPENING HOURS
                         </span>
@@ -296,7 +296,7 @@ $account->delete_code();
                         </span>
                     </div>
 
-                    <div class="col-12 col-md-3 newsletter-col">
+                    <div class="col-12 col-md-3 newsletter-col" data-aos="fade-up" data-aos-delay="200">
                         <span class="detail-title">
                             NEWSLETTER
                         </span>
@@ -376,6 +376,11 @@ $account->delete_code();
         //     dropMenu.style.display = "none";
         //     dropOpen = "false";
         // })
+    </script>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
     </script>
 
 </body>

@@ -67,7 +67,7 @@ class Menu {
                 response_data.data.map(function (menu) {
                   bestseller_list += `
                     
-                    <div class="col-12 col-md-6 col-lg-3">
+                    <div class="col-12 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
                         
                         <div class="best-seller-container">
                             <div class="best-seller-img">
