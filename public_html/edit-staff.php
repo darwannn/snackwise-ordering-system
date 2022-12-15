@@ -101,7 +101,7 @@ $account->delete_code();
 
     <script>
         user = new Users();
-        user.display_staff();
+        user.display_users();
     </script>
 
 </body>
