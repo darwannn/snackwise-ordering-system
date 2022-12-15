@@ -123,7 +123,7 @@ class Notification {
             if (notif.type == "Cancelled") {
         if(notif.user_id == 0) {
           if(notif.user_id == 0) {
-         notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'edit-order.php?o=${notif.order_id}&s=${notif_type};'">`;
+         notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'manage-order.php?o=${notif.order_id}&s=${notif_type};'">`;
           } else {
             notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type};'">`;
           }
@@ -142,7 +142,7 @@ class Notification {
           </div>`;
         } else {
           if(notif.user_id == 0) {
-          notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'edit-order.php?o=${notif.order_id}&s=${notif_type};'">`;
+          notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'manage-order.php?o=${notif.order_id}&s=${notif_type};'">`;
           } else {
             notification_list += `<div class="notification" id="notif-cancelled" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type};'">`;
           }
@@ -166,14 +166,14 @@ class Notification {
             } else {
               if (notif.type == "Completed" || notif.type == "Ready") {
                 if(notif.user_id == 0) {
-                  notification_list += ` <div class="notification" id="notif-success" onclick="window.location.href = 'edit-order.php?o=${notif.order_id}&s=${notif_type}';">`;
+                  notification_list += ` <div class="notification" id="notif-success" onclick="window.location.href = 'manage-order.php?o=${notif.order_id}&s=${notif_type}';">`;
                   } else {
                     notification_list += ` <div class="notification" id="notif-success" onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">`;
                   }
                
               } else if (notif.type == "Placed" || notif.type == "Confirmed" || notif.type == "Preparing") {
                 if(notif.user_id == 0) {
-                  notification_list += ` <div class="notification" id=""  onclick="window.location.href = 'edit-order.php?o=${notif.order_id}&s=${notif_type}';">`;
+                  notification_list += ` <div class="notification" id=""  onclick="window.location.href = 'manage-order.php?o=${notif.order_id}&s=${notif_type}';">`;
                   } else {
                     notification_list += ` <div class="notification" id=""  onclick="window.location.href = 'order.php?o=${notif.order_id}&s=${notif_type}';">`;
                   }

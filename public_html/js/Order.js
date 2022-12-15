@@ -332,7 +332,7 @@ class Order {
 
 
     /* -------------------- STAFF -------------------- */
-    /* -------------------- edit-order.php */
+    /* -------------------- manage-order.php */
     claim_order() {
         let form_data = new FormData();
         form_data.append('claim_order', 'claim_order');
@@ -525,7 +525,7 @@ class Order {
 
 
     /* -------------------- STAFF -------------------- */
-    /* -------------------- edit-order.php */
+    /* -------------------- manage-order.php */
     action_order_button() {
         let form_data = new FormData(document.getElementById('order_form'));
         form_data.append('action_order', 'Update')

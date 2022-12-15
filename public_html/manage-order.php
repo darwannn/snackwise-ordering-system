@@ -204,7 +204,7 @@ $order = new Order();
         }
     </style>
     <link rel="stylesheet" href="css/notification.css">
-    <link rel="stylesheet" href="css/edit-order.css">
+    <link rel="stylesheet" href="css/manage-order.css">
 </head>
 
 <body>

@@ -130,7 +130,7 @@ if ($validate->is_logged_in("customer")) {
                                         if (!$validate->is_logged_in("staff")) {
                                         ?>
                                             <li class="user-menu-item">
-                                                <a href="edit-order.php" class=""><i class="fa-solid fa-pen-to-square"></i> Edit Order</a>
+                                                <a href="manage-order.php" class=""><i class="fa-solid fa-pen-to-square"></i> Edit Order</a>
                                             </li>
                                         <?php
                                         }
