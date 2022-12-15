@@ -72,8 +72,7 @@ $account->delete_code();
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">First Name</th>
-                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Full Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Position</th>
                                     <th scope="col">Action</th>
@@ -81,7 +80,6 @@ $account->delete_code();
                             </thead>
 
                             <tbody id="table-body">
-
                             </tbody>
                         </table>
                     </div>
@@ -99,6 +97,12 @@ $account->delete_code();
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="js/Notification.js"></script>
+    <script src="js/Users.js"></script>
+
+    <script>
+        user = new Users();
+        user.display_staff();
+    </script>
 
 </body>
 
