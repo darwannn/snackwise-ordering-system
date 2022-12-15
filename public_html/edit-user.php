@@ -53,18 +53,15 @@ $account->delete_code();
 
     <div class="parent-container">
 
-        <div class="container">
+        <div class="container p-3">
 
-            <div class="row edit-staff-header">
-                <div class="col d-flex">
-                    <div>
-                        <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
-                    </div>
-                    <div>
-                        <h3>Staffs Center</h3>
-                    </div>
+            <div class="row">
+                <div class="col d-flex user-table-header">
+                        <a href="dashboard.php" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+                        <span class="page-title">Staffs Center</span>
                 </div>
             </div>
+            <hr>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="table-responsive">

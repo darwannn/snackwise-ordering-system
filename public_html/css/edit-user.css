@@ -15,3 +15,42 @@ body {
     overflow-x: hidden;
     background-image: url(../img/Background-Pattern-BW.jpg);
 }
+
+.container {
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 5em;
+    border: solid 1px rgb(199, 199, 199);
+    min-height: 75vh;
+}
+
+.user-table-header {
+    width: 100%;
+    position: relative;
+}
+
+.back-link {
+    position: absolute;
+    font-size: 1.6em;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.back-link {
+    vertical-align: center;
+    text-decoration: none;
+    color: var(--labelCol);
+    transition: all .1s;
+}
+
+.back-link:hover {
+    color: var(--valueCol);
+}
+
+.page-title {
+    width: 100%;
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--valueCol);
+}
