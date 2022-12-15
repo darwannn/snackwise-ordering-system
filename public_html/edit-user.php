@@ -55,14 +55,14 @@ $account->delete_code();
 
         <div class="container p-3">
 
-            <div class="row">
+            <div class="row row-1">
                 <div class="col d-flex user-table-header">
                         <a href="dashboard.php" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
                         <span class="page-title">Staffs Center</span>
                 </div>
             </div>
             <hr>
-            <div class="row">
+            <div class="row row-3">
                 <div class="col-lg-12">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered text-center">

@@ -22,6 +22,8 @@ body {
     margin-top: 5em;
     border: solid 1px rgb(199, 199, 199);
     min-height: 75vh;
+    display: flex;
+    flex-flow: column;
 }
 
 .user-table-header {
@@ -52,5 +54,46 @@ body {
     text-align: center;
     font-size: 2.5em;
     font-weight: bold;
+    color: var(--valueCol);
+}
+
+.row-1 {
+    flex: 0 1 auto;
+}
+
+.row-3 {
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
+/* CUSTOM SCROLL */
+/* width */
+    .row-3::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    /* Track */
+    .row-3::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    .row-3::-webkit-scrollbar-thumb {
+        background: rgb(180, 180, 180);
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    .row-3::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+thead > tr > th  {
+    font-size: 1.6em;
+    color: var(--valueCol);
+}
+
+tbody > tr > td, tbody > tr > th {
+    font-size: 1.6em;
     color: var(--valueCol);
 }

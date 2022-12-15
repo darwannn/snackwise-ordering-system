@@ -22,9 +22,9 @@ class Users {
                     user_list += `
                        <tr>
                             <th scope="row" class="align-middle">${user.user_id}</th>
-                            <th class="align-middle">${user.fullname}</th>
-                            <th class="align-middle">${user.email}</th>
-                            <th class="align-middle">
+                            <td class="align-middle">${user.fullname}</td>
+                            <td class="align-middle">${user.email}</td>
+                            <td class="align-middle">
                             <select class="form-select" id="drop${user.user_id}" onchange="new Users().dropdownChange(event, ${user.user_id})" disabled>
                             
                     `;
@@ -43,11 +43,11 @@ class Users {
                             
                             user_list += `
                             </select>
-                            </th>
-                            <th class="align-middle">
+                            </td>
+                            <td class="align-middle">
                                 <button type="button" class="btn btn-warning edit-btn" id="${user.user_id}" onClick="new Users().editBtn(this.id)">Edit</button>
                                 <button type="button" class="btn btn-danger delete-btn" id="${user.user_id}" onClick="new Users().deleteBtn(this.id)">Delete</button>
-                            </th>
+                            </td>
                         </tr> `;
                     
                 })
