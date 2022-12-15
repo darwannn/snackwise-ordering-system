@@ -58,7 +58,7 @@ $account->delete_code();
             <div class="row row-1">
                 <div class="col d-flex user-table-header">
                         <a href="dashboard.php" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
-                        <span class="page-title">Staffs Center</span>
+                        <span class="page-title">Manage Users</span>
                 </div>
             </div>
             <hr>

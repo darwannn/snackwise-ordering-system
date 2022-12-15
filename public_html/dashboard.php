@@ -85,7 +85,7 @@ $account->delete_code();
                         <a href="edit-menu.php"><i class="fa-solid fa-burger"></i> Edit Menu</a>
                     </li>
                     <li class="nav-item">
-                            <a href="edit-user.php"><i class="fa-solid fa-user"></i> Edit Staff</a>
+                            <a href="manage-user.php"><i class="fa-solid fa-user"></i> Manage Users</a>
                     </li>
                     <li class="nav-item">
                         <a href="closed-date.php"><i class="fa-solid fa-calendar-days"></i> Edit Closed Dates</a>
