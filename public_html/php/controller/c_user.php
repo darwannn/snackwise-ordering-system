@@ -20,7 +20,6 @@ if(isset($_POST['update_user']) == 'update_user') {
     $new_type = $_POST['new_type'];
 
     echo $user->update_user($user_id, $new_type);
-
 }
 
 

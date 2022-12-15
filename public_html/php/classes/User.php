@@ -10,10 +10,9 @@ require_once dirname(__FILE__) . "/DbConnection.php";
 class User extends DbConnection {
 
     // Display all users 
-
     public function display_users() {
 
-        $query = 'SELECT user_id, CONCAT(firstname," ", lastname) AS fullname, email, user_type FROM user';
+        $query = 'SELECT user_id, CONCAT(firstname," ", lastname) AS fullname, email, user_type FROM user WHERE (user_type="customer") OR (user_type="staff")';
 
         $stmt = $this->connect()->prepare($query);
 
@@ -25,7 +24,6 @@ class User extends DbConnection {
     }
 
     // Delete users 
-
     public function delete_user($userID) {
         $query = 'DELETE FROM user WHERE user_id = :user_id';
         $stmt = $this->connect()->prepare($query);

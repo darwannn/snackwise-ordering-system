@@ -31,12 +31,12 @@ class Users {
 
                     if(user.user_type === 'staff') {
                         user_list += `
-                                <option value="costumer">Costumer</option>
+                                <option value="customer">Customer</option>
                                 <option value="staff" selected>Staff</option>
                                 `;
                             } else {
                                 user_list += `
-                                <option value="costumer" selected>Costumer</option>
+                                <option value="costumer" selected>Customer</option>
                                 <option value="staff">Staff</option>
                                 `;
                             }
