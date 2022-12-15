@@ -24,13 +24,32 @@ class Users {
                             <th scope="row" class="align-middle">${user.user_id}</th>
                             <th class="align-middle">${user.fullname}</th>
                             <th class="align-middle">${user.email}</th>
-                            <th class="align-middle">${user.user_type}</th>
+                            <th class="align-middle">
+                            <select class="form-select" id="drop${user.user_id}" onchange="new Users().dropdownChange(event)" disabled>
+                            
+                    `;
+
+                    if(user.user_type === 'staff') {
+                        user_list += `
+                                <option value="costumer">Costumer</option>
+                                <option value="staff" selected>Staff</option>
+                                `;
+                            } else {
+                                user_list += `
+                                <option value="costumer" selected>Costumer</option>
+                                <option value="staff">Staff</option>
+                                `;
+                            }
+                            
+                            user_list += `
+                            </select>
+                            </th>
                             <th class="align-middle">
                                 <button type="button" class="btn btn-warning edit-btn" id="${user.user_id}" onClick="new Users().editBtn(this.id)">Edit</button>
                                 <button type="button" class="btn btn-danger delete-btn" id="${user.user_id}" onClick="new Users().deleteBtn(this.id)">Delete</button>
                             </th>
-                        </tr> 
-                    `;
+                        </tr> `;
+                    
                 })
                 document.querySelector('#table-body').innerHTML += user_list;
             }
@@ -40,10 +59,29 @@ class Users {
 
     editBtn(id) {
         console.log('edit clicked')
+        const dropdown = document.querySelector(`#drop${id}`);
+
+        const change = confirm("Are you sure you want to change the position of this user?")
+
+        if(change) 
+            dropdown.disabled = false;
+
+
     }
 
     deleteBtn(id) {
         console.log('delete clicked')
+    }
+
+    dropdownChange(event) {
+        let dropDown = event.target;
+
+        dropDown.disabled = true;        
+    }
+
+    dropdownClick(e) {
+        const caller = e.target || e.srcElement;
+        console.log(caller);
     }
 
 
