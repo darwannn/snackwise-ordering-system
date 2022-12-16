@@ -414,7 +414,7 @@ $conn = $db->connect();
     <div class="details-modal" id="order-details-modal">
 
     </div>
-    <input type="text" id="cartlist" name="cartlist" placeholder="cartlist">
+    <input type="text" id="cartlist" name="cartlist" placeholder="cartlist" style="display: none;">
 
 
     <!-- toast_notif notification will be appended here -->
