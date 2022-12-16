@@ -34,6 +34,9 @@ if ($validate->is_logged_in("customer")) {
     <!-- BOOTSTRAP CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- AOS Library  -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />    
+
     <!-- FONTAWESOME -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
 
@@ -165,11 +168,11 @@ if ($validate->is_logged_in("customer")) {
         <!-- START PROFILE CONTENT -->
         <div class="container p-5 profile-container">
             <div class="card-title">
-                <h1>Edit Profile</h1>
+                <h1 data-aos="fade-up">Edit Profile</h1>
                 <hr>
             </div>
 
-            <div class="row flex-container">
+            <div class="row flex-container" data-aos="fade-up">
 
                 <div id="image_modal" class="col-md-4 image_modal" style="margin-bottom: 100px;">
                     <a class="display_image_modal" id="display_image_modal" href="">
@@ -287,6 +290,11 @@ if ($validate->is_logged_in("customer")) {
 
 
         <script src="js/Account.js"></script>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 
 </body>
 
