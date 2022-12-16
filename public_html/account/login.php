@@ -50,7 +50,7 @@ if (!$validate->is_logged_in("customer")) {
 
 <div class="parent-container">
 
-        <div class="container p-5 form-container" data-aos="fade-up">
+        <div class="container p-5 form-container" data-aos="fade-right">
         <a href="../index.php" class="snackwise-label text-decoration-none">
             <div class="brand-icon">
                 <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
