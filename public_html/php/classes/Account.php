@@ -97,9 +97,10 @@ class Account extends DbConnection
                 $subject = 'SnackWise Account Verification';
                 $notice = "Click the button <br> below to verify your account.";
             } else {
+                $user_email = $email;
                 $email = $this->get_admin_email();
                 $subject = 'SnackWise '. ucfirst($user_type) .' Account Verification';
-                $notice = "Click the button below to verify " . $email . ".";
+                $notice = "Click the button below to verify " . $user_email . ".";
             }
             $link = "/account/activate.php?code=" . $code;
             $button_value = "Verify Account";
@@ -108,7 +109,7 @@ class Account extends DbConnection
             $email_verification = new Email();
             if ($email_verification->sendEmail("SnackWise", $email, $subject, $body, "account")) {
                 $_SESSION['email'] = $email;
-                $_SESSION['password'] = $password;
+                //$_SESSION['password'] = $password;
                 if ($user_type == "customer") {
                     $output['success'] = '<div class="alert alert-success text-center">Verification code has been sent to ' . $email . '</div>';
                 } else {
@@ -138,7 +139,7 @@ class Account extends DbConnection
             $subject = 'SnackWise Forgot Password';
             $notice = "Click the button <br> to change your password.";
             //the link will redirect the user to account/new-password
-
+            unset($_SESSION['password']);
             $link = "/account/new-password.php?code=" . $code;
             $button_value = "New Password";
             $body = $this->email_template($link, $notice, $button_value);
@@ -158,12 +159,13 @@ class Account extends DbConnection
     /* -------------------- new-password.php  */
     public function new_password($user_id, $password)
     {
-        $status = 'verified';
+        unset($_SESSION['password']);
+        // $status = 'verified';
         $code = 0;
         $attempt = 0;
         $encrypt_password = $this->encrypt_password($password);
-        $query = $this->connect()->prepare("UPDATE user SET password = :password, code = :code, attempt = :attempt, status = :status WHERE user_id = :user_id");
-        $result = $query->execute([':password' => $encrypt_password, ':code' => $code,  ':attempt' => $attempt, ':status' => $status, ':user_id' => $user_id]);
+        $query = $this->connect()->prepare("UPDATE user SET password = :password, code = :code, attempt = :attempt WHERE user_id = :user_id");
+        $result = $query->execute([':password' => $encrypt_password, ':code' => $code,  ':attempt' => $attempt, ':user_id' => $user_id]);
         if ($result) {
             $output['success'] = '<div class="alert alert-success text-center">Your password has been changed! Please login with your new password</div>';
             $_SESSION['activate_success'] =  '<div class="alert alert-success text-center">Your password has been changed! Please login with your new password</div>';
@@ -203,7 +205,7 @@ class Account extends DbConnection
         $query  = $this->connect()->prepare("UPDATE user SET code = :code, attempt = :attempt WHERE code = :url_code");
         $result = $query->execute([':code' => $code,  ':attempt' => $attempt, ':url_code' => $url_code]);
         if ($result) {
-            $_SESSION['activate_success'] = '<div class="alert alert-success text-center">Account has been verified. You can now login</div>';
+            $_SESSION['activate_success'] = '<div class="alert alert-success text-center">Identity has been verified. You can now login</div>';
             header('Location: login');
         } else {
             header('Location: error');
@@ -336,8 +338,8 @@ class Account extends DbConnection
             $email = $fetch_email;
             $subject = 'SnackWise Reset Login Attempts';
             $link = "/account/reset.php?code=" . $code;
-            $notice = "Click the button <br> below to verify your account.";
-            $button_value = "Verify Account";
+            $notice = "Click the button <br> below to verify your identity.";
+            $button_value = "Verify Identity";
             $body = $this->email_template($link,  $notice, $button_value);
             if ($this->update_code($fetch_user_id, $email, $subject, $body, $code)) {
                 $_SESSION['forgot-email'] = $email;

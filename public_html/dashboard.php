@@ -76,20 +76,19 @@ $account->delete_code();
                     if(!$validate->is_logged_in("staff")){
                     ?>
                     <li class="nav-item">
-                        <a href="edit-order.php"><i class="fa-solid fa-receipt"></i> Edit Orders</a>
+                        <a href="manage-order.php"><i class="fa-solid fa-receipt"></i> Manage Orders</a>
                     </li>
                     <?php 
                     } if(!$validate->is_logged_in("admin")){
                     ?>
                     <li class="nav-item">
-                        <a href="edit-menu.php"><i class="fa-solid fa-burger"></i> Edit Menu</a>
+                        <a href="manage-menu.php"><i class="fa-solid fa-burger"></i> Manage Menu</a>
                     </li>
-                    <!-- DI PA SURE TO -->
-                    <!-- <li class="nav-item">
-                            <a href="edit-users.php"><i class="fa-solid fa-user"></i> Edit Users</a>
-                        </li> -->
                     <li class="nav-item">
-                        <a href="closed-date.php"><i class="fa-solid fa-calendar-days"></i> Edit Closed Dates</a>
+                            <a href="manage-user.php"><i class="fa-solid fa-user"></i> Manage Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="closed-date.php"><i class="fa-solid fa-calendar-days"></i> Manage Closed Dates</a>
                     </li>
                     <?php } ?>
                 </ul>

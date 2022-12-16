@@ -63,7 +63,7 @@ class Menu extends DbConnection
 	}
 
 	/* -------------------- ADMIN -------------------- */
-	/* -------------------- edit-menu.php */
+	/* -------------------- manage-menu.php */
 	public function add_menu($menu_id, $name, $description, $category, $discount, $price, $date, $availability, $image)
 	{
 		$upload_image = new Image();

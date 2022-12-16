@@ -41,6 +41,7 @@ $conn = $db->connect();
     <!-- MY CSS -->
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/notification.css">
+    <link rel="stylesheet" href="css/navbar.css">
 
     <style>
         input[type="radio"] {
@@ -56,7 +57,9 @@ $conn = $db->connect();
             border: none;
             outline: none;
         }
-        .checkout-input-date, .checkout-input-time {
+
+        .checkout-input-date,
+        .checkout-input-time {
 
             background-color: rgb(242, 241, 249);
             outline: 0px;
@@ -64,12 +67,13 @@ $conn = $db->connect();
             border-radius: 5px;
 
         }
-        .checkout-input-date:focus, .checkout-input-time:focus {
+
+        .checkout-input-date:focus,
+        .checkout-input-time:focus {
             box-shadow: none;
             border: 1px solid black;
             background-color: rgb(242, 241, 249);
         }
-
     </style>
 </head>
 
@@ -84,7 +88,13 @@ $conn = $db->connect();
             <p class="cart-label bold mb-0"> SHOPPING CART <i class=" sidecart-close fa-solid fa-xmark float-end" onclick="new Cart().close_cart();"></i></p>
             <hr class="w-100 my-2">
         </div>
-        <div class="text-end mt-2" id="empty_cart"><button class="text-end mx-3 btn p-0" style="font-size:12px;" onclick="new Cart().delete_cart('','empty');">Empty Cart</button></div>
+        <?php
+        if (!$validate->is_logged_in("customer")) {
+        ?>
+            <div class="text-end mt-2" id="empty_cart"><button class="text-end mx-3 btn p-0" style="font-size:12px;" onclick="new Cart().delete_cart('','empty');">Empty Cart</button></div>
+        <?php
+        }
+        ?>
         <!-- customers added to cart items will be appended here -->
         <div class="cart_list cart_list flex-grow-1 mx-3" id="cart_list" style="margin-top: -5px;">
 
@@ -202,7 +212,7 @@ $conn = $db->connect();
             </div>
         </nav>
 
-       <!--  <div class="modal-backdrop fade show" id="modal_backdrop"></div> -->
+        <!--  <div class="modal-backdrop fade show" id="modal_backdrop"></div> -->
 
 
         <section class="top-header">
@@ -362,8 +372,8 @@ $conn = $db->connect();
                         </span>
 
                         <form action="#" class="newsletter-form" id="newsletter_form">
-                        <input type="text" name="email" id="newsletter_email" placeholder="Email Address">
-                        <button type="button" id="newsletter" onclick="new Notification().newsletter()">SUBSCRIBE</button>
+                            <input type="text" name="email" id="newsletter_email" placeholder="Email Address">
+                            <button type="button" id="newsletter" onclick="new Notification().newsletter()">SUBSCRIBE</button>
                         </form>
                         <span id="newsletter_email_error"></span>
 
@@ -398,10 +408,10 @@ $conn = $db->connect();
 
     <!-- order modal -->
     <div class="details-modal" id="order-details-modal">
-     
-     </div>
-     <input type="text" id="cartlist" name="cartlist" placeholder="cartlist">
-    
+
+    </div>
+    <input type="text" id="cartlist" name="cartlist" placeholder="cartlist">
+
 
     <!-- toast_notif notification will be appended here -->
     <div class="toast_notif" id="toast_notif"></div>
@@ -435,7 +445,7 @@ $conn = $db->connect();
 
             })
         }
-     
+
         /* END OF DROPDOWN */
         new Menu().menu();
         /* --------------------cart */

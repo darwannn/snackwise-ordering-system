@@ -40,6 +40,7 @@ $account->delete_code();
 
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/notification.css">
+    <link rel="stylesheet" href="css/navbar.css">
 
     <!-- DATE PICKER -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -186,7 +187,9 @@ $account->delete_code();
             <div class="products-container container">
 
                 <!-- bestseller items will be appended here -->
-                <div class="bestseller_list row justify-content-start" id="bestseller_list"></div>
+                <div class="bestseller_list row no-gutters justify-content-start" id="bestseller_list">
+
+                </div>
 
         </section>
 

@@ -23,7 +23,8 @@ if ($validate->is_logged_in("customer")) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
 
-
+    <!-- PAGE ICON -->
+    <link rel="icon" href="img/penguin.png" type="image/icon type">
 
     <!-- FONT LINKS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,9 +37,11 @@ if ($validate->is_logged_in("customer")) {
     <!-- FONTAWESOME -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
 
-    <title>Document</title>
+    <title>Profile | Snackwise</title>
     <link rel="stylesheet" href="css/notification.css">
     <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/navbar.css">
+
 </head>
 
 
@@ -127,7 +130,7 @@ if ($validate->is_logged_in("customer")) {
                                         if (!$validate->is_logged_in("staff")) {
                                         ?>
                                             <li class="user-menu-item">
-                                                <a href="edit-order.php" class=""><i class="fa-solid fa-pen-to-square"></i> Edit Order</a>
+                                                <a href="manage-order.php" class=""><i class="fa-solid fa-pen-to-square"></i> Edit Order</a>
                                             </li>
                                         <?php
                                         }
@@ -183,34 +186,32 @@ if ($validate->is_logged_in("customer")) {
                         <section class="form-input-container">
 
                             <div class="row form-header">
-                                <h3>Personal Information:</h3>
+                                <span>Personal Information:</span>
                             </div>
 
-                            <div class="form-group mt-3">
-                                <label class="col control-label">First Name:</label>
+                            <div class="row form-group mt-3">
                                 <div class="col">
+                                    <label for="">First Name</label>
                                     <input class="form-control" type="text" name="firstname" id="firstname" value="" placeholder="First Name" autocomplete="off">
                                     <span class="input_error" id="firstname_error"></span>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col control-label">Last Name:</label>
                                 <div class="col">
+                                    <label for="">Last Name</label>
                                     <input class="form-control" type="text" name="lastname" id="lastname" value="" placeholder="Last Name" autocomplete="off">
                                     <span class="input_error" id="lastname_error"></span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col control-label">Username:</label>
                                 <div class="col">
+                                    <label for="">Username</label>
                                     <input class="form-control" type="text" name="username" id="username" placeholder="Username" autocomplete="off">
                                     <span class="input_error" id="username_error"></span>
                                 </div>
                             </div>
-
+                            
                             <div class="form-group">
-                                <label class="col control-label">Contact Number:</label>
                                 <div class="col">
+                                    <label for="">Contact Number</label>
                                     <input class="form-control" type="text" name="contact" id="contact" value="" placeholder="09XXXXXXXXX" maxlength="11" autocomplete="off">
                                     <span class="input_error" id="contact_error"></span>
                                 </div>
@@ -223,14 +224,14 @@ if ($validate->is_logged_in("customer")) {
                             <div class="row">
                                 <div class="col">
                                     <div class="d-grid gap-2">
-                                        <button type="button" id="update" class="btn btn-outline-danger edit-btn" id="update" onclick="new Account().update('other');"> Edit Profile</button>
+                                        <button type="button" id="update" class="btn btn-warning edit-btn" id="update" onclick="new Account().update('other');"> Edit Profile</button>
                                     </div>
                                 </div>
                             </div>
                         </section>
 
                         <div class="row form-header mt-5">
-                            <h3>Change Email?</h3>
+                            <span>Change Email?</span>
                         </div>
 
                         <div class="form-group">
@@ -241,7 +242,7 @@ if ($validate->is_logged_in("customer")) {
                             </div>
                             <div class="col">
                                 <div class="d-grid gap-2">
-                                    <button type="button" id="update_email" class="btn btn-outline-danger update-btn" onclick="new Account().update('email');"> Update Email</button>
+                                    <button type="button" id="update_email" class="btn btn-warning update-btn" onclick="new Account().update('email');"> Update Email</button>
                                 </div>
                             </div>
                         </div>

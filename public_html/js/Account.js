@@ -26,6 +26,8 @@ class Account {
                     window.location.href = "../dashboard.php";
                 } 
             } else if (response_data.validate) {
+                document.getElementById("user_identifier").value = "";
+                document.getElementById("password").value = "";
                 document.getElementById('success_message').innerHTML = "";
                 document.getElementById('error_message').innerHTML = response_data.validate;
             } else if (response_data.error) {
@@ -218,7 +220,7 @@ class Account {
             return response.json();
         }).then(function (response_data) {
             if(type == "email") {
-                new Account().button_loading("update_email", "", "Change Email Address");
+                new Account().button_loading("update_email", "", "Update Email");
             } else {
                 new Account().button_loading("update", "", "Edit Profile");
             }
@@ -227,10 +229,12 @@ class Account {
             if (response_data.success) {
                 if(type != "email") {
                     new Account().fetch_information();
+                    window.location.reload(); 
+                } else {
+                    console.log(response_data.success);
+                    new Notification().create_notification(response_data.success, "success");
                 }
-           /*      new Notification().create_notification(response_data.success, "success"); */
-                /* new Account().scroll_to("top"); */
-                window.location.reload();
+        
             } 
             else if (response_data.error) {
                 new Notification().create_notification(response_data.error, "error");

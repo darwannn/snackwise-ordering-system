@@ -90,7 +90,7 @@ if ($validate->is_logged_in("customer")) {
 
     <div class="parent-container">
         <div class="form-window">
-            <a href="../index.php" class="snackwise-label text-decoration-none">
+            <a href="index.php" class="snackwise-label text-decoration-none">
                 <div class="brand-icon">
                     <img src="img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
                 </div>

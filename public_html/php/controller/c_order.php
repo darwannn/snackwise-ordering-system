@@ -65,7 +65,7 @@ $type = $_POST['type'];
 }
 
 /* -------------------- Staff -------------------- */
-/* -------------------- edit-order.php */
+/* -------------------- manage-order.php */
 if (isset($_POST["action_order"])) {
 
     if ($_POST['action_order'] == 'Update') {

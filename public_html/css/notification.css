@@ -158,8 +158,12 @@
     color: #878787;
     border: none;
     font-size: 2.5em;
-    transition: ease-in-out .5s;
+    transition: ease-in-out .1s;
 }  
+
+.notification-button:hover {
+  color: var(--valueCol);
+}
 
 .user-notifications-container .notification-button #notification_count {
   position: absolute;

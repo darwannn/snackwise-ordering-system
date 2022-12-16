@@ -17,7 +17,7 @@ if (isset($_POST["display_menu"])) {
 }
 
 /* -------------------- ADMIN --------------------  */
-/* -------------------- edit-menu.php */
+/* -------------------- manage-menu.php */
 if (isset($_POST["action_menu"])) {
     if ($_POST['action_menu'] == 'Add' || $_POST['action_menu'] == 'Update') {
         $menu_id = $_POST["menu_id"];

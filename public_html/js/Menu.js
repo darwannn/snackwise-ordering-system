@@ -65,37 +65,40 @@ class Menu {
                 let bestseller_list = "";
                 //iterate and append response data
                 response_data.data.map(function (menu) {
-                    bestseller_list += `
-                    <div class="col-12 col-md-3 product position-relative">
-                        <div class="product-img-container">
-                            <img src="https://res.cloudinary.com/dhzn9musm/image/upload/${menu.image}" alt="combo a image" class="product-img">
-                        </div>
-                        <div class="product-details-container">
-                            <div class="product-caption">
-                                <span class="product-name">${menu.name}</span>
-                                <span class="product-description">${menu.description}</span>
+                  bestseller_list += `
+                    
+                    <div class="col-12 col-md-6 col-lg-3">
+                        
+                        <div class="best-seller-container">
+                            <div class="best-seller-img">
+                                <img src="https://res.cloudinary.com/dhzn9musm/image/upload/${menu.image}" alt="Combo A Image">
+                                <div class="bg-effect"></div>
                             </div>
-                            <div class="cart-container">`;
-                    if (menu.discount != 0) {
-                        bestseller_list += `    <div class="d-flex flex-column" ><span class="product-price" style="margin-bottom:-15px;">PHP ${(menu.discounted_price).toFixed(2).replace(/[.,]00$/, "")} </span><br>`;
-                        bestseller_list += `  <span class=" h6 text-decoration-line-through" >PHP ${menu.price}</span></div>`;
-                        /* menu_list += `  <div style="font-size:12px;"><span class=" text-decoration-line-through">PHP ${menu.price}</span> -${menu.discount}%</div>`; */
-                    } else {
+                            
+                            <div class="details-container">
+                                <div class="best-seller-info">
+                                    <span class="best-seller-name">${menu.name}</span>
+                                    <span class="best-seller-description">${menu.description}</span>
+                                </div>
+                                <div class="best-seller-action">`;
+                  if (menu.discount != 0) {
+                    bestseller_list += `<div class="d-flex flex-column price-cont" >
+                                        <span class="item-price" style="margin-bottom:-15px;">PHP ${menu.discounted_price
+                                          .toFixed(2)
+                                          .replace(/[.,]00$/, "")} </span><br>`;
+                    bestseller_list += `<span class="h6 text-decoraction-line-through orig-price">PHP ${menu.price}</span>
+                                    </div>`;
+                  } else {
+                    bestseller_list += `<span class="item-price">PHP ${menu.price}</span>`;
+                  }
 
-                        bestseller_list += `   <span class="product-price">PHP ${menu.price}</span>`;
-                    }
-
-                    bestseller_list += `   <span class="add-to-cart-container">
-                                    <button class="add-to-cart-btn position-absolute" style="bottom:10px; right:10px;" type="submit" onclick="new Menu().add_best_cart(${menu.menu_id}); ">
-                                        <i class="fa-solid fa-plus"></i>
+                  bestseller_list += `<button class="add-to-cart-btn" type="submit" onclick="new Menu().add_best_cart(${menu.menu_id}); ">
+                                        <i class="fa-solid fa-cart-plus"></i>
                                     </button>
-                                </span>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                
-                `;
-
+                        </div>                    
+                    </div>`;
                 });
                 document.getElementById("bestseller_list").innerHTML = bestseller_list;
             }
@@ -189,7 +192,7 @@ class Menu {
     }
 
     /* -------------------- ADMIN -------------------- */
-    /* -------------------- edit-menu.php  */
+    /* -------------------- manage-menu.php  */
     action_menu_button() {
         
         document.getElementById('action_menu_button').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
