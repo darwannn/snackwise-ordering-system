@@ -63,11 +63,12 @@ class Menu {
                 document.getElementById("bestseller_list").innerHTML = response_data.empty;
             } else {
                 let bestseller_list = "";
+                let delay = 200;
                 //iterate and append response data
                 response_data.data.map(function (menu) {
                   bestseller_list += `
                     
-                    <div class="col-12 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="col-12 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="${(delay+=50)}">
                         
                         <div class="best-seller-container">
                             <div class="best-seller-img">
