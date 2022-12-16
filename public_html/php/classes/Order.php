@@ -166,7 +166,7 @@ class Order extends DbConnection
 
 
     /* -------------------- STAFF --------------------*/
-    /* -------------------- edit-order.php */
+    /* -------------------- manage-order.php */
     public function admin_edit_order($order_id,  $date, $time, $status)
     {
         if ($_POST['action_order'] == 'Update') {

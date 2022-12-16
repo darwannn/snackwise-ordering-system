@@ -192,7 +192,7 @@ class Menu {
     }
 
     /* -------------------- ADMIN -------------------- */
-    /* -------------------- edit-menu.php  */
+    /* -------------------- manage-menu.php  */
     action_menu_button() {
         
         document.getElementById('action_menu_button').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';

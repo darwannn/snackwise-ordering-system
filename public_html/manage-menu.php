@@ -193,7 +193,7 @@ $menu = new Menu();
         }
     </style>
 
-    <link rel="stylesheet" href="css/edit-menu.css">
+    <link rel="stylesheet" href="css/manage-menu.css">
 
     <title></title>
 </head>
