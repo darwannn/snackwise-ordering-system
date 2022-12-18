@@ -82,6 +82,7 @@ You have to do this extra process.
 
 - [@clarencetinator7](https://github.com/clarencetinator7)
 - [@darwannn](https://github.com/darwannn)
-- [@noooorsegod(https://github.com/noooorsegod)]
+- [@noooorsegod](https://github.com/noooorsegod)
+- [@jaspercroxas(https://www.instagram.com/jaspercroxas/)]
 - Angel Padilla
-- Jasper Roxas
+
