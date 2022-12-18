@@ -42,6 +42,9 @@ if (!$validate->is_logged_in("customer")) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- AOS Library  -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />             
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
     <link rel="stylesheet" href="../css/register.css">
@@ -53,7 +56,7 @@ if (!$validate->is_logged_in("customer")) {
 
 <div class="parent-container">
 
-    <div class="container p-5 form-container">
+    <div class="container p-5 form-container" data-aos="fade-left">
         <a href="../index.php" class="snackwise-label text-decoration-none">
             <div class="brand-icon">
                 <img src="../img/penguin.png" class="snackwise-icon" alt="Snackwise Logo">
@@ -174,10 +177,10 @@ if (!$validate->is_logged_in("customer")) {
 
 <script src="../js/Account.js"></script>
 
-<script>
-
-
-</script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 
 
 </html>

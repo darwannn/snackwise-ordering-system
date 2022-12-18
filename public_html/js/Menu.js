@@ -63,11 +63,12 @@ class Menu {
                 document.getElementById("bestseller_list").innerHTML = response_data.empty;
             } else {
                 let bestseller_list = "";
+                let delay = 200;
                 //iterate and append response data
                 response_data.data.map(function (menu) {
                   bestseller_list += `
                     
-                    <div class="col-12 col-md-6 col-lg-3">
+                    <div class="col-12 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="${(delay+=50)}">
                         
                         <div class="best-seller-container">
                             <div class="best-seller-img">
@@ -128,11 +129,12 @@ class Menu {
                 document.getElementById("menu_list").innerHTML = response_data.empty;
             } else {
                 let menu_list = "";
+                let delay = 100;
                 response_data.data.map(function (menu) {
 
                     /* if(menu.discount) */
                     menu_list += `
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="${delay+=50}">
                     <div class="menu-item">
                         <div class="product-img">
                             <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${menu.image}' alt="food-img" food-img="">
