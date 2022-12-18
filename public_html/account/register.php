@@ -155,13 +155,13 @@ if (!$validate->is_logged_in("customer")) {
 
             <div class="row">
                 <div class="col">
-                    <p class="text-end sign-in-prompt-txt">Already have an account? <a href="../account/login.php">Sign In</a></p>
+                    <p class="text-end sign-in-prompt-txt">Already have an account? <a href="../account/login.php">Log in</a></p>
                 </div>
             </div>
             <div class="form-end-btn">
                     <a href="../index.php" id="cancel">Cancel</a>
                     <button type="button" id="register" class="btn btn-primary" onclick="new Account().register();">
-                        Register</button>
+                        Submit</button>
             </div>
         </form>
 

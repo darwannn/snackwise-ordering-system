@@ -211,71 +211,6 @@ hr {
     margin-left: .5em;
 }
 
-/* .product {
-    border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
-    padding: 1em;
-    max-width: 30em;
-    height: 50em;
-    margin: 1em .5em;
-}
-
-.product-img-container {
-    border-radius: 20px;
-    height: 60%;
-    width: 100%;
-    
-    overflow: hidden;
-}
-
-.product-img-container .product-img {
-    width: 100%;
-    margin: auto 0;
-    display: block;
-}
-
-.product-details-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 40%;
-}
-
-.product-details-container .product-caption span {
-    display: inline-block;
-}
-
-.product-caption .product-name {
-    font-family: 'Outfit', sans-serif;
-    font-weight: bold;
-    font-size: 2.2em;
-    margin: .5em 0;
-}
-
-.product-caption .product-description {
-    font-size: 1.6em;
-}
-
-.cart-container {
-    display: flex;
-    flex-direction: row;
-    align-content: space-between;
-    align-items: center;
-    justify-content: space-between;
-}
-    
-.cart-container .product-price {
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.0em;
-    font-weight: bold;
-    color: #F0C808;
-}
-
-.add-to-cart-container object {
-    width: 35px;
-    height: 35px;
-} */
-
 .best-seller-container {
     display: flex;
     flex-flow: column;
@@ -285,25 +220,6 @@ hr {
     margin: .5em;
     border-radius: 10px;
 }
-
-/* .best-seller-container .bg-effect {
-    position: absolute;
-    z-index: -1;
-    background-color: #f0c9086f;
-    border-radius: 5px;
-    height: 25%;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin-inline: auto;
-    transition: all .5s ease-in-out;
-}
-
-.best-seller-container:hover .bg-effect {
-    height: 500px;
-    margin-top: 1em;
-    background-color: var(--wiseyellow);
-}  */
 
 .best-seller-img {
     width: 100%;
