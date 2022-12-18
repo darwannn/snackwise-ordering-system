@@ -146,18 +146,20 @@ class Menu {
                                `;
 
                     if (menu.discount != 0) {
-                        menu_list += `    <span class="product-price">PHP ${(menu.discounted_price).toFixed(2).replace(/[.,]00$/, "")} </span>`;
+                        menu_list += `<div class="price-cont">    
+                                    <span class="product-price">PHP ${(menu.discounted_price).toFixed(2).replace(/[.,]00$/, "")} </span>`;
 
-                        menu_list += `  <span class=" h6 text-decoration-line-through">PHP ${menu.price}</span>`;
+                        menu_list += `  <span class="h6 text-decoration-line-through orig-price">PHP ${menu.price}</span>
+                        </div>`;
                         /* menu_list += `  <div style="font-size:12px;"><span class=" text-decoration-line-through">PHP ${menu.price}</span> -${menu.discount}%</div>`; */
                     } else {
-                        menu_list += `   <span class="product-price">PHP ${menu.price}</span>`;
+                        menu_list += `   <div class="price-cont"><span class="product-price">PHP ${menu.price}</span></div>`;
                     }
 
                     menu_list += `  </div>
                             <div class="interact">
                                 <button type="button" class="btn" onclick="new Cart().add_to_cart(${menu.menu_id});" name='${menu.menu_id}' id="add_to_cart">
-                                    <i class="fa-solid fa-plus"></i>
+                                    <i class="fa-solid fa-cart-plus"></i>
                                 </button>
                             </div>
                         </div>

@@ -88,7 +88,7 @@ $conn = $db->connect();
     <div class="sidecart  flex-column h-100 top-0 " id="sidecart">
 
         <div class="mx-3 mt-3">
-            <p class="cart-label bold mb-0"> SHOPPING CART <i class=" sidecart-close fa-solid fa-xmark float-end" onclick="new Cart().close_cart();"></i></p>
+            <p class="cart-label bold mb-0"> SNACK CART <i class=" sidecart-close fa-solid fa-xmark float-end" onclick="new Cart().close_cart();"></i></p>
             <hr class="w-100 my-2">
         </div>
         <?php

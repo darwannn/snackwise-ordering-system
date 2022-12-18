@@ -49,11 +49,10 @@ hr {
 }
 
 .sidecart-close {
-    border: 2px solid black;
     padding: 2px 5px;
     border-radius: 5px;
-    font-size: 12px;
-    color: black;
+    font-size: 1.2em;
+    color: var(--labelCol);
 
 }
 
@@ -91,6 +90,7 @@ hr {
 
 .cart-label {
     font-size: 1.6em;
+    color: var(--valueCol);
 }
 
 .cart_item {
@@ -250,8 +250,21 @@ hr {
     font-size: 1.6em;
 }
 
-.product-details .product-price {
-    font-size: 1.8em;
+.price-cont {
+    position: relative;
+    margin-top: 2.5em;
+}
+
+.price-cont .orig-price {
+    position: absolute;
+    font-size: 1.7em;
+    color: var(--labelCol);
+    top: -20px;
+    left: 0;
+}
+
+.product-details .price-cont .product-price {
+    font-size: 2.0em;
     margin-top: 1em;
     font-weight: bold;
     color: #F0C808;
@@ -260,12 +273,13 @@ hr {
 .interact button {
     float: right;
     background-color: #F0C808;
+    color: white;
     border-radius: 10px;
     transition: .3s ease;
 }
 
 .interact button:hover {
-    color: white;
+    color: black;
 }
 
 .how-to-container {
