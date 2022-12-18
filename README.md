@@ -36,7 +36,7 @@ component that allows the business to manage orders and update the menu.
 
 Since this project is built with PHP, we suggest to run the project with **XAMPP**.
 
-1. Clone the project using `gitbash`.
+1. Clone the project inside `C:\xampp\htdocs` using `gitbash`.
 
 ```bash
   git clone https://github.com/clarencetinator7/SnackwiseOrderingSystem
