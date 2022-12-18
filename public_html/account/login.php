@@ -61,7 +61,7 @@ if (!$validate->is_logged_in("customer")) {
         </a>
             <form id="account_form" method="POST">
                 <div class="row form-header">
-                    <h3>Sign In</h3>
+                    <h3>Login</h3>
                     <span>Enter your account details to sign-in Snackwise</span>
                 </div>
                 <div class="">
@@ -102,7 +102,7 @@ if (!$validate->is_logged_in("customer")) {
                 <section class="button-container">
                     <div class="row">
                         <div class="d-grid gap-2">
-                            <button type="button" id="login" class="btn signin-btn" onclick="new Account().login()"> Sign In</button>
+                            <button type="button" id="login" class="btn signin-btn" onclick="new Account().login()"> Log in</button>
                         </div>
                     </div>
                     <div class="row">
