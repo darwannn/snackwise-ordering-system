@@ -107,7 +107,7 @@ if ($validate->is_logged_in("customer")) {
             <form action="POST" id="account_form">
 
                 <div class="input-container">
-                    <input type="password" class="current_password" name="current_password" id="current_password" placeholder="Retype Password" value="" autocomplete="off">
+                    <input type="password" class="current_password" name="current_password" id="current_password" placeholder="Current Password" value="" autocomplete="off">
                     <i class="fa-solid fa-eye-slash toggler" id="current_password_toggler" for="current_password" onclick="new Account().toggle_password(this.id, this.getAttribute('for'))"></i>
                     <span class="input_error" id="current_password_error" class="text-danger"></span>
                 </div>
