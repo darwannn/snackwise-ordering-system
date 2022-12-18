@@ -44,7 +44,7 @@ Since this project is built with PHP, we suggest to run the project with **XAMPP
 
 2. Start *Apache* and *My SQL* in XAMPP
 
-3. Import the SQL File (`public_html/snackwise.sql`) through PHPMyAdmin.
+3. Import the SQL File (`public_html/snackwise.sql`) through PHPMyAdmin (database name is: `snackwise`).
 
 4. Modify the database connection settings in: `public_html/php/classes/DbConnection.php`
 
