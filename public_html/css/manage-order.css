@@ -15,6 +15,11 @@ body {
     overflow-x: hidden;
 }
 
+.card-header h4 {
+    font-weight: bold;
+    color: var(--valueCol);
+}
+
 .counter-cards {
     display: flex;
     flex-direction: column;

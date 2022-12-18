@@ -63,7 +63,12 @@ $order = new Order();
             background-image: url(img/Background-Pattern-BW.jpg);
         }
 
+        .card-header {
+            position: relative;
+        }
+
         .card-header .back-btn {
+            position: absolute;
             float: left;
             height: 100%;
             margin-top: 10px;
@@ -267,7 +272,7 @@ $order = new Order();
         <div class="card">
             <div class="card-header ">
                 <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
-                <h3 class="text-center">Order</h3>
+                <h4 class="text-center">Manage Order</h4>
             </div>
             <div class="card-body">
 

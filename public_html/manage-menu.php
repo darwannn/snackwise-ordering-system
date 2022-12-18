@@ -213,7 +213,7 @@ $menu = new Menu();
 
             <div class="card-header ">
                 <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
-                <h3 class="text-center">Manage Menu</h3>
+                <h4 class="text-center">Manage Menu</h4>
             </div>
 
 
