@@ -8,8 +8,7 @@ that allows Snackwise costumers to view the menu and place orders online.
 select items from a menu, view their shopping cart. The system will also have a backend 
 component that allows the business to manage orders and update the menu.
 
-
-## Features
+### Features
 
 - **Product catalog**: Customers can browse and filter items into category.
 - **Shopping cart**: Customers can add items to their cart and view a summary of theirorder before checkout.
@@ -24,6 +23,15 @@ component that allows the business to manage orders and update the menu.
 - ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 - ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 - ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+
+### Other libraries used:
+
+- [Instascan](https://github.com/schmich/instascan)
+- [Flatpickr(Date and Time Picker)](https://github.com/flatpickr/flatpickr)
+- [PHP QR code (Qrcode maker)](https://phpqrcode.sourceforge.net/)
+- [JSTable](https://github.com/jstable/JSTable)
+- [Animate on Scroll](https://github.com/michalsnik/aos)
+
 ## Getting Started
 
 Since this project is built with PHP, we suggest to run the project with **XAMPP**.
@@ -70,4 +78,10 @@ You have to do this extra process.
 - https://stackoverflow.com/questions/7851011/how-do-i-install-gd-on-my-windows-server-version-of-php
 - https://stackoverflow.com/questions/3106991/fatal-error-call-to-undefined-function-imagecreate
 
+## Authors
 
+- [@clarencetinator7](https://github.com/clarencetinator7)
+- [@darwannn](https://github.com/darwannn)
+- [@noooorsegod(https://github.com/noooorsegod)]
+- Angel Padilla
+- Jasper Roxas
