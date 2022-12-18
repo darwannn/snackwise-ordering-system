@@ -15,6 +15,17 @@ body {
     overflow-x: hidden;
 }
 
+.card-header h4 {
+    font-weight: bold;
+    color: var(--valueCol);
+}
+
+.counter-cards {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+
 .modal-header, .modal-title {
     color: var(--wiseyellow);
 }

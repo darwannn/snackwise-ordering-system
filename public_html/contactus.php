@@ -25,6 +25,9 @@ $validate = new Validate();
     <!-- BOOTSTRAP CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- AOS Library  -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
     <!-- FONTAWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
@@ -142,14 +145,14 @@ $validate = new Validate();
 
         <section class="top-header">
             <div class="container">
-                <h1 class="text-center">CONTACT US</h1>
+                <h1 class="text-center" data-aos="fade-up">CONTACT US</h1>
             </div>
         </section>
 
 
         <section class="contact-information-section">
             <div class="container">
-                <div class="row information-wrapper">
+                <div class="row information-wrapper" data-aos="fade-up">
 
                     <div class="col-12 col-sm-4">
                         <div class="information">
@@ -193,7 +196,7 @@ $validate = new Validate();
         </section>
 
         <section class="contact-section">
-            <div class="container">
+            <div class="container" data-aos="flip-left" data-aos-delay="100">
                 <div class="contact-image-container">
                     <img src="https://images.pexels.com/photos/4109234/pexels-photo-4109234.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" srcset="">
                 </div>
@@ -221,14 +224,14 @@ $validate = new Validate();
         </section>
 
         <section class="how-to-container">
-            <div class="container">
-                <div class="row">
+            <div class="container" >
+                <div class="row" data-aos="fade-up">
                     <div class="col how-to-header">
                         <h2 class="text-center">How It Works?</h2>
                     </div>
                 </div>
                 <div class="row instructions-container">
-                    <div class="col col-md-3 instruction">
+                    <div class="col col-md-3 instruction" data-aos="fade-up" data-aos-delay="50">
                         <div class="instruction-illustration-container">
                             <object data="img/instruction-icons/create-account-icon.svg"></object>
                         </div>
@@ -241,8 +244,8 @@ $validate = new Validate();
                         </div>
                     </div>
 
-                    <div class="col col-md-3 instruction">
-                        <div class="instruction-illustration-container">
+                    <div class="col col-md-3 instruction" data-aos="fade-up" data-aos-delay="100">
+                        <div class="instruction-illustration-container" >
                             <object data="img/instruction-icons/order-icon.svg"></object>
                         </div>
                         <div class="instruction-caption">
@@ -253,7 +256,7 @@ $validate = new Validate();
                         </div>
                     </div>
 
-                    <div class="col col-md-3 instruction">
+                    <div class="col col-md-3 instruction" data-aos="fade-up" data-aos-delay="150">
                         <div class="instruction-illustration-container">
                             <object data="img/instruction-icons/meal-preparation-icon.svg"></object>
                         </div>
@@ -265,7 +268,7 @@ $validate = new Validate();
                         </div>
                     </div>
 
-                    <div class="col col-md-3 instruction">
+                    <div class="col col-md-3 instruction" data-aos="fade-up" data-aos-delay="200">
                         <div class="instruction-illustration-container">
                             <object data="img/instruction-icons/pick-up-icon.svg"></object>
                         </div>
@@ -282,7 +285,7 @@ $validate = new Validate();
         </section>
 
         <footer>
-            <div class=footer-header>
+            <div class="footer-header" data-aos="fade-up">
                 <div class="left-line line">
                     <hr>
                 </div>
@@ -295,7 +298,7 @@ $validate = new Validate();
             </div>
             <div class="container">
                 <div class="row footer-details">
-                    <div class="col-12 col-md-3 address-col">
+                    <div class="col-12 col-md-3 address-col" data-aos="fade-up" data-aos-delay="50">
                         <span class="detail-title">
                             ADDRESS
                         </span>
@@ -304,7 +307,7 @@ $validate = new Validate();
                         </span>
                     </div>
 
-                    <div class="col-12 col-md-3 contact-col">
+                    <div class="col-12 col-md-3 contact-col" data-aos="fade-up" data-aos-delay="100">
                         <span class="detail-title">
                             CALL US
                         </span>
@@ -313,7 +316,7 @@ $validate = new Validate();
                         </span>
                     </div>
 
-                    <div class="col-12 col-md-3 hours-col">
+                    <div class="col-12 col-md-3 hours-col" data-aos="fade-up" data-aos-delay="150">
                         <span class="detail-title">
                             OPENING HOURS
                         </span>
@@ -323,7 +326,7 @@ $validate = new Validate();
                         </span>
                     </div>
 
-                    <div class="col-12 col-md-3 newsletter-col">
+                    <div class="col-12 col-md-3 newsletter-col" data-aos="fade-up" data-aos-delay="200">
                         <span class="detail-title">
                             NEWSLETTER
                         </span>
@@ -391,6 +394,12 @@ $validate = new Validate();
         /* END OF DROPDOWN */
         new Notification().notification();
     </script>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
 </body>
 
 </html>

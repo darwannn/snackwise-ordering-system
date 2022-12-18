@@ -32,14 +32,17 @@ if ($validate->is_logged_in("customer")) {
     <!-- BOOTSTRAP CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- AOS Library  -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
 
 
     <!-- EXTERNAL CSS -->
-    <link rel="stylesheet" href="css/order.css">
     <link rel="stylesheet" href="css/notification.css">
+    <link rel="stylesheet" href="css/order.css">
     <link rel="stylesheet" href="css/navbar.css">
 
 
@@ -162,10 +165,10 @@ if ($validate->is_logged_in("customer")) {
 
         <div class="order-container">
             <div class="order-header">
-                <h1>My Orders</h1>
+                <h1 data-aos="fade-up">My Orders</h1>
             </div>
             <div class="order-sort-container">
-                <ul class="sort-list">
+                <ul class="sort-list" data-aos="fade-up">
                     <li class="sort-item" id="active-sort">
                         <input type="radio" name="category" value="All" id="category1" checked>
                         <label for="category1">All</label>
@@ -195,7 +198,7 @@ if ($validate->is_logged_in("customer")) {
 
      
             <!-- ORDERS TO BE APPENDED HERE -->
-            <div class="order-list" id="order_list"> </div>
+            <div class="order-list" id="order_list" data-aos="fade-up" data-aos-delay="250"> </div>
            
         </div>
     </div>
@@ -262,6 +265,12 @@ if ($validate->is_logged_in("customer")) {
                } 
         ?>
     </script>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
 </body>
 
 </html>

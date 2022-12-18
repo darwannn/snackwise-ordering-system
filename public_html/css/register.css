@@ -182,3 +182,7 @@ input[type="password"]::-ms-clear {
     max-height: 300px;
     transition: max-height .6s ease-in;
 }
+
+.alert {
+    font-size: 1.6em;
+}

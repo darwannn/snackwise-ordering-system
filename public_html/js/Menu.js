@@ -63,11 +63,12 @@ class Menu {
                 document.getElementById("bestseller_list").innerHTML = response_data.empty;
             } else {
                 let bestseller_list = "";
+                let delay = 200;
                 //iterate and append response data
                 response_data.data.map(function (menu) {
                   bestseller_list += `
                     
-                    <div class="col-12 col-md-6 col-lg-3">
+                    <div class="col-12 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="${(delay+=50)}">
                         
                         <div class="best-seller-container">
                             <div class="best-seller-img">
@@ -128,11 +129,12 @@ class Menu {
                 document.getElementById("menu_list").innerHTML = response_data.empty;
             } else {
                 let menu_list = "";
+                let delay = 100;
                 response_data.data.map(function (menu) {
 
                     /* if(menu.discount) */
                     menu_list += `
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="${delay+=50}">
                     <div class="menu-item">
                         <div class="product-img">
                             <img src='https://res.cloudinary.com/dhzn9musm/image/upload/${menu.image}' alt="food-img" food-img="">
@@ -144,18 +146,20 @@ class Menu {
                                `;
 
                     if (menu.discount != 0) {
-                        menu_list += `    <span class="product-price">PHP ${(menu.discounted_price).toFixed(2).replace(/[.,]00$/, "")} </span>`;
+                        menu_list += `<div class="price-cont">    
+                                    <span class="product-price">PHP ${(menu.discounted_price).toFixed(2).replace(/[.,]00$/, "")} </span>`;
 
-                        menu_list += `  <span class=" h6 text-decoration-line-through">PHP ${menu.price}</span>`;
+                        menu_list += `  <span class="h6 text-decoration-line-through orig-price">PHP ${menu.price}</span>
+                        </div>`;
                         /* menu_list += `  <div style="font-size:12px;"><span class=" text-decoration-line-through">PHP ${menu.price}</span> -${menu.discount}%</div>`; */
                     } else {
-                        menu_list += `   <span class="product-price">PHP ${menu.price}</span>`;
+                        menu_list += `   <div class="price-cont"><span class="product-price">PHP ${menu.price}</span></div>`;
                     }
 
                     menu_list += `  </div>
                             <div class="interact">
                                 <button type="button" class="btn" onclick="new Cart().add_to_cart(${menu.menu_id});" name='${menu.menu_id}' id="add_to_cart">
-                                    <i class="fa-solid fa-plus"></i>
+                                    <i class="fa-solid fa-cart-plus"></i>
                                 </button>
                             </div>
                         </div>
