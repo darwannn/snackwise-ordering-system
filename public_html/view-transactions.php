@@ -10,7 +10,7 @@ $validate = new Validate();
 if ($validate->is_logged_in("admin")) {
     header('Location: error.php');
 }
-
+$_SESSION['report_filter'] = 'alltime';
 $account = new Account();
 /* deletes expired verification code */
 $account->delete_code();
@@ -95,7 +95,7 @@ $account->delete_code();
                             <thead>
                                 <tr>
                                     <th scope="col">Transaction ID</th>
-                                    <th scope="col">Costumer Name</th>
+                                    <th scope="col">Customer Name</th>
                                     <th scope="col">Order ID</th>
                                     <th scope="col">Date of Order</th>
                                     <th scope="col">Total Paid</th>
@@ -114,7 +114,7 @@ $account->delete_code();
 
 
     </div>
-
+    <a class="btn" href="report.php" target="_blank">Print</a>
 
 
 
