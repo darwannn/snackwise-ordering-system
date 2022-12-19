@@ -98,6 +98,9 @@ tbody > tr > td, tbody > tr > th {
     color: var(--valueCol);
 }
 
+.edit-btn {
+    color: white;
+}
 
 /* FOR VIEW-TRANSACTIONS */
 
@@ -106,6 +109,7 @@ tbody > tr > td, tbody > tr > th {
     border: none;
     transition: .1s ease;
     padding: .5em 2em;
+    color: white;
 }
 
 

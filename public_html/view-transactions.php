@@ -71,10 +71,10 @@ $account->delete_code();
             <hr>
             <div class="d-flex justify-content-between mb-2">
                 <div class="filter-buttons-container">
-                    <button type="button" class="btn btn-primary" onclick="new Order().display_completed_orders('alltime')">All</button>
-                    <button type="button" class="btn btn-primary" onclick="new Order().display_completed_orders('thisweek')">This week</button>
-                    <button type="button" class="btn btn-primary" onclick="new Order().display_completed_orders('thismonth')">This month</button>
-                    <button type="button" class="btn btn-primary" onclick="new Order().display_completed_orders('thisyear')">This year</button>
+                    <button type="button" class="btn" onclick="new Order().display_completed_orders('alltime')">All</button>
+                    <button type="button" class="btn" onclick="new Order().display_completed_orders('thisweek')">This week</button>
+                    <button type="button" class="btn" onclick="new Order().display_completed_orders('thismonth')">This month</button>
+                    <button type="button" class="btn" onclick="new Order().display_completed_orders('thisyear')">This year</button>
                 </div>
                 <div class="">
                     <div class="sales-container">
