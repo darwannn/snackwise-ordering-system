@@ -48,11 +48,7 @@ $account->delete_code();
 
     <style>
 
-        .sales-container span {
-            font-size: 1.8em;
-            color: #A3A3A3;
-            font-weight: bold;
-        }
+        
         
     </style>
 
@@ -68,26 +64,33 @@ $account->delete_code();
 
             <div class="row row-1">
                 <div class="col d-flex user-table-header">
-                        <a href="manage-order.php" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+                        <a href="manage-order.php" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Manage Orders</a>
                         <span class="page-title">Transaction History</span>
                 </div>
             </div>
             <hr>
             <div class="d-flex justify-content-between mb-2">
-                <div class="">
+                <div class="filter-buttons-container">
                     <button type="button" class="btn btn-primary" onclick="new Order().display_completed_orders('alltime')">All</button>
                     <button type="button" class="btn btn-primary" onclick="new Order().display_completed_orders('thisweek')">This week</button>
                     <button type="button" class="btn btn-primary" onclick="new Order().display_completed_orders('thismonth')">This month</button>
                     <button type="button" class="btn btn-primary" onclick="new Order().display_completed_orders('thisyear')">This year</button>
                 </div>
-                <div class="sales-container">
-                    <span>Total Sales:</span>
-                    <span class="total-sales text-success" id="total_sales">000</span>
+                <div class="">
+                    <div class="sales-container">
+                        <span>Total Sales: </span>
+                        <span class="total-sales text-success" id="total_sales">000</span>
+                    </div>
+                    <div class="order-count">
+                        <span>Total Transactions: </span>
+                        <span id="total-transactions"></span>
+                    </div>
                 </div>
             </div>
             <div class="row row-3">
                 <div class="col-lg-12">
                     <div class="table-responsive">
+                        <span class="filter-txt">Filtered by: <span id="filtered-by">this week</span></span>
                         <table class="table table-striped table-bordered text-center">
                             <thead>
                                 <tr>
@@ -96,7 +99,6 @@ $account->delete_code();
                                     <th scope="col">Order ID</th>
                                     <th scope="col">Date of Order</th>
                                     <th scope="col">Total Paid</th>
-                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
 
@@ -121,7 +123,7 @@ $account->delete_code();
     <script src="js/Order.js"></script>
 
     <script>
-        
+        new Order().display_completed_orders("thisweek");
     </script>
 
 </body>

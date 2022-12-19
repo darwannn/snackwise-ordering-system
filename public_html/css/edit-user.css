@@ -97,3 +97,50 @@ tbody > tr > td, tbody > tr > th {
     font-size: 1.6em;
     color: var(--valueCol);
 }
+
+
+/* FOR VIEW-TRANSACTIONS */
+
+.filter-buttons-container button{
+    background-color: var(--wiseyellow);
+    border: none;
+    transition: .1s ease;
+    padding: .5em 2em;
+}
+
+
+.filter-buttons-container button:hover {
+    color: black;
+    background-color: var(--wiseyellow);
+}
+
+.sales-container span {
+    font-size: 1.8em;
+    color: #A3A3A3;
+    font-weight: bold;
+}
+
+.total-price {
+    font-weight: bold;
+    color: #198754;
+}
+
+.filter-txt {
+    font-size: 1.6em;
+    color: var(--labelCol);
+    font-family: var(--fontPoppins);
+}
+
+.filter-txt #filtered-by {
+    font-weight: bold;
+}
+
+.order-count span {
+   font-size: 1.8em; 
+   color: var(--labelCol);
+   font-weight: bold;
+}
+
+.order-count #total-transactions {
+    color: var(--valueCol);
+}

@@ -291,7 +291,7 @@ $order = new Order();
             <div class="card-body">
 
                 <!-- QR scanner -->
-                <button id="toggle_camera" onclick="new Order().toggle_camera();" class="btn btn-toggle btn-success w-100"><i class="fa-solid fa-camera"></i></button>
+                <button id="toggle_camera" onclick="new Order().toggle_camera();" class="btn btn-toggle btn-warning w-100" style="color: white;"><i class="fa-solid fa-camera"></i></button>
                 <video class="w-100" src="" id="preview"></video>
 
                 <table id="order_table" class="table table-sm ">
