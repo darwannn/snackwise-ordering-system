@@ -78,6 +78,19 @@ $order = new Order();
             transition: all .1s ease;
         }
 
+        .card-header .view-transac {
+            position: absolute;
+            float: right;
+            height: 100%;
+            margin-top: 10px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #595959;
+            top: 9px;
+            right: 18px;
+            transition: all .1s ease;
+        }
+
         .card-header .back-btn:hover {
             color: #2f2f2f;
         }
@@ -273,6 +286,7 @@ $order = new Order();
             <div class="card-header ">
                 <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
                 <h4 class="text-center">Manage Order</h4>
+                <a href="view-transactions.php" class="view-transac">View Transaction History <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div class="card-body">
 

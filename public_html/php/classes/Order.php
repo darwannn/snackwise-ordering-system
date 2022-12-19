@@ -566,4 +566,53 @@ class Order extends DbConnection
             return false;
         }
     }
+
+
+    public function display_completed_order($filter)
+    {
+        // $query = 'SELECT * FROM transaction';
+        $currentDate = date("Y-m-d");
+        // $query = 'SELECT * FROM transaction WHERE DAY(date) = "'.$currentDate.'"';
+       
+        // -- ALL--
+        
+
+        if($filter == "alltime") {
+            $query = 'SELECT transaction_id, CONCAT(user.firstname, " ", user.lastname) AS fullname, order_id, date, total_price 
+            FROM transaction 
+            INNER JOIN user ON user.user_id = transaction.user_id
+            ORDER BY transaction_id DESC';
+        }
+        if($filter == "thisweek") {
+            $query = 'SELECT transaction_id, CONCAT(user.firstname, " ", user.lastname) AS fullname, order_id, date, total_price 
+            FROM transaction 
+            INNER JOIN user ON user.user_id = transaction.user_id 
+            WHERE WEEK(date) = WEEK("'.$currentDate.'") AND YEAR(date) = YEAR("'.$currentDate.'")
+            ORDER BY transaction_id DESC';
+        }
+        if($filter == "thismonth") {
+            $query = 'SELECT transaction_id, CONCAT(user.firstname, " ", user.lastname) AS fullname, order_id, date, total_price 
+            FROM transaction 
+            INNER JOIN user ON user.user_id = transaction.user_id 
+            WHERE MONTH(date) = MONTH("'.$currentDate.'") AND YEAR(date) = YEAR("'.$currentDate.'")
+            ORDER BY transaction_id DESC';
+        }
+        if($filter == "thisyear") {
+            $query = 'SELECT transaction_id, CONCAT(user.firstname, " ", user.lastname) AS fullname, order_id, date, total_price 
+            FROM transaction 
+            INNER JOIN user ON user.user_id = transaction.user_id 
+            WHERE YEAR(date) = YEAR("'.$currentDate.'")
+            ORDER BY transaction_id DESC';
+        }
+
+
+        $stmt = $this->connect()->prepare($query);
+
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode($result);
+    }
+
+
 }

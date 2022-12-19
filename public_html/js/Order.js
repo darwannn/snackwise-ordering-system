@@ -655,4 +655,49 @@ class Order {
             });
         }
     }
+
+
+    display_completed_orders(filter) {
+        let formData = new FormData();
+        formData.append('display_completed', 'display_completed');
+        formData.append('display_filter', filter);
+
+        fetch('php/controller/c_order.php', {
+            method: "POST",
+            body: formData
+        }).then((response)=>{
+            return response.json();
+        }).then((response_data=>{
+            console.log(response_data);
+
+            let transaction_list = '';
+            let totalSales = 0;
+
+            response_data.map((transaction) => {
+
+                totalSales += transaction.total_price;
+
+                transaction_list += `
+                    <tr>
+                        <th scope="row">${transaction.transaction_id}</th>
+                        <td class="align-middle">${transaction.fullname}</td>
+                        <td class="align-middle">${transaction.order_id}</td>
+                        <td class="align-middle">${transaction.date}</td>
+                        <td class="align-middle">PHP ${transaction.total_price}.00</td>
+                        <td class="align-middle">
+                            <button type="button" class="btn btn-primary" id="${transaction.order_id}" >View Details</button>
+                        </td>
+                    </tr>
+                `;
+
+            });
+
+            document.querySelector('#total_sales').textContent = `PHP ${totalSales}.00`;
+            document.querySelector('#table-body').innerHTML = transaction_list; 
+
+        }));
+        
+    }
+
+
 }
