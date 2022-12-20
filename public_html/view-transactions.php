@@ -75,6 +75,7 @@ $account->delete_code();
                     <button type="button" class="btn" onclick="new Order().display_completed_orders('thisweek')">This week</button>
                     <button type="button" class="btn" onclick="new Order().display_completed_orders('thismonth')">This month</button>
                     <button type="button" class="btn" onclick="new Order().display_completed_orders('thisyear')">This year</button>
+                    <a name="" id="" class="btn btn-primary" href="report.php" target="_blank" role="button">Print</a>
                 </div>
                 <div class="">
                     <div class="sales-container">
@@ -114,8 +115,6 @@ $account->delete_code();
 
 
     </div>
-    <a class="btn" href="report.php" target="_blank">Print</a>
-
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
