@@ -8,6 +8,8 @@ that allows Snackwise costumers to view the menu and place orders online.
 select items from a menu, view their shopping cart. The system will also have a backend 
 component that allows the business to manage orders and update the menu.
 
+ This system is only for pick-up orders, and doesn't have payment methods and gateway.
+
 ### Features
 
 - **Product catalog**: Customers can browse and filter items into category.
@@ -15,6 +17,8 @@ component that allows the business to manage orders and update the menu.
 - **Notification**: Upon checking out, costumers will get an update through the notification feed for the status of their order.
 - **Order management**: The business can view andmanage orders, and update order statuses.
 - **Customer accounts**: Customers can create and manage their own accounts, including viewing order history.
+- **Closed Dates**: Add specific dates where the business is closed to prevent costumers on placing order at that dates.
+-  **QR Code**: Every order will generate an QR code which can be scanned by the admin to verify an order upon pick-up.
 
 ## Build with
 
@@ -29,6 +33,9 @@ component that allows the business to manage orders and update the menu.
 - [Instascan](https://github.com/schmich/instascan)
 - [Flatpickr(Date and Time Picker)](https://github.com/flatpickr/flatpickr)
 - [PHP QR code (Qrcode maker)](https://phpqrcode.sourceforge.net/)
+- [MPDF](https://github.com/mpdf/mpdf/)
+- [Cloudinary](https://github.com/cloudinary/cloudinary_php/)
+- [PHPMailer](https://github.com/PHPMailer/PHPMailer/)
 - [JSTable](https://github.com/jstable/JSTable)
 - [Animate on Scroll](https://github.com/michalsnik/aos)
 

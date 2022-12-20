@@ -655,4 +655,62 @@ class Order {
             });
         }
     }
+
+
+    display_completed_orders(filter) {
+        let formData = new FormData();
+        formData.append('display_completed', 'display_completed');
+        formData.append('display_filter', filter);
+
+        let filterTxt = 'this week';
+
+        if(filter === 'thisweek')
+            filterTxt = 'this week';
+        if(filter === 'alltime')
+            filterTxt = 'all time'; 
+        if(filter === 'thismonth')
+            filterTxt = 'this month';
+        if(filter === 'thisyear')
+            filterTxt = 'this year';
+        
+
+        fetch('php/controller/c_order.php', {
+            method: "POST",
+            body: formData
+        }).then((response)=>{
+            return response.json();
+        }).then((response_data=>{
+            console.log(response_data);
+
+            let transaction_list = '';
+            let totalSales = 0;
+            let salesCount = 0;
+
+            response_data.map((transaction) => {
+
+                totalSales += transaction.total_price;
+                salesCount += 1;
+
+                transaction_list += `
+                    <tr>
+                        <th scope="row">${transaction.transaction_id}</th>
+                        <td class="align-middle">${transaction.fullname}</td>
+                        <td class="align-middle">${transaction.order_id}</td>
+                        <td class="align-middle">${transaction.date}</td>
+                        <td class="align-middle total-price">PHP ${transaction.total_price}.00</td>
+                    </tr>
+                `;
+
+            });
+
+            document.querySelector('#total-transactions').textContent = `${salesCount}`;
+            document.querySelector('#filtered-by').textContent = `${filterTxt}`;
+            document.querySelector('#total_sales').textContent = `PHP ${totalSales}.00`;
+            document.querySelector('#table-body').innerHTML = transaction_list; 
+
+        }));
+        
+    }
+
+
 }

@@ -219,7 +219,7 @@ $menu = new Menu();
 
             <div class="card-body">
                 <div class="d-flex justify-content-end ">
-                    <button type="button" name="add_data" id="add_data" class="btn btn-success col-lg-2 col-md-3 "> <i class="fa-solid fa-plus"></i> Add</button>
+                    <button type="button" name="add_data" id="add_data" class="btn btn-warning col-lg-2 col-md-3" style="color: white;"> <i class="fa-solid fa-plus"></i> Add</button>
                 </div>
                 <table id="menu_table" class="table table-sm ">
                     <thead>
@@ -234,7 +234,6 @@ $menu = new Menu();
                             <th>Availability</th>
                             <th>Image</th>
                             <th>Actions</th>
-
                         </tr>
                     </thead>
                     <tbody>

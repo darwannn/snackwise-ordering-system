@@ -102,3 +102,8 @@ if (isset($_POST['fetch_selected_order'])) {
     $order_id = $_POST['order_id'];
     $order->fetch_selected_order( $order_id);
 }
+
+if(isset($_POST['display_completed']) == 'display_completed') {
+    $filter = $_POST['display_filter'];
+    echo $order->display_completed_order($filter);
+}
