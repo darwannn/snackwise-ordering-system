@@ -575,7 +575,7 @@ class Order extends DbConnection
         // $query = 'SELECT * FROM transaction WHERE DAY(date) = "'.$currentDate.'"';
        
         // -- ALL--
-        
+        $_SESSION['report_filter'] = $filter;
 
         if($filter == "alltime") {
             $query = 'SELECT transaction_id, CONCAT(user.firstname, " ", user.lastname) AS fullname, order_id, date, total_price 

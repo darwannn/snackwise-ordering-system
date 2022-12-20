@@ -33,6 +33,9 @@ component that allows the business to manage orders and update the menu.
 - [Instascan](https://github.com/schmich/instascan)
 - [Flatpickr(Date and Time Picker)](https://github.com/flatpickr/flatpickr)
 - [PHP QR code (Qrcode maker)](https://phpqrcode.sourceforge.net/)
+- [MPDF](https://github.com/mpdf/mpdf/)
+- [Cloudinary](https://github.com/cloudinary/cloudinary_php/)
+- [PHPMailer](https://github.com/PHPMailer/PHPMailer/)
 - [JSTable](https://github.com/jstable/JSTable)
 - [Animate on Scroll](https://github.com/michalsnik/aos)
 

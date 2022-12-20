@@ -10,7 +10,7 @@ $validate = new Validate();
 if ($validate->is_logged_in("admin")) {
     header('Location: error.php');
 }
-
+$_SESSION['report_filter'] = 'alltime';
 $account = new Account();
 /* deletes expired verification code */
 $account->delete_code();
@@ -75,6 +75,7 @@ $account->delete_code();
                     <button type="button" class="btn" onclick="new Order().display_completed_orders('thisweek')">This week</button>
                     <button type="button" class="btn" onclick="new Order().display_completed_orders('thismonth')">This month</button>
                     <button type="button" class="btn" onclick="new Order().display_completed_orders('thisyear')">This year</button>
+                    <a name="" id="" class="btn btn-primary" href="report.php" target="_blank" role="button">Print</a>
                 </div>
                 <div class="">
                     <div class="sales-container">
@@ -95,7 +96,7 @@ $account->delete_code();
                             <thead>
                                 <tr>
                                     <th scope="col">Transaction ID</th>
-                                    <th scope="col">Costumer Name</th>
+                                    <th scope="col">Customer Name</th>
                                     <th scope="col">Order ID</th>
                                     <th scope="col">Date of Order</th>
                                     <th scope="col">Total Paid</th>
@@ -114,8 +115,6 @@ $account->delete_code();
 
 
     </div>
-
-
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
