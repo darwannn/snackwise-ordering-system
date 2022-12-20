@@ -18,7 +18,8 @@ component that allows the business to manage orders and update the menu.
 - **Order management**: The business can view andmanage orders, and update order statuses.
 - **Customer accounts**: Customers can create and manage their own accounts, including viewing order history.
 - **Closed Dates**: Add specific dates where the business is closed to prevent costumers on placing order at that dates.
--  **QR Code**: Every order will generate an QR code which can be scanned by the admin to verify an order upon pick-up.
+- **QR Code**: Every order will generate an QR code which can be scanned by the admin to verify an order upon pick-up.
+- **Sales Report**: Able to view and print sales, can be filtered by: this week, this month, this year.
 
 ## Build with
 
@@ -87,9 +88,9 @@ You have to do this extra process.
 
 ## Authors
 
-- [@clarencetinator7](https://github.com/clarencetinator7)
-- [@darwannn](https://github.com/darwannn)
-- [@noooorsegod](https://github.com/noooorsegod)
-- [@jaspercroxa](https://www.instagram.com/jaspercroxas/)
-- Angel Padilla
+- [@clarencetinator7](https://github.com/clarencetinator7) [Front End Developer]
+- [@darwannn](https://github.com/darwannn) [Back End Developer]
+- [@jaspercroxa](https://www.instagram.com/jaspercroxas/) [Project Lead]
+- [@noooorsegod](https://github.com/noooorsegod) [System Analyst]
+- [@AG-Padilla](https://github.com/AG-Padilla) [System Analyst]
 
