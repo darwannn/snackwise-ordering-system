@@ -45,8 +45,8 @@ class Users {
                             </select>
                             </td>
                             <td class="align-middle">
-                                <button type="button" class="btn btn-warning edit-btn" id="${user.user_id}" onClick="new Users().editBtn(this.id)">Edit</button>
-                                <button type="button" class="btn btn-danger delete-btn" id="${user.user_id}" onClick="new Users().deleteBtn(this.id)">Delete</button>
+                                <button type="button" class="btn btn-success edit-btn" id="${user.user_id}" onClick="new Users().editBtn(this.id)"><i class="fa-solid fa-pen"></i></button>
+                                <button type="button" class="btn btn-danger delete-btn" id="${user.user_id}" onClick="new Users().deleteBtn(this.id)"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr> `;
                     

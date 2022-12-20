@@ -88,7 +88,7 @@ if ($validate->is_logged_in("staff")) {
                     <span class="input_error" id="date_error"></span>
                 </div>
 
-                    <button type="button" name="closed_date" class="btn btn-success" id="closed_date" onclick="new Closed_Date().add_closed_date()">Add Date</button>
+                    <button type="button" name="closed_date" class="btn btn-warning" id="closed_date" onclick="new Closed_Date().add_closed_date()" style="color: white;">Add Date</button>
             </form>
 
             <div class="close-date-list" id="closed_date_list">
